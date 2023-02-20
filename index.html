@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Portfolio</title>
+    </head>
+    <body>
+          <a class="swap swap-animation"></a>
+          <article class="scroller">
+            <section id="section-top">
+              <nav class="slide-in-top">
+                <a href="#section-one" data-title="Technologies">🤖</a>
+                <a href="#section-two" data-title="Why me?">🙄</a>
+                <a href="#section-three" data-title="About me">👀</a>
+                <a href="#section-four" data-title="Projects">🖼️</a>
+                <a href="#section-five" data-title="Let's write dear me...">✍️</a>
+              </nav>
+              
+              <h1><span class="text-focus-in">Hello.</span> <br />
+                  <span class="text-focus-in-2s">I'm web developer which <span class="bold">you need</span></span>
+              </h1>
+            </section>
+            
+            <section id="section-one" class="section section-one">
+              <h2>Technologies🤖</h2>
+              <div class="sphere"></div>
+              <div class="mobile_list">
+                <ul class="tech-list">
+                  <li>JavaScript</li>
+                  <li>CSS</li>
+                  <li>HTML</li>
+                  <li>Vue.js</li>
+                  <li>Nuxt.js</li>
+                  <li>Vue Router</li>
+                </ul>
+                <ul class="tech-list">
+                  <li>Python</li>
+                  <li>git</li>
+                  <li>Django</li>
+                  <li>Node.js</li>
+                  <li>MySQL</li>
+                  <li>NoSQL</li>
+                </ul>
+              </div>
+            </section>
+            <section id="section-two" class="section section-two">
+              <h2>Why me?🙄</h2>
+              <ul>
+                <li>😱6 years of development</li>
+                <li>♿Professional</li>
+                <li>🤔I carefully think about development of your projects</li>
+                <li>👌Give ideas to improve your project</li>
+                <li>🤑Develop foundation for your bussiness and profit</li>
+                <li>🐌Fast development</li>
+              </ul>
+              <div></div>
+              <div></div>
+            </section>
+            <section id="section-three" class="section section-three">
+              <h2>About me👀</h2>
+              <div id="bio">
+                <div id="card">
+                  <img src="#" alt="My photo" />
+                  <div>My favourite photo from Moscow. I'm looking here soo cool! (Mom said) Btw, it's not sunglasses</div>
+                </div>
+                <div id="bio_card">
+                  I was born in Solikamsk, Perm Region, Russia (don't google it, it's very far away and you won't be there) in November 2003. I've been doing freelance web development since the first half of 2016 (yes, since I was 12!). Basically, that's all you need to know
+                </div>
+              </div>
+            </section>
+            <section id="section-four" class="section section-four">
+              <h2>Projects🖼️</h2>
+              <section class="splide" aria-label="Splide Basic HTML Example">
+                <div class="splide__slider">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            <li class="splide__slide" data-splide-interval="300">
+                              <a href="https://ai.pfpmaker.com/">
+                                <img src="assets/img/1.png" alt="">
+                              </a>
+                            </li>
+                            <li class="splide__slide" data-splide-interval="300">
+                              <a href="https://aligator527.github.io/Example_template_1/">
+                                <img src="assets/img/2.png" alt="">
+                              </a>
+                            </li>
+                            <li class="splide__slide" data-splide-interval="300">
+                              <a href="https://jolly-centaur-a28be2.netlify.app/">
+                                <img src="assets/img/3.png" alt="">
+                              </a>
+                            </li>
+                            <li class="splide__slide" data-splide-interval="300">
+                              <a href="https://csgo-boost-faceit.ru/">
+                                <img src="assets/img/4.png" alt="">
+                              </a>
+                            </li>
+                            <li class="splide__slide" data-splide-interval="300">
+                              <a href="https://aligator527-vuesearchmusic.netlify.app/">
+                                <img src="assets/img/5.png" alt="">
+                              </a>
+                            </li>
+                            <li class="splide__slide" data-splide-interval="300">
+                              <a href="https://strong-froyo-c2e481.netlify.app/">
+                                <img src="assets/img/6.png" alt="">
+                              </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            </section>
+            <section id="section-five" class="section section-five">
+              <h2>Let's write dear me...✍️</h2>
+              <form id="form" name="message_form">
+                <div id="credentials">
+                  <input id="name" name="name" placeholder="Your Wonderful Name" required>
+                  <input type="tel" id="tel" name="tel" placeholder="Your Great Phone" required>
+                  <fieldset>
+                    <legend>What service would you like use to contact me? (if telephone has written)</legend>
+                    <div>
+                      <input type="checkbox" id="Telegram" name="Telegram" disabled>
+                      <label>Telegram</label>
+                    </div>
+                    <div>
+                      <input type="checkbox" id="Viber" name="Viber" disabled>
+                      <label>Viber</label>
+                    </div>
+                    <div>
+                      <input type="checkbox" id="WhatsApp" name="WhatsApp" disabled>
+                      <label>WhatsApp</label>
+                    </div>
+                    <div>
+                      <input type="checkbox" id="LINE" name="LINE" disabled>
+                      <label>LINE</label>
+                    </div>
+                  </fieldset>
+                </div>
+                <div id="messenger" style="white-space: pre-warp;">
+                  <input type="text" id="head" name="head" placeholder="Listen, I have TOP Secret job for you..." required>
+                  <textarea name="message" style="white-space: pre-warp;" id="body" name="body" placeholder="Details of TOP Secret job..." required></textarea>
+                </div>
+                <div id="submit">
+                  <button type="submit" onclick="constructMailTo()">Submit</button>
+                </div>
+              </form>
+            </section>
+          </article>
+          
+          <a href="#section-one" class="slide-in-top-blinking-animation" id="top" aria-label="To the next section" title="To the next section">
+            <span id="finger" class="move-animation">👉🏻</span>
+            ➡️
+          </a>
+    
+    <script src="https://cdn.jsdelivr.net/npm/TagCloud@2.2.0/dist/TagCloud.min.js"></script>
+    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+    <script>
+      let arrow = document.getElementById("top");
+      document.addEventListener("touchend", (e) => {
+        document.getElementsByClassName("swap")[0].classList.remove("swap-animation")
+      })
+      arrow.addEventListener("mouseover", (e) => {
+        arrow.classList.remove("slide-in-top-blinking-animation");
+        document.getElementById("finger").remove();
+      })
+      arrow.addEventListener("click", (e) => {
+        let bar_url = document.location.href;
+        let bar_url_after = bar_url.substring(bar_url.indexOf('#') + 1);
+        switch (bar_url_after){
+          case 'section-one':
+            arrow.href = '#section-two';
+            break;
+          case 'section-two':
+            arrow.href = '#section-three';
+            break;
+          case 'section-three':
+            arrow.href = "#section-four";
+            break;
+          case 'section-four':
+            arrow.href = "#section-five"
+            break
+          default:
+            arrow.href = '#section-one';
+            break;
+        }
+      })
+
+      const myTags = [
+        'JavaScript', 'CSS', 'HTML',
+        'Vue.js', 'Nuxt.js', 'Vue Router',
+        'Python', 'git', 'django', 
+        'Node.js', 'MySQL', 'NoSQL',
+        'Reactjs', 'Redux', 'TypeScript'
+      ];
+      let tagCloud = TagCloud('.sphere', myTags, {
+        radius: window.screen.height / 3.6,
+        maxSpeed: 'fast',
+        initSpeed: 'fast',
+        direction: 135,
+        keep: true
+      });
+
+      let rootCloud = document.getElementsByClassName('sphere')[0];
+      rootCloud.addEventListener('click', (e) => {
+        if (e.target.className === 'tagcloud--item') {
+          window.open(`https://en.wikipedia.org/wiki/${e.target.innerText}`, '_blank');
+        }
+      });
+      rootCloud.addEventListener('mouseover', (e) => {
+        if (e.target.className === 'tagcloud--item') {
+          e.target.style.cursor = "pointer";
+        }
+      })
+
+      function validatePhoneNumber(input_str) {
+        var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
+
+        return re.test(input_str);
+      }
+
+      let tel = document.getElementById("tel");
+      let disabled_input = document.querySelectorAll("input:disabled");
+      tel.addEventListener('change', (e) => {
+        console.log(e.target.value, validatePhoneNumber(e.target.value), document.querySelectorAll("input:disabled"));
+        if(validatePhoneNumber(e.target.value)) {
+          disabled_input.forEach((el) => {
+            el.disabled = false;
+          })
+        } else {
+          disabled_input.forEach((el) => {
+            el.checked = false;
+            el.disabled = true;
+          })
+        }
+      })
+
+      function constructMailTo () { //A little monkey code, I will not it change in future (I'll make another portfolio site)
+        //In Email's plain text not working \n, so we change it to %0A
+        var txt = document.getElementById("body").value;
+        var text = txt.split("\n");
+        var frmtxt = text.join("%0A");
+
+        window.location.href = "mailto:algiator5278@gmail.com" +
+                        "?subject=" + document.getElementById("head").value + "(" + 
+                        + document.getElementById("name").value + ")" +
+                        "&body=" + frmtxt + 
+                        "%0A%0A" + "-------------------------------------" + 
+                        "%0A%0A" + "Telephone: " + document.getElementById("tel").value + 
+                        "%0A" + "Telegram: " + document.getElementById("Telegram").checked + 
+                        "%0A" + "Viber: " + document.getElementById("Viber").checked + 
+                        "%0A" + "WhatsApp: " + document.getElementById("WhatsApp").checked + 
+                        "%0A" + "LINE: " + document.getElementById("LINE").checked;
+      }
+
+      var splide = new Splide( '.splide', {
+                type   : 'loop',
+                drag   : 'free',
+                perPage: 3,
+            } );
+
+            splide.mount();
+    </script>
+    </body>
+</html>
+
+  
+  

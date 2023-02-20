@@ -23,7 +23,7 @@ I’m a Full-stack developer with experience in Node.js, Python, PHP, etc. I enj
 ## Projects :
 >*That I especially love*
 
-**Pixel Video**: [aligator527.github.io/pixelvideo](https://aligator527.github.io/pixelvideo)
+**Pixel Video**: [strong-froyo-c2e481.netlify.app](https://strong-froyo-c2e481.netlify.app/)
 
 Online Application that convert all frames of video to pixel-art style in browser without server-side processing, use WebAssembler
 
@@ -86,3 +86,20 @@ I started freelance at 2016, but actively I started freelance at 2020 year. I us
 - Russian: Native
 - English: Native *(Yes, I'm billingual!)*
 - Japanese: Advanced (N1)
+<style>
+    h1, h2, h3, h4, h5 {
+        border-bottom: none;
+        font-weight: 500;
+    }
+    h1, h2 {
+        margin: 0 0 0 0;
+        pargin: 0 0 0 0;
+    }
+    p {
+        margin: 0 0 0 0;
+        pargin: 0 0 0 0;
+    }
+    h2, h3 {
+        color: skyblue;
+    }
+</style>
