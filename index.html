@@ -1,269 +1,716 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Portfolio</title>
-    </head>
-    <body>
-          <a class="swap swap-animation"></a>
-          <article class="scroller">
-            <section id="section-top">
-              <nav class="slide-in-top">
-                <a href="#section-one" data-title="Technologies">🤖</a>
-                <a href="#section-two" data-title="Why me?">🙄</a>
-                <a href="#section-three" data-title="About me">👀</a>
-                <a href="#section-four" data-title="Projects">🖼️</a>
-                <a href="#section-five" data-title="Let's write dear me...">✍️</a>
-              </nav>
-              
-              <h1><span class="text-focus-in">Hello.</span> <br />
-                  <span class="text-focus-in-2s">I'm web developer which <span class="bold">you need</span></span>
-              </h1>
-            </section>
-            
-            <section id="section-one" class="section section-one">
-              <h2>Technologies🤖</h2>
-              <div class="sphere"></div>
-              <div class="mobile_list">
-                <ul class="tech-list">
-                  <li>JavaScript</li>
-                  <li>CSS</li>
-                  <li>HTML</li>
-                  <li>Vue.js</li>
-                  <li>Nuxt.js</li>
-                  <li>Vue Router</li>
-                </ul>
-                <ul class="tech-list">
-                  <li>Python</li>
-                  <li>git</li>
-                  <li>Django</li>
-                  <li>Node.js</li>
-                  <li>MySQL</li>
-                  <li>NoSQL</li>
-                </ul>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="./assets/icofont/icofont.min.css">
+    <link href="style.css" rel="stylesheet">
+  </head>
+  <body lang="en">
+    <div class="modal fade" id="languageSwitcherModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="languageSwitcherModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Language Switcher</h5>
+            </div>
+            <div class="modal-body">
+              <p>What language would you like to use?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="eng_switch" class="btn btn-primary" data-bs-dismiss="modal">Switch to English 🇺🇸🦅</button>
+              <button type="button" id="jpn_switch" class="btn btn-primary" data-bs-dismiss="modal">Switch to Japanese 🇯🇵</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal modal-xl fade" id="CrmProjectModal" tabindex="-1" aria-labelledby="CrmProjectModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">CRM System for Japanese Electric Power Retail Industry </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row align-items-start">
+                <div class="col-3">
+                  <div class="mt-4 fs-5">
+                    <span class="fw-light">My Role:</span> Full-Stack React Development
+                  </div>
+                  <div class="mt-4 fs-5 fw-light">
+                    Project description:
+                  </div>
+                  <div class="mt-2">
+                    【Project Summary】
+                    <ul>
+                      <li>New development of CRM system for emerging electric power business (electric power sales business for corporations)</li>
+                      <li>Design and development of new features for managing customer information, inquiries, and sales activities</li>
+                      <li>Integration with existing customer management system (CRM)</li>
+                      <li>Mainly in charge of screen development with React</li>
+                    </ul>
+                  </div>
+                  <div class="mt-4 fs-5 fw-light">
+                    Responsibilities: 
+                  </div>
+                  <div class="mt-2">
+                    ■ Development work
+                    <ul>
+                      <li>Create screens based on specifications</li>
+                      <li>Data Arrangement</li>
+                      <li>Function of sending e-mail</li>
+                      <li>Retrieving user information from AWS (Cognito)</li>
+                      <li>Creating API</li>
+                      <li>Pre-implementation survey, testing, and implementation of virtual telephone system</li>
+                    </ul>
+                  </div>
+                  <div class="mt-4 fs-5 fw-light">
+                    Tools and Frameworks: 
+                  </div>
+                  <div class="mt-2">
+                    <ul>
+                      <li>Windows, Linux, AWS</li>
+                      <li>3CX, VirtualBox</li>
+                      <li>HTML, CSS</li>
+                      <li>JavaScript, TypeScript, jQuery, React.js</li>
+                      <li>PHP, Laravel</li>
+                      <li>PostgreSQL</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <img src="./assets/img/project1/1.png" class="vertical-image">
+                </div>
               </div>
-            </section>
-            <section id="section-two" class="section section-two">
-              <h2>Why me?🙄</h2>
-              <ul>
-                <li>😱6 years of development</li>
-                <li>♿Professional</li>
-                <li>🤔I carefully think about development of your projects</li>
-                <li>👌Give ideas to improve your project</li>
-                <li>🤑Develop foundation for your bussiness and profit</li>
-                <li>🐌Fast development</li>
-              </ul>
-              <div></div>
-              <div></div>
-            </section>
-            <section id="section-three" class="section section-three">
-              <h2>About me👀</h2>
-              <div id="bio">
-                <div id="card">
-                  <img src="#" alt="My photo" />
-                  <div>My favourite photo from Moscow. I'm looking here soo cool! (Mom said) Btw, it's not sunglasses</div>
-                </div>
-                <div id="bio_card">
-                  I was born in Solikamsk, Perm Region, Russia (don't google it, it's very far away and you won't be there) in November 2003. I've been doing freelance web development since the first half of 2016 (yes, since I was 12!). Basically, that's all you need to know
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal modal-xl fade" id="CsgoProjectModal" tabindex="-1" aria-labelledby="CsgoProjectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">CS:GO Boosting Site</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div class="row align-items-start">
+                  <div class="col-3">
+                    <div class="mt-4 fs-5">
+                      <span class="fw-light">My Role:</span> Full-Stack Python Development
+                    </div>
+                    <div class="mt-4 fs-5 fw-light">
+                      Project description:
+                    </div>
+                    <div class="mt-2">
+                      【Project Summary】
+                      <ul>
+                        <li>New development of LP for promotion of game-related service</li>
+                        <li>Design and development of new features for managing customer information, inquiries, and sales activities</li>
+                        <li>Integration of payment system to site</li>
+                      </ul>
+                    </div>
+                    <div class="mt-4 fs-5 fw-light">
+                      Responsibilities: 
+                    </div>
+                    <div class="mt-2">
+                      ■ Development work
+                      <ul>
+                        <li>Create screens based on specifications</li>
+                        <li>Data Arrangement</li>
+                        <li>Function of sending e-mail</li>
+                        <li>Features for managing customer information, inquiries, and sales activities</li>
+                        <li>System for employees for assignment of tasks</li>
+                      </ul>
+                    </div>
+                    <div class="mt-4 fs-5 fw-light">
+                      Tools and Frameworks: 
+                    </div>
+                    <div class="mt-2">
+                      <ul>
+                        <li>Windows, Linux</li>
+                        <li>HTML, CSS</li>
+                        <li>JavaScript, Vue.js</li>
+                        <li>Python, Django</li>
+                        <li>MySQL</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-9">
+                    <img src="./assets/img/project2/1.png" class="vertical-image">
+                    <img src="./assets/img/project2/2.png" class="vertical-image">
+                    <img src="./assets/img/project2/3.png" class="vertical-image">
+                    <img src="./assets/img/project2/4.png" class="vertical-image">
+                  </div>
                 </div>
               </div>
-            </section>
-            <section id="section-four" class="section section-four">
-              <h2>Projects🖼️</h2>
-              <section class="splide" aria-label="Splide Basic HTML Example">
-                <div class="splide__slider">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                            <li class="splide__slide" data-splide-interval="300">
-                              <a href="https://ai.pfpmaker.com/">
-                                <img src="assets/img/1.png" alt="">
-                              </a>
-                            </li>
-                            <li class="splide__slide" data-splide-interval="300">
-                              <a href="https://aligator527.github.io/Example_template_1/">
-                                <img src="assets/img/2.png" alt="">
-                              </a>
-                            </li>
-                            <li class="splide__slide" data-splide-interval="300">
-                              <a href="https://jolly-centaur-a28be2.netlify.app/">
-                                <img src="assets/img/3.png" alt="">
-                              </a>
-                            </li>
-                            <li class="splide__slide" data-splide-interval="300">
-                              <a href="https://csgo-boost-faceit.ru/">
-                                <img src="assets/img/4.png" alt="">
-                              </a>
-                            </li>
-                            <li class="splide__slide" data-splide-interval="300">
-                              <a href="https://aligator527-vuesearchmusic.netlify.app/">
-                                <img src="assets/img/5.png" alt="">
-                              </a>
-                            </li>
-                            <li class="splide__slide" data-splide-interval="300">
-                              <a href="https://strong-froyo-c2e481.netlify.app/">
-                                <img src="assets/img/6.png" alt="">
-                              </a>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal modal-xl fade" id="JobSearchModal" tabindex="-1" aria-labelledby="JobSearchModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Job Search Site</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="row align-items-start">
+                <div class="col-3">
+                  <div class="mt-4 fs-5">
+                    <span class="fw-light">My Role:</span> Full-Stack PHP Development
+                  </div>
+                  <div class="mt-4 fs-5 fw-light">
+                    Project description:
+                  </div>
+                  <div class="mt-2">
+                    【Project Summary】
+                    <ul>
+                      <li>New develop of Job search site for post-Soviet people to find work in Poland </li>
+                      <li>Design and development of new features for managing users, jobs</li>
+                      <li>Integration of call-center system</li>
+                      <li>Integration of language support system</li>
+                    </ul>
+                  </div>
+                  <div class="mt-4 fs-5 fw-light">
+                    Responsibilities: 
+                  </div>
+                  <div class="mt-2">
+                    ■ Development work
+                    <ul>
+                      <li>Create screens based on specifications</li>
+                      <li>Data Arrangement</li>
+                      <li>Function of sending e-mail</li>
+                      <li>Design and development of new features for managing users, jobs</li>
+                      <li>Integration of call-center system</li>
+                      <li>Integration of language support system<</li>
+                    </ul>
+                  </div>
+                  <div class="mt-4 fs-5 fw-light">
+                    Tools and Frameworks: 
+                  </div>
+                  <div class="mt-2">
+                    <ul>
+                      <li>Windows</li>
+                      <li>HTML, CSS</li>
+                      <li>JavaScript</li>
+                      <li>PHP, WordPress</li>
+                      <li>MySQL</li>
+                    </ul>
+                  </div>
                 </div>
-            </section>
-            </section>
-            <section id="section-five" class="section section-five">
-              <h2>Let's write dear me...✍️</h2>
-              <form id="form" name="message_form">
-                <div id="credentials">
-                  <input id="name" name="name" placeholder="Your Wonderful Name" required>
-                  <input type="tel" id="tel" name="tel" placeholder="Your Great Phone" required>
-                  <fieldset>
-                    <legend>What service would you like use to contact me? (if telephone has written)</legend>
-                    <div>
-                      <input type="checkbox" id="Telegram" name="Telegram" disabled>
-                      <label>Telegram</label>
-                    </div>
-                    <div>
-                      <input type="checkbox" id="Viber" name="Viber" disabled>
-                      <label>Viber</label>
-                    </div>
-                    <div>
-                      <input type="checkbox" id="WhatsApp" name="WhatsApp" disabled>
-                      <label>WhatsApp</label>
-                    </div>
-                    <div>
-                      <input type="checkbox" id="LINE" name="LINE" disabled>
-                      <label>LINE</label>
-                    </div>
-                  </fieldset>
+                <div class="col-9">
+                  <img src="./assets/img/project3/1.png" class="vertical-image">
+                  <img src="./assets/img/project3/2.png" class="vertical-image">
+                  <img src="./assets/img/project3/3.png" class="vertical-image">
                 </div>
-                <div id="messenger" style="white-space: pre-warp;">
-                  <input type="text" id="head" name="head" placeholder="Listen, I have TOP Secret job for you..." required>
-                  <textarea name="message" style="white-space: pre-warp;" id="body" name="body" placeholder="Details of TOP Secret job..." required></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col-4">
+                <div class="mx-auto mt-5">
+                    <img src="./assets/img/avatar.jpeg" alt="avatar" class="avatar" />
                 </div>
-                <div id="submit">
-                  <button type="submit" onclick="constructMailTo()">Submit</button>
+                <div class="mx-auto mt-4 fs-2 fw-semibold">
+                    <span lang="en">Dolgov Ivan</span>
+                    <span lang="ja">ドルゴフ・イワン</span>
                 </div>
-              </form>
-            </section>
-          </article>
-          
-          <a href="#section-one" class="slide-in-top-blinking-animation" id="top" aria-label="To the next section" title="To the next section">
-            <span id="finger" class="move-animation">👉🏻</span>
-            ➡️
-          </a>
-    
-    <script src="https://cdn.jsdelivr.net/npm/TagCloud@2.2.0/dist/TagCloud.min.js"></script>
-    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
-    <script>
-      let arrow = document.getElementById("top");
-      document.addEventListener("touchend", (e) => {
-        document.getElementsByClassName("swap")[0].classList.remove("swap-animation")
-      })
-      arrow.addEventListener("mouseover", (e) => {
-        arrow.classList.remove("slide-in-top-blinking-animation");
-        document.getElementById("finger").remove();
-      })
-      arrow.addEventListener("click", (e) => {
-        let bar_url = document.location.href;
-        let bar_url_after = bar_url.substring(bar_url.indexOf('#') + 1);
-        switch (bar_url_after){
-          case 'section-one':
-            arrow.href = '#section-two';
-            break;
-          case 'section-two':
-            arrow.href = '#section-three';
-            break;
-          case 'section-three':
-            arrow.href = "#section-four";
-            break;
-          case 'section-four':
-            arrow.href = "#section-five"
-            break
-          default:
-            arrow.href = '#section-one';
-            break;
-        }
-      })
+                <div class="mx-auto mt-1 fs-5 fw-light">
+                  <span lang="en">Full Stack Developer in Japan</span>
+                  <span lang="ja">日本のフルスタックウェブデベロッパー</span>
+                </div>
+                <div class="mx-auto mt-3 fs-6 fw-light col-4">
+                    <ul class="list-group list-group-flush">
+                        <a class="list-group-item underline-hover-animation" href="#home">
+                          <span lang="en">HOME</span>
+                          <span lang="ja">ホーム</span>
+                        </a>
+                        <a class="list-group-item underline-hover-animation" href="#about">
+                          <span lang="en">ABOUT</span>
+                          <span lang="ja">プロフィール</span>
+                        </a>
+                        <a class="list-group-item underline-hover-animation" href="#services">
+                          <span lang="en">SERVICES</span>
+                          <span lang="ja">サービス</span>
+                        </a>
+                        <a class="list-group-item underline-hover-animation" href="#skills">
+                          <span lang="en">SKILLS</span>
+                          <span lang="ja">スキル</span>
+                        </a>
+                        <a class="list-group-item underline-hover-animation" href="#experience">
+                          <span lang="en">EXPERIENCE</span>
+                          <span lang="ja">経験</span>
+                        </a>
+                        <a class="list-group-item underline-hover-animation" href="#work">
+                          <span lang="en">WORK</span>
+                          <span lang="ja">作品</span>
+                        </a>
+                        <a class="list-group-item underline-hover-animation" href="#contact">
+                          <span lang="en">CONTACT</span>
+                          <span lang="ja">お問い合わせ</span>
+                        </a>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-8 mt-5 text-start main-container">
+                <div class="mx-auto" id="home">
+                  <img src="./assets/img/image1.jpg" alt="Image by Graphue on Freepik" class="vertical-image" />
+                </div>
+                <div class="mt-5 fs-6 fw-light" id="about">
+                  <span lang="en">HELLO.</span>
+                  <span lang="ja">こんにちは。</span>
+                </div>
+                <div class="mt-1 fs-5 fw-semibold">
+                  <span lang="en">I'm FullStack Web Developer which you need. </span>
+                  <span lang="ja">私はあなたに必要なフルスタックウェブデベロッパーです</span>
+                </div>
+                <div class="mt-5">
+                  <span lang="en">My name is Dolgov Ivan. From the moment technology captivated me at age 12, it's been more than a passion—it's been my world. With a vibrant 2 years of freelancing and 1.5 years of experience in Japanese IT Company under my belt, I bring a specialized focus in web development, comprehensive software reviews (covering UI/UX and meticulous bug detection), and seamless application deployment. My expertise extends to offering insightful consulting in web application cybersecurity and a variety of IT challenges.</span>
+                  <span lang="ja">私の名前はドルゴフ・イワン。12歳の時にテクノロジーに魅了された瞬間から、それは情熱以上のものであり、私の世界でした。フリーランスとして活気に満ちた2年間や正社員として中堅企業で1.5年間を過ごし、ウェブ開発、包括的なソフトウェア・レビュー（UI/UXと綿密なバグ検出をカバー）、シームレスなアプリケーション展開に特化してきました。私の専門は、ウェブアプリケーションのサイバーセキュリティや様々なIT課題における洞察力のあるコンサルティングにも及びます。</span>
+                </div>
+                <div class="container mt-5">
+                  <div class="row align-items-start">
+                    <div class="col-4">
+                      <div class="card blue-card" style="width: 12rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-light-bulb icofont-3x"></i></h5>
+                          <p class="card-text fs-4">Front-End</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card yellow-card" style="width: 12rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-duotone icofont-components icofont-3x"></i></h5>
+                          <p class="card-text fs-4">Back-End</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card red-card" style="width: 12rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-duotone icofont-pencil icofont-3x"></i></h5>
+                          <p class="card-text fs-4">Web Design</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-3">
+                  <span lang="en">Strengths:</span>
+                  <span lang="ja">強み：</span>
+                  <ul>
+                    <li>
+                      <span lang="en">Strong communication skills</span>
+                      <span lang="ja">コミュニケーション能力の高い</span>
+                    </li>
+                    <li>
+                      <span lang="en">Excellent debugging and troubleshooting</span>
+                      <span lang="ja">優れたデバッグとトラブルシューティング</span>
+                    </li>
+                    <li>
+                      <span lang="en">Team-oriented approach</span>
+                      <span lang="ja">チーム指向のアプローチ</span>
+                    </li>
+                    <li>
+                      <span lang="en">I am good at catching up with new technologies and can produce results quickly, even with technologies I have no experience with</span>
+                      <span lang="ja">新しい技術をキャッチアップするのが得意で、未経験の技術でも素早く結果を出すことができる</span>
+                    </li>
+                  </ul>
+                  <span lang="en">Core Principles:</span>
+                  <span lang="ja">コア原則：</span>
+                  <ul>
+                    <li>
+                      <span lang="en">Focus on building clean, maintainable, and efficient code</span>
+                      <span lang="ja">クリーンで保守性の高い、効率的なコードの構築に注力する</span>
+                    </li>
+                    <li>
+                      <span lang="en">Lifelong Learner, dedicated to staying ahead of tech trends</span>
+                      <span lang="ja">生涯学習者、技術トレンドを先取りすることに熱心</span>
+                    </li>
+                    <li>
+                      <span lang="en">Empathy and open communication</span>
+                      <span lang="ja">共感とオープンなコミュニケーション</span>
+                    </li>
+                    <li>
+                      <span lang="en">Self-motivation and a strong work ethic</span>
+                      <span lang="ja">やる気と仕事に対する強い倫理観</span>
+                    </li>
+                    <li>
+                      <span lang="en">Challenger, always eager to tackle new problems and expand my horizon</span>
+                      <span lang="ja">常に新しい問題に取り組み、視野を広げようとするチャレンジャー</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mt-5 fs-6 fw-light" id="services">
+                  <span lang="en">MY EXPERTISE.</span>
+                  <span lang="ja">私の専門分野。</span>
+                </div>
+                <div class="mt-1 fs-5 fw-semibold">
+                  <span lang="en">I know how to make web applications and more.</span>
+                  <span lang="ja">ウェブアプリケーションの作り方などもよく知っている。</span>
+                </div>
+                <div class="container mt-5">
+                  <div class="row align-items-start">
+                    <div class="col-4">
+                      <div class="card blue-card" style="width: 14rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-light-bulb icofont-3x"></i></h5>
+                          <p class="card-text fs-4">Front-End</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card yellow-card" style="width: 14rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-duotone icofont-components icofont-3x"></i></h5>
+                          <p class="card-text fs-4">Back-End</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card purple-card" style="width: 14rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-computer icofont-3x"></i></h5>
+                          <p class="card-text fs-4">SPA Development</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-start mt-4">
+                    <div class="col-4">
+                      <div class="card red-card" style="width: 14rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-duotone icofont-pencil icofont-3x"></i></h5>
+                          <p class="card-text fs-4">UI Design</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card green-card" style="width: 14rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-papers icofont-3x"></i></h5>
+                          <p class="card-text fs-4">UX Design</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card dark-blue-card" style="width: 14rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-brand-microsoft icofont-3x"></i></h5>
+                          <p class="card-text fs-4">Software</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row align-items-start mt-4">
+                    <div class="col-4">
+                      <div class="card yellow-card" style="width: 14rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-smart-phone icofont-3x"></i></h5>
+                          <p class="card-text fs-4">Application</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card blue-card" style="width: 14rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-brain-alt icofont-3x"></i></h5>
+                          <p class="card-text fs-4">Cybersecurity</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="card black-card" style="width: 14rem;">
+                        <div class="card-body">
+                          <h5 class="card-title"><i class="icofont-duotone icofont-bug icofont-3x"></i></h5>
+                          <p class="card-text fs-4">Bug Detection</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-5 fs-6 fw-light" id="skills">
+                  <span lang="en">MY SKILLS.</span>
+                  <span lang="ja">私のスキル</span>
+                </div>
+                <div class="mt-1 fs-5 fw-semibold">
+                  <span lang="en">MY SKILLS.</span>
+                  <span lang="ja">私のスキル</span>
+                </div>
+                <div class="mt-3">
+                  <span lang="en">Key Skills:</span>
+                  <span lang="ja">主なスキル：</span>
+                  <ul>
+                    <li>
+                      <span lang="en">Front-End Mastery: HTML, CSS, JavaScript, TypeScript</span>
+                      <span lang="ja">フロントエンドマスタリー: HTML, CSS, JavaScript, TypeScript</span>
+                    </li>
+                    <li>
+                      <span lang="en">Back-End Expertise: PHP, Node.js, Python, RestAPI, GraphQL</span>
+                      <span lang="ja">バックエンドエキスパート: PHP, Node.js, Python, Rest API, GraphQL</span>
+                    </li>
+                    <li>
+                      <span lang="en">Framework Proficiency: React.js, Next.js, Django</span>
+                      <span lang="ja">フレームワークプロフィシシリティ: React.js, Next.js, Django</span>
+                    </li>
+                  </ul>
+                  <span lang="en">Specialties:</span>
+                  <span lang="ja">専門分野：</span>
+                  <ul>
+                    <li>
+                      <span lang="en">SPA Development</span>
+                      <span lang="ja">SPA 開発</span>
+                    </li>
+                    <li>
+                      <span lang="en">UI Design & Implementation</span>
+                      <span lang="ja">UI デザイン & 実装</span>
+                    </li>
+                  </ul>
+                </div>
+                <div class="mt-5">
+                  <div class="container">
+                    <div class="row align-items-start">
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">HTML5</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">CSS3</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">JavaScript</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                    </div>
+                    <div class="row align-items-start mt-3">
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">React</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">Vue.js</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">Node.js / Next.js</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                    </div>
+                    <div class="row align-items-start mt-3">
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">Python</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 95%" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">Django</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">PHP</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                    </div>
+                    <div class="row align-items-start mt-3">
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">Laravel</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">WordPress</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                      <div class="col-4">
+                        <div class="fs-4 fw-bold">MySQL</div>
+                        <div class="progress mt-1">
+                          <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>   
+                      </div>
+                    </div>
+                  </div>               
+                </div>
+                <div class="mt-5 fs-6 fw-light" id="experience">
+                  <span lang="en">EXPERIENCE.</span>
+                  <span lang="ja">経験。</span>
+                </div>
+                <div class="mt-1 fs-5 fw-semibold">
+                  <span lang="en">WORK EXPERIENCE.</span>
+                  <span lang="ja">業務経験。</span>
+                </div>
+                <div class="timeline-centered mt-5" bis_skin_checked="1">
+                  <article class="timeline-entry animate-box fadeInLeft animated" data-animate-effect="fadeInLeft">
+                     <div class="timeline-entry-inner" bis_skin_checked="1">
 
-      const myTags = [
-        'JavaScript', 'CSS', 'HTML',
-        'Vue.js', 'Nuxt.js', 'Vue Router',
-        'Python', 'git', 'django', 
-        'Node.js', 'MySQL', 'NoSQL',
-        'Reactjs', 'Redux', 'TypeScript'
-      ];
-      let tagCloud = TagCloud('.sphere', myTags, {
-        radius: window.screen.height / 3.6,
-        maxSpeed: 'fast',
-        initSpeed: 'fast',
-        direction: 135,
-        keep: true
-      });
+                        <div class="timeline-icon color-1" bis_skin_checked="1">
+                        </div>
 
-      let rootCloud = document.getElementsByClassName('sphere')[0];
-      rootCloud.addEventListener('click', (e) => {
-        if (e.target.className === 'tagcloud--item') {
-          window.open(`https://en.wikipedia.org/wiki/${e.target.innerText}`, '_blank');
-        }
-      });
-      rootCloud.addEventListener('mouseover', (e) => {
-        if (e.target.className === 'tagcloud--item') {
-          e.target.style.cursor = "pointer";
-        }
-      })
+                        <div class="timeline-label" bis_skin_checked="1">
+                           <h2><a href="#">Full Stack Freelance Developer</a> <span>2021-2023</span></h2>
+                           <p>
+                            <span lang="en">As a full-stack engineer, consistently in charge of everything from customer negotiations to application development. Business improvement support and web application development support for multiple clients</span>
+                            <span lang="ja">フルスタックエンジニアとして、顧客折衝からアプリケーション開発まで一貫して担当。複数クライアントの業務改善支援、Webアプリケーション開発支援</span>
+                          </p>
+                        </div>
+                     </div>
+                  </article>
 
-      function validatePhoneNumber(input_str) {
-        var re = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
 
-        return re.test(input_str);
-      }
+                  <article class="timeline-entry animate-box fadeInRight animated" data-animate-effect="fadeInRight">
+                     <div class="timeline-entry-inner" bis_skin_checked="1">
+                        <div class="timeline-icon color-2" bis_skin_checked="1">
+                        </div>
+                        <div class="timeline-label" bis_skin_checked="1">
+                          <h2><a href="#">Intern Full-Stack React Developer at Marvel株式会社</a> <span>2023-2024</span></h2>
+                           <p>
+                            <span lang="en">Internship with participation in real projects, for example: SaaS for matching freelance engineers with job opportunities and supporting career</span>
+                            <span lang="ja">実際のプロジェクトに参加するインターンシップ。例えば：フリーランスエンジニアと仕事のマッチングやキャリア支援を行うSaaS開発</span>
+                          </p>
+                        </div>
+                     </div>
+                  </article>
 
-      let tel = document.getElementById("tel");
-      let disabled_input = document.querySelectorAll("input:disabled");
-      tel.addEventListener('change', (e) => {
-        console.log(e.target.value, validatePhoneNumber(e.target.value), document.querySelectorAll("input:disabled"));
-        if(validatePhoneNumber(e.target.value)) {
-          disabled_input.forEach((el) => {
-            el.disabled = false;
-          })
-        } else {
-          disabled_input.forEach((el) => {
-            el.checked = false;
-            el.disabled = true;
-          })
-        }
-      })
+                  <article class="timeline-entry animate-box fadeInLeft animated" data-animate-effect="fadeInLeft">
+                     <div class="timeline-entry-inner" bis_skin_checked="1">
+                        <div class="timeline-icon color-3" bis_skin_checked="1">
+                        </div>
+                        <div class="timeline-label" bis_skin_checked="1">
+                          <h2><a href="#">Full-Stack React Developer at Marvel株式会社</a> <span>2024-now</span></h2>
+                           <p>
+                            <span lang="en">Full-Time developer in Japanese IT Company participating in React Projects as full-stack developer</span>
+                            <span lang="ja">日本IT中堅企業にてフルタイム開発者としてReactプロジェクトに参画</span> 
+                           </p>
+                        </div>
+                     </div>
+                  </article>
 
-      function constructMailTo () { //A little monkey code, I will not it change in future (I'll make another portfolio site)
-        //In Email's plain text not working \n, so we change it to %0A
-        var txt = document.getElementById("body").value;
-        var text = txt.split("\n");
-        var frmtxt = text.join("%0A");
-
-        window.location.href = "mailto:algiator5278@gmail.com" +
-                        "?subject=" + document.getElementById("head").value + "(" + 
-                        + document.getElementById("name").value + ")" +
-                        "&body=" + frmtxt + 
-                        "%0A%0A" + "-------------------------------------" + 
-                        "%0A%0A" + "Telephone: " + document.getElementById("tel").value + 
-                        "%0A" + "Telegram: " + document.getElementById("Telegram").checked + 
-                        "%0A" + "Viber: " + document.getElementById("Viber").checked + 
-                        "%0A" + "WhatsApp: " + document.getElementById("WhatsApp").checked + 
-                        "%0A" + "LINE: " + document.getElementById("LINE").checked;
-      }
-
-      var splide = new Splide( '.splide', {
-                type   : 'loop',
-                drag   : 'free',
-                perPage: 3,
-            } );
-
-            splide.mount();
-    </script>
-    </body>
+                  <article class="timeline-entry begin animate-box" data-animate-effect="fadeInBottom">
+                     <div class="timeline-entry-inner" bis_skin_checked="1">
+                        <div class="timeline-icon color-none" bis_skin_checked="1">
+                        </div>
+                     </div>
+                  </article>
+                </div>
+                <div class="mt-5 fs-6 fw-light" id="work">
+                  <span lang="en">MY WORK.</span>
+                  <span lang="ja">私の作品。</span>
+                </div>
+                <div class="mt-1 fs-5 fw-semibold">
+                  <span lang="en">MY RECENT WORK.</span>
+                  <span lang="ja">私の最近の作品。</span>
+                </div>
+                <div class="container mt-5">
+                  <div class="row row-cols-1 row-cols-md-2 g-4 align-items-start">
+                    <div class="col-sm-6 col-md-4 col-lg-4 d-flex align-items-stretch">
+                      <div class="card h-100">
+                        <img src="./assets/img/project1.png" style="object-fit: cover;" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <p class="card-text" style="min-height: 60px; overflow: hidden;">
+                            <span lang="en">CRM System for Japanese Electric Power Retail Industry</span>
+                            <span lang="ja">新興電力事業（法人向け電力販売事業者）CRMシステムの新規開発</span>
+                          </p>
+                          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CrmProjectModal">View Details</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-4 d-flex align-items-stretch">
+                      <div class="card h-100">
+                        <img src="./assets/img/project2.png" style="object-fit: cover;" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <p class="card-text" style="min-height: 60px; overflow: hidden;">
+                            CS:GO Boosting site
+                          </p>
+                          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CsgoProjectModal">View Details</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-4 d-flex align-items-stretch">
+                      <div class="card h-100">
+                        <img src="./assets/img/project3.png" style="object-fit: cover;" class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <p class="card-text" style="min-height: 60px; overflow: hidden;">
+                            <span lang="en">Job Search Site</span>
+                            <span lang="ja">求人検索サイト</span>
+                          </p>
+                          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#JobSearchModal">View Details</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-5 fs-6 fw-light" id="contact">
+                  <span lang="en">Let's write dear me...✍️</span>
+                  <span lang="ja">私にメールしてみましょう...✍️</span>
+                </div>
+                <div class="mt-1 fs-5 fw-semibold">
+                  <span lang="en">CONTACT.</span>
+                  <span lang="ja">お問い合わせ。</span>
+                </div>
+                <div class="mt-4 col-md-12 col-md-offset-1 col-md-pull-1" bis_skin_checked="1">
+									<form>
+										<div class="form-group" bis_skin_checked="1">
+											<input type="text" class="form-control" id="form-name" placeholder="Name">
+										</div>
+										<div class="form-group mt-2" bis_skin_checked="1">
+											<input type="text" class="form-control" id="form-head" placeholder="Subject">
+										</div>
+										<div class="form-group mt-2" bis_skin_checked="1">
+											<textarea name="" id="form-body" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+										</div>
+										<div class="form-group mt-2" bis_skin_checked="1">
+											<input type="submit" id="form-submit" class="btn btn-primary btn-send-message" value="Send Message">
+										</div>
+									</form>
+								</div>               
+            </div>
+        </div>
+    </div>        
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
-
-  
-  

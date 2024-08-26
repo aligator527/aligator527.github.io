@@ -1,38 +1,41 @@
 # Ivan Dolgov
 
 ## Full-Stack Developer
-Django | React | Node | Express | Laravel | HTML | CSS | JavaScript
+React | Next.js | Laravel | Django | HTML | CSS | JavaScript | TypeScript
 
-[GitHub](https://github.com/aligator527/) - [LinkedIn](https://www.linkedin.com/in/aligator527/) - [Twitter](https://www.twitter.com/aligator527) - [Website](https://aligator527.github.io) - [E-Mail](mailto:algiator5278@gmail.com)
+[GitHub](https://github.com/aligator527/) - [LinkedIn](https://www.linkedin.com/in/aligator527/) - [Website](https://aligator527.github.io) - [E-Mail](mailto:algiator5278@gmail.com)
 
 ---
 > *Difficult to find, easy to lost, impossible to forget*
 ## Profile
-I’m a Full-stack developer with experience in Node.js, Python, PHP, etc. I enjoy solving complex problems independently and I want to become best team player in your team. My background in Math & Physics specialized High School has honed my leadership, communication, teamwork, and problem solving skills. I’m eager to bring a unique perspective to development project
-## Technical Skills
-- Frontend: *React, TypeScript, Vanilla JS, Vue, Tailwind, Bootstrap, HTML5, CSS3*
-- Backend: *Django, Laravel, Express, PHP, Node.js*
-- DevOps: *Docker, Github Actions, AWS*
-- Database: *PostgreSQL, SQLite, MongoDB*
-- Principles: *DRY, KISS, SOLID, REST API, OOP, Reactive Architecture*
-- IDE: *Visual Studio Code, Visual Studio 2019, WebStorm, PyCharm*
-- Software: *Figma, Adobe Photoshop, Adobe Illustrator*
-- CMS: *WordPress* 
-- OS: *Windows, Linux, MacOs*
+From the moment technology captivated me at age 12, it's been more than a passion—it's been my world. With a 2 vibrant years of freelancing and 1.5 years of experience in middle-sized Japanese IT Company under my belt, I bring a specialized focus in web development, comprehensive software reviews (covering UI/UX and meticulous bug detection), and seamless application deployment. My expertise extends to offering insightful consulting in web application cybersecurity and a variety of IT challenges.
+## Key Skills:
+- Front-End Mastery: HTML, CSS, JavaScript, TypeScript
+- Back-End Expertise: PHP, Node.js, Python
+- Framework Proficiency: React.js, Next.js, Django
 ---
-## Projects :
->*That I especially love*
-
-**Pixel Video**: [strong-froyo-c2e481.netlify.app](https://strong-froyo-c2e481.netlify.app/)
-
-Online Application that convert all frames of video to pixel-art style in browser without server-side processing, use WebAssembler
-
-**pfpmaker AI**: [ai.pfpmaker.com](https://ai.pfpmaker.com/)
-
-Online Application that makes your portrait in selected style using AI
+## Specialties:
+- SPA Development
+- UI Design & Implementation
+---
+## Strengths:
+- Strong communication skills
+- Excellent debugging and troubleshooting
+- Team-oriented approach
+- I am good at catching up with new technologies and can produce results quickly, even with technologies I have no experience with
+---
+## Core Principles: 
+- Focus on building clean, maintainable, and efficient code 
+- Lifelong Learner, dedicated to staying ahead of tech trends
+- Empathy and open communication
+- Self-motivation and a strong work ethic
+- Challenger, always eager to tackle new problems and expand my horizon 
 
 ---
 ## Certificates
+### Japanese Government
+- JLPT N1 & JLPT N2 (日本語能力試験１級＆日本語能力試験２級)
+- National Examination for Basic Information Technology Engineers (基本情報技術者試験)
 ### University of London
 - Responsive Website Basics: Code with HTML, CSS, and Javascript [[show credentional](https://coursera.org/verify/WYCV7CPWQ3ZW)]
 - Responsive Web Design [[show credentional](https://coursera.org/verify/L79RQ5WYCZ88)]
@@ -42,47 +45,29 @@ Online Application that makes your portrait in selected style using AI
 
 ---
 ## Professional Experience:
-### **株式会社藤海産** ・ Part-time 
 
-*Oct 2022 - Present｜Meguro-ku, Tokyo, Japan*
+### **Full Stack Freelance Developer** ・ Freelance
 
-I develop and maintain a website for seafood delivery in Japan. Also, developed mobile application for Android and IOS with React Native.
+*2021-2023｜Remote*
 
-**Skills:** HTML5, CSS3, Vue3, Firebase, React Native
+As a full-stack engineer, consistently in charge of everything from customer negotiations to application development. Business improvement support and web application development support for multiple clients
 
-### **株式会社晃栄商事** ・ Full-time
+### **Intern Full-Stack React Developer at Marvel株式会社** ・ Intern
 
-*Aug 2022 - Sep 2022｜Remote*
+*2023-2024｜Hybrid*
 
-Working in a web studio as a Lead Full-Stack Web Engineer
-Development of systems, websites and web-designs
+ Internship with participation in real projects, for example: SaaS for matching freelance engineers with job opportunities and supporting career 
 
-**Skills:** HTML5, CSS3, JavaScript, jQuery, PHP, WordPress
+### **Full-Stack React Developer at Marvel株式会社** ・ Full-Time
 
-### **Advertising NJ Company** ・ Contract
+*2024-now｜Hybrid*
 
-*Feb 2022 - Aug 2022｜Remote*
-
-I develop bots and software to promote the products of the company's clients
-
-**Skills:** Python
-
-### **Individual Entrepreneur Roman Ivanov** ・ Contract
-
-*Aug 2021 - Feb 2022｜Remote*
-
-I maintained and created websites for a small business in Moscow and The Internet. My work has increased profits by 30 percent and multiplied the ease of operation for the individual entrepreneur. Stopped working due to the outbreak of war with Ukraine
+ Full-Time developer in Japanese IT Company participating in React Projects as full-stack developer 
 
 **Skills:** HTML5, CSS3, Vue3, Python, Django
 
-### **Freelance**
-*Sep 2016 - Present｜Remote*
-
-I started freelance at 2016, but actively I started freelance at 2020 year. I used unbelievable spectre of technologies *(because of this difficult to find job, I guess)*
-
-**Skills:** HTML5, CSS3, JavaScript Vanilla, TypeScript, jQuery, Bootstrap, Vue, PHP, WordPress, Django
-
 ## Languages
-- Russian: Native
-- English: Native *(Yes, I'm billingual!)*
+- Russian: Native Level (C2)
+- English: Native Level (C2)
 - Japanese: Advanced (N1)
+- Chinese: Intermediate (HSK 4)
