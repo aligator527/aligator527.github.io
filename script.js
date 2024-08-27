@@ -11,7 +11,7 @@ $(document).ready(function() {
         let text = txt.split("\n");
         let frmtxt = text.join("%0A");
 
-        window.location.href = "mailto:algiator5278@gmail.com" +
+        window.location.href = "mailto:aligator527official@gmail.com" +
             "?subject=" + $("#form-head").val() + "(" + 
             + $("#form-name").val() + ")" +
             "&body=" + frmtxt;
