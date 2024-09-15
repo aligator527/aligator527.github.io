@@ -880,3 +880,11 @@ body:lang(en) *:not(:lang(en))
 .modal-content {
   background-color: #222;
 }
+
+@media only screen and (max-width: 928px) {
+  .modal-footer button {
+    font-size: 0.7rem;
+    width: 10.2rem;
+    text-align: center;
+  }
+}
