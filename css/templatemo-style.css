@@ -886,5 +886,6 @@ body:lang(en) *:not(:lang(en))
     font-size: 0.7rem;
     width: 10.2rem;
     text-align: center;
+    padding: 0px;
   }
 }
