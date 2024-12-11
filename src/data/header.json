@@ -1,0 +1,136 @@
+{
+    "services": {
+        "title": {
+            "en": "Services",
+            "ja": "サービス",
+            "zh": "服务",
+            "ru": "Сервисы"
+        },
+        "list": [
+            {
+                "title": {
+                    "en": "IT Development",
+                    "ja": "システム開発",
+                    "zh": "系统开发",
+                    "ru": "Системная инженерия"
+                },
+                "description": {
+                    "en": "Get outstanding unique custom IT solution for your business",
+                    "ja": "貴社のビジネスに最適なカスタムITソリューションを",
+                    "zh": "为您的企业量身定制出色的 IT 解决方案",
+                    "ru": "Получите уникальное индивидуальное ИТ-решение для вашего бизнеса"
+                },
+                "href": "/services/development"
+            },
+            {
+                "title": {
+                    "en": "Digital Transformation & Automation",
+                    "ja": "DXと自動化",
+                    "zh": "数字转型化与自动化",
+                    "ru": "Цифровизация и автоматизация"
+                },
+                "description": {
+                    "en": "No more paperwork!",
+                    "ja": "ペーパーレスに！",
+                    "zh": "不再有文书工作！",
+                    "ru": "Больше никакой бумажной волокиты!"
+                },
+                "href": "/services/automation"
+            },
+            {
+                "title": {
+                    "en": "Cloud Infrastructure",
+                    "ja": "クラウドインフラ",
+                    "zh": "云基础设施",
+                    "ru": "Облачная инфраструктура"
+                },
+                "description": {
+                    "en": "Improve your business with the cloud",
+                    "ja": "クラウドでビジネスを改善",
+                    "zh": "利用云技术改进您的业务",
+                    "ru": "Улучшите свой бизнес с помощью облачных технологий"
+                },
+                "href": "/services/infrastructure"
+            },
+            {
+                "title": {
+                    "en": "Internationalization",
+                    "ja": "国際化応援",
+                    "zh": "国际化",
+                    "ru": "Интернационализация"
+                },
+                "description": {
+                    "en": "Go global, no hassle!",
+                    "ja": "手間をかけずにグローバルに！",
+                    "zh": "走向全球，无忧无虑！",
+                    "ru": "Выходите на международный уровень без лишних хлопот!"
+                },
+                "href": "/services/internationalization"
+            }
+        ]
+    },
+    "about": {
+        "title": {
+            "en": "About Us",
+            "ja": "私たちについて",
+            "zh": "关于我们",
+            "ru": "О нас"
+        },
+        "list": [
+            {
+                "title": {
+                    "en": "Profile",
+                    "ja": "プロフィール",
+                    "zh": "个人简介",
+                    "ru": "Профиль"
+                },
+                "description": {
+                    "en": "What business we do",
+                    "ja": "私たちが行うビジネス",
+                    "zh": "我们所做的事情",
+                    "ru": "Наша деятельность"
+                },
+                "href": "/about/profile"
+            },
+            {
+                "title": {
+                    "en": "Philosophy",
+                    "ja": "フィロソフィー",
+                    "zh": "哲学",
+                    "ru": "Философия"
+                },
+                "description": {
+                    "en": "What for we do",
+                    "ja": "私たちが働く理由",
+                    "zh": "我们要做什么",
+                    "ru": "Наша цель"
+                },
+                "href": "/about/philosophy"
+            },
+            {
+                "title": {
+                    "en": "Representative Message",
+                    "ja": "代表メッセージ",
+                    "zh": "代表性的声明",
+                    "ru": "Сообщение от Представителя Группы"
+                },
+                "description": {
+                    "en": "What CEO thinks about what we do",
+                    "ja": "CEOの考え",
+                    "zh": "CEO的看法",
+                    "ru": "Мнение CEO о нашей деятельности"
+                },
+                "href": "/about/message"
+            }
+        ]
+    },
+    "contact": {
+        "title": {
+            "en": "Contact Us",
+            "ja": "お問い合わせ",
+            "zh": "联系我们",
+            "ru": "Связаться с нами"
+        },
+        "href": "/contact"
+    }
+}

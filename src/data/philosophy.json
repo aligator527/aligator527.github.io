@@ -1,0 +1,84 @@
+{
+    "philosophy": {
+        "mission": {
+            "title": {
+                "en": "MISSION",
+                "ja": "ミッション",
+                "zh": "使命",
+                "ru": "МИССИЯ"
+            },
+            "subtitle": {
+                "en": "Fostering a Unified Global Community",
+                "ja": "統一されたグローバルコミュニティの育成",
+                "zh": "促进统一的全球社区",
+                "ru": "Содействие объединенному глобальному сообществу"
+            },
+            "text": {
+                "en": "At Wanya Group, our mission is to empower individuals and businesses to connect, innovate, and thrive in a borderless world. By leveraging technology, creativity, and human-centric values, we aim to break down barriers, build sustainable opportunities, and create a global society rooted in dignity, equality, and empowerment.",
+                "ja": "ワニャグループでは、国境のない世界で個人や企業がつながり、革新し、繁栄できるよう支援することを使命としています。テクノロジー、創造性、人間中心の価値観を活用して、障壁を取り除き、持続可能な機会を築き、尊厳、平等、エンパワーメントに根ざしたグローバル社会を創造します。",
+                "zh": "在Wanya集团，我们的使命是赋予个人和企业在无国界的世界中连接、创新和蓬勃发展的能力。通过利用技术、创造力和以人为本的价值观，我们旨在打破障碍，建立可持续的机会，并创造一个根植于尊严、平等和赋权的全球社会。",
+                "ru": "В Wanya Group наша миссия — помогать людям и компаниям соединяться, внедрять инновации и процветать в мире без границ. Используя технологии, креативность и ориентированные на человека ценности, мы стремимся разрушать барьеры, создавать устойчивые возможности и формировать глобальное общество, основанное на достоинстве, равенстве и расширении возможностей."
+            }
+        },
+        "vision": {
+            "title": {
+                "en": "VISION",
+                "ja": "ビジョン",
+                "zh": "愿景",
+                "ru": "ВИДЕНИЕ"
+            },
+            "subtitle": {
+                "en": "Innovating for a Better Tomorrow",
+                "ja": "より良い明日のためのイノベーション",
+                "zh": "为更美好的明天创新",
+                "ru": "Инновации ради лучшего завтра"
+            },
+            "text": {
+                "en": "We envision a world where technology and humanity work hand in hand to create sustainable solutions for global challenges. Our goal is to lead in fostering interconnectedness, supporting diverse communities, and inspiring transformative ideas that contribute to a brighter, more inclusive future for all.",
+                "ja": "私たちは、テクノロジーと人間性が協力して、地球規模の課題に対する持続可能な解決策を創造する世界を目指しています。相互接続性の促進、多様なコミュニティの支援、そしてすべての人々に明るく包括的な未来をもたらす変革的なアイデアを育むリーダーになることを目標としています。",
+                "zh": "我们展望一个技术与人类携手合作，共同为全球挑战创造可持续解决方案的世界。我们的目标是引领互联性发展，支持多元社区，并激励能够为所有人创造更光明、更包容未来的变革性想法。",
+                "ru": "Мы представляем мир, в котором технологии и человечество работают рука об руку для создания устойчивых решений глобальных проблем. Наша цель — быть лидером в развитии взаимосвязанности, поддержке разнообразных сообществ и вдохновении трансформационных идей, способствующих созданию более яркого и инклюзивного будущего для всех."
+            }
+        },
+        "values": {
+            "title": {
+                "en": "VALUES",
+                "ja": "価値観",
+                "zh": "价值观",
+                "ru": "ЦЕННОСТИ"
+            },
+            "subtitle": {
+                "en": "Empathy, Integrity, and Excellence",
+                "ja": "共感、誠実、卓越",
+                "zh": "同理心、正直和卓越",
+                "ru": "Эмпатия, честность и совершенство"
+            },
+            "text": {
+                "en": "At the heart of Wanya Group are our core values: empathy for understanding diverse perspectives, integrity in all our actions, and excellence in our pursuit of innovation and quality. These principles guide our commitment to delivering solutions that uplift and inspire communities worldwide.",
+                "ja": "ワニャグループの中心にあるのは、さまざまな視点を理解するための共感、すべての行動における誠実さ、そして革新と品質の追求における卓越性という核心的な価値観です。これらの原則は、世界中のコミュニティを向上させ、鼓舞する解決策を提供するという私たちの取り組みを導きます。",
+                "zh": "Wanya集团的核心价值观包括：理解多样化观点的同理心、所有行动中的正直以及对创新和质量追求的卓越。这些原则指导着我们致力于提供能够提升和激励全球社区的解决方案。",
+                "ru": "В основе Wanya Group лежат наши основные ценности: эмпатия для понимания различных точек зрения, честность во всех наших действиях и стремление к совершенству в инновациях и качестве. Эти принципы направляют нашу приверженность предоставлению решений, которые вдохновляют и поддерживают сообщества по всему миру."
+            }
+        },
+        "slogan": {
+            "title": {
+                "en": "SLOGAN",
+                "ja": "スローガン",
+                "zh": "口号",
+                "ru": "СЛОГАН"
+            },
+            "subtitle": {
+                "en": "Go Global, Grow Together",
+                "ja": "世界へ進出し、一緒に成長しよう",
+                "zh": "迈向全球，共同成长",
+                "ru": "Выходите на глобальный уровень, растите вместе"
+            },
+            "text": {
+                "en": "Our slogan captures the essence of Wanya Group's philosophy: to embrace the global spirit, drive collective growth, and achieve extraordinary milestones together.",
+                "ja": "私たちのスローガンは、ワニャグループの哲学の本質を表しています。それは、グローバルな精神を受け入れ、共同成長を促進し、共に特別なマイルストーンを達成することです。",
+                "zh": "我们的口号体现了Wanya集团哲学的精髓：拥抱全球精神，推动集体成长，共同实现非凡的里程碑。",
+                "ru": "Наш слоган отражает суть философии Wanya Group: принять глобальный дух, стимулировать коллективный рост и достигать выдающихся вех вместе."
+            }
+        }
+    }
+}

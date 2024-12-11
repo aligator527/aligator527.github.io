@@ -1,0 +1,36 @@
+{
+    "heroBanner": {
+        "title": {
+            "en": "You need IT Service? <span class='text-[#59705b]'>We provide IT</span>",
+            "ja": "ITサービスが必要ですか？<span class='text-[#59705b]'>私たちはITを提供します</span>",
+            "zh": "您需要IT服务吗？<span class='text-[#59705b]'>我们提供IT服务</span>",
+            "ru": "Вам нужны IT-услуги? <span class='text-[#59705b]'>Мы предоставляем их</span>"
+        },
+        "text": {
+            "en": "Web, Mobile, Desktop, CRM, Digital Transformation, Automation, Cloud Infrastructure, Internationalization... and way more!",
+            "ja": "Web、モバイル、デスクトップ、CRM、デジタルトランスフォーメーション、自動化、クラウドインフラ、国際化... さらに多くを提供します！",
+            "zh": "网页、移动端、桌面端、客户关系管理（CRM）、数字化转型、自动化、云基础设施、国际化……以及更多！",
+            "ru": "Веб, мобильные приложения, десктопные приложения, CRM, цифровая трансформация, автоматизация, облачная инфраструктура, интернационализация... и многое другое!"
+        }
+    },
+    "banner": {
+        "title": {
+            "en": "Happy New Year!",
+            "ja": "明けましておめでとうございます！",
+            "zh": "新年快乐！",
+            "ru": "С Новым годом!"
+        },
+        "description": {
+            "en": "Right now is the time to think about improvement of your business!",
+            "ja": "今こそビジネスの改善を考える時です！",
+            "zh": "现在是时候考虑如何改进您的业务了！",
+            "ru": "Сейчас самое время подумать о развитии вашего бизнеса!"
+        },
+        "button": {
+            "en": "Contact now",
+            "ja": "今すぐ連絡",
+            "zh": "立即联系",
+            "ru": "Свяжитесь сейчас"
+        }
+    }
+}

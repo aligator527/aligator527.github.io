@@ -1,0 +1,20 @@
+{
+    "title": {
+        "en": "Our Main Partner",
+        "ja": "私たちの主要なパートナー",
+        "zh": "我们的主要合作伙伴",
+        "ru": "Наш главный партнер"
+    },
+    "description": {
+        "en": "We are proud to have a strong partnership with some of the most renowned brands in the industry.",
+        "ja": "業界で最も有名なブランドのいくつかと強力なパートナーシップを築いていることを誇りに思います。",
+        "zh": "我们很自豪能够与行业中一些最知名的品牌建立稳固的合作关系。",
+        "ru": "Мы гордимся тем, что имеем прочное партнерство с некоторыми из самых известных брендов в отрасли."
+    },
+    "partners": [
+        {
+            "src": "/images/nagashimapackaging.png",
+            "alt": "Nagashima Packaging Co.,Ltd."
+        }
+    ]
+}

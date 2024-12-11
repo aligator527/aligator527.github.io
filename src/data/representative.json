@@ -1,0 +1,20 @@
+{
+    "title": {
+        "en": "<span class='text-[#59705b]'>Wanya Group's</span> Representative Message",
+        "ja": "<span class='text-[#59705b]'>ワニャグループ</span>代表メッセージ",
+        "zh": "<span class='text-[#59705b]'>Wanya集团</span>代表寄语",
+        "ru": "<span class='text-[#59705b]'>Wanya Group</span>: сообщение представителя"
+    },
+    "subtitle": {
+        "en": "Ivan Dolgov, Representative",
+        "ja": "ドルゴフ イワン, 代表",
+        "zh": "董 伊万, 代表",
+        "ru": "Иван Долгов, представитель"
+    },
+    "text": {
+        "en": "From the moment I started programming, when I was 12 years old, I already fully understood how IT is crucial for society's development. In an always-changing world, businesses need to face new challenges. My mission is to provide services to meet the demands of the new age.<br class='mb-5' />Through innovative system development and digital transformation strategies, I aim to help companies optimize their operations and enhance customer experiences. Whether it's creating cutting-edge applications, digitalizing processes, or supporting international expansion, my work is driven by the goal of empowering businesses to thrive in a connected, competitive world.",
+        "ja": "12歳の時にプログラミングを始めた瞬間から、ITが社会の発展にとっていかに重要であるかを完全に理解していました。変化し続ける世界では、企業は新たな課題に直面する必要があります。私の使命は、新時代のニーズに応えるサービスを提供することです。<br class='mb-5' />革新的なシステム開発とデジタルトランスフォーメーション戦略を通じて、企業の業務を最適化し、顧客体験を向上させるお手伝いをします。最先端のアプリケーションの作成、プロセスのデジタル化、または国際展開の支援に至るまで、私の仕事は、つながりのある競争の激しい世界で企業が成長できるよう支援することを目標としています。",
+        "zh": "从12岁开始编程的那一刻起，我已经完全理解了IT对社会发展的重要性。在一个不断变化的世界中，企业需要面对新的挑战。我的使命是提供服务以满足新时代的需求。<br class='mb-5' />通过创新的系统开发和数字化转型战略，我致力于帮助公司优化运营并提升客户体验。无论是创建尖端应用程序、数字化流程还是支持国际扩展，我的工作目标始终是帮助企业在一个互联且竞争激烈的世界中蓬勃发展。",
+        "ru": "С того момента, как я начал программировать в 12 лет, я уже полностью осознал, насколько IT важно для развития общества. В постоянно меняющемся мире бизнесу приходится сталкиваться с новыми вызовами. Моя миссия — предоставлять услуги, отвечающие требованиям новой эпохи.<br class='mb-5' />С помощью инновационной разработки систем и стратегий цифровой трансформации я стремлюсь помочь компаниям оптимизировать их операции и улучшить клиентский опыт. Будь то создание передовых приложений, цифровизация процессов или поддержка международной экспансии, моя работа направлена на то, чтобы помогать бизнесу процветать в связанном и конкурентном мире."
+    }
+}

@@ -1,0 +1,232 @@
+{
+    "title": {
+        "en": "We can do these things",
+        "ja": "私たちができること",
+        "zh": "我们可以做这些事情",
+        "ru": "Что мы можем сделать"
+    },
+    "services": [
+        {
+            "title": {
+                "en": "IT Development",
+                "ja": "システム開発",
+                "zh": "系统开发",
+                "ru": "Системная инженерия"
+            },
+            "subtitle": {
+                "en": "One-stop support from requirements definition to the utilization of the latest technology",
+                "ja": "要件定義から最新技術の活用までワンストップでサポート",
+                "zh": "从需求定义到最新技术的利用一站式支持",
+                "ru": "Поддержка от определения требований до использования новейших технологий"
+            },
+            "list": [
+                {
+                    "text": {
+                        "en": "Homepage, Landing Page, any sort of website development",
+                        "ja": "ホームページ、ランディングページ、あらゆる種類のウェブサイト開発",
+                        "zh": "主页、着陆页、任何类型的网站开发",
+                        "ru": "Главные страницы, лендинги, разработка любых видов сайтов"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "SaaS Application Development",
+                        "ja": "SaaSアプリケーション開発",
+                        "zh": "SaaS应用开发",
+                        "ru": "Разработка SaaS приложений"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "Mobile Application Development",
+                        "ja": "モバイルアプリケーション開発",
+                        "zh": "移动应用开发",
+                        "ru": "Разработка мобильных приложений"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "CRM Application Development",
+                        "ja": "CRMアプリケーション開発",
+                        "zh": "CRM应用开发",
+                        "ru": "Разработка CRM приложений"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "Management Platform Development",
+                        "ja": "管理プラットフォーム開発",
+                        "zh": "管理平台开发",
+                        "ru": "Разработка платформ управления"
+                    }
+                }
+            ],
+            "description": {
+                "en": "We offer comprehensive IT development services tailored to meet the diverse needs of businesses, from local restaurants to large-scale industrial plants. Our expertise includes creating high-quality websites (HP and LP), SaaS applications, and mobile apps designed to enhance user experience and operational efficiency. We also specialize in developing CRM systems and management platforms to streamline workflows and improve customer relationships. Whether your business requires a bespoke solution or scalable software, our team leverages the latest technologies to deliver secure, reliable, and user-friendly products. Partner with us to transform your business ideas into cutting-edge digital solutions that drive growth and innovation.",
+                "ja": "私たちは、地元のレストランから大規模な産業プラントまで、多様なビジネスニーズに応じた包括的なIT開発サービスを提供しています。高品質なウェブサイト（HPやLP）の作成、SaaSアプリケーション、モバイルアプリを含む専門知識を持ち、ユーザー体験と業務効率を向上させることを目的としています。また、CRMシステムや管理プラットフォームの開発にも特化しており、業務の効率化と顧客関係の改善を実現します。オーダーメイドのソリューションやスケーラブルなソフトウェアが必要な場合でも、私たちのチームは最新技術を駆使して安全、信頼性の高い、使いやすい製品を提供します。成長と革新を促進する最先端のデジタルソリューションにビジネスアイデアを変革するためのパートナーとして、私たちにお任せください。",
+                "zh": "我们提供全面的IT开发服务，以满足从本地餐厅到大型工业企业的多样化需求。我们的专长包括创建高质量的网站（HP和LP）、SaaS应用和旨在提升用户体验和运营效率的移动应用程序。我们还专注于开发CRM系统和管理平台，以简化工作流程并改善客户关系。无论您的业务需要定制解决方案还是可扩展的软件，我们的团队都利用最新技术提供安全、可靠且用户友好的产品。与我们合作，将您的商业理念转化为推动增长和创新的尖端数字解决方案。",
+                "ru": "Мы предлагаем комплексные услуги по разработке IT, адаптированные под разнообразные потребности бизнеса, от местных ресторанов до крупных промышленных предприятий. Наши эксперты создают качественные веб-сайты (главные страницы и лендинги), SaaS-приложения и мобильные приложения, направленные на улучшение пользовательского опыта и операционной эффективности. Мы также специализируемся на разработке CRM-систем и платформ управления, чтобы оптимизировать рабочие процессы и улучшить отношения с клиентами. Нужны ли вашему бизнесу индивидуальные решения или масштабируемое программное обеспечение, наша команда использует новейшие технологии для создания безопасных, надежных и удобных продуктов. Доверьтесь нам, чтобы превратить ваши бизнес-идеи в передовые цифровые решения, которые стимулируют рост и инновации."
+            }
+        },
+        {
+            "title": {
+                "en": "DX & Automation",
+                "ja": "DXと自動化",
+                "zh": "数字转型化与自动化",
+                "ru": "Цифровизация и автоматизация"
+            },
+            "subtitle": {
+                "en": "No more paperwork!",
+                "ja": "ペーパーワークはもう不要！",
+                "zh": "告别繁琐的纸质工作！",
+                "ru": "Больше никаких бумажных документов!"
+            },
+            "list": [
+                {
+                    "text": {
+                        "en": "Digitalization of Business Operation",
+                        "ja": "業務のデジタル化",
+                        "zh": "业务操作的数字化",
+                        "ru": "Цифровизация бизнес-процессов"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "Digital Transformation of Customer Experience",
+                        "ja": "顧客体験のデジタルトランスフォーメーション",
+                        "zh": "客户体验的数字化转型",
+                        "ru": "Цифровизация клиентского опыта"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "Introduction of DevOps",
+                        "ja": "DevOpsの導入",
+                        "zh": "引入DevOps",
+                        "ru": "Внедрение DevOps"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "DX Consulting",
+                        "ja": "DXコンサルティング",
+                        "zh": "数字转型咨询",
+                        "ru": "Консультирование по цифровизации"
+                    }
+                }
+            ],
+            "description": {
+                "en": "Our Digital Transformation (DX) and automation services are designed to modernize and optimize your business processes. We help digitize workflows, enhance customer experiences through innovative digital tools, and implement DevOps practices to ensure smooth software delivery and collaboration. Our DX consulting services provide strategic guidance to enable your organization to adapt to the rapidly evolving digital landscape. By automating repetitive tasks and integrating intelligent solutions, we empower businesses to increase efficiency, reduce costs, and focus on core competencies. Let us guide you on the path to a smarter, more agile, and future-ready business.",
+                "ja": "デジタルトランスフォーメーション（DX）と自動化サービスは、ビジネスプロセスの近代化と最適化を目指しています。ワークフローをデジタル化し、革新的なデジタルツールを活用して顧客体験を向上させ、スムーズなソフトウェアの配信とコラボレーションを実現するDevOpsの導入を支援します。DXコンサルティングサービスでは、急速に進化するデジタル環境に対応するための戦略的な指針を提供します。反復作業を自動化し、インテリジェントソリューションを統合することで、効率を高め、コストを削減し、主要な業務に集中できるように支援します。より賢く、より敏捷で未来に準備されたビジネスへの道を私たちと共に歩みましょう。",
+                "zh": "我们的数字化转型（DX）和自动化服务旨在现代化和优化您的业务流程。我们帮助数字化工作流程，通过创新的数字工具提升客户体验，并实施DevOps实践以确保流畅的软件交付和协作。我们的DX咨询服务提供战略指导，帮助您的组织适应快速发展的数字环境。通过自动化重复任务和集成智能解决方案，我们帮助企业提高效率、降低成本并专注于核心竞争力。让我们引导您走向更智能、更敏捷和未来准备的业务发展之路。",
+                "ru": "Наши услуги по цифровой трансформации (DX) и автоматизации направлены на модернизацию и оптимизацию бизнес-процессов. Мы помогаем цифровизировать рабочие процессы, улучшать клиентский опыт с помощью инновационных цифровых инструментов и внедрять практики DevOps для обеспечения плавной доставки программного обеспечения и сотрудничества. Наши консультационные услуги по цифровизации предоставляют стратегическое руководство для адаптации вашей организации к быстро меняющейся цифровой среде. Автоматизируя повторяющиеся задачи и интегрируя интеллектуальные решения, мы помогаем бизнесу повысить эффективность, снизить затраты и сосредоточиться на ключевых компетенциях. Позвольте нам сопровождать вас на пути к умному, более гибкому и готовому к будущему бизнесу."
+            }
+        },
+        {
+            "title": {
+                "en": "Cloud Infrastructure",
+                "ja": "クラウドインフラ",
+                "zh": "云基础设施",
+                "ru": "Облачная инфраструктура"
+            },
+            "subtitle": {
+                "en": "Improve your business with the cloud!",
+                "ja": "クラウドでビジネスを改善！",
+                "zh": "通过云技术提升您的业务！",
+                "ru": "Улучшите свой бизнес с помощью облачных технологий!"
+            },
+            "list": [
+                {
+                    "text": {
+                        "en": "Reliable, Scalable IT Infrastructure",
+                        "ja": "信頼性が高くスケーラブルなITインフラ",
+                        "zh": "可靠且可扩展的IT基础设施",
+                        "ru": "Надежная и масштабируемая IT-инфраструктура"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "AWS",
+                        "ja": "AWS",
+                        "zh": "AWS",
+                        "ru": "AWS"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "Secure Network Design",
+                        "ja": "セキュアなネットワーク設計",
+                        "zh": "安全的网络设计",
+                        "ru": "Безопасное проектирование сети"
+                    }
+                }
+            ],
+            "description": {
+                "en": "Harness the power of the cloud with our robust cloud infrastructure services. We help businesses design, implement, and manage scalable, secure, and efficient cloud environments tailored to their unique requirements. From migration to optimization, our solutions ensure your IT infrastructure is reliable and ready for peak performance. Our team is skilled in deploying cutting-edge technologies to build systems that are cost-effective, resilient, and easy to manage. By embracing cloud solutions, you gain access to unparalleled flexibility and the ability to innovate faster, making your business more competitive in the digital era.",
+                "ja": "強力なクラウドインフラサービスでクラウドの力を活用しましょう。私たちは、ビジネス固有の要件に合わせてスケーラブルで安全かつ効率的なクラウド環境を設計、実装、管理するお手伝いをします。移行から最適化に至るまで、私たちのソリューションはITインフラが信頼でき、最高のパフォーマンスを発揮できるようにします。私たちのチームは、コスト効率が高く、耐久性があり、管理が簡単なシステムを構築するための最先端技術の展開に熟練しています。クラウドソリューションを導入することで、比類のない柔軟性を得られ、より迅速に革新を進めることができ、デジタル時代において競争力のあるビジネスとなります。",
+                "zh": "利用我们的强大云基础设施服务，释放云技术的力量。我们帮助企业设计、实施和管理符合其特定需求的可扩展、安全和高效的云环境。从迁移到优化，我们的解决方案确保您的IT基础设施可靠并能够应对高峰性能需求。我们的团队熟练掌握部署尖端技术，以构建成本效益高、弹性强且易于管理的系统。通过采用云解决方案，您可以获得无与伦比的灵活性，并能够更快地进行创新，使您的企业在数字化时代更具竞争力。",
+                "ru": "Используйте возможности облачных технологий с нашими мощными услугами по облачной инфраструктуре. Мы помогаем бизнесу проектировать, внедрять и управлять масштабируемыми, безопасными и эффективными облачными средами, адаптированными к уникальным требованиям. От миграции до оптимизации, наши решения обеспечивают надежность и максимальную производительность вашей IT-инфраструктуры. Наша команда имеет опыт в развертывании передовых технологий для создания систем, которые являются экономически эффективными, устойчивыми и простыми в управлении. Используя облачные решения, вы получаете доступ к беспрецедентной гибкости и возможности быстрее внедрять инновации, делая ваш бизнес более конкурентоспособным в цифровую эпоху."
+            }
+        },
+        {
+            "title": {
+                "en": "Internationalization",
+                "ja": "国際化応援",
+                "zh": "国际化",
+                "ru": "Интернационализация"
+            },
+            "subtitle": {
+                "en": "Go global, no hassle!",
+                "ja": "手間なくグローバル展開！",
+                "zh": "轻松全球化！",
+                "ru": "Выходите на международный рынок без хлопот!"
+            },
+            "list": [
+                {
+                    "text": {
+                        "en": "Development of multilingual apps",
+                        "ja": "多言語対応アプリの開発",
+                        "zh": "多语言应用开发",
+                        "ru": "Разработка многоязычных приложений"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "Consulting for Overseas Expansion",
+                        "ja": "海外進出コンサルティング",
+                        "zh": "海外扩展咨询",
+                        "ru": "Консультирование по международной экспансии"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "Supporting the creation of a diverse corporate environment",
+                        "ja": "多様性のある企業環境の構築支援",
+                        "zh": "支持创建多元化企业环境",
+                        "ru": "Поддержка создания разнообразной корпоративной среды"
+                    }
+                },
+                {
+                    "text": {
+                        "en": "Foreign Employment Consulting",
+                        "ja": "外国人雇用コンサルティング",
+                        "zh": "外籍员工招聘咨询",
+                        "ru": "Консультирование по найму иностранных сотрудников"
+                    }
+                }
+            ],
+            "description": {
+                "en": "Expand your horizons with our comprehensive internationalization services. We specialize in developing multilingual applications and providing strategic consulting to support your business’s global expansion. From creating culturally adaptive solutions to assisting with foreign employee hiring and integration, we help businesses thrive in diverse environments. Our expertise includes building systems that accommodate different languages, cultures, and legal requirements, ensuring your global operations run smoothly. With our support, you can confidently enter new markets, connect with international audiences, and build a sustainable global presence.",
+                "ja": "包括的な国際化サービスで視野を広げましょう。多言語アプリの開発と、ビジネスのグローバル展開を支援する戦略的なコンサルティングを専門としています。文化に適応したソリューションの作成から、外国人雇用の支援と統合まで、多様な環境でのビジネスを成功させるお手伝いをします。私たちの専門知識には、さまざまな言語、文化、法的要件に対応するシステムの構築が含まれ、グローバルオペレーションがスムーズに進行することを確保します。私たちのサポートにより、新しい市場への自信を持って進出し、国際的な視聴者とつながり、持続可能なグローバルプレゼンスを構築することができます。",
+                "zh": "通过我们的全面国际化服务，拓展您的视野。我们专注于开发多语言应用程序，并提供战略咨询，以支持您的企业全球扩展。从创建文化适应性解决方案到协助外籍员工招聘和整合，我们帮助企业在多样化的环境中蓬勃发展。我们的专业知识包括构建适应不同语言、文化和法律要求的系统，确保您的全球运营顺畅。借助我们的支持，您可以自信地进入新市场，与国际受众建立联系，并打造可持续的全球存在。",
+                "ru": "Расширяйте горизонты с помощью наших комплексных услуг по интернационализации. Мы специализируемся на разработке многоязычных приложений и предоставлении стратегических консультаций для поддержки глобальной экспансии вашего бизнеса. От создания культурно адаптированных решений до помощи в найме и интеграции иностранных сотрудников — мы помогаем бизнесу успешно работать в разнообразных условиях. Наш опыт включает создание систем, учитывающих различные языки, культуры и юридические требования, что обеспечивает гладкое функционирование вашей глобальной деятельности. С нашей поддержкой вы сможете уверенно выходить на новые рынки, взаимодействовать с международной аудиторией и строить устойчивое глобальное присутствие."
+            }
+        }
+    ],
+    "description": {
+        "en": "We value our relationships of trust with our customers, constantly pursuing innovation and contributing to the growth of their businesses. We look forward to working with you as a partner in building your future together.",
+        "ja": "お客様との信頼関係を大切にし、常に革新を追求し、ビジネスの成長に貢献します。一緒に未来を築くパートナーとして、皆様と働けることを楽しみにしています。",
+        "zh": "我们重视与客户的信任关系，不断追求创新，为客户业务的增长做出贡献。期待与您合作，共同打造未来。",
+        "ru": "Мы ценим отношения доверия с нашими клиентами, постоянно стремимся к инновациям и вносим вклад в развитие их бизнеса. Мы с нетерпением ждем возможности работать с вами в качестве партнера, чтобы вместе строить ваше будущее."
+    }
+}

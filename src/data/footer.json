@@ -1,0 +1,112 @@
+{
+    "footer": {
+        "description": {
+            "en": "IT & Internationalization Consulting and Outsourcing Group. We aim to make global world.",
+            "ja": "ITと国際化のコンサルティングおよびアウトソーシンググループ。私たちはグローバルな世界を目指しています。",
+            "zh": "IT与国际化咨询和外包集团。我们的目标是打造全球化的世界。",
+            "ru": "Консалтинговая и аутсорсинговая группа по вопросам IT и интернационализации. Мы стремимся создать глобальный мир."
+        },
+        "sections": {
+            "services": {
+                "title": {
+                    "en": "Services",
+                    "ja": "サービス",
+                    "zh": "服务",
+                    "ru": "Услуги"
+                },
+                "links": {
+                    "itDevelopment": {
+                        "en": "IT Development",
+                        "ja": "IT開発",
+                        "zh": "IT开发",
+                        "ru": "Разработка IT"
+                    },
+                    "dxAutomation": {
+                        "en": "DX & Automation",
+                        "ja": "DXと自動化",
+                        "zh": "数字化转型与自动化",
+                        "ru": "Цифровизация и автоматизация"
+                    },
+                    "cloudInfrastructure": {
+                        "en": "Cloud Infrastructure",
+                        "ja": "クラウドインフラ",
+                        "zh": "云基础设施",
+                        "ru": "Облачная инфраструктура"
+                    },
+                    "internationalization": {
+                        "en": "Internationalization",
+                        "ja": "国際化",
+                        "zh": "国际化",
+                        "ru": "Интернационализация"
+                    }
+                }
+            },
+            "usefulLinks": {
+                "title": {
+                    "en": "Useful links",
+                    "ja": "便利なリンク",
+                    "zh": "实用链接",
+                    "ru": "Полезные ссылки"
+                },
+                "links": {
+                    "profile": {
+                        "en": "Profile",
+                        "ja": "プロフィール",
+                        "zh": "简介",
+                        "ru": "Профиль"
+                    },
+                    "philosophy": {
+                        "en": "Philosophy",
+                        "ja": "理念",
+                        "zh": "理念",
+                        "ru": "Философия"
+                    },
+                    "representativeMessage": {
+                        "en": "Representative Message",
+                        "ja": "代表メッセージ",
+                        "zh": "代表致辞",
+                        "ru": "Сообщение представителя"
+                    },
+                    "privacyPolicy": {
+                        "en": "Privacy Policy",
+                        "ja": "プライバシーポリシー",
+                        "zh": "隐私政策",
+                        "ru": "Политика конфиденциальности"
+                    }
+                }
+            },
+            "contact": {
+                "title": {
+                    "en": "Contact",
+                    "ja": "連絡先",
+                    "zh": "联系方式",
+                    "ru": "Контакты"
+                },
+                "email": {
+                    "en": "aligator527official@gmail.com",
+                    "ja": "aligator527official@gmail.com",
+                    "zh": "aligator527official@gmail.com",
+                    "ru": "aligator527official@gmail.com"
+                },
+                "phone": {
+                    "en": "+8180-4753-2781",
+                    "ja": "+8180-4753-2781",
+                    "zh": "+8180-4753-2781",
+                    "ru": "+8180-4753-2781"
+                }
+            }
+        },
+        "copyright": {
+            "en": "© 2024 Copyright:",
+            "ja": "© 2024 著作権:",
+            "zh": "© 2024 版权:",
+            "ru": "© 2024 Авторские права:"
+        },
+        "companyName": {
+            "en": "Wanya Group",
+            "ja": "ワニャグループ",
+            "zh": "Wanya集团",
+            "ru": "Wanya Group"
+        }
+    }
+}
