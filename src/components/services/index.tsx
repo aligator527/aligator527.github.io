@@ -13,7 +13,7 @@ export default function ServicesPanel() {
         <section className="relative my-20 py-20 bg-gray-100" id="services">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:flex">
                 {/* Left panel with list items */}
-                <div className="w-2/5">
+                <div className="lg:w-2/5">
                     <h2 className="text-xl font-bold text-[#59705b] tracking-tight">
                         {servicesData.title[language]} {/* Localized title */}
                     </h2>
