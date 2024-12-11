@@ -1,5 +1,6 @@
 import Banner from "@/components/banner";
 import ContactForm from "@/components/contact";
+import CookieConsentForm from "@/components/cookie";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 
@@ -17,6 +18,7 @@ export default function Contact() {
       <Header />
       <Banner />
       <ContactForm />
+      <CookieConsentForm />
       <Footer />
     </>
   );
