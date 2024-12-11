@@ -81,7 +81,7 @@ export default function ContactForm() {
             <div>
             <form 
                 id="ajax-connect"
-                action="https://formsubmit.co/2cfd19313641e04aa8d5b991c8261479" 
+                action="https://formsubmit.co/aligator527official@gmail.com" 
                 method="POST" 
                 className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8 pt-8 lg:pt-0"
                 onSubmit={handleSubmit}
