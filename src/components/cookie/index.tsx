@@ -1,10 +1,13 @@
 "use client"
+import { useLanguage } from "@/context/languageContext";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
 export default function CookieConsentForm() {
   const [isOpen, setIsOpen] = useState(false);
   const [cookies, setCookie] = useCookies(["cookieConsent"]);
+  const { language } = useLanguage();
 
   useEffect(() => {
     if (!cookies.cookieConsent) {
@@ -22,6 +25,12 @@ export default function CookieConsentForm() {
     setIsOpen(false);
   };
 
+  const generateHref = (language: string, path: string) => {
+    // Ensure the path is correctly formatted with a leading '/'
+    const cleanPath = path.startsWith('/') ? path : `/${path}`;
+    return `/${language}${cleanPath}`;
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -36,9 +45,9 @@ export default function CookieConsentForm() {
       >
         <div className="w-full">
           This website uses cookies to enhance your browsing experience and to ensure compliance with GDPR. For more details, please read our{" "}
-          <a href="#" className="text-[#59705b] whitespace-nowrap hover:underline">
-            Privacy Policy
-          </a>
+          <Link href={generateHref(language, "/privacy")} className="font-semibold text-[#59705b]">
+                            Privacy Policy.
+          </Link>
           .
         </div>
         <div className="flex gap-4 items-center flex-shrink-0">
