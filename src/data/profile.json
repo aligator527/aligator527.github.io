@@ -1,0 +1,138 @@
+{
+    "profile": {
+        "header": {
+            "title": {
+                "en": "Company Profile",
+                "ja": "会社概要",
+                "zh": "公司简介",
+                "ru": "Профиль компании"
+            },
+            "logoAlt": {
+                "en": "Wanya Group Logo",
+                "ja": "ワニャグループロゴ",
+                "zh": "Wanya集团标志",
+                "ru": "Логотип Wanya Group"
+            }
+        },
+        "table": {
+            "tradeName": {
+                "label": {
+                    "en": "Trade name",
+                    "ja": "商号",
+                    "zh": "商号",
+                    "ru": "Торговое наименование"
+                },
+                "value": {
+                    "en": "Wanya Group",
+                    "ja": "ワニャグループ",
+                    "zh": "Wanya集团",
+                    "ru": "Wanya Group"
+                }
+            },
+            "status": {
+                "label": {
+                    "en": "Status",
+                    "ja": "ステータス",
+                    "zh": "状态",
+                    "ru": "Статус"
+                },
+                "value": {
+                    "en": "Individual Entrepreneur",
+                    "ja": "個人事業主",
+                    "zh": "个体经营者",
+                    "ru": "Индивидуальный предприниматель"
+                }
+            },
+            "formation": {
+                "label": {
+                    "en": "Formation",
+                    "ja": "設立",
+                    "zh": "成立日期",
+                    "ru": "Дата основания"
+                },
+                "value": {
+                    "en": "2024/12/04",
+                    "ja": "2024/12/04",
+                    "zh": "2024/12/04",
+                    "ru": "2024/12/04"
+                }
+            },
+            "representative": {
+                "label": {
+                    "en": "Representative",
+                    "ja": "代表者",
+                    "zh": "代表人",
+                    "ru": "Представитель"
+                },
+                "value": {
+                    "en": "Ivan Dolgov",
+                    "ja": "イワン・ドルゴフ",
+                    "zh": "伊万·多尔戈夫",
+                    "ru": "Иван Долгов"
+                }
+            },
+            "mainBank": {
+                "label": {
+                    "en": "Main Bank",
+                    "ja": "主要取引銀行",
+                    "zh": "主要银行",
+                    "ru": "Основной банк"
+                },
+                "value": {
+                    "en": "PayPay Bank",
+                    "ja": "PayPay銀行",
+                    "zh": "PayPay银行",
+                    "ru": "PayPay Банк"
+                }
+            },
+            "telephone": {
+                "label": {
+                    "en": "TEL",
+                    "ja": "電話番号",
+                    "zh": "电话",
+                    "ru": "Телефон"
+                },
+                "value": {
+                    "en": "+81 80-4753-2781",
+                    "ja": "080-4753-2781",
+                    "zh": "+81 80-4753-2781",
+                    "ru": "+81 80-4753-2781"
+                }
+            },
+            "businessActivities": {
+                "label": {
+                    "en": "Business Activities",
+                    "ja": "事業内容",
+                    "zh": "业务活动",
+                    "ru": "Виды деятельности"
+                },
+                "value": {
+                    "en": [
+                        "Consulting, planning, design, development, implementation, maintenance, and operation of IT-related systems",
+                        "Planning, production, management, and operation of web and multimedia contents",
+                        "Consulting on DX promotion and support for digitization of business processes",
+                        "Employment of foreign nationals and consulting services to support overseas expansion"
+                    ],
+                    "ja": [
+                        "IT関連システムのコンサルティング、企画、設計、開発、導入、保守、運用",
+                        "ウェブおよびマルチメディアコンテンツの企画、制作、管理、運用",
+                        "DX推進に関するコンサルティングと業務プロセスのデジタル化支援",
+                        "外国人雇用および海外進出支援に関するコンサルティングサービス"
+                    ],
+                    "zh": [
+                        "IT相关系统的咨询、规划、设计、开发、实施、维护和运营",
+                        "网页及多媒体内容的规划、制作、管理和运营",
+                        "数字化转型(DX)推进咨询及业务流程数字化支持",
+                        "外籍人员雇佣及海外扩展支持咨询服务"
+                    ],
+                    "ru": [
+                        "Консультирование, планирование, проектирование, разработка, внедрение, обслуживание и эксплуатация систем, связанных с IT",
+                        "Планирование, производство, управление и эксплуатация веб- и мультимедийного контента",
+                        "Консультирование по цифровой трансформации (DX) и поддержка цифровизации бизнес-процессов",
+                        "Трудоустройство иностранных граждан и консультационные услуги по поддержке международной экспансии"
+                    ]
+                }
+            }
+        }
+    }
+}

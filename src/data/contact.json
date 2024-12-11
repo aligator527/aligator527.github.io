@@ -1,0 +1,110 @@
+{
+    "contactForm": {
+        "header": {
+            "en": "Get in touch",
+            "ja": "お問い合わせ",
+            "zh": "联系我们",
+            "ru": "Свяжитесь с нами"
+        },
+        "description": {
+            "en": "We'll provide you with solutions to your business current challenges in the best possible way",
+            "ja": "私たちは、ビジネスの現在の課題に対する最適な解決策を提供します",
+            "zh": "我们将以最佳方式为您提供业务当前挑战的解决方案",
+            "ru": "Мы предоставим вам наилучшие решения текущих бизнес-задач"
+        },
+        "phoneLabel": {
+            "en": "Phone",
+            "ja": "電話番号",
+            "zh": "电话",
+            "ru": "Телефон"
+        },
+        "emailLabel": {
+            "en": "Email",
+            "ja": "メール",
+            "zh": "电子邮件",
+            "ru": "Электронная почта"
+        },
+        "form": {
+            "labels": {
+                "firstName": {
+                    "en": "First name",
+                    "ja": "名",
+                    "zh": "名字",
+                    "ru": "Имя"
+                },
+                "lastName": {
+                    "en": "Last name",
+                    "ja": "姓",
+                    "zh": "姓氏",
+                    "ru": "Фамилия"
+                },
+                "company": {
+                    "en": "Company",
+                    "ja": "会社名",
+                    "zh": "公司",
+                    "ru": "Компания"
+                },
+                "email": {
+                    "en": "Email",
+                    "ja": "メールアドレス",
+                    "zh": "电子邮件",
+                    "ru": "Электронная почта"
+                },
+                "phoneNumber": {
+                    "en": "Phone number",
+                    "ja": "電話番号",
+                    "zh": "电话号码",
+                    "ru": "Номер телефона"
+                },
+                "message": {
+                    "en": "Message",
+                    "ja": "メッセージ",
+                    "zh": "留言",
+                    "ru": "Сообщение"
+                }
+            },
+            "placeholders": {
+                "phoneNumber": {
+                    "en": "123-456-7890",
+                    "ja": "123-456-7890",
+                    "zh": "123-456-7890",
+                    "ru": "123-456-7890"
+                }
+            },
+            "privacyPolicy": {
+                "text": {
+                    "en": "By selecting this, you agree to our privacy policy.",
+                    "ja": "選択すると、プライバシーポリシーに同意したことになります。",
+                    "zh": "选择此项即表示您同意我们的隐私政策。",
+                    "ru": "Выбирая это, вы соглашаетесь с нашей политикой конфиденциальности."
+                },
+                "linkText": {
+                    "en": "Privacy Policy",
+                    "ja": "プライバシーポリシー",
+                    "zh": "隐私政策",
+                    "ru": "Политика конфиденциальности"
+                }
+            },
+            "button": {
+                "en": "Let's talk",
+                "ja": "お問い合わせ",
+                "zh": "联系我们",
+                "ru": "Законнектиться"
+            }
+        },
+        "validationMessage": {
+            "privacy": {
+                "en": "You need to agree to privacy policy",
+                "ja": "プライバシーポリシーに同意してください",
+                "zh": "请同意我们的隐私政策",
+                "ru": "Вы должны согласиться с политикой конфиденциальности"
+            }
+        },
+        "successMessage": {
+            "en": "Message sent successfully",
+            "ja": "メッセージを送信しました",
+            "zh": "信息已发送",
+            "ru": "Сообщение отправлено успешно"
+        }
+    }
+}

@@ -4,17 +4,70 @@ import { useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/16/solid'
 import { Field, Label, Switch } from '@headlessui/react'
 import { EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
+import ContactData from "@/data/contact.json";
+import { useLanguage } from '@/context/languageContext';
+import Link from 'next/link';
 
 export default function ContactForm() {
     const [agreed, setAgreed] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+    const [successMessage, setSuccessMessage] = useState("")
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const { language } = useLanguage()
+
+    const generateHref = (language: string, path: string) => {
+        // Ensure the path is correctly formatted with a leading '/'
+        const cleanPath = path.startsWith('/') ? path : `/${path}`;
+        return `/${language}${cleanPath}`;
+    };
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault(); // Prevent default form submission
+
+        if (!agreed) {
+            setErrorMessage(ContactData.contactForm.validationMessage.privacy[language]);
+            return;
+        }
+
+        setErrorMessage(""); // Clear previous error messages
+        setSuccessMessage(""); // Clear previous success messages
+        setIsSubmitting(true);
+
+        const form = event.currentTarget;
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    Accept: "application/json",
+                },
+            });
+
+            if (response.ok) {
+                setSuccessMessage(ContactData.contactForm.successMessage[language]);
+                form.reset(); // Reset form fields
+                setAgreed(false); // Reset agreement toggle
+            } else {
+                const data = await response.json();
+                setErrorMessage(data.error);
+            }
+        } catch (error) {
+            setErrorMessage("Couldn't send message: " + error);
+        } finally {
+            setTimeout(() => setIsSubmitting(false), 3000); // Re-enable the button after 3 seconds
+        }
+    };
+
     return (
         <div className="lg:flex">
             <div className="lg:w-2/4 px-4 sm:px-6 lg:px-8">
                 <h2 className="text-balance text-5xl font-semibold tracking-tight sm:text-7xl">
-                    <span className="text-[#59705b]">Get in touch</span>
+                    <span className="text-[#59705b]">{ContactData.contactForm.header[language]}</span>
                 </h2>
                 <div className='mt-10 w-3/4 font-light'>
-                    We'll provide you with solutions to your business current challenges in the best possible way
+                    {ContactData.contactForm.description[language]}
                 </div>
                 <div className='mt-10 text-gray-500'>
                     <div className='flex'>
@@ -26,11 +79,17 @@ export default function ContactForm() {
                 </div>
             </div>
             <div>
-            <form action="#" method="POST" className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8 pt-8 lg:pt-0">
+            <form 
+                id="ajax-connect"
+                action="https://formsubmit.co/2cfd19313641e04aa8d5b991c8261479" 
+                method="POST" 
+                className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8 pt-8 lg:pt-0"
+                onSubmit={handleSubmit}
+            >
                 <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                     <div>
                         <label htmlFor="first-name" className="block text-sm/6 font-semibold text-gray-900">
-                            First name
+                            {ContactData.contactForm.form.labels.firstName[language]}
                         </label>
                         <div className="mt-2.5">
                             <input
@@ -44,7 +103,7 @@ export default function ContactForm() {
                     </div>
                     <div>
                         <label htmlFor="last-name" className="block text-sm/6 font-semibold text-gray-900">
-                        Last name
+                            {ContactData.contactForm.form.labels.lastName[language]}
                         </label>
                         <div className="mt-2.5">
                         <input
@@ -58,7 +117,7 @@ export default function ContactForm() {
                     </div>
                     <div className="sm:col-span-2">
                         <label htmlFor="company" className="block text-sm/6 font-semibold text-gray-900">
-                        Company
+                            {ContactData.contactForm.form.labels.company[language]}
                         </label>
                         <div className="mt-2.5">
                         <input
@@ -72,7 +131,7 @@ export default function ContactForm() {
                     </div>
                     <div className="sm:col-span-2">
                         <label htmlFor="email" className="block text-sm/6 font-semibold text-gray-900">
-                        Email
+                            {ContactData.contactForm.form.labels.email[language]}
                         </label>
                         <div className="mt-2.5">
                         <input
@@ -86,7 +145,7 @@ export default function ContactForm() {
                     </div>
                     <div className="sm:col-span-2">
                         <label htmlFor="phone-number" className="block text-sm/6 font-semibold text-gray-900">
-                        Phone number
+                            {ContactData.contactForm.form.labels.phoneNumber[language]}
                         </label>
                         <div className="mt-2.5">
                         <div className="flex rounded-md bg-white outline outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
@@ -124,7 +183,7 @@ export default function ContactForm() {
                     </div>
                     <div className="sm:col-span-2">
                         <label htmlFor="message" className="block text-sm/6 font-semibold text-gray-900">
-                            Message
+                            {ContactData.contactForm.form.labels.message[language]}
                         </label>
                         <div className="mt-2.5">
                             <textarea
@@ -151,20 +210,33 @@ export default function ContactForm() {
                         </Switch>
                         </div>
                         <Label className="text-sm/6 text-gray-600">
-                        By selecting this, you agree to our{' '}
-                        <a href="#" className="font-semibold text-[#59705b]">
-                            privacy&nbsp;policy
-                        </a>
-                        .
+                            {ContactData.contactForm.form.privacyPolicy.text[language]} {' '}
+                        <Link href={generateHref(language, "/privacy")} className="font-semibold text-[#59705b]">
+                            {ContactData.contactForm.form.privacyPolicy.linkText[language]}
+                        </Link>
                         </Label>
                     </Field>
                 </div>
+                {errorMessage && (
+                    <div className="mt-2 text-sm text-red-600">
+                        {errorMessage}
+                    </div>
+                )}
+                {successMessage && (
+                    <div className="mt-2 text-sm text-green-600">
+                        {successMessage}
+                    </div>
+                )}
                 <div className="mt-10">
                     <button
                         type="submit"
-                        className="block w-full rounded-md bg-[#59705b] px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-[#59705b]/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#59705b]"
+                        className={`block w-full rounded-md px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm ${
+                            isSubmitting
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : "bg-[#59705b] hover:bg-[#59705b]/90"
+                        }`}
                     >
-                        Let's talk
+                        {ContactData.contactForm.form.button[language]}
                     </button>
                 </div>
             </form>

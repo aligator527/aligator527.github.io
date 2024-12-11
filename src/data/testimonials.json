@@ -1,0 +1,61 @@
+{
+    "title": {
+        "en": "<span class='text-[#59705b]'>Wanya Group</span> is the Guide to the New Age of IT",
+        "ja": "<span class='text-[#59705b]'>ワニャグループ</span>はIT新時代へのガイドです",
+        "zh": "<span class='text-[#59705b]'>Wanya集团</span>是IT新时代的引领者",
+        "ru": "<span class='text-[#59705b]'>Wanya Group</span> — проводник в новую эпоху IT"
+    },
+    "noicon_title": {
+        "en": "There are no logo",
+        "ja": "ロゴはありません",
+        "zh": "没有标志",
+        "ru": "Логотип отсутствует"
+    },
+    "testimonials": [
+        {
+            "testimonial": {
+                "en": "His work efficiency was consistently excellent, and he completed all tasks within the deadlines. Additionally, he was proactive in sharing his opinions when solving problems, making significant contributions to the project. Thank you very much, Ivan.",
+                "ja": "彼の仕事の効率は一貫して優れており、すべてのタスクを期限内に完了しました。さらに、問題解決時に積極的に意見を共有し、プロジェクトに大きく貢献しました。イワンさん、本当にありがとうございました。",
+                "zh": "他的工作效率一直非常出色，所有任务都按时完成。此外，他在解决问题时积极分享意见，为项目做出了重要贡献。非常感谢你，伊万。",
+                "ru": "Его эффективность работы всегда была на высоте, и все задачи выполнялись в срок. Кроме того, он активно делился своими мнениями при решении проблем, внося значительный вклад в проект. Большое спасибо, Иван."
+            },
+            "title": {
+                "en": "Hayato Shiina, Project Manager, Marvel Co., Ltd",
+                "ja": "Marvel株式会社 プロジェクトマネージャー 椎名隼土",
+                "zh": "Marvel公司项目经理 椎名隼土",
+                "ru": "Хаято Сиина, руководитель проекта, Marvel Co., Ltd"
+            },
+            "icon": "/images/marvel-logo.png"
+        },
+        {
+            "testimonial": {
+                "en": "His attention to detail and dedication to quality were remarkable. He not only met all deadlines but also took the initiative to improve processes, which greatly enhanced the team's workflow.",
+                "ja": "彼の細部へのこだわりと品質への献身は注目に値しました。すべての締切を守るだけでなく、プロセスの改善にも積極的に取り組み、チームのワークフローを大幅に向上させました。",
+                "zh": "他对细节的关注和对质量的投入令人瞩目。他不仅按时完成所有任务，还主动改进流程，大大提升了团队的工作效率。",
+                "ru": "Его внимание к деталям и приверженность качеству были выдающимися. Он не только соблюдал все сроки, но и проявлял инициативу в улучшении процессов, что значительно улучшило рабочий процесс команды."
+            },
+            "title": {
+                "en": "Ihor Vasin, Client",
+                "ja": "クライアント ヒホール・ヴァシン",
+                "zh": "客户 伊霍尔·瓦辛",
+                "ru": "Игорь Васин, клиент"
+            },
+            "icon": ""
+        },
+        {
+            "testimonial": {
+                "en": "His ability to adapt to challenges and maintain excellent productivity was impressive. He showed great initiative in problem-solving and consistently met deadlines with well-executed work.",
+                "ja": "彼の課題への適応能力と優れた生産性の維持は見事でした。問題解決において大きなイニシアチブを発揮し、常に期限内に質の高い仕事を完了しました。",
+                "zh": "他应对挑战的能力和保持卓越生产力的表现令人印象深刻。他在解决问题时展现了极大的主动性，并始终按时完成高质量的工作。",
+                "ru": "Его способность адаптироваться к вызовам и поддерживать высокую производительность впечатляла. Он проявлял большую инициативу в решении проблем и всегда выполнял работу в срок на высоком уровне."
+            },
+            "title": {
+                "en": "Roman, Individual Enterpreneur",
+                "ja": "個人事業主 ロマン",
+                "zh": "个体企业家 罗曼",
+                "ru": "Роман, индивидуальный предприниматель"
+            },
+            "icon": ""
+        }
+    ]
+}

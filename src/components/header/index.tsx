@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link';
 import {
   Dialog,
   DialogPanel,
@@ -17,33 +18,14 @@ import {
   PopoverPanel,
 } from '@headlessui/react'
 import {
-  ArrowPathIcon,
   Bars3Icon,
-  ChartPieIcon,
   CursorArrowRaysIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline'
-import { BuildingOffice2Icon, ChatBubbleOvalLeftIcon, ChevronDownIcon, CloudIcon, CpuChipIcon, EnvelopeIcon, GlobeAltIcon, LanguageIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { BuildingOffice2Icon, ChatBubbleOvalLeftIcon, ChevronDownIcon, CloudIcon, CpuChipIcon, EnvelopeIcon, GlobeAltIcon, LanguageIcon, PhoneIcon } from '@heroicons/react/20/solid'
 
-import _ from "lodash";
-
-const services = [
-  { name: 'IT Development', description: 'Get outstanding unique custom IT solution for your business', href: '#', icon: CpuChipIcon },
-  { name: 'Digital Transformation & Automation', description: 'No more paper work!', href: '#', icon: CursorArrowRaysIcon },
-  { name: 'Cloud Infrastructure', description: 'Improve your business with the cloud', href: '#', icon: CloudIcon },
-  { name: 'Internationalization', description: 'Go global, no hassle!', href: '#', icon: GlobeAltIcon },
-]
-const aboutus = [
-    { name: 'Profile', description: 'What business we do', href: '#', icon: BuildingOffice2Icon },
-    { name: 'Philosophy', description: 'What for we do', href: '#', icon: ChatBubbleOvalLeftIcon },
-    { name: 'Representative Message', description: 'What CEO think about what we do', href: '#', icon: EnvelopeIcon },
-]
-const callsToAction = [
-  { name: 'Portfolio', href: '#', icon: PlayCircleIcon },
-  { name: 'Contact sales', href: '#', icon: PhoneIcon },
-]
+import { useLanguage } from '@/context/languageContext'
+import headerData from "@/data/header.json"
 
 type Language = "en" | "ja" | "zh" | "ru";
 const languageTable: Record<Language, Record<Language, string>> = {
@@ -74,23 +56,52 @@ const languageTable: Record<Language, Record<Language, string>> = {
 }
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [language, setLanguage] = useState<Language>("en");
+  const { language, setLanguage } = useLanguage();
+
+  const services = [
+    { name: headerData.services.list[0].title[language], description: headerData.services.list[0].description[language], href: headerData.services.list[0].href, icon: CpuChipIcon },
+    { name: headerData.services.list[1].title[language], description: headerData.services.list[1].description[language], href: headerData.services.list[1].href, icon: CursorArrowRaysIcon },
+    { name: headerData.services.list[2].title[language], description: headerData.services.list[2].description[language], href: headerData.services.list[2].href, icon: CloudIcon },
+    { name: headerData.services.list[3].title[language], description: headerData.services.list[3].description[language], href: headerData.services.list[3].href, icon: GlobeAltIcon },
+  ]
+  const aboutus = [
+      { name: headerData.about.list[0].title[language], description: headerData.about.list[0].description[language], href: headerData.about.list[0].href, icon: BuildingOffice2Icon },
+      { name: headerData.about.list[1].title[language], description: headerData.about.list[1].description[language], href: headerData.about.list[1].href, icon: ChatBubbleOvalLeftIcon },
+      { name: headerData.about.list[2].title[language], description: headerData.about.list[2].description[language], href: headerData.about.list[2].href, icon: EnvelopeIcon },
+  ]
+  const callsToAction = [
+    { name: 'Contact sales', href: '/contact', icon: PhoneIcon },
+  ]
 
   const options: [Language, string][] = Object.entries(languageTable[language])
     .map(([key, value]) => [key as Language, value]) as [Language, string][];
+
+  const generateHref = (language: string, path: string) => {
+      // Ensure the path is correctly formatted with a leading '/'
+      const cleanPath = path.startsWith('/') ? path : `/${path}`;
+      return `/${language}${cleanPath}`;
+    };
 
   return (
     <header className="bg-white">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              alt=""
-              src="/images/logo-en.png"
-              className="h-4 w-auto"
-            />
-          </a>
+          <Link href={generateHref(language, "/")} className="-m-1.5 p-1.5">
+            <span className="sr-only">Wanya Group</span>
+            {language !== "ja" ? (
+              <img
+                alt=""
+                src="/images/logo-en.png"
+                className="h-4 w-auto"
+              />
+            ) : (
+              <img
+                alt=""
+                src="/images/logo-ja.png"
+                className="h-6 w-auto"
+              />
+            )}
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -105,7 +116,7 @@ export default function Header() {
         <PopoverGroup className="hidden lg:flex lg:gap-x-12">
           <Popover className="relative">
             <PopoverButton className="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900">
-              Services
+              {headerData.services.title[language]}
               <ChevronDownIcon aria-hidden="true" className="size-5 flex-none text-gray-400" />
             </PopoverButton>
 
@@ -123,10 +134,10 @@ export default function Header() {
                       <item.icon aria-hidden="true" className="size-6 text-gray-600 group-hover:text-[#59705b]" />
                     </div>
                     <div className="flex-auto">
-                      <a href={item.href} className="block font-semibold text-gray-900">
+                      <Link href={generateHref(language, item.href)} className="block font-semibold text-gray-900">
                         {item.name}
                         <span className="absolute inset-0" />
-                      </a>
+                      </Link>
                       <p className="mt-1 text-gray-600">{item.description}</p>
                     </div>
                   </div>
@@ -134,21 +145,21 @@ export default function Header() {
               </div>
               <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
                 {callsToAction.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    href={generateHref(language, item.href)}
                     className="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100"
                   >
                     <item.icon aria-hidden="true" className="size-5 flex-none text-gray-400" />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </PopoverPanel>
           </Popover>
           <Popover className="relative">
             <PopoverButton className="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-900">
-              About Us
+              {headerData.about.title[language]}
               <ChevronDownIcon aria-hidden="true" className="size-5 flex-none text-gray-400" />
             </PopoverButton>
 
@@ -166,10 +177,10 @@ export default function Header() {
                       <item.icon aria-hidden="true" className="size-6 text-gray-600 group-hover:text-[#59705b]" />
                     </div>
                     <div className="flex-auto">
-                      <a href={item.href} className="block font-semibold text-gray-900">
+                      <Link href={generateHref(language, item.href)} className="block font-semibold text-gray-900">
                         {item.name}
                         <span className="absolute inset-0" />
-                      </a>
+                      </Link>
                       <p className="mt-1 text-gray-600">{item.description}</p>
                     </div>
                   </div>
@@ -179,7 +190,7 @@ export default function Header() {
                 {callsToAction.map((item) => (
                   <a
                     key={item.name}
-                    href={item.href}
+                    href={generateHref(language, item.href)}
                     className="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100"
                   >
                     <item.icon aria-hidden="true" className="size-5 flex-none text-gray-400" />
@@ -189,16 +200,16 @@ export default function Header() {
               </div>
             </PopoverPanel>
           </Popover>
-          <a href="#" className="text-sm/6 font-semibold text-gray-900">
-            Contact Us
-          </a>
+          <Link href={generateHref(language, "/contact")} className="text-sm/6 font-semibold text-gray-900">
+            {headerData.contact.title[language]}
+          </Link>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
             <Menu as="div" className="relative inline-block text-left">
                 <div>
                     <MenuButton className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                     <LanguageIcon aria-hidden="true" className="size-5 flex-none text-gray-400" />
-                    {languageTable[language][language]}
+                      {languageTable[language][language]}
                     <ChevronDownIcon aria-hidden="true" className="-mr-1 size-5 text-gray-400" />
                     </MenuButton>
                 </div>
@@ -208,7 +219,7 @@ export default function Header() {
                     className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                 >
                     <div className="py-1">
-                        {options.map(([key, value]) => {
+                        {options.map(([key]) => {
                             const nativeVersion = languageTable[key][key];
                             return (
                                 <MenuItem key={key}>
@@ -230,14 +241,22 @@ export default function Header() {
         <div className="fixed inset-0 z-10" />
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link href={generateHref(language, "/")} className="-m-1.5 p-1.5">
               <span className="sr-only">Wanya Group</span>
-              <img
-                alt=""
-                src="/images/logo-en.png"
-                className="h-4 w-auto"
-              />
-            </a>
+              {language !== "ja" ? (
+                <img
+                  alt=""
+                  src="/images/logo-en.png"
+                  className="h-4 w-auto"
+                />
+              ) : (
+                <img
+                  alt=""
+                  src="/images/logo-ja.png"
+                  className="h-6 w-auto"
+                />
+              )}
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -252,7 +271,7 @@ export default function Header() {
               <div className="space-y-2 py-6">
                 <Disclosure as="div" className="-mx-3">
                   <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
-                    About Us
+                      {headerData.about.title[language]}
                     <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-[open]:rotate-180" />
                   </DisclosureButton>
                   <DisclosurePanel className="mt-2 space-y-2">
@@ -260,7 +279,7 @@ export default function Header() {
                       <DisclosureButton
                         key={item.name}
                         as="a"
-                        href={item.href}
+                        href={generateHref(language, item.href)}
                         className="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50"
                       >
                         {item.name}
@@ -270,7 +289,7 @@ export default function Header() {
                 </Disclosure>
                 <Disclosure as="div" className="-mx-3">
                   <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
-                    Services
+                      {headerData.services.title[language]}
                     <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-[open]:rotate-180" />
                   </DisclosureButton>
                   <DisclosurePanel className="mt-2 space-y-2">
@@ -278,7 +297,7 @@ export default function Header() {
                       <DisclosureButton
                         key={item.name}
                         as="a"
-                        href={item.href}
+                        href={generateHref(language, item.href)}
                         className="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50"
                       >
                         {item.name}
@@ -286,22 +305,23 @@ export default function Header() {
                     ))}
                   </DisclosurePanel>
                 </Disclosure>
-                <a
-                  href="#"
+                <Link
+                  href={generateHref(language, "/contact")}
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
-                  Contact Us
-                </a>
+                  {headerData.contact.title[language]}
+                </Link>
                 <Disclosure as="div" className="-mx-3">
                   <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
                     Language
                     <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-[open]:rotate-180" />
                   </DisclosureButton>
                   <DisclosurePanel className="mt-2 space-y-2">
-                  {options.map(([key, value]) => {
+                  {options.map(([key]) => {
                             const nativeVersion = languageTable[key][key];
                             return (
                                 <DisclosureButton
+                                    key={key}
                                     onClick={() => setLanguage(key)}
                                     className="block rounded-lg py-2 pl-6 pr-3 text-sm/7 font-semibold text-gray-900 hover:bg-gray-50"
                                 >
