@@ -1,4 +1,5 @@
 import Banner from "@/components/banner";
+import CookieConsentForm from "@/components/cookie";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import PrivacyPolicyContainer from "@/components/privacypolicy";
@@ -17,6 +18,7 @@ export default function Privacy() {
       <Header />
       <Banner />
       <PrivacyPolicyContainer />
+      <CookieConsentForm />
       <Footer />
     </>
   );

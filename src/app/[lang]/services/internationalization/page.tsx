@@ -1,5 +1,6 @@
 import Banner from "@/components/banner";
 import ContactForm from "@/components/contact";
+import CookieConsentForm from "@/components/cookie";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import InternationalizationContainer from "@/components/internationalizationcontainer";
@@ -19,6 +20,7 @@ export default function ITDevelopmentService() {
       <Banner />
       <InternationalizationContainer />
       <ContactForm />
+      <CookieConsentForm />
       <Footer />
     </>
   );
