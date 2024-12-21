@@ -22,8 +22,8 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   const changeLanguage = (lang: Language) => {
     const currentLang = window.location.pathname.split("/")[1] as Language || "en";
     const updatedPath = `/${lang}${window.location.pathname.substring(currentLang.length + 1)}`;
-    router.push(updatedPath);
     setLanguage(lang);
+    router.push(updatedPath);
   };
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     if (lang && lang !== language) {
       setLanguage(lang);
     }
-  }, [language]);
+  }, []);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage: changeLanguage }}>
