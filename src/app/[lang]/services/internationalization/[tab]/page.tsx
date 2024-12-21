@@ -18,8 +18,12 @@ export function generateStaticParams() {
     );
   }
 
-export default async function InternationalizationService({ params }: { params: { lang: string; tab: string } }) {
-  const { tab } = await params;
+export default async function InternationalizationService({
+    params,
+}: {
+    params: Promise<{ lang: string; tab: string }>; // Awaitable params
+}) {
+    const { tab } = await params;
 
   return (
     <>
