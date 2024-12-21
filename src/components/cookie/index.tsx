@@ -4,6 +4,9 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+declare const gtag: (...args: any[]) => void;
+
 export default function CookieConsentForm() {
   const [isOpen, setIsOpen] = useState(false);
   const [cookies, setCookie] = useCookies(["cookieConsent"]);
@@ -17,11 +20,33 @@ export default function CookieConsentForm() {
 
   const handleAccept = () => {
     setCookie("cookieConsent", "accepted", { path: "/", maxAge: 365 * 24 * 60 * 60 });
+
+    if (typeof gtag !== "undefined") {
+      gtag("event", "cookie_consent",{
+        event_category: "engagement",
+        event_label: "cookie_consent_accepted"
+      });
+      gtag("consent", "update", {
+        analytics_storage:"granted"
+      })
+    }
+
     setIsOpen(false);
   };
 
   const handleDecline = () => {
     setCookie("cookieConsent", "declined", { path: "/", maxAge: 365 * 24 * 60 * 60 });
+
+    if (typeof gtag !== "undefined") {
+      gtag("event", "cookie_consent", {
+        event_category: "engagement",
+        event_label: "cookie_consent_declined",
+      });
+      gtag("consent", "update", {
+        analytics_storage: "denied",
+      });
+    }
+
     setIsOpen(false);
   };
 

@@ -38,6 +38,17 @@ export default function RootLayout({
         <style>
           @import url(&apos;https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+SC:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap&apos;);
         </style>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-THDMME77PX"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-THDMME77PX');
+          `,
+        }}>
+        </script>
       </head>
       <body className={`antialiased`}>
         <Providers>{children}</Providers>
