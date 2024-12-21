@@ -1,4 +1,3 @@
-// context/languageContext.tsx
 "use client";
 
 import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
@@ -14,14 +13,11 @@ interface LanguageContextProps {
 const LanguageContext = createContext<LanguageContextProps | undefined>(undefined);
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>("en");
   const router = useRouter();
 
-  useEffect(() => {
-    // Extract the current language from the URL
-    const lang = window.location.pathname.split("/")[1] as Language;
-    setLanguage(lang || "en");
-  }, []);
+  // Initialize language from the URL during the first render
+  const initialLanguage = (typeof window !== "undefined" && window.location.pathname.split("/")[1]) as Language || "en";
+  const [language, setLanguage] = useState<Language>(initialLanguage);
 
   const changeLanguage = (lang: Language) => {
     const currentLang = window.location.pathname.split("/")[1] as Language || "en";
@@ -29,6 +25,14 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     router.push(updatedPath);
     setLanguage(lang);
   };
+
+  useEffect(() => {
+    // Sync language state with URL in case it was manually updated
+    const lang = window.location.pathname.split("/")[1] as Language;
+    if (lang && lang !== language) {
+      setLanguage(lang);
+    }
+  }, [language]);
 
   return (
     <LanguageContext.Provider value={{ language, setLanguage: changeLanguage }}>
