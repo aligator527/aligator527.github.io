@@ -12,7 +12,7 @@ export function generateStaticParams() {
   return supportedLanguages.map((lang) => ({ lang }));
 }
 
-export default function ITDevelopmentService() {
+export default function InternationalizationService() {
 
   return (
     <>

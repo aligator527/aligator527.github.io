@@ -41,22 +41,22 @@ export default function Footer() {
                             {FooterData.footer.sections.services.title[language]}
                         </h6>
                         <p className="mb-4">
-                        <Link href={generateHref(language, "/service/development")}>
+                        <Link href={generateHref(language, "/services/development")}>
                             {FooterData.footer.sections.services.links.itDevelopment[language]}
                         </Link>
                         </p>
                         <p className="mb-4">
-                            <Link href={generateHref(language, "/service/automation")}>
+                            <Link href={generateHref(language, "/services/automation")}>
                                 {FooterData.footer.sections.services.links.dxAutomation[language]}
                             </Link>
                         </p>
                         <p className="mb-4">
-                            <Link href={generateHref(language, "/service/infrastructure")}>
+                            <Link href={generateHref(language, "/services/infrastructure")}>
                                 {FooterData.footer.sections.services.links.cloudInfrastructure[language]}
                             </Link>
                         </p>
                         <p>
-                            <Link href={generateHref(language, "/service/internationalization")}>
+                            <Link href={generateHref(language, "/services/internationalization")}>
                                 {FooterData.footer.sections.services.links.internationalization[language]}
                             </Link>
                         </p>
