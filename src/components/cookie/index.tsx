@@ -27,6 +27,9 @@ export default function CookieConsentForm() {
         event_label: "cookie_consent_accepted"
       });
       gtag("consent", "update", {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
         analytics_storage:"granted"
       })
     }
@@ -43,6 +46,9 @@ export default function CookieConsentForm() {
         event_label: "cookie_consent_declined",
       });
       gtag("consent", "update", {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
         analytics_storage: "denied",
       });
     }
