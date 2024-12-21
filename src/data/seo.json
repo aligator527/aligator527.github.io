@@ -1,0 +1,242 @@
+{
+    "homepage": {
+        "title": {
+            "en": "Wanya Group | Transforming Ideas into Digital Success",
+            "ja": "ワニャグループ | アイデアをデジタル成功に変える",
+            "zh": "Wanya Group | 将创意转化为数字化成功",
+            "ru": "Wanya Group | Превращаем идеи в цифровой успех"
+        },
+        "description": {
+            "en": "Wanya Group provides end-to-end IT solutions, specializing in website and mobile app development, SaaS platforms, CRM systems, DX consulting, and cloud infrastructure. We also offer expert support for Japan market entry, internationalization, and career assistance in Japan. Your one-stop partner for digital transformation and global business expansion.",
+            "ja": "ワニャグループは、ウェブサイトおよびモバイルアプリ開発、SaaSプラットフォーム、CRMシステム、DXコンサルティング、クラウドインフラストラクチャーに特化したエンドツーエンドのITソリューションを提供します。また、日本市場参入、国際化、そして日本でのキャリア支援における専門的なサポートも行っています。デジタルトランスフォーメーションとグローバルなビジネス拡大を実現するワンストップパートナーです。",
+            "zh": "Wanya Group 提供端到端的 IT 解决方案，专注于网站和移动应用开发、SaaS 平台、CRM 系统、DX 咨询和云基础设施。同时，我们还提供日本市场准入、国际化以及在日本的职业支持等专业服务。您数字化转型和全球业务扩展的一站式合作伙伴。",
+            "ru": "Wanya Group предоставляет комплексные IT-решения, специализируясь на разработке веб-сайтов и мобильных приложений, платформ SaaS, CRM-систем, DX-консалтинге и облачной инфраструктуре. Мы также предлагаем экспертную поддержку по выходу на японский рынок, интернационализации и помощи в карьере в Японии. Ваш универсальный партнер в цифровой трансформации и глобальном развитии бизнеса."
+        },
+        "keywords": {
+            "en": "IT Development, Digital Transformation (DX), Website Development, Mobile App Development, SaaS Solutions, CRM Systems, DevOps Consulting, Cloud Infrastructure, AWS Solutions, Japan Market Entry, Multilingual Applications, International Business Expansion, Career Support in Japan, Visa Assistance Japan, Global Business Consulting",
+            "ja": "IT開発, デジタルトランスフォーメーション (DX), ウェブサイト開発, モバイルアプリ開発, SaaSソリューション, CRMシステム, DevOpsコンサルティング, クラウドインフラストラクチャー, AWSソリューション, 日本市場参入, 多言語アプリケーション, 国際ビジネス展開, 日本でのキャリア支援, ビザ支援日本, グローバルビジネスコンサルティング",
+            "zh": "IT开发, 数字化转型 (DX), 网站开发, 移动应用开发, SaaS解决方案, CRM系统, DevOps咨询, 云基础设施, AWS解决方案, 日本市场准入, 多语言应用, 国际业务扩展, 在日本的职业支持, 签证协助日本, 全球业务咨询",
+            "ru": "Разработка ИТ, Цифровая трансформация (DX), Разработка веб-сайтов, Разработка мобильных приложений, Решения SaaS, Системы CRM, Консалтинг DevOps, Облачная инфраструктура, Решения AWS, Выход на рынок Японии, Мультиязычные приложения, Международное развитие бизнеса, Поддержка карьеры в Японии, Визовая помощь в Японии, Консалтинг по глобальному бизнесу"
+        }
+    },
+    "message": {
+        "title": {
+            "en": "Wanya Group | Message from the Representative",
+            "ja": "ワニャグループ | 代表者からのメッセージ",
+            "zh": "Wanya Group | 代表致辞",
+            "ru": "Wanya Group | Послание от представителя"
+        },
+        "description": {
+            "en": "Representative Ivan Dolgov shares Wanya Group's mission to drive innovation through IT solutions. With expertise in system development, digital transformation, and global business support, Wanya Group helps businesses optimize operations, enhance customer experiences, and succeed in a competitive world.",
+            "ja": "代表者イワン・ドルゴフが語るワニャグループの使命。それはITソリューションを通じて革新を推進することです。システム開発、デジタルトランスフォーメーション、グローバルビジネス支援の専門知識を活かし、ワニャグループは企業の業務を最適化し、顧客体験を向上させ、競争の激しい世界で成功を収めるお手伝いをします。",
+            "zh": "代表伊万·多尔戈夫分享了Wanya Group通过IT解决方案推动创新的使命。凭借在系统开发、数字化转型和全球业务支持方面的专业知识，Wanya Group帮助企业优化运营，提升客户体验，并在竞争激烈的世界中取得成功。",
+            "ru": "Представитель Иван Долгов делится миссией Wanya Group — внедрять инновации через IT-решения. Обладая опытом в разработке систем, цифровой трансформации и поддержке глобального бизнеса, Wanya Group помогает компаниям оптимизировать операции, улучшать клиентский опыт и добиваться успеха в конкурентном мире."
+        },
+        "keywords": {
+            "en": "Representative Message, Ivan Dolgov, Wanya Group, IT Solutions, System Development, Digital Transformation, DX Consulting, Business Optimization, Customer Experience Enhancement, International Business Support, Multilingual Applications, Innovation in IT, Global Business Expansion, Corporate Vision, Empowering Businesses",
+            "ja": "代表者メッセージ, イワン・ドルゴフ, ワニャグループ, ITソリューション, システム開発, デジタルトランスフォーメーション, DXコンサルティング, 業務最適化, 顧客体験向上, 国際ビジネス支援, 多言語アプリケーション, ITの革新, グローバルビジネス展開, 企業ビジョン, ビジネス強化",
+            "zh": "代表致辞, 伊万·多尔戈夫, Wanya Group, IT解决方案, 系统开发, 数字化转型, DX咨询, 业务优化, 客户体验提升, 国际业务支持, 多语言应用, IT创新, 全球业务扩展, 企业愿景, 赋能企业",
+            "ru": "Послание представителя, Иван Долгов, Wanya Group, IT-решения, Разработка систем, Цифровая трансформация, DX-консалтинг, Оптимизация бизнеса, Улучшение клиентского опыта, Поддержка международного бизнеса, Мультиязычные приложения, Инновации в IT, Глобальное развитие бизнеса, Корпоративное видение, Укрепление бизнеса"
+        }
+    },
+    "philosophy": {
+        "title": {
+            "en": "Wanya Group | Our Philosophy",
+            "ja": "ワニャグループ | 私たちの理念",
+            "zh": "Wanya Group | 我们的理念",
+            "ru": "Wanya Group | Наша философия"
+        },
+        "description": {
+            "en": "Discover Wanya Group's mission to foster a unified global community, our vision for a better tomorrow, and our values of empathy, integrity, and excellence. We embrace the global spirit with a commitment to innovation, sustainability, and collective growth. Go Global, Grow Together.",
+            "ja": "ワニャグループの使命である統一されたグローバルコミュニティの促進、より良い明日のためのビジョン、そして共感、誠実さ、卓越性という価値観をご覧ください。私たちはイノベーション、持続可能性、そして集団的成長への取り組みを通じてグローバルな精神を受け入れています。「Go Global, Grow Together」。",
+            "zh": "探索Wanya Group推动统一全球社区的使命、对美好未来的愿景，以及我们的核心价值观——同理心、诚信与卓越。我们以创新、可持续性和集体成长的承诺拥抱全球精神。“Go Global, Grow Together”。",
+            "ru": "Узнайте о миссии Wanya Group по созданию единого глобального сообщества, нашем видении лучшего будущего и наших ценностях — эмпатии, честности и стремления к совершенству. Мы принимаем глобальный дух, привержены инновациям, устойчивости и коллективному росту. «Go Global, Grow Together»."
+        },
+        "keywords": {
+            "en": "Wanya Group Philosophy, Global Community, Empowerment, Innovation, Sustainability, Empathy, Integrity, Excellence, Borderless World, Human-Centric Values, Technology and Humanity, Inclusive Future, Global Connectivity, Sustainable Solutions, Collective Growth, Go Global Grow Together",
+            "ja": "ワニャグループの理念, グローバルコミュニティ, エンパワーメント, イノベーション, 持続可能性, 共感, 誠実さ, 卓越性, 国境なき世界, 人間中心の価値観, テクノロジーと人間性, 包括的な未来, グローバルなつながり, 持続可能なソリューション, 集団的成長, Go Global, Grow Together",
+            "zh": "Wanya Group 理念, 全球社区, 赋权, 创新, 可持续性, 同理心, 诚信, 卓越, 无国界世界, 以人为本的价值观, 技术与人性, 包容性未来, 全球互联, 可持续解决方案, 集体成长, Go Global, Grow Together",
+            "ru": "Философия Wanya Group, Глобальное сообщество, Расширение возможностей, Инновации, Устойчивое развитие, Эмпатия, Честность, Совершенство, Мир без границ, Ценности, ориентированные на человека, Технологии и человечность, Инклюзивное будущее, Глобальная взаимосвязанность, Устойчивые решения, Коллективный рост, Go Global, Grow Together"
+        }
+    },
+    "profile": {
+        "title": {
+            "en": "Wanya Group | Company Profile",
+            "ja": "ワニャグループ | 会社概要",
+            "zh": "Wanya Group | 公司简介",
+            "ru": "Wanya Group | Профиль компании"
+        },
+        "description": {
+            "en": "Explore Wanya Group's company profile. Founded on 2024/12/04 and led by Representative Ivan Dolgov, Wanya Group specializes in IT system development, DX consulting, web content creation, and international business support. We are committed to innovation and excellence in delivering tailored solutions for businesses worldwide.",
+            "ja": "ワニャグループの会社概要をご覧ください。2024年12月4日に設立され、代表のイワン・ドルゴフが率いるワニャグループは、ITシステム開発、DXコンサルティング、ウェブコンテンツ制作、国際ビジネス支援を専門としています。私たちは、世界中の企業にカスタマイズされたソリューションを提供するために、革新と卓越性に取り組んでいます。",
+            "zh": "了解 Wanya Group 的公司简介。成立于 2024 年 12 月 4 日，由代表伊万·多尔戈夫领导，Wanya Group 专注于 IT 系统开发、DX 咨询、网页内容创作以及国际业务支持。我们致力于通过创新和卓越为全球企业提供量身定制的解决方案。",
+            "ru": "Узнайте больше о профиле компании Wanya Group. Основанная 04.12.2024 года под руководством представителя Ивана Долгова, Wanya Group специализируется на разработке IT-систем, DX-консалтинге, создании веб-контента и поддержке международного бизнеса. Мы стремимся к инновациям и совершенству, предоставляя индивидуальные решения для бизнеса по всему миру."
+        },
+        "keywords": {
+            "en": "Wanya Group, Company Profile, Ivan Dolgov, IT Consulting, System Development, DX Consulting, Web Content Production, Business Process Digitization, Foreign Employment Consulting, International Expansion Support, IT Maintenance and Operation, Individual Entrepreneur, 2024 Establishment, PayPay Bank",
+            "ja": "ワニャグループ, 会社概要, イワン・ドルゴフ, ITコンサルティング, システム開発, DXコンサルティング, ウェブコンテンツ制作, 業務プロセスのデジタル化, 外国人雇用コンサルティング, 国際展開支援, IT保守・運用, 個人事業主, 2024年設立, PayPay銀行",
+            "zh": "Wanya Group, 公司简介, 伊万·多尔戈夫, IT咨询, 系统开发, DX咨询, 网页内容制作, 业务流程数字化, 外籍雇员咨询, 国际扩展支持, IT维护与运营, 个体经营者, 2024年成立, PayPay银行",
+            "ru": "Wanya Group, Профиль компании, Иван Долгов, IT-консалтинг, Разработка систем, DX-консалтинг, Создание веб-контента, Цифровизация бизнес-процессов, Консалтинг по найму иностранных сотрудников, Поддержка международной экспансии, Поддержка и обслуживание IT, Индивидуальный предприниматель, Основание в 2024 году, PayPay Bank"
+        }
+    },
+    "contact": {
+        "title": {
+            "en": "Wanya Group | Contact Us",
+            "ja": "ワニャグループ | お問い合わせ",
+            "zh": "Wanya Group | 联系我们",
+            "ru": "Wanya Group | Свяжитесь с нами"
+        },
+        "description": {
+            "en": "Get in touch with Wanya Group for inquiries about IT system development, DX consulting, web content creation, and international business support. Contact us at +81 80-4753-2781 or through our online form. We're here to provide tailored solutions for your business needs.",
+            "ja": "ワニャグループへのお問い合わせはこちら。ITシステム開発、DXコンサルティング、ウェブコンテンツ制作、国際ビジネス支援に関するご質問は、お電話(+81 80-4753-2781)またはオンラインフォームでお気軽にご連絡ください。お客様のビジネスニーズに合わせたソリューションを提供いたします。",
+            "zh": "欢迎联系 Wanya Group，咨询 IT 系统开发、DX 咨询、网页内容创作以及国际业务支持。请拨打 +81 80-4753-2781 或通过在线表单联系我们。我们将为您的业务需求提供量身定制的解决方案。",
+            "ru": "Свяжитесь с Wanya Group для получения консультаций по разработке IT-систем, DX-консалтингу, созданию веб-контента и поддержке международного бизнеса. Звоните нам по телефону +81 80-4753-2781 или воспользуйтесь нашей онлайн-формой. Мы предоставим индивидуальные решения для ваших бизнес-задач."
+        },
+        "keywords": {
+            "en": "Wanya Group Contact, Contact Us, IT Consulting, System Development, DX Consulting, Web Content Production, Business Support, International Expansion, IT Solutions, Inquiry, Customer Support, Phone Number, Email, Business Consultation, Tailored Solutions",
+            "ja": "ワニャグループ連絡先, お問い合わせ, ITコンサルティング, システム開発, DXコンサルティング, ウェブコンテンツ制作, ビジネス支援, 国際展開, ITソリューション, 問い合わせ, カスタマーサポート, 電話番号, メール, ビジネス相談, カスタマイズソリューション",
+            "zh": "Wanya Group 联系方式, 联系我们, IT 咨询, 系统开发, DX 咨询, 网页内容制作, 业务支持, 国际扩展, IT 解决方案, 咨询, 客户支持, 电话号码, 邮件, 商务咨询, 定制解决方案",
+            "ru": "Контакты Wanya Group, Свяжитесь с нами, IT-консалтинг, Разработка систем, DX-консалтинг, Создание веб-контента, Поддержка бизнеса, Международная экспансия, IT-решения, Запрос, Поддержка клиентов, Номер телефона, Электронная почта, Бизнес-консультация, Индивидуальные решения"
+        }
+    },
+    "privacy": {
+        "title": {
+            "en": "Wanya Group | Privacy Policy",
+            "ja": "ワニャグループ | プライバシーポリシー",
+            "zh": "Wanya Group | 隐私政策",
+            "ru": "Wanya Group | Политика конфиденциальности"
+        },
+        "description": {
+            "en": "Learn about Wanya Group's commitment to protecting your privacy. Our privacy policy explains how we collect, use, and safeguard your personal information in compliance with applicable laws and regulations. Your trust is our priority.",
+            "ja": "ワニャグループのプライバシー保護への取り組みについてご覧ください。私たちのプライバシーポリシーでは、個人情報の収集、使用、保護方法を、適用される法律および規制に準拠して説明しています。お客様の信頼が私たちの最優先事項です。",
+            "zh": "了解 Wanya Group 在保护您隐私方面的承诺。我们的隐私政策解释了我们如何根据适用法律和法规收集、使用和保护您的个人信息。您的信任是我们的首要任务。",
+            "ru": "Узнайте о приверженности Wanya Group защите вашей конфиденциальности. Наша политика конфиденциальности объясняет, как мы собираем, используем и защищаем вашу личную информацию в соответствии с применимыми законами и нормативами. Ваше доверие — наш приоритет."
+        },
+        "keywords": {
+            "en": "Wanya Group Privacy Policy, Privacy Protection, Personal Information, Data Collection, Data Usage, Data Security, Privacy Compliance, Information Safeguard, Confidentiality, Trust, User Privacy, Privacy Regulations, GDPR Compliance, Data Handling, Privacy Commitment",
+            "ja": "ワニャグループ プライバシーポリシー, プライバシー保護, 個人情報, データ収集, データ使用, データセキュリティ, プライバシー遵守, 情報保護, 機密性, 信頼, ユーザープライバシー, プライバシー規制, GDPR準拠, データ処理, プライバシーへの取り組み",
+            "zh": "Wanya Group 隐私政策, 隐私保护, 个人信息, 数据收集, 数据使用, 数据安全, 隐私合规, 信息保护, 保密性, 信任, 用户隐私, 隐私法规, GDPR 合规, 数据处理, 隐私承诺",
+            "ru": "Политика конфиденциальности Wanya Group, Защита конфиденциальности, Персональная информация, Сбор данных, Использование данных, Безопасность данных, Соблюдение конфиденциальности, Защита информации, Конфиденциальность, Доверие, Конфиденциальность пользователей, Регулирование конфиденциальности, Соответствие GDPR, Обработка данных, Обязательство по конфиденциальности"
+        }
+    },
+    "dx": {
+        "title": {
+            "en": "Wanya Group | DX & Automation Services",
+            "ja": "ワニャグループ | DX＆自動化サービス",
+            "zh": "Wanya Group | 数字化转型与自动化服务",
+            "ru": "Wanya Group | Услуги DX и автоматизации"
+        },
+        "description": {
+            "en": "Transform your business with Wanya Group's DX and automation services. From digitizing workflows to enhancing customer experiences and implementing DevOps practices, we help businesses increase efficiency, reduce costs, and thrive in the digital age. Partner with us for smarter, future-ready solutions.",
+            "ja": "ワニャグループのDXおよび自動化サービスでビジネスを変革しましょう。ワークフローのデジタル化から顧客体験の向上、DevOps実践の導入まで、効率を向上させ、コストを削減し、デジタル時代での成功をサポートします。よりスマートで未来対応のソリューションのために、私たちとパートナーになりましょう。",
+            "zh": "通过 Wanya Group 的数字化转型与自动化服务改变您的业务。从工作流程数字化到提升客户体验，再到实施 DevOps 实践，我们帮助企业提高效率、降低成本，在数字时代蓬勃发展。与我们合作，共创更智能、更具未来感的解决方案。",
+            "ru": "Трансформируйте ваш бизнес с помощью услуг DX и автоматизации от Wanya Group. От цифровизации рабочих процессов до улучшения клиентского опыта и внедрения практик DevOps — мы помогаем бизнесу повышать эффективность, снижать затраты и процветать в цифровую эпоху. Станьте нашим партнером для более умных и готовых к будущему решений."
+        },
+        "keywords": {
+            "en": "DX Services, Digital Transformation, Business Automation, Workflow Digitalization, DevOps Implementation, Customer Experience Enhancement, DX Consulting, Business Efficiency, Cost Reduction, Intelligent Solutions, Future-Ready Business, Innovation in DX, Wanya Group Services, Modernizing Business Processes, Smarter Business Solutions",
+            "ja": "DXサービス, デジタルトランスフォーメーション, 業務自動化, ワークフローのデジタル化, DevOpsの導入, 顧客体験の向上, DXコンサルティング, 業務効率化, コスト削減, インテリジェントソリューション, 未来対応のビジネス, DXの革新, ワニャグループサービス, ビジネスプロセスの近代化, スマートビジネスソリューション",
+            "zh": "DX服务, 数字化转型, 业务自动化, 工作流程数字化, DevOps实施, 客户体验提升, DX咨询, 提高业务效率, 降低成本, 智能解决方案, 面向未来的业务, DX创新, Wanya Group服务, 现代化业务流程, 更智能的业务解决方案",
+            "ru": "Услуги DX, Цифровая трансформация, Автоматизация бизнеса, Цифровизация рабочих процессов, Внедрение DevOps, Улучшение клиентского опыта, Консалтинг DX, Повышение эффективности бизнеса, Снижение затрат, Интеллектуальные решения, Готовый к будущему бизнес, Инновации в DX, Услуги Wanya Group, Модернизация бизнес-процессов, Более умные бизнес-решения"
+        }
+    },
+    "development": {
+        "title": {
+            "en": "Wanya Group | IT Development Services",
+            "ja": "ワニャグループ | IT開発サービス",
+            "zh": "Wanya Group | IT开发服务",
+            "ru": "Wanya Group | Услуги IT-разработки"
+        },
+        "description": {
+            "en": "Explore Wanya Group's IT development services, offering one-stop solutions from requirements definition to utilizing the latest technology. Specializing in websites, SaaS applications, mobile apps, CRM systems, and management platforms, we deliver secure and innovative digital solutions tailored to your business needs.",
+            "ja": "ワニャグループのIT開発サービスをご覧ください。要件定義から最新技術の活用まで、ワンストップでソリューションを提供します。ウェブサイト、SaaSアプリケーション、モバイルアプリ、CRMシステム、管理プラットフォームを専門とし、お客様のビジネスニーズに合わせた安全で革新的なデジタルソリューションを提供します。",
+            "zh": "探索 Wanya Group 的 IT 开发服务，提供从需求定义到利用最新技术的一站式解决方案。我们专注于网站、SaaS 应用程序、移动应用程序、CRM 系统和管理平台，为您的业务需求量身定制安全且创新的数字化解决方案。",
+            "ru": "Ознакомьтесь с услугами IT-разработки от Wanya Group, предлагающими комплексные решения от определения требований до использования новейших технологий. Мы специализируемся на разработке веб-сайтов, SaaS-приложений, мобильных приложений, CRM-систем и платформ управления, предоставляя безопасные и инновационные цифровые решения, адаптированные к вашим бизнес-потребностям."
+        },
+        "keywords": {
+            "en": "IT Development Services, Website Development, SaaS Application Development, Mobile App Development, CRM Systems, Management Platforms, Digital Solutions, Business Growth, User-Friendly IT Products, Bespoke Solutions, Scalable Software, Technology Innovation, Workflow Optimization, Operational Efficiency, Wanya Group IT Services",
+            "ja": "IT開発サービス, ウェブサイト開発, SaaSアプリケーション開発, モバイルアプリ開発, CRMシステム, 管理プラットフォーム, デジタルソリューション, ビジネス成長, ユーザーフレンドリーなIT製品, オーダーメイドソリューション, スケーラブルなソフトウェア, 技術革新, ワークフロー最適化, 業務効率化, ワニャグループITサービス",
+            "zh": "IT开发服务, 网站开发, SaaS应用开发, 移动应用开发, CRM系统, 管理平台, 数字化解决方案, 业务增长, 用户友好型IT产品, 定制化解决方案, 可扩展软件, 技术创新, 工作流程优化, 运营效率, Wanya Group IT服务",
+            "ru": "Услуги IT-разработки, Разработка веб-сайтов, Разработка SaaS-приложений, Разработка мобильных приложений, CRM-системы, Платформы управления, Цифровые решения, Рост бизнеса, Удобные IT-продукты, Индивидуальные решения, Масштабируемое ПО, Инновации в технологиях, Оптимизация рабочих процессов, Операционная эффективность, Услуги IT от Wanya Group"
+        }
+    },
+    "infrastructure": {
+        "title": {
+            "en": "Wanya Group | Cloud Infrastructure Services",
+            "ja": "ワニャグループ | クラウドインフラサービス",
+            "zh": "Wanya Group | 云基础设施服务",
+            "ru": "Wanya Group | Услуги облачной инфраструктуры"
+        },
+        "description": {
+            "en": "Optimize your business with Wanya Group's cloud infrastructure services. From design to implementation and management, we create scalable, secure, and cost-effective cloud environments. Specializing in AWS and secure network design, we empower businesses to achieve peak performance and stay competitive in the digital era.",
+            "ja": "ワニャグループのクラウドインフラサービスでビジネスを最適化しましょう。設計から導入、管理まで、スケーラブルで安全かつコスト効果の高いクラウド環境を構築します。AWSとセキュアなネットワーク設計を専門とし、ビジネスが最高のパフォーマンスを発揮し、デジタル時代で競争力を維持できるよう支援します。",
+            "zh": "通过 Wanya Group 的云基础设施服务优化您的业务。从设计到实施和管理，我们创建可扩展、安全且具成本效益的云环境。我们专注于 AWS 和安全网络设计，帮助企业实现卓越性能，并在数字时代保持竞争力。",
+            "ru": "Оптимизируйте свой бизнес с помощью услуг облачной инфраструктуры от Wanya Group. От проектирования до внедрения и управления мы создаем масштабируемые, безопасные и экономически эффективные облачные среды. Специализируясь на AWS и безопасном проектировании сетей, мы помогаем бизнесу достигать максимальной производительности и оставаться конкурентоспособным в цифровую эпоху."
+        },
+        "keywords": {
+            "en": "Cloud Infrastructure Services, Scalable IT Solutions, Secure Network Design, AWS Solutions, Cloud Migration, Cloud Optimization, IT Infrastructure, Business Growth, Resilient Systems, Cost-Effective IT, Cloud Flexibility, Digital Innovation, Competitive Edge, Wanya Group Cloud Services",
+            "ja": "クラウドインフラサービス, スケーラブルなITソリューション, セキュアなネットワーク設計, AWSソリューション, クラウド移行, クラウド最適化, ITインフラ, ビジネス成長, レジリエントシステム, コスト効率の高いIT, クラウドの柔軟性, デジタルイノベーション, 競争優位性, ワニャグループクラウドサービス",
+            "zh": "云基础设施服务, 可扩展 IT 解决方案, 安全网络设计, AWS 解决方案, 云迁移, 云优化, IT 基础设施, 业务增长, 弹性系统, 成本效益 IT, 云灵活性, 数字创新, 竞争优势, Wanya Group 云服务",
+            "ru": "Услуги облачной инфраструктуры, Масштабируемые IT-решения, Безопасное проектирование сетей, Решения AWS, Миграция в облако, Оптимизация облака, IT-инфраструктура, Рост бизнеса, Устойчивые системы, Экономически эффективное IT, Гибкость облака, Цифровые инновации, Конкурентное преимущество, Облачные услуги Wanya Group"
+        }
+    },
+    "japanese-company": {
+        "title": {
+            "en": "Wanya Group | Internationalization Services for Japanese Companies",
+            "ja": "ワニャグループ | 日本企業向け国際化サービス",
+            "zh": "Wanya Group | 面向日本企业的国际化服务",
+            "ru": "Wanya Group | Услуги интернационализации для японских компаний"
+        },
+        "description": {
+            "en": "Expand globally with Wanya Group's internationalization services tailored for Japanese companies. From multilingual app development to consulting on overseas expansion and diverse workforce integration, we help businesses enter new markets, connect with international audiences, and build sustainable global brands with ease.",
+            "ja": "ワニャグループの日本企業向け国際化サービスで、グローバル展開を加速させましょう。多言語アプリの開発から海外進出のコンサルティング、多様な労働力の統合支援まで、新しい市場への参入、国際的な顧客とのつながり、持続可能なグローバルブランドの構築をサポートします。",
+            "zh": "通过 Wanya Group 专为日本企业量身打造的国际化服务实现全球扩展。从多语言应用程序开发到海外扩展咨询和多元化劳动力整合，我们帮助企业进入新市场，与国际受众建立联系，并轻松构建可持续的全球品牌。",
+            "ru": "Расширьте свое присутствие на глобальном рынке с услугами интернационализации от Wanya Group, разработанными специально для японских компаний. От разработки многоязычных приложений до консалтинга по международной экспансии и интеграции разнообразной рабочей силы — мы помогаем компаниям выходить на новые рынки, налаживать связи с международной аудиторией и строить устойчивые глобальные бренды."
+        },
+        "keywords": {
+            "en": "Internationalization Services, Japanese Companies, Multilingual App Development, Global Expansion Consulting, Diverse Workforce Support, Foreign Employment Consulting, Global Market Entry, Sustainable Global Presence, International Audiences, Cultural Adaptation, Legal Compliance, Global Brand Building, Wanya Group International Services",
+            "ja": "国際化サービス, 日本企業, 多言語アプリ開発, グローバル展開コンサルティング, 多様な労働力支援, 外国人雇用コンサルティング, グローバル市場参入, 持続可能なグローバルプレゼンス, 国際的なオーディエンス, 文化適応, 法令遵守, グローバルブランド構築, ワニャグループ国際サービス",
+            "zh": "国际化服务, 日本企业, 多语言应用开发, 全球扩展咨询, 多元化劳动力支持, 外籍雇员咨询, 全球市场进入, 可持续全球存在, 国际受众, 文化适应, 法律合规, 全球品牌建设, Wanya Group 国际服务",
+            "ru": "Услуги интернационализации, Японские компании, Разработка многоязычных приложений, Консалтинг по международной экспансии, Поддержка разнообразной рабочей силы, Консалтинг по иностранным сотрудникам, Выход на глобальный рынок, Устойчивое глобальное присутствие, Международная аудитория, Культурная адаптация, Соответствие законодательству, Построение глобального бренда, Международные услуги Wanya Group"
+        }
+    },
+    "non-japanese-company": {
+        "title": {
+            "en": "Wanya Group | Japan Market Entry Support for Non-Japanese Companies",
+            "ja": "ワニャグループ | 外国企業向け日本市場参入サポート",
+            "zh": "Wanya Group | 非日本企业进入日本市场支持",
+            "ru": "Wanya Group | Поддержка выхода на японский рынок для иностранных компаний"
+        },
+        "description": {
+            "en": "Expand your business into Japan with Wanya Group's expert market entry support services. From multilingual app development and strategic consulting to hiring local staff and adapting to Japanese culture and legal requirements, we provide tailored solutions to ensure your success in the Japanese market.",
+            "ja": "ワニャグループの専門的な市場参入サポートサービスで、日本でのビジネスを拡大しましょう。多言語アプリの開発や戦略的コンサルティングから、現地スタッフの採用、日本の文化や法的要件への適応まで、お客様の日本市場での成功を確実にするためのカスタマイズされたソリューションを提供します。",
+            "zh": "通过 Wanya Group 的专业市场进入支持服务，将您的业务拓展到日本。从多语言应用开发和战略咨询到招聘本地员工以及适应日本文化和法律要求，我们提供定制化解决方案，确保您在日本市场取得成功。",
+            "ru": "Расширьте свой бизнес в Японии с помощью услуг поддержки выхода на рынок от Wanya Group. От разработки многоязычных приложений и стратегического консалтинга до найма местного персонала и адаптации к японской культуре и юридическим требованиям — мы предоставляем индивидуальные решения, чтобы обеспечить ваш успех на японском рынке."
+        },
+        "keywords": {
+            "en": "Japan Market Entry Support, Non-Japanese Companies, Multilingual App Development, Japanese Market Expansion, Local Staff Hiring, Corporate Environment Support, Business Expansion in Japan, Legal Compliance in Japan, Japanese Market Consulting, Sustainable Presence in Japan, Wanya Group Japan Services, Cultural Adaptation, Japan Business Solutions, Market Entry Strategy",
+            "ja": "日本市場参入サポート, 外国企業, 多言語アプリ開発, 日本市場拡大, 現地スタッフ採用, 企業環境サポート, 日本でのビジネス拡大, 日本の法令遵守, 日本市場コンサルティング, 持続可能な日本でのプレゼンス, ワニャグループ日本サービス, 文化適応, 日本ビジネスソリューション, 市場参入戦略",
+            "zh": "日本市场进入支持, 非日本企业, 多语言应用开发, 日本市场扩展, 本地员工招聘, 企业环境支持, 日本业务扩展, 日本法律合规, 日本市场咨询, 可持续的日本市场存在, Wanya Group 日本服务, 文化适应, 日本商业解决方案, 市场进入战略",
+            "ru": "Поддержка выхода на японский рынок, Иностранные компании, Разработка многоязычных приложений, Расширение японского рынка, Набор местного персонала, Поддержка корпоративной среды, Расширение бизнеса в Японии, Юридическое соответствие в Японии, Консалтинг японского рынка, Устойчивое присутствие в Японии, Услуги Wanya Group в Японии, Культурная адаптация, Бизнес-решения для Японии, Стратегия выхода на рынок"
+        }
+    },
+    "work-in-japan": {
+        "title": {
+            "en": "Wanya Group | Work in Japan Support Services",
+            "ja": "ワニャグループ | 日本での就職支援サービス",
+            "zh": "Wanya Group | 日本工作支持服务",
+            "ru": "Wanya Group | Поддержка трудоустройства в Японии"
+        },
+        "description": {
+            "en": "Start your career in Japan effortlessly with Wanya Group's support. From job search assistance and career planning to visa application and housing support, we provide step-by-step guidance to help you adapt to Japanese workplace culture and daily life. Your journey to success in Japan starts here.",
+            "ja": "ワニャグループのサポートで、日本でのキャリアをスムーズにスタートしましょう。就職支援やキャリアプランニングから、ビザ申請、住居サポートまで、日本の職場文化や日常生活に適応するためのステップバイステップのガイダンスを提供します。日本での成功への道はここから始まります。",
+            "zh": "通过 Wanya Group 的支持，轻松开启您在日本的职业生涯。从求职协助和职业规划到签证申请和住房支持，我们提供分步骤指导，帮助您适应日本的职场文化和日常生活。您在日本成功的旅程从这里开始。",
+            "ru": "Начните свою карьеру в Японии легко с поддержкой Wanya Group. От помощи в поиске работы и карьерного планирования до подачи заявления на визу и поддержки с жильем — мы предоставляем пошаговые инструкции, чтобы помочь вам адаптироваться к японской рабочей культуре и повседневной жизни. Ваш путь к успеху в Японии начинается здесь."
+        },
+        "keywords": {
+            "en": "Work in Japan Support, Career in Japan, Job Search Assistance, Career Planning, Visa Application Support, Japanese Workplace Guidance, Document Preparation, Housing Assistance in Japan, Daily Life Support, Transition to Japan, Job Opportunities in Japan, Adaptation to Japan, Wanya Group Career Services",
+            "ja": "日本での就職支援, キャリア支援, 就職支援サービス, キャリアプランニング, ビザ申請サポート, 日本の職場ガイド, 書類準備, 日本での住居支援, 日常生活サポート, 日本への移行, 日本での就職機会, 日本での適応, ワニャグループキャリアサービス",
+            "zh": "日本工作支持, 日本职业生涯, 求职协助, 职业规划, 签证申请支持, 日本职场指导, 文件准备, 日本住房支持, 日常生活支持, 过渡到日本, 日本工作机会, 适应日本, Wanya Group 职业服务",
+            "ru": "Поддержка работы в Японии, Карьера в Японии, Помощь в поиске работы, Планирование карьеры, Поддержка визового оформления, Руководство по японскому рабочему месту, Подготовка документов, Поддержка с жильем в Японии, Поддержка в повседневной жизни, Переход в Японию, Возможности трудоустройства в Японии, Адаптация в Японии, Карьерные услуги Wanya Group"
+        }
+    }
+}

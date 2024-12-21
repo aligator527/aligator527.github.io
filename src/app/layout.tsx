@@ -5,6 +5,26 @@ import { Providers } from "./providers";
 export const metadata: Metadata = {
   title: "Wanya Group | ワニャグループ",
   description: "Wanya Group specialize in professional system development, digital transformation (DX) solutions, and global business support. Websites, SaaS, mobile apps, CRM systems, DevOps, and multilingual applications. Empower your business with expert consulting and innovative technologies",
+  robots: {
+    index: true,
+    follow: true
+  },
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en': '/en',
+      'ja': '/ja',
+      'zh': '/zh',
+      'ru': '/ru',
+    },
+  },
+  openGraph: {
+    title: 'Wanya Group | ワニャグループ',
+    description: 'Wanya Group specialize in professional system development, digital transformation (DX) solutions, and global business support. Websites, SaaS, mobile apps, CRM systems, DevOps, and multilingual applications. Empower your business with expert consulting and innovative technologies',
+    url: 'https://aligator527.github.io/',
+    siteName: 'Wanya Group | ワニャグループ',
+    images: '/images/layout-opengraph.png',
+  }
 };
 
 export default function RootLayout({
