@@ -1,0 +1,242 @@
+---
+/**
+ * A visual summary of the chronology that follows it on the page. Contract engagements overlap,
+ * which a plain list cannot show; lanes make the concurrency visible. The list below carries the
+ * same information in text, so the graphic itself is hidden from assistive technology.
+ *
+ * Wide screens get a lane chart on a month grid. Narrow screens recompose it as one labelled row
+ * per engagement, because a month column is only a few pixels there and organization names cannot
+ * sit above the bars.
+ */
+import { buildTimeline, yearTicks } from '../../utils/timeline';
+import { formatRange } from '../../utils/dates';
+import type { Role } from '../../utils/experience';
+
+interface Props {
+  roles: Role[];
+  now: string;
+}
+
+const { roles, now } = Astro.props;
+const timeline = buildTimeline(
+  roles.map((role) => ({
+    id: role.id,
+    start: role.data.startDate,
+    end: role.data.endDate,
+    label: role.data.organization,
+    role,
+  })),
+  now,
+);
+const ticks = yearTicks(timeline.startMonth, timeline.months);
+// The year graticule must start on the first January, not on the first engagement's month.
+const yearOffset = (ticks.find((tick) => tick.column > 1)?.column ?? 1) - 1;
+---
+
+<figure class="timeline" aria-describedby="timeline-caption">
+  <div
+    class="chart"
+    aria-hidden="true"
+    style={`--months: ${timeline.months}; --lanes: ${timeline.lanes}; --year-offset: ${yearOffset};`}
+  >
+    {ticks.map((tick, index) => (
+      <span
+        class:list={[
+          'meta',
+          'tick',
+          // Only the outer years are labelled on narrow screens; the rest would collide.
+          { edge: index === 0 || index === ticks.length - 1, last: index === ticks.length - 1 },
+        ]}
+        style={`--col: ${tick.column}; --span: ${tick.span};`}
+      >
+        {tick.year}
+      </span>
+    ))}
+    {timeline.bars.map((bar) => (
+      <span
+        class:list={[
+          'bar',
+          {
+            current: bar.item.end === null,
+            'label-end': bar.column + bar.span > timeline.months * 0.8,
+          },
+        ]}
+        style={`--col: ${bar.column}; --span: ${bar.span}; --lane: ${bar.lane + 2};`}
+      >
+        <span class="bar-label">
+          <span class="bar-org">{bar.item.label}</span>
+          <span class="meta bar-range">{formatRange(bar.item.start, bar.item.end)}</span>
+        </span>
+        {bar.item.end === null && <span class="meta now">Now</span>}
+      </span>
+    ))}
+  </div>
+  <figcaption id="timeline-caption" class="caption">
+    <span class="meta">Fig. 1</span> Engagements over time. Contract work overlapped with other
+    roles; the chronology below lists each one in full.
+  </figcaption>
+</figure>
+
+<style>
+  @layer components {
+    .timeline {
+      margin: 0;
+    }
+
+    .chart {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(var(--months), minmax(0, 1fr));
+      grid-template-rows: 2rem repeat(var(--lanes), 4.25rem);
+      row-gap: var(--space-2);
+      padding-block-end: var(--space-2);
+      border-block-end: var(--rule-ink);
+      background-image: linear-gradient(to right, var(--line-default) 1px, transparent 1px);
+      background-size: calc(100% / var(--months) * 12) 100%;
+      background-position-x: calc(100% / var(--months) * var(--year-offset));
+    }
+
+    .tick {
+      grid-row: 1;
+      grid-column: var(--col) / span var(--span);
+      padding-inline-start: 0.35rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .bar {
+      position: relative;
+      grid-column: var(--col) / span var(--span);
+      grid-row: var(--lane);
+      align-self: end;
+      block-size: 0.5rem;
+      background: var(--text-primary);
+    }
+
+    .bar.current {
+      background: var(--signal);
+      min-inline-size: 0.5rem;
+    }
+
+    .bar-label {
+      position: absolute;
+      inset-block-end: calc(100% + 0.3rem);
+      inset-inline-start: 0;
+      display: grid;
+      white-space: nowrap;
+      line-height: 1.25;
+    }
+
+    .label-end .bar-label {
+      inset-inline-start: auto;
+      inset-inline-end: 0;
+      text-align: end;
+    }
+
+    .bar-org {
+      font-size: var(--text-small);
+      font-weight: 600;
+    }
+
+    .bar-range {
+      color: var(--text-secondary);
+    }
+
+    /* The current engagement is one month wide, so the bar alone is a 5px nub; the marker names it. */
+    .now {
+      position: absolute;
+      inset-block-start: calc(100% + 0.35rem);
+      inset-inline-end: 0;
+      color: var(--signal-text);
+      white-space: nowrap;
+    }
+
+    .caption {
+      margin-block-start: var(--space-3);
+      font-size: var(--text-small);
+      color: var(--text-secondary);
+      max-inline-size: 60ch;
+    }
+
+    .caption .meta {
+      color: var(--text-primary);
+      margin-inline-end: var(--space-2);
+    }
+
+    /* Narrow screens: one row per engagement, so overlapping bars stay visible while each label gets its own row. */
+    @media (max-width: 47.99rem) {
+      .chart {
+        grid-template-rows: 1.25rem;
+        grid-auto-rows: auto;
+        row-gap: var(--space-3);
+        background-size: calc(100% / var(--months) * 24) 100%;
+      }
+
+      /* A partial year is only a few columns wide here, so let the label overrun its cell. */
+      .tick {
+        font-size: 0.6875rem;
+        letter-spacing: 0;
+        padding-inline-start: 0.2rem;
+        overflow: visible;
+      }
+
+      .tick.last {
+        text-align: end;
+        padding-inline: 0 0.2rem;
+      }
+
+      .tick:not(.edge) {
+        visibility: hidden;
+      }
+
+      .bar {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        align-self: auto;
+        display: grid;
+        grid-template-columns: repeat(var(--months), minmax(0, 1fr));
+        block-size: auto;
+        background: none;
+      }
+
+      .bar::after {
+        content: '';
+        grid-column: var(--col) / span var(--span);
+        grid-row: 2;
+        min-inline-size: 3px;
+        block-size: 0.4rem;
+        margin-block-start: 0.3rem;
+        background: var(--text-primary);
+      }
+
+      /* The row is a layout grid here, so the signal belongs on the bar only, not behind the label. */
+      .bar.current {
+        background: none;
+      }
+
+      .bar.current::after {
+        background: var(--signal);
+      }
+
+      .bar-label,
+      .label-end .bar-label {
+        position: static;
+        grid-column: 1 / -1;
+        grid-row: 1;
+        text-align: start; /* labels own a full row here, so the wide-screen end-anchoring is moot */
+      }
+
+      .bar-range {
+        font-size: 0.625rem;
+      }
+
+      .now {
+        position: static;
+        grid-column: 1 / -1;
+        grid-row: 3;
+        color: var(--signal-text);
+      }
+    }
+  }
+</style>

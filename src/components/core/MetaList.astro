@@ -1,0 +1,58 @@
+---
+interface Props {
+  items: { label: string; value: string; note?: string | undefined }[];
+  /** `rail` stacks label over value; `inline` puts them on one row. */
+  layout?: 'rail' | 'inline';
+  class?: string;
+}
+
+const { items, layout = 'rail', class: className } = Astro.props;
+---
+
+<dl class:list={['meta-list', layout, className]}>
+  {items.map((item) => (
+    <div class="row">
+      <dt class="meta meta-quiet">{item.label}</dt>
+      <dd>
+        {item.value}
+        {item.note && <span class="note">{item.note}</span>}
+      </dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  @layer components {
+    .meta-list {
+      display: grid;
+    }
+
+    .row {
+      padding-block: var(--space-2);
+      border-block-start: var(--rule);
+    }
+
+    .rail .row {
+      display: grid;
+      gap: 0.125rem;
+    }
+
+    .inline .row {
+      display: grid;
+      grid-template-columns: 8.5rem minmax(0, 1fr);
+      gap: var(--space-3);
+      align-items: baseline;
+    }
+
+    dd {
+      margin: 0;
+      font-size: var(--text-small);
+      line-height: 1.45;
+    }
+
+    .note {
+      display: block;
+      color: var(--text-secondary);
+    }
+  }
+</style>

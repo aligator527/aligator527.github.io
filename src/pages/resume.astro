@@ -1,0 +1,270 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { profile } from '../data/profile';
+import { formatRange } from '../utils/dates';
+import { getRoles } from '../utils/experience';
+import { ENGAGEMENT_LABEL } from '../utils/work';
+import { RESUME_PDF_PATH, hasResumePdf } from '../utils/resume';
+import { withBase } from '../utils/url';
+
+const roles = await getRoles();
+const pdfAvailable = hasResumePdf();
+---
+
+<BaseLayout
+  title="Résumé"
+  description="Résumé of Ivan Dolgov, Tech Lead and full-stack engineer in Tokyo: experience, technologies, education, certifications, and languages."
+>
+  <article class="resume page" aria-labelledby="resume-name">
+    <header class="resume-head">
+      <p class="meta meta-quiet sheet">Résumé · Rev. {profile.revision.replace('-', '/')}</p>
+      <h1 id="resume-name">{profile.name}</h1>
+      <p class="descriptor">{profile.descriptor}</p>
+      <ul class="contact">
+        <li>{profile.location}</li>
+        <li>
+          <a href={`mailto:${profile.email}`}>{profile.email}</a>
+        </li>
+        <li>
+          <a href={profile.github.href}>{profile.github.label}</a>
+        </li>
+        <li>
+          <a href={profile.linkedin.href}>{profile.linkedin.label}</a>
+        </li>
+      </ul>
+      {pdfAvailable && (
+        <p class="download">
+          <a href={withBase(`/${RESUME_PDF_PATH}`)} data-testid="resume-pdf">
+            Download PDF<span aria-hidden="true"> ↓</span>
+          </a>
+        </p>
+      )}
+    </header>
+
+    <section aria-labelledby="summary-heading" class="block">
+      <h2 id="summary-heading" class="meta">
+        Summary
+      </h2>
+      <p>
+        Tech Lead and full-stack engineer with {profile.experience} of experience. Technical
+        planning and architecture, requirements definition, code review, and delivery of web systems
+        on React, TypeScript, Go, and AWS, mostly in enterprise contexts. Currently Tech Lead for a
+        warehouse management system in logistics.
+      </p>
+    </section>
+
+    <section aria-labelledby="experience-heading" class="block">
+      <h2 id="experience-heading" class="meta">
+        Experience
+      </h2>
+      <ol class="entries" role="list">
+        {roles.map((role) => (
+          <li class="entry">
+            <div class="entry-head">
+              <h3>
+                {role.data.role}
+                <span class="org">
+                  {' '}
+                  · {role.data.organization}
+                  {role.data.organizationNote && ` (${role.data.organizationNote})`}
+                </span>
+              </h3>
+              <p class="meta meta-quiet">
+                {formatRange(role.data.startDate, role.data.endDate)}
+                {role.data.engagementType && ` · ${ENGAGEMENT_LABEL[role.data.engagementType]}`}
+              </p>
+            </div>
+            <p>{role.data.summary}</p>
+            <ul>
+              {role.data.scope.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section aria-labelledby="skills-heading" class="block">
+      <h2 id="skills-heading" class="meta">
+        Technologies
+      </h2>
+      <dl class="skills">
+        {profile.technologies.map((group) => (
+          <div>
+            <dt>{group.area}</dt>
+            <dd>{group.items.join(', ')}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section aria-labelledby="edu-heading" class="block">
+      <h2 id="edu-heading" class="meta">
+        Education and certifications
+      </h2>
+      <ul class="compact">
+        {profile.education.map((item) => (
+          <li>
+            {item.title}, {item.institution} ({item.period}
+            {item.status && `, ${item.status.toLowerCase()}`})
+          </li>
+        ))}
+        {profile.certifications.map((item) => (
+          <li>
+            {item.title} ({item.issuer})
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="lang-heading" class="block">
+      <h2 id="lang-heading" class="meta">
+        Languages
+      </h2>
+      <ul class="compact">
+        {profile.languages.map((item) => (
+          <li>
+            {item.name}: {item.level}
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  @layer components {
+    .resume {
+      max-inline-size: 52rem;
+      padding-block: var(--space-6) 0;
+    }
+
+    .sheet {
+      padding-block-end: var(--space-2);
+      margin-block-end: var(--space-4);
+      border-block-end: var(--rule);
+    }
+
+    .descriptor {
+      font-size: var(--text-h3);
+      margin-block-start: var(--space-1);
+    }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 var(--space-4);
+      margin-block-start: var(--space-3);
+      padding: 0;
+      list-style: none;
+    }
+
+    .contact a,
+    .download a {
+      display: inline-block;
+      padding-block: 0.625rem;
+    }
+
+    .download a {
+      font-weight: 600;
+    }
+
+    .block {
+      margin-block-start: var(--space-6);
+      padding-block-start: var(--space-2);
+      border-block-start: var(--rule-ink);
+    }
+
+    .block > h2 {
+      margin-block-end: var(--space-3);
+      font-size: var(--text-meta);
+      letter-spacing: var(--tracking-meta);
+    }
+
+    .entries {
+      display: grid;
+      gap: var(--space-5);
+    }
+
+    .entry-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0 var(--space-4);
+      align-items: baseline;
+      margin-block-end: var(--space-1);
+    }
+
+    .entry h3 {
+      font-size: var(--text-body-lg);
+      letter-spacing: 0;
+    }
+
+    .org {
+      font-weight: 400;
+    }
+
+    .entry ul,
+    .compact {
+      margin-block-start: var(--space-1);
+      padding-inline-start: 1.1em;
+      list-style: disc; /* prose list: the reset removes markers from classed lists */
+    }
+
+    .skills {
+      display: grid;
+    }
+
+    .skills div {
+      display: grid;
+      gap: 0.1rem;
+      padding-block: var(--space-2);
+      border-block-end: var(--rule);
+    }
+
+    .skills dt {
+      font-weight: 600;
+    }
+
+    .skills dd {
+      margin: 0;
+    }
+
+    @media (min-width: 48rem) {
+      .skills div {
+        grid-template-columns: 13rem minmax(0, 1fr);
+        gap: var(--space-4);
+      }
+    }
+
+    @media print {
+      /* Global print rules hide the site chrome; these are résumé-specific. */
+      .download {
+        display: none;
+      }
+
+      :global(html) {
+        font-size: 10pt;
+      }
+
+      .resume {
+        max-inline-size: none;
+        padding: 0;
+      }
+
+      .block {
+        margin-block-start: 1.2em;
+        break-inside: avoid-page;
+      }
+
+      .entry {
+        break-inside: avoid;
+      }
+
+      a {
+        text-decoration: none;
+      }
+    }
+  }
+</style>

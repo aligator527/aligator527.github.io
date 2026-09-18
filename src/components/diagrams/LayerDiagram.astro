@@ -1,0 +1,193 @@
+---
+/**
+ * One semantic structure — an ordered list of labelled groups — drawn three ways:
+ * `stack` for technology layers, `scope` for areas of responsibility,
+ * `sequence` for delivery stages read left to right.
+ */
+interface Props {
+  layers: { label: string; items: string[] }[];
+  caption: string;
+  variant: 'stack' | 'scope' | 'sequence';
+  /** Short prefix for layer IDs, e.g. `L` → L1, L2. */
+  prefix?: string;
+  class?: string;
+}
+
+const { layers, caption, variant, prefix = 'L', class: className } = Astro.props;
+---
+
+<figure class:list={['layer-diagram', variant, className]}>
+  <ol class="layers">
+    {layers.map((layer, index) => (
+      <li class="layer">
+        <p class="layer-label">
+          <span class="meta layer-id">
+            {prefix}
+            {index + 1}
+          </span>
+          <span class="meta">{layer.label}</span>
+        </p>
+        <ul class="items" role="list">
+          {layer.items.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </li>
+    ))}
+  </ol>
+  <figcaption class="caption">{caption}</figcaption>
+</figure>
+
+<style>
+  @layer components {
+    .layer-diagram {
+      margin: 0;
+      container-type: inline-size;
+    }
+
+    .layers {
+      display: grid;
+    }
+
+    .layer-label {
+      display: flex;
+      gap: var(--space-2);
+      align-items: baseline;
+    }
+
+    .layer-id {
+      color: var(--signal-text);
+      min-inline-size: 2.2em;
+    }
+
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+    }
+
+    .items li {
+      padding: 0.3rem 0.6rem;
+      border: var(--rule-strong);
+      background: var(--surface-paper-elevated);
+      font-size: var(--text-small);
+      line-height: 1.3;
+    }
+
+    .caption {
+      margin-block-start: var(--space-3);
+      padding-block-start: var(--space-2);
+      border-block-start: var(--rule);
+      font-size: var(--text-small);
+      color: var(--text-secondary);
+      max-inline-size: 60ch;
+    }
+
+    /* STACK: layers joined by a vertical spine, like a request descending through tiers. */
+    .stack .layers {
+      gap: 0;
+    }
+
+    .stack .layer {
+      position: relative;
+      display: grid;
+      gap: var(--space-1);
+      padding-block: var(--space-3);
+      padding-inline-start: var(--space-4);
+      border-inline-start: var(--rule-ink);
+    }
+
+    .stack .layer::before {
+      content: '';
+      position: absolute;
+      inset-inline-start: -4px;
+      inset-block-start: calc(var(--space-3) + 0.35em);
+      inline-size: 7px;
+      block-size: 7px;
+      background: var(--surface-paper);
+      border: 1px solid var(--text-primary);
+    }
+
+    .stack .layer:first-child::before {
+      background: var(--signal);
+      border-color: var(--signal);
+    }
+
+    /* SCOPE: a ruled register; label column fixed, items flow. */
+    .scope .layer {
+      display: grid;
+      gap: var(--space-2);
+      padding-block: var(--space-3);
+      border-block-start: var(--rule-strong);
+    }
+
+    .scope .layer:last-child {
+      border-block-end: var(--rule-strong);
+    }
+
+    .scope .items li {
+      background: transparent;
+      border-color: var(--line-default);
+    }
+
+    .scope .layer:last-child .items li {
+      border-style: dashed;
+      border-color: var(--line-strong);
+    }
+
+    @container (min-width: 32rem) {
+      .scope .layer {
+        grid-template-columns: 11rem minmax(0, 1fr);
+        align-items: baseline;
+      }
+    }
+
+    /* SEQUENCE: stages in reading order with arrows on wide containers, a numbered column on narrow. */
+    .sequence .layers {
+      gap: var(--space-3);
+    }
+
+    .sequence .layer {
+      display: grid;
+      align-content: start;
+      gap: var(--space-2);
+      padding-block-start: var(--space-2);
+      border-block-start: 2px solid var(--text-primary);
+    }
+
+    .sequence .items {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .sequence .items li {
+      padding: 0;
+      border: 0;
+      background: none;
+    }
+
+    @container (min-width: 40rem) {
+      .sequence .layers {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+        gap: var(--grid-gutter);
+      }
+
+      .sequence .layer {
+        position: relative;
+      }
+
+      .sequence .layer:not(:last-child)::after {
+        content: '→';
+        position: absolute;
+        inset-block-start: -0.8em;
+        inset-inline-end: calc(var(--grid-gutter) / -2 - 0.35em);
+        padding-inline: 0.15em;
+        background: var(--surface-paper);
+        color: var(--signal-text);
+        font-family: var(--font-mono);
+        line-height: 1.6;
+      }
+    }
+  }
+</style>

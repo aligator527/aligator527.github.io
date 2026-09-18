@@ -1,0 +1,56 @@
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+  }
+
+  html {
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none;
+  }
+
+  body {
+    min-block-size: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img,
+  picture,
+  svg {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4 {
+    overflow-wrap: break-word;
+  }
+
+  /* Classed lists are presentational by default. Restore markers explicitly where a list is
+     prose (`.scope`, `.compact`, `.prose li`) rather than relying on this reset. */
+  ul[class],
+  ol[class],
+  dl[class] {
+    padding: 0;
+    list-style: none;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+}

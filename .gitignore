@@ -1,0 +1,14 @@
+node_modules/
+dist/
+dist-subpath/
+.astro/
+playwright-report/
+test-results/
+e2e/.screenshots/
+
+CLAUDE.local.md
+.claude/settings.local.json
+.env
+.env.*
+!.env.example
+.DS_Store

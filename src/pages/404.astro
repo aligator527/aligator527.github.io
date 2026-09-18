@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ActionLink from '../components/core/ActionLink.astro';
+import { withBase } from '../utils/url';
+---
+
+<BaseLayout title="Not found" description="The requested page does not exist." noindex>
+  <section class="page not-found" aria-labelledby="nf-title">
+    <div class="grid">
+      <p class="meta code">Status 404 / Route not found</p>
+      <h1 id="nf-title">No page exists at this address.</h1>
+      <p class="lead">The link may be outdated, or the page may have moved.</p>
+      <ol class="routes" role="list" aria-label="Where to go next">
+        <li>
+          <span class="meta meta-quiet" aria-hidden="true">
+            → 01
+          </span>
+          <ActionLink href={withBase('/work/')}>Work</ActionLink>
+        </li>
+        <li>
+          <span class="meta meta-quiet" aria-hidden="true">
+            → 02
+          </span>
+          <ActionLink href={withBase('/')}>Home</ActionLink>
+        </li>
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  @layer components {
+    .not-found {
+      padding-block: var(--space-8) 0;
+    }
+
+    .grid > * {
+      grid-column: 1 / -1;
+    }
+
+    .code {
+      color: var(--signal-text);
+      padding-block-end: var(--space-2);
+      margin-block-end: var(--space-5);
+      border-block-end: var(--rule);
+    }
+
+    h1 {
+      max-inline-size: 16ch;
+    }
+
+    .lead {
+      margin-block-start: var(--space-4);
+      font-size: var(--text-body-lg);
+      color: var(--text-secondary);
+    }
+
+    .routes {
+      display: grid;
+      gap: var(--space-2);
+      margin-block-start: var(--space-6);
+      padding: 0;
+      list-style: none;
+    }
+
+    .routes li {
+      display: flex;
+      gap: var(--space-4);
+      align-items: center;
+    }
+
+    @media (min-width: 64rem) {
+      .grid > h1,
+      .grid > .lead,
+      .grid > .routes {
+        grid-column: 3 / span 8;
+      }
+    }
+  }
+</style>

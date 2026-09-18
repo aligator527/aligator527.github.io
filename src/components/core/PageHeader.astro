@@ -1,0 +1,56 @@
+---
+interface Props {
+  /** Orientation label, e.g. `Sheet 01 / Work`. */
+  sheet: string;
+  title: string;
+  lead?: string;
+}
+
+const { sheet, title, lead } = Astro.props;
+---
+
+<header class="page-header page">
+  <div class="grid">
+    <p class="meta sheet">{sheet}</p>
+    <h1 class="title">{title}</h1>
+    {lead && <p class="lead">{lead}</p>}
+    <slot />
+  </div>
+</header>
+
+<style>
+  @layer components {
+    .page-header {
+      padding-block: var(--space-6) var(--space-6);
+    }
+
+    .grid > :global(*) {
+      grid-column: 1 / -1;
+      min-inline-size: 0;
+    }
+
+    .sheet {
+      color: var(--text-secondary);
+      padding-block-end: var(--space-2);
+      margin-block-end: var(--space-5);
+      border-block-end: var(--rule);
+    }
+
+    .title {
+      max-inline-size: 18ch;
+    }
+
+    .lead {
+      margin-block-start: var(--space-4);
+      font-size: var(--text-body-lg);
+      max-inline-size: 52ch;
+    }
+
+    @media (min-width: 64rem) {
+      .title,
+      .lead {
+        grid-column: 3 / span 8;
+      }
+    }
+  }
+</style>

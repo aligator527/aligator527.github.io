@@ -1,0 +1,153 @@
+---
+import { profile } from '../../data/profile';
+import { formatMonth } from '../../utils/dates';
+---
+
+<footer class="site-footer" aria-labelledby="contact-heading">
+  <div class="page grid footer-grid">
+    <div class="lead">
+      <p class="meta signal-mark" aria-hidden="true">
+        END / CONTACT
+      </p>
+      <h2 id="contact-heading" class="heading">
+        If you have a system to design or ship, write to me.
+      </h2>
+      <p class="availability">{profile.availability}</p>
+    </div>
+    <dl class="channels">
+      <div>
+        <dt class="meta meta-quiet">Email</dt>
+        <dd>
+          <a class="email" href={`mailto:${profile.email}`}>
+            {profile.email}
+          </a>
+        </dd>
+      </div>
+      <div>
+        <dt class="meta meta-quiet">GitHub</dt>
+        <dd>
+          <a href={profile.github.href} rel="me">
+            {profile.github.label}
+          </a>
+        </dd>
+      </div>
+      <div>
+        <dt class="meta meta-quiet">LinkedIn</dt>
+        <dd>
+          <a href={profile.linkedin.href} rel="me">
+            {profile.linkedin.label}
+          </a>
+        </dd>
+      </div>
+      <div>
+        <dt class="meta meta-quiet">Base</dt>
+        <dd>
+          {profile.location} · {profile.timeZone}
+        </dd>
+      </div>
+    </dl>
+    <p class="colophon meta">
+      <span>© 2026 {profile.name}</span>
+      <span>Rev. {formatMonth(profile.revision)}</span>
+      <span>Static HTML · Astro · no client JavaScript</span>
+    </p>
+  </div>
+</footer>
+
+<style>
+  @layer components {
+    /* Dark context: remap the semantic text tokens once so shared utilities stay legible. */
+    .site-footer {
+      --text-secondary: var(--text-inverse-secondary);
+      --signal-text: var(--signal-on-ink);
+      margin-block-start: var(--space-section);
+      background: var(--surface-ink);
+      color: var(--text-inverse);
+      padding-block: var(--space-7) var(--space-4);
+    }
+
+    .footer-grid {
+      row-gap: var(--space-6);
+    }
+
+    .lead,
+    .channels,
+    .colophon {
+      grid-column: 1 / -1;
+    }
+
+    .signal-mark {
+      color: var(--signal-text);
+      margin-block-end: var(--space-3);
+    }
+
+    .heading {
+      font-size: var(--text-h2);
+      max-inline-size: 18ch;
+    }
+
+    .availability {
+      margin-block-start: var(--space-4);
+      color: var(--text-inverse-secondary);
+      max-inline-size: 42ch;
+    }
+
+    .channels {
+      display: grid;
+      align-content: end;
+      gap: var(--space-3);
+    }
+
+    .channels > div {
+      display: grid;
+      grid-template-columns: 7rem 1fr;
+      gap: var(--space-3);
+      align-items: baseline;
+      padding-block-end: var(--space-3);
+      border-block-end: 1px solid var(--line-inverse);
+    }
+
+    .channels dd {
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .channels a {
+      display: inline-block;
+      padding-block: 0.625rem;
+      margin-block: -0.625rem;
+      text-decoration-color: var(--line-strong);
+    }
+
+    .channels a:hover {
+      text-decoration-color: var(--signal);
+    }
+
+    .email {
+      font-size: var(--text-body-lg);
+    }
+
+    .site-footer :focus-visible {
+      outline-color: var(--focus-on-ink);
+    }
+
+    .colophon {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-5);
+      padding-block-start: var(--space-4);
+      border-block-start: 1px solid var(--line-inverse);
+      color: var(--text-inverse-secondary);
+    }
+
+    @media (min-width: 64rem) {
+      .lead {
+        grid-column: 1 / span 7;
+      }
+
+      .channels {
+        grid-column: 8 / -1;
+      }
+    }
+  }
+</style>

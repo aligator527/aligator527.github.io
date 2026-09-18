@@ -1,0 +1,342 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/core/SectionHeading.astro';
+import DeliveryFlow from '../components/diagrams/DeliveryFlow.astro';
+import WorkEntry from '../components/work/WorkEntry.astro';
+import CapabilityMatrix from '../components/work/CapabilityMatrix.astro';
+import ActionLink from '../components/core/ActionLink.astro';
+import { profile } from '../data/profile';
+import { formatMonth } from '../utils/dates';
+import { withBase } from '../utils/url';
+import { getWork } from '../utils/work';
+
+const work = await getWork();
+const featured = work.filter((entry) => entry.data.featured);
+const current = work.find((entry) => entry.data.status === 'active');
+const principles = (await getCollection('principles'))
+  .filter((entry) => entry.data.approved)
+  .sort((a, b) => a.data.order - b.data.order);
+
+// Section numbers follow what actually renders, so hiding an unapproved section leaves no gap.
+let sectionIndex = 0;
+const nextIndex = () => ++sectionIndex;
+---
+
+<BaseLayout description={`${profile.descriptor} in Tokyo. ${profile.promise}`}>
+  <section class="hero page" aria-labelledby="hero-title">
+    <div class="grid hero-grid">
+      <p class="meta hero-sheet" aria-hidden="true">
+        <span>Sheet 00 / Identity</span>
+        <span>Rev. {formatMonth(profile.revision)}</span>
+      </p>
+
+      <h1 id="hero-title" class="hero-name">
+        <span class="visually-hidden">
+          {profile.name}, {profile.descriptor}
+        </span>
+        <span aria-hidden="true">
+          Ivan
+          <br />
+          Dolgov
+        </span>
+      </h1>
+
+      <div class="hero-position">
+        <p class="descriptor" aria-hidden="true">
+          {profile.descriptor}
+        </p>
+        <p class="promise">{profile.promise}</p>
+        <p class="meta meta-quiet supporting">{profile.supportingLine}</p>
+      </div>
+
+      <dl class="hero-rail" aria-label="Profile summary">
+        {current && (
+          <div>
+            <dt class="meta meta-quiet">Current</dt>
+            <dd>
+              <a href={withBase(`/work/${current.id}/`)}>
+                {current.data.role} — {current.data.title}
+              </a>
+              <span class="quiet">{current.data.organization}</span>
+            </dd>
+          </div>
+        )}
+        <div>
+          <dt class="meta meta-quiet">Experience</dt>
+          <dd>{profile.experience}</dd>
+        </div>
+        <div>
+          <dt class="meta meta-quiet">Base</dt>
+          <dd>
+            {profile.location}
+            <span class="quiet">{profile.timeZone}</span>
+          </dd>
+        </div>
+        <div>
+          <dt class="meta meta-quiet">Languages</dt>
+          <dd>
+            <ul class="langs" role="list">
+              {profile.languages.map((language) => (
+                <li>
+                  <span class="meta" aria-hidden="true">
+                    {language.code}
+                  </span>
+                  <span class="visually-hidden">{language.name}</span>{' '}
+                  <span class="quiet">{language.level}</span>
+                </li>
+              ))}
+            </ul>
+          </dd>
+        </div>
+        <div>
+          <dt class="meta meta-quiet">Status</dt>
+          <dd>
+            <span class="availability">{profile.availability}</span>
+            <a class="rail-email" href={`mailto:${profile.email}`}>
+              {profile.email}
+            </a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="hero-flow">
+      <DeliveryFlow work={work} />
+    </div>
+  </section>
+
+  <section class="section page" aria-labelledby="work-heading">
+    <SectionHeading
+      index={nextIndex()}
+      id="work-heading"
+      title="Selected work"
+      note="Most recent first. Case studies explain decisions; briefs state only role, scope, and system facts that can be published."
+    />
+    <div class="work-list">
+      {featured.map((entry) => (
+        <WorkEntry entry={entry} now={profile.revision} />
+      ))}
+    </div>
+    <p class="section-action">
+      <ActionLink href={withBase('/work/')}>All work</ActionLink>
+      <ActionLink href={withBase('/experience/')}>Full chronology</ActionLink>
+    </p>
+  </section>
+
+  <section class="section page" aria-labelledby="capabilities-heading">
+    <SectionHeading
+      index={nextIndex()}
+      id="capabilities-heading"
+      title="Capabilities, with evidence"
+      note="Each mark points to a project where the responsibility is documented. Unmarked does not mean unable; it means not shown here."
+    />
+    <div class="grid">
+      <div class="matrix-wrap">
+        <CapabilityMatrix work={featured} />
+      </div>
+    </div>
+  </section>
+
+  {principles.length > 0 && (
+    <section class="section page" aria-labelledby="principles-heading">
+      <SectionHeading index={nextIndex()} id="principles-heading" title="Working principles" />
+      <ol class="principles">
+        {principles.map((principle, index) => (
+          <li class="principle">
+            <p class="meta signal-text">P-{String(index + 1).padStart(2, '0')}</p>
+            <h3>{principle.data.title}</h3>
+            <p>{principle.data.body}</p>
+            <p class="meta meta-quiet">Practice: {principle.data.evidence}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )}
+</BaseLayout>
+
+<style>
+  @layer components {
+    .hero {
+      padding-block: var(--space-5) 0;
+    }
+
+    .hero-grid {
+      row-gap: var(--space-5);
+      align-items: end;
+    }
+
+    .hero-grid > * {
+      grid-column: 1 / -1;
+      min-inline-size: 0;
+    }
+
+    .hero-sheet {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding-block-end: var(--space-2);
+      border-block-end: var(--rule);
+      color: var(--text-secondary);
+    }
+
+    .hero-name {
+      font-size: var(--text-display);
+      font-weight: 700;
+      line-height: var(--leading-tight);
+      letter-spacing: var(--tracking-display);
+      text-wrap: initial;
+    }
+
+    .descriptor {
+      font-size: var(--text-h3);
+      font-weight: 600;
+      letter-spacing: var(--tracking-heading);
+      padding-block-start: var(--space-2);
+      border-block-start: 3px solid var(--signal);
+      inline-size: fit-content;
+    }
+
+    .promise {
+      margin-block-start: var(--space-3);
+      font-size: var(--text-body-lg);
+      max-inline-size: 34ch;
+    }
+
+    .supporting {
+      margin-block-start: var(--space-4);
+    }
+
+    .hero-rail {
+      display: grid;
+      align-self: stretch;
+      align-content: end;
+    }
+
+    .hero-rail > div {
+      display: grid;
+      grid-template-columns: 6.5rem minmax(0, 1fr);
+      gap: var(--space-2);
+      align-items: baseline;
+      padding-block: var(--space-2);
+      border-block-start: var(--rule);
+    }
+
+    .hero-rail dd {
+      margin: 0;
+      font-size: var(--text-small);
+      line-height: 1.45;
+    }
+
+    .hero-rail dd a {
+      display: inline-block;
+      padding-block: 0.2rem; /* keeps the target at or above 24px (WCAG 2.2 SC 2.5.8) */
+    }
+
+    .quiet {
+      display: block;
+      color: var(--text-secondary);
+    }
+
+    .langs {
+      display: grid;
+      gap: 0.2rem;
+      padding: 0;
+      list-style: none;
+    }
+
+    .langs .quiet {
+      display: inline;
+    }
+
+    .availability {
+      display: block;
+    }
+
+    .rail-email {
+      display: block;
+      margin-block-start: var(--space-1);
+      padding-block: 0.5rem;
+      overflow-wrap: anywhere;
+    }
+
+    .hero-flow {
+      margin-block-start: var(--space-7);
+    }
+
+    .work-list {
+      display: grid;
+    }
+
+    .section-action {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3) var(--space-5);
+      padding-block-start: var(--space-4);
+      border-block-start: var(--rule-strong);
+    }
+
+    .matrix-wrap {
+      grid-column: 1 / -1;
+    }
+
+    .principles {
+      display: grid;
+      gap: var(--space-5);
+      padding: 0;
+      list-style: none;
+    }
+
+    .principle {
+      display: grid;
+      gap: var(--space-2);
+      padding-block-start: var(--space-3);
+      border-block-start: var(--rule);
+      max-inline-size: var(--measure);
+    }
+
+    @media (min-width: 48rem) {
+      .hero-grid > .hero-position {
+        grid-column: 1 / span 6;
+      }
+
+      /* At this width the rail would be three narrow columns, so it takes its own full-width row. */
+      .hero-grid > .hero-rail {
+        grid-column: 1 / -1;
+      }
+
+      .principles {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 64rem) {
+      .hero {
+        padding-block-start: var(--space-6);
+      }
+
+      .hero-grid > .hero-sheet {
+        grid-column: 1 / -1;
+      }
+
+      .hero-grid > .hero-name {
+        grid-column: 1 / span 8;
+        grid-row: 2 / span 2;
+      }
+
+      .hero-grid > .hero-position {
+        grid-column: 1 / span 6;
+        grid-row: 4;
+      }
+
+      .hero-grid > .hero-rail {
+        grid-column: 9 / -1;
+        grid-row: 2 / span 3;
+      }
+
+      .matrix-wrap {
+        grid-column: 3 / -1;
+      }
+    }
+  }
+</style>

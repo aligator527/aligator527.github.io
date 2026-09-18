@@ -1,0 +1,26 @@
+# Wording approved by Ivan on 2026-09-18. Entries render only when `approved: true`.
+# Each principle is framed as a working practice and names the CV evidence it rests on.
+- id: decide-in-writing
+  order: 1
+  title: Record decisions where the team can find them
+  body: Architecture decisions, guidelines, and standards are written down so that a choice made once does not have to be re-argued in every review.
+  evidence: Architecture standardization, engineering guidelines, and architecture decisions — Next-Generation WMS.
+  approved: true
+- id: prove-before-committing
+  order: 2
+  title: Prove risky choices with a small build first
+  body: When a technology or integration is uncertain, a bounded proof of concept is cheaper than discovering the limitation in production.
+  evidence: Technical PoCs — Next-Generation WMS and packaging-industry SaaS.
+  approved: true
+- id: review-as-standard-setting
+  order: 3
+  title: Use code review to spread standards, not only to catch defects
+  body: Reviews are where conventions become shared practice across a team, including external developers.
+  evidence: Code reviews and standards — AI chat game platform; reviews and external developer support — packaging-industry SaaS.
+  approved: true
+- id: requirements-are-engineering
+  order: 4
+  title: Treat requirements as engineering work
+  body: Clarifying what a client or operator needs is part of the system design, not a hand-off that happens before it.
+  evidence: Requirements definition and client coordination — Flaretech client projects and freelance work.
+  approved: true

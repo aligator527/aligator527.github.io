@@ -1,0 +1,157 @@
+---
+import { profile } from '../../data/profile';
+import { getPrimaryNav } from '../../utils/navigation';
+import { isCurrent, withBase } from '../../utils/url';
+
+const base = import.meta.env.BASE_URL;
+const pathname = Astro.url.pathname;
+// Compare against paths without the deployment base so the same logic works under any subpath.
+const localPath = '/' + pathname.slice(withBase('/', base).length);
+const nav = await getPrimaryNav();
+const homeCurrent = isCurrent('/', localPath);
+---
+
+<header class="site-header">
+  <div class="page bar">
+    <a class="wordmark" href={withBase('/')} aria-current={homeCurrent}>
+      <span class="wordmark-name">{profile.name}</span>
+      <span class="meta meta-quiet wordmark-role">{profile.descriptor}</span>
+    </a>
+    <nav class="primary" aria-label="Primary">
+      <ul class="nav-list" role="list">
+        {nav.map((item) => (
+          <li>
+            <a href={withBase(item.href)} aria-current={isCurrent(item.href, localPath)}>
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a
+        class="resume-link"
+        href={withBase('/resume/')}
+        aria-current={isCurrent('/resume/', localPath)}
+      >
+        Résumé
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  @layer components {
+    .site-header {
+      border-block-end: var(--rule-ink);
+    }
+
+    .bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+      justify-content: space-between;
+      column-gap: var(--space-5);
+    }
+
+    .wordmark {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-block-size: 3.5rem;
+      padding-block: var(--space-1);
+      text-decoration: none;
+    }
+
+    .wordmark-name {
+      font-weight: 700;
+      font-size: 1.0625rem;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .wordmark-role {
+      display: none;
+    }
+
+    .primary {
+      display: flex;
+      align-items: stretch;
+      gap: var(--space-4);
+    }
+
+    .nav-list {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .nav-list a,
+    .resume-link {
+      display: flex;
+      align-items: center;
+      min-block-size: var(--tap-min);
+      block-size: 100%;
+      font-size: var(--text-small);
+      text-decoration: none;
+      border-block-end: 3px solid transparent;
+      padding-block-start: 3px;
+      transition: border-color var(--duration-fast) var(--ease-standard);
+    }
+
+    .nav-list a:hover,
+    .resume-link:hover {
+      border-block-end-color: var(--line-strong);
+    }
+
+    .nav-list a[aria-current='page'],
+    .resume-link[aria-current='page'] {
+      border-block-end-color: var(--signal);
+      font-weight: 600;
+    }
+
+    .resume-link {
+      padding-inline-start: var(--space-4);
+      border-inline-start: var(--rule);
+    }
+
+    @media (forced-colors: active) {
+      .nav-list a,
+      .resume-link {
+        border-block-end-color: Canvas;
+      }
+
+      .nav-list a[aria-current='page'],
+      .resume-link[aria-current='page'] {
+        border-block-end-color: Highlight;
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+      }
+    }
+
+    /* Narrow screens: wordmark on its own row, all links on a second full-width row. */
+    @media (max-width: 35.99rem) {
+      .primary {
+        flex-basis: 100%;
+        justify-content: space-between;
+        gap: var(--space-2);
+        border-block-start: var(--rule);
+      }
+
+      .nav-list {
+        gap: var(--space-3);
+      }
+
+      .resume-link {
+        padding-inline-start: var(--space-3);
+      }
+    }
+
+    @media (min-width: 64rem) {
+      .wordmark {
+        min-block-size: 4.5rem;
+      }
+
+      .wordmark-role {
+        display: block;
+      }
+    }
+  }
+</style>

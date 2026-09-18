@@ -1,0 +1,323 @@
+---
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import MetaList from '../components/core/MetaList.astro';
+import EnvironmentMatrix from '../components/diagrams/EnvironmentMatrix.astro';
+import LayerDiagram from '../components/diagrams/LayerDiagram.astro';
+import { profile } from '../data/profile';
+import { withBase } from '../utils/url';
+import {
+  ENGAGEMENT_LABEL,
+  STATUS_LABEL,
+  workHref,
+  workPeriod,
+  type WorkEntry,
+} from '../utils/work';
+
+interface Props {
+  entry: WorkEntry;
+  headings: MarkdownHeading[];
+  previous: WorkEntry | undefined;
+  next: WorkEntry | undefined;
+}
+
+const { entry, headings, previous, next } = Astro.props;
+const { data } = entry;
+const period = workPeriod(entry, profile.revision);
+const sections = headings.filter((heading) => heading.depth === 2);
+
+// The facts a visitor needs first sit in the header, which also keeps them above the narrative on
+// narrow screens. The remainder stays in the rail, which follows the document when it unstacks.
+const headFacts = [
+  { label: 'Role', value: data.role },
+  ...(data.organization ? [{ label: 'Organization', value: data.organization }] : []),
+  { label: 'Period', value: period.range, note: period.duration },
+  { label: 'Status', value: STATUS_LABEL[data.status] },
+];
+
+const railFacts = [
+  ...(data.engagementType
+    ? [{ label: 'Engagement', value: ENGAGEMENT_LABEL[data.engagementType] }]
+    : []),
+  ...(data.teamSize ? [{ label: 'Team', value: data.teamSize }] : []),
+  { label: 'Domain', value: data.domains.join(', ') },
+  ...(data.technologies.length ? [{ label: 'Stack', value: data.technologies.join(', ') }] : []),
+];
+
+const diagramVariant = {
+  'scope-map': 'scope',
+  'stack-left': 'stack',
+  'stack-right': 'stack',
+  delivery: 'sequence',
+} as const;
+---
+
+<BaseLayout title={data.title} description={data.summary}>
+  <article class="study page" aria-labelledby="study-title">
+    <header class="grid study-head">
+      <p class="meta crumb">
+        <a href={withBase('/work/')}>Work</a>
+        <span aria-hidden="true">/</span>
+        <span class="signal-text">{data.code}</span>
+      </p>
+      <h1 id="study-title" class="title">
+        {data.title}
+      </h1>
+      <p class="lead">{data.summary}</p>
+      {data.depth === 'brief' && (
+        <p class="brief-note">
+          <span class="meta">Brief</span>
+          <span>
+            This page covers verified role, scope, and system facts only. Decisions and outcomes are
+            not published here.
+          </span>
+        </p>
+      )}
+      <MetaList class="head-facts" items={headFacts} layout="inline" />
+    </header>
+
+    <div class="grid study-body">
+      <aside class="rail" aria-label="Project details">
+        <MetaList items={railFacts} />
+        {sections.length > 1 && (
+          <nav class="contents" aria-label="Sections">
+            <p class="meta meta-quiet">Contents</p>
+            <ol>
+              {sections.map((heading) => (
+                <li>
+                  <a href={`#${heading.slug}`}>{heading.text}</a>
+                </li>
+              ))}
+            </ol>
+          </nav>
+        )}
+      </aside>
+
+      <div class="document">
+        {data.environments ? (
+          <EnvironmentMatrix class="figure" {...data.environments} />
+        ) : (
+          <LayerDiagram
+            class="figure"
+            layers={data.diagram.layers}
+            caption={data.diagram.caption}
+            variant={diagramVariant[data.heroVariant]}
+            prefix={
+              data.heroVariant === 'delivery' ? 'S' : data.heroVariant === 'scope-map' ? 'A' : 'L'
+            }
+          />
+        )}
+        <div class="prose">
+          <slot />
+        </div>
+      </div>
+    </div>
+
+    <nav class="grid pager" aria-label="More work">
+      {previous ? (
+        <a class="pager-link prev" href={withBase(workHref(previous))}>
+          <span class="meta meta-quiet">← Previous · {previous.data.code}</span>
+          <span class="pager-title">{previous.data.title}</span>
+        </a>
+      ) : (
+        <span />
+      )}
+      {next && (
+        <a class="pager-link next" href={withBase(workHref(next))}>
+          <span class="meta meta-quiet">Next · {next.data.code} →</span>
+          <span class="pager-title">{next.data.title}</span>
+        </a>
+      )}
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  @layer components {
+    .study-head {
+      padding-block: var(--space-5) var(--space-6);
+      row-gap: var(--space-4);
+    }
+
+    .study-head > *,
+    .study-body > * {
+      grid-column: 1 / -1;
+      min-inline-size: 0;
+    }
+
+    .study-body > .rail,
+    .study-body > .document {
+      grid-column: 1 / -1;
+    }
+
+    .crumb {
+      display: flex;
+      gap: var(--space-2);
+      align-items: center;
+      padding-block-end: var(--space-2);
+      border-block-end: var(--rule);
+    }
+
+    .crumb a {
+      display: inline-flex;
+      align-items: center;
+      min-block-size: var(--tap-min);
+      margin-block: calc((var(--tap-min) - 1.4em) / -2);
+    }
+
+    .title {
+      max-inline-size: 16ch;
+    }
+
+    .lead {
+      font-size: var(--text-body-lg);
+      max-inline-size: 52ch;
+    }
+
+    .brief-note {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-3);
+      align-items: baseline;
+      max-inline-size: 60ch;
+      padding: var(--space-2) var(--space-3);
+      border: 1px dashed var(--line-strong);
+      font-size: var(--text-small);
+      color: var(--text-secondary);
+    }
+
+    .brief-note .meta {
+      color: var(--signal-text);
+    }
+
+    .study-body {
+      row-gap: var(--space-6);
+      padding-block-start: var(--space-4);
+      border-block-start: var(--rule-ink);
+    }
+
+    .study-body > .document {
+      order: -1;
+    }
+
+    .contents {
+      display: none;
+    }
+
+    .contents ol {
+      display: grid;
+      margin-block-start: var(--space-2);
+      padding: 0;
+      list-style: none;
+    }
+
+    .contents a {
+      display: flex;
+      align-items: center;
+      min-block-size: var(--tap-min);
+      font-size: var(--text-small);
+      text-decoration: none;
+      border-block-start: var(--rule);
+    }
+
+    .contents a:hover {
+      text-decoration: underline;
+      text-decoration-color: var(--signal);
+    }
+
+    .document > :global(.figure) {
+      margin-block-end: var(--space-6);
+    }
+
+    .prose :global(h2) {
+      scroll-margin-block-start: var(--space-4);
+      padding-block-start: var(--space-3);
+      border-block-start: var(--rule);
+    }
+
+    .prose :global(h2:first-child) {
+      margin-block-start: 0;
+    }
+
+    .pager {
+      margin-block-start: var(--space-8);
+      row-gap: var(--space-3);
+    }
+
+    .pager > * {
+      grid-column: 1 / -1;
+    }
+
+    .pager-link {
+      display: grid;
+      gap: var(--space-1);
+      padding-block: var(--space-3);
+      border-block-start: var(--rule-ink);
+      text-decoration: none;
+    }
+
+    .pager-link:hover .pager-title {
+      text-decoration: underline;
+      text-decoration-color: var(--signal);
+    }
+
+    .pager-title {
+      font-size: var(--text-h3);
+      font-weight: 600;
+    }
+
+    @media (min-width: 48rem) {
+      .pager > .prev,
+      .pager > span {
+        grid-column: 1 / span 4;
+      }
+
+      .pager > .next {
+        grid-column: 5 / -1;
+        text-align: end;
+      }
+    }
+
+    @media (min-width: 64rem) {
+      .study-head > .crumb {
+        grid-column: 1 / -1;
+      }
+
+      .study-head > .title,
+      .study-head > .lead,
+      .study-head > .brief-note,
+      .study-head > :global(.head-facts) {
+        grid-column: 4 / -1;
+      }
+
+      .study-body > .document {
+        order: 0;
+      }
+
+      .contents {
+        display: block;
+        margin-block-start: var(--space-5);
+      }
+
+      .study-body > .rail {
+        grid-column: 1 / span 3;
+        align-self: start;
+        position: sticky;
+        inset-block-start: var(--space-4);
+      }
+
+      .study-body > .document {
+        grid-column: 4 / -1;
+      }
+
+      .pager > .prev,
+      .pager > span {
+        grid-column: 1 / span 6;
+      }
+
+      .pager > .next {
+        grid-column: 7 / -1;
+      }
+    }
+  }
+</style>

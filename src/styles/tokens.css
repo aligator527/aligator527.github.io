@@ -1,0 +1,103 @@
+@layer tokens {
+  :root {
+    color-scheme: light;
+
+    /* Surfaces */
+    --surface-paper: #f2f0e8;
+    --surface-paper-elevated: #faf9f4;
+    --surface-ink: #151515;
+
+    /* Text */
+    --text-primary: #151515;
+    --text-secondary: #595957;
+    --text-inverse: #f2f0e8;
+    --text-inverse-secondary: #b9b6ac;
+
+    /* Lines */
+    --line-default: #c8c4b8;
+    --line-strong: #8d897f;
+    --line-inverse: #3a3a38;
+
+    /* Signal: the vermilion marks state and orientation (rules, markers, current item).
+       --signal-text is the darker step required for AA contrast when the signal carries text. */
+    --signal: #e24421;
+    --signal-soft: #f7d7cf;
+    --signal-text: #b3321a;
+    /* The signal lightened for ink surfaces, where the vermilion falls below 4.5:1. */
+    --signal-on-ink: #ff7454;
+
+    --focus: #165dff;
+    /* The focus ring lightened for ink surfaces. */
+    --focus-on-ink: #8fb0ff;
+
+    /* Type families (the Fonts API defines the underlying variables) */
+    --font-sans: var(--font-instrument-sans), 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: var(--font-ibm-plex-mono), ui-monospace, Menlo, Consolas, monospace;
+
+    /* Type scale */
+    --text-display: clamp(3.5rem, 1.6rem + 8.2vw, 8rem);
+    --text-h1: clamp(2.75rem, 1.9rem + 3.6vw, 4.5rem);
+    --text-h2: clamp(2rem, 1.6rem + 1.7vw, 3rem);
+    --text-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+    --text-body-lg: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem);
+    --text-body: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+    --text-small: 0.9375rem;
+    --text-meta: clamp(0.6875rem, 0.66rem + 0.12vw, 0.8125rem);
+
+    --leading-tight: 0.95;
+    --leading-heading: 1.1;
+    --leading-body: 1.55;
+    --tracking-display: -0.035em;
+    --tracking-heading: -0.02em;
+    --tracking-meta: 0.06em;
+
+    /* Spacing */
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2rem;
+    --space-6: 3rem;
+    --space-7: 4rem;
+    --space-8: 6rem;
+    --space-section: clamp(var(--space-7), 4rem + 4vw, 9rem);
+
+    /* Grid */
+    --grid-columns: 4;
+    --grid-gutter: var(--space-3);
+    --page-margin: 1.25rem;
+    --page-max: 90rem;
+    --measure: 68ch;
+
+    /* Radius */
+    --radius-0: 0;
+    --radius-1: 2px;
+    --radius-2: 4px;
+    --radius-round: 999px;
+
+    /* Motion */
+    --duration-fast: 160ms;
+    --duration-base: 200ms;
+    --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+    --rule: 1px solid var(--line-default);
+    --rule-strong: 1px solid var(--line-strong);
+    --rule-ink: 1px solid var(--text-primary);
+    --tap-min: 44px;
+  }
+
+  @media (min-width: 48rem) {
+    :root {
+      --grid-columns: 8;
+      --grid-gutter: var(--space-4);
+      --page-margin: var(--space-5);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    :root {
+      --grid-columns: 12;
+      --page-margin: clamp(var(--space-5), 4vw, var(--space-7));
+    }
+  }
+}

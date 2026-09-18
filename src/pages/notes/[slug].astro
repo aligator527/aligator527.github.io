@@ -1,0 +1,29 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/core/PageHeader.astro';
+
+export const getStaticPaths = (async () => {
+  const notes = await getCollection('notes', ({ data }) => !data.draft);
+  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }));
+}) satisfies GetStaticPaths;
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+
+<BaseLayout title={note.data.title} description={note.data.summary}>
+  <article>
+    <PageHeader
+      sheet={`Note / ${note.data.publishedAt.replaceAll('-', '/')}`}
+      title={note.data.title}
+      lead={note.data.summary}
+    />
+    <div class="page">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

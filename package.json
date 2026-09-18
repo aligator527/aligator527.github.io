@@ -1,0 +1,49 @@
+{
+  "name": "ivan-dolgov-portfolio",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "packageManager": "pnpm@10.33.2",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:subpath": "BASE_PATH=/portfolio astro build --outDir dist-subpath",
+    "preview": "astro preview",
+    "check": "pnpm run format:check && pnpm run lint && pnpm run typecheck && pnpm run test:unit && pnpm run build && pnpm run check:links",
+    "typecheck": "astro check",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "pnpm run test:unit && pnpm run test:e2e",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "check:links": "node scripts/check-links.mjs dist"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^22.20.3",
+    "@typescript-eslint/parser": "^8.70.0",
+    "eslint": "^10.10.0",
+    "eslint-plugin-astro": "^3.2.1",
+    "prettier": "^3.9.7",
+    "prettier-plugin-astro": "^1.0.1",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "^5.0.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  }
+}

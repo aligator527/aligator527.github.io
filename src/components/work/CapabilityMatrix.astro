@@ -1,0 +1,196 @@
+---
+import { CAPABILITY_IDS, capabilities } from '../../data/capabilities';
+import { withBase } from '../../utils/url';
+import { workHref, type WorkEntry } from '../../utils/work';
+
+interface Props {
+  work: WorkEntry[];
+}
+
+const { work } = Astro.props;
+const rows = CAPABILITY_IDS.map((id) => ({
+  id,
+  ...capabilities[id],
+  evidence: work.filter((entry) => entry.data.capabilities.includes(id)),
+}))
+  .filter((row) => row.evidence.length > 0)
+  // Match by id: object identity across two iterations is correct today but brittle.
+  .map((row) => ({ ...row, evidenceIds: new Set(row.evidence.map((entry) => entry.id)) }));
+---
+
+<div class="matrix">
+  <!-- Wide screens: a true table, capabilities against project evidence. -->
+  <table class="matrix-table">
+    <caption class="visually-hidden">
+      Capabilities and the selected work that shows each one
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" class="meta meta-quiet col-capability">
+          Capability
+        </th>
+        {work.map((entry) => (
+          <th scope="col" class="meta col-project">
+            <a href={withBase(workHref(entry))}>
+              {entry.data.code}
+              <span class="visually-hidden"> {entry.data.title}</span>
+            </a>
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <th scope="row" class="row-head">
+            <span class="row-label">{row.label}</span>
+            <span class="row-detail">{row.detail}</span>
+          </th>
+          {work.map((entry) => {
+            const present = row.evidenceIds.has(entry.id);
+            return (
+              <td class:list={['cell', { present }]}>
+                {present ? (
+                  <>
+                    <span class="mark" aria-hidden="true" />
+                    <span class="visually-hidden">Yes</span>
+                  </>
+                ) : (
+                  <span class="visually-hidden">No</span>
+                )}
+              </td>
+            );
+          })}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <!-- Narrow screens: the same data recomposed as a register, one capability per row. -->
+  <ul class="matrix-list" role="list">
+    {rows.map((row) => (
+      <li class="list-row">
+        <p class="row-label">{row.label}</p>
+        <p class="row-detail">{row.detail}</p>
+        <p class="list-evidence">
+          <span class="visually-hidden">Shown in: </span>
+          {row.evidence.map((entry) => (
+            <a class="meta chip" href={withBase(workHref(entry))}>
+              {entry.data.code}
+              <span class="visually-hidden"> {entry.data.title}</span>
+            </a>
+          ))}
+        </p>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  @layer components {
+    .matrix-table {
+      display: none;
+      inline-size: 100%;
+    }
+
+    .row-label {
+      display: block;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .row-detail {
+      display: block;
+      color: var(--text-secondary);
+      font-size: var(--text-small);
+      line-height: 1.4;
+    }
+
+    .list-row {
+      display: grid;
+      gap: 0.2rem;
+      padding-block: var(--space-3);
+      border-block-start: var(--rule);
+    }
+
+    .list-evidence {
+      display: flex;
+      gap: var(--space-1);
+      margin-block-start: var(--space-1);
+    }
+
+    .chip {
+      display: inline-grid;
+      place-items: center;
+      min-inline-size: var(--tap-min);
+      min-block-size: var(--tap-min);
+      border: var(--rule-strong);
+      text-decoration: none;
+    }
+
+    @media (min-width: 48rem) {
+      .matrix-table {
+        display: table;
+      }
+
+      .matrix-list {
+        display: none;
+      }
+
+      th,
+      td {
+        text-align: start;
+        vertical-align: middle;
+        border-block-end: var(--rule);
+      }
+
+      thead th {
+        padding-block: var(--space-2);
+        border-block-end: var(--rule-ink);
+      }
+
+      .col-project {
+        inline-size: 12%;
+        text-align: center;
+      }
+
+      .col-project a {
+        display: inline-grid;
+        place-items: center;
+        min-inline-size: var(--tap-min);
+        min-block-size: var(--tap-min);
+        text-decoration: none;
+      }
+
+      .col-project a:hover {
+        text-decoration: underline;
+        text-decoration-color: var(--signal);
+      }
+
+      .row-head {
+        font-weight: 400;
+        padding-block: var(--space-3);
+        padding-inline-end: var(--space-4);
+      }
+
+      .cell {
+        text-align: center;
+        border-inline-start: var(--rule);
+      }
+
+      /* Filled square on a hairline column: reads as a mark on a drawing register, not a rating. */
+      .mark {
+        display: inline-block;
+        inline-size: 0.75rem;
+        block-size: 0.75rem;
+        background: var(--text-primary);
+      }
+
+      tbody tr:hover .row-label,
+      tbody tr:focus-within .row-label {
+        text-decoration: underline;
+        text-decoration-color: var(--signal);
+      }
+    }
+  }
+</style>

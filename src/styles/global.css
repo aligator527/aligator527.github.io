@@ -1,0 +1,158 @@
+/* Layer order is declared inline in BaseLayout's <head> so that it is established before any
+   bundled stylesheet: component-scoped styles are emitted ahead of this file in the CSS bundle. */
+@import './reset.css';
+@import './tokens.css';
+@import './utilities.css';
+
+@layer base {
+  html {
+    background: var(--surface-paper);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 100%;
+  }
+
+  body {
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    font-feature-settings: 'ss01' on;
+    display: flex;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+    line-height: var(--leading-heading);
+    letter-spacing: var(--tracking-heading);
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: var(--text-h1);
+  }
+
+  h2 {
+    font-size: var(--text-h2);
+  }
+
+  h3 {
+    font-size: var(--text-h3);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: var(--line-strong);
+    transition: text-decoration-color var(--duration-fast) var(--ease-standard);
+  }
+
+  a:hover {
+    text-decoration-color: var(--signal);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: var(--radius-1);
+  }
+
+  ::selection {
+    background: var(--signal-soft);
+    color: var(--text-primary);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+  }
+
+  hr {
+    border: 0;
+    border-block-start: var(--rule);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important; /* reduced-motion override must beat component transitions */
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+}
+
+@layer base {
+  /* Site chrome is navigation, which a printed page cannot use. */
+  @media print {
+    html {
+      background: #fff;
+    }
+
+    .site-header,
+    .site-footer,
+    .skip-link {
+      display: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+@layer layout {
+  .page {
+    inline-size: 100%;
+    max-inline-size: var(--page-max);
+    margin-inline: auto;
+    padding-inline: var(--page-margin);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+  }
+
+  .section {
+    padding-block: var(--space-section) 0;
+  }
+
+  .prose {
+    max-inline-size: var(--measure);
+  }
+
+  .prose > * + * {
+    margin-block-start: var(--space-3);
+  }
+
+  .prose h2 {
+    font-size: var(--text-h3);
+    margin-block-start: var(--space-6);
+  }
+
+  .prose ul {
+    padding-inline-start: 1.1em;
+  }
+
+  .prose li + li {
+    margin-block-start: var(--space-1);
+  }
+
+  .prose li::marker {
+    color: var(--signal);
+  }
+}

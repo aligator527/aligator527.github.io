@@ -1,0 +1,69 @@
+# Source: .ai/content/facts.md (current English CV). Keep in sync; do not add unverified scope.
+- id: frameworx
+  organization: Frameworx
+  organizationNote: Daiwa House Group
+  role: Tech Lead — Next-Generation WMS
+  startDate: '2026-09'
+  endDate: null
+  summary: Technical direction for a next-generation warehouse management system (WMS).
+  scope:
+    - Technical planning and architecture across frontend, backend, cloud, security, and WMS/WCS integration.
+    - Technology selection and architecture standardization.
+    - Engineering guidelines and architecture decisions.
+    - Technical proofs of concept.
+  technologies: []
+  work: next-generation-wms
+- id: ikigai
+  organization: Ikigai Co., Ltd.
+  role: Project Lead / Full-Stack Engineer
+  engagementType: contract
+  startDate: '2025-07'
+  endDate: '2026-05'
+  summary: Led 0→1 development of an AI chat game platform in a 20-person cross-functional team.
+  scope:
+    - Planning, technical decisions, code reviews, engineering standards, and release work.
+    - React and TypeScript frontend; Go backend.
+    - AWS infrastructure with Terraform, Lambda, API Gateway, and DynamoDB.
+    - Authentication and authorization with Keycloak.
+  technologies: [React, TypeScript, Go, AWS, Terraform, Lambda, API Gateway, DynamoDB, Keycloak]
+  work: ai-chat-platform
+- id: nagashima-konpo
+  organization: Nagashima Konpo Co., Ltd.
+  role: Full-Stack Engineer
+  engagementType: contract
+  startDate: '2024-12'
+  endDate: '2025-12'
+  summary: Production web and mobile SaaS for the packaging industry, in a team of approximately 10 people.
+  scope:
+    - Search and large-data performance work, after growing data had degraded responsiveness across the platform.
+    - Node.js 16 → 20 migration.
+    - Proofs of concept, code reviews, and support for external developers.
+    - Release work.
+  technologies: [React, Next.js, React Native, Expo, AWS Amplify, Lambda, AppSync, DynamoDB, S3]
+  work: packaging-saas
+- id: flaretech
+  organization: Flaretech Co., Ltd.
+  organizationNote: formerly Marvel
+  role: Software Engineer / Project Lead
+  startDate: '2023-03'
+  endDate: '2025-05'
+  summary: Led multiple client projects with teams of approximately five people.
+  scope:
+    - Requirements definition and documentation.
+    - React and Next.js development.
+    - AWS deployment and production support.
+    - Client coordination.
+  technologies: [React, Next.js, AWS]
+  work: client-delivery
+- id: freelance
+  organization: Independent
+  role: Full-Stack Engineer
+  engagementType: freelance
+  startDate: '2021-08'
+  endDate: '2023-01'
+  summary: Delivered web applications and business systems in one- to two-person delivery environments.
+  scope:
+    - Client-facing requirements work.
+    - Web applications and business systems.
+    - Automation, data collection, and e-commerce improvements.
+  technologies: [React, Vue.js, Python/Django, PHP]

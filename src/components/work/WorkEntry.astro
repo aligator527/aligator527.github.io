@@ -1,0 +1,240 @@
+---
+/**
+ * A selected-work entry on the homepage. Semantics are shared; composition is chosen per project
+ * by `heroVariant`, so each entry's layout answers to what its content actually contains:
+ *
+ * - scope-map:   current role, no public system detail → text plus a wide responsibility register.
+ * - stack-left:  0→1 build → the layer stack leads, narrative follows.
+ * - stack-right: production SaaS → narrative leads with its one approved figure; stack trails.
+ * - delivery:    client delivery → a text band over a left-to-right sequence of stages.
+ */
+import ActionLink from '../core/ActionLink.astro';
+import LayerDiagram from '../diagrams/LayerDiagram.astro';
+import { withBase } from '../../utils/url';
+import { DEPTH_LABEL, STATUS_LABEL, workHref, workPeriod, type WorkEntry } from '../../utils/work';
+
+interface Props {
+  entry: WorkEntry;
+  now: string;
+}
+
+const { entry, now } = Astro.props;
+const { data } = entry;
+const period = workPeriod(entry, now);
+const titleId = `work-${entry.id}`;
+const diagramVariant = {
+  'scope-map': 'scope',
+  'stack-left': 'stack',
+  'stack-right': 'stack',
+  delivery: 'sequence',
+} as const;
+---
+
+<article class:list={['work-entry', data.heroVariant]} aria-labelledby={titleId}>
+  <header class="head">
+    <p class="meta code">
+      <span class="code-id">{data.code}</span>
+      <span class="status" data-status={data.status}>
+        {STATUS_LABEL[data.status]}
+      </span>
+    </p>
+    <h3 id={titleId} class="title">
+      <a href={withBase(workHref(entry))}>{data.title}</a>
+    </h3>
+  </header>
+
+  <div class="body">
+    <p class="summary">{data.summary}</p>
+    <dl class="facts">
+      <div>
+        <dt class="meta meta-quiet">Role</dt>
+        <dd>{data.role}</dd>
+      </div>
+      {data.organization && (
+        <div>
+          <dt class="meta meta-quiet">Org</dt>
+          <dd>{data.organization}</dd>
+        </div>
+      )}
+      <div>
+        <dt class="meta meta-quiet">Period</dt>
+        <dd>
+          {period.range} <span class="quiet">· {period.duration}</span>
+        </dd>
+      </div>
+      {data.teamSize && (
+        <div>
+          <dt class="meta meta-quiet">Team</dt>
+          <dd>{data.teamSize}</dd>
+        </div>
+      )}
+    </dl>
+    <ActionLink href={withBase(workHref(entry))} describedBy={titleId} class="more">
+      Read the {DEPTH_LABEL[data.depth].toLowerCase()}
+    </ActionLink>
+  </div>
+
+  <LayerDiagram
+    class="diagram"
+    layers={data.diagram.layers}
+    caption={data.diagram.caption}
+    variant={diagramVariant[data.heroVariant]}
+    prefix={data.heroVariant === 'delivery' ? 'S' : data.heroVariant === 'scope-map' ? 'A' : 'L'}
+  />
+</article>
+
+<style>
+  @layer components {
+    .work-entry {
+      display: grid;
+      grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+      column-gap: var(--grid-gutter);
+      row-gap: var(--space-5);
+      padding-block: var(--space-5) var(--space-7);
+      border-block-start: var(--rule-strong);
+    }
+
+    .head,
+    .body,
+    .work-entry > :global(.diagram) {
+      grid-column: 1 / -1;
+      min-inline-size: 0;
+    }
+
+    .code {
+      display: flex;
+      gap: var(--space-3);
+      align-items: baseline;
+      margin-block-end: var(--space-2);
+    }
+
+    .code-id {
+      color: var(--signal-text);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      color: var(--text-secondary);
+    }
+
+    .status[data-status='active']::before {
+      content: '';
+      inline-size: 0.55em;
+      block-size: 0.55em;
+      border-radius: var(--radius-round);
+      background: var(--signal);
+    }
+
+    .title {
+      font-size: var(--text-h2);
+      max-inline-size: 16ch;
+    }
+
+    .title a {
+      text-decoration: none;
+    }
+
+    .title a:hover {
+      text-decoration: underline;
+      text-decoration-color: var(--signal);
+      text-decoration-thickness: 2px;
+    }
+
+    .summary {
+      font-size: var(--text-body-lg);
+      max-inline-size: 48ch;
+    }
+
+    .facts {
+      display: grid;
+      margin-block: var(--space-4);
+      max-inline-size: 36rem;
+    }
+
+    .facts > div {
+      display: grid;
+      grid-template-columns: 4.5rem minmax(0, 1fr);
+      gap: var(--space-2);
+      align-items: baseline;
+      padding-block: 0.4rem;
+      border-block-start: var(--rule);
+    }
+
+    .facts dd {
+      margin: 0;
+      font-size: var(--text-small);
+    }
+
+    .quiet {
+      color: var(--text-secondary);
+    }
+
+    /* ---- Desktop compositions ---- */
+    @media (min-width: 64rem) {
+      /* P01: heading and summary to the left; the responsibility register takes the wide right side. */
+      .scope-map .head {
+        grid-column: 3 / span 4;
+      }
+
+      .scope-map .body {
+        grid-column: 3 / span 4;
+        grid-row: 2;
+      }
+
+      .scope-map > :global(.diagram) {
+        grid-column: 7 / -1;
+        grid-row: 1 / span 2;
+        align-self: end;
+      }
+
+      /* P02: stack diagram leads on the left; heading and narrative sit offset to the right. */
+      .stack-left > :global(.diagram) {
+        grid-column: 1 / span 5;
+        grid-row: 1 / span 2;
+      }
+
+      .stack-left .head,
+      .stack-left .body {
+        grid-column: 7 / -1;
+      }
+
+      /* P03: narrative leads with the adoption figure; stack trails at the far right, dropped a row. */
+      .stack-right .head {
+        grid-column: 3 / span 6;
+      }
+
+      .stack-right .body {
+        grid-column: 3 / span 5;
+      }
+
+      .stack-right > :global(.diagram) {
+        grid-column: 9 / -1;
+        grid-row: 2 / span 1;
+      }
+
+      /* P04: head and body share a band; the stage sequence spans the full width below. */
+      .delivery .head {
+        grid-column: 3 / span 4;
+      }
+
+      .delivery .body {
+        grid-column: 7 / -1;
+        grid-row: 1;
+        align-self: end;
+      }
+
+      .delivery > :global(.diagram) {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: 48rem) and (max-width: 63.99rem) {
+      .stack-left > :global(.diagram),
+      .stack-right > :global(.diagram) {
+        grid-column: 1 / span 5;
+      }
+    }
+  }
+</style>

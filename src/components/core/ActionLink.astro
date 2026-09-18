@@ -1,0 +1,41 @@
+---
+interface Props {
+  href: string;
+  /** Extra context for assistive technology when the visible label repeats across a page. */
+  describedBy?: string;
+  class?: string;
+}
+
+const { href, describedBy, class: className } = Astro.props;
+---
+
+<a class:list={['action-link', className]} href={href} aria-describedby={describedBy}>
+  <slot />
+  <span class="arrow" aria-hidden="true">
+    →
+  </span>
+</a>
+
+<style>
+  @layer components {
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-block-size: var(--tap-min);
+      font-weight: 600;
+      text-decoration: none;
+      border-block-end: 1px solid var(--text-primary);
+    }
+
+    .arrow {
+      color: var(--signal-text);
+      transition: transform var(--duration-base) var(--ease-standard);
+    }
+
+    .action-link:hover .arrow,
+    .action-link:focus-visible .arrow {
+      transform: translateX(4px);
+    }
+  }
+</style>

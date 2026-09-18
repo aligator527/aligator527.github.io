@@ -1,0 +1,12 @@
+dist
+dist-subpath
+.astro
+pnpm-lock.yaml
+playwright-report
+test-results
+.ai
+.claude
+*.md
+
+# Google Search Console verification: content must stay byte-exact.
+public/google*.html

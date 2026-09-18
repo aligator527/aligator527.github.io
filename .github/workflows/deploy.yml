@@ -1,0 +1,39 @@
+# Deployment is manual on purpose: it is triggered from the Actions tab, never by a push.
+# Verify action versions against https://docs.astro.build/en/guides/deploy/github/ before editing.
+#
+# This builds with the default base ("/"), which is correct only for the user-site repository
+# aligator527.github.io (see ADR-0003). If the site is ever published from a project repository,
+# set `BASE_PATH: /<repository-name>` in the build step's env, or every link will 404.
+name: Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: withastro/action@v5
+        with:
+          package-manager: pnpm@latest
+          node-version: 22
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

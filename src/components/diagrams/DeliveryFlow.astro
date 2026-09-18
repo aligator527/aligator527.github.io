@@ -1,0 +1,188 @@
+---
+import { deliveryFlow } from '../../data/delivery-flow';
+import { withBase } from '../../utils/url';
+import { workHref, type WorkEntry } from '../../utils/work';
+
+interface Props {
+  work: WorkEntry[];
+}
+
+const { work } = Astro.props;
+const byCode = new Map(work.map((entry) => [entry.data.code, entry]));
+
+for (const step of deliveryFlow) {
+  for (const code of step.evidence) {
+    if (!byCode.has(code)) throw new Error(`Delivery flow references unknown work code ${code}`);
+  }
+}
+---
+
+<figure class="delivery-flow" aria-labelledby="flow-caption">
+  <figcaption id="flow-caption" class="flow-caption">
+    <span class="meta">Fig. 1</span>
+    <span>Where I work in a system’s life, with the projects that show each stage.</span>
+  </figcaption>
+  <ol class="steps" role="list">
+    {deliveryFlow.map((step, index) => (
+      <li class="step">
+        <p class="meta step-index" aria-hidden="true">
+          {String(index + 1).padStart(2, '0')}
+        </p>
+        <p class="step-name">{step.stage}</p>
+        <p class="step-detail">{step.detail}</p>
+        <p class="evidence">
+          <span class="visually-hidden">Evidence: </span>
+          {step.evidence.map((code) => {
+            const entry = byCode.get(code)!;
+            return (
+              <a class="meta evidence-link" href={withBase(workHref(entry))}>
+                {code}
+                <span class="visually-hidden"> {entry.data.title}</span>
+              </a>
+            );
+          })}
+        </p>
+      </li>
+    ))}
+  </ol>
+</figure>
+
+<style>
+  @layer components {
+    .delivery-flow {
+      margin: 0;
+    }
+
+    .flow-caption {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1) var(--space-3);
+      align-items: baseline;
+      padding-block: var(--space-2);
+      border-block-start: var(--rule-ink);
+      color: var(--text-secondary);
+      font-size: var(--text-small);
+    }
+
+    .flow-caption .meta {
+      color: var(--text-primary);
+    }
+
+    .steps {
+      display: grid;
+    }
+
+    /* Narrow: a vertical spine with nodes. */
+    .step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      column-gap: var(--space-2);
+      padding-block: var(--space-3);
+      border-block-start: var(--rule);
+    }
+
+    .step > :not(.step-index) {
+      grid-column: 2;
+    }
+
+    .step-index {
+      grid-row: 1 / span 3;
+      color: var(--signal-text);
+      padding-block-start: 0.35em;
+    }
+
+    .step-name {
+      font-size: var(--text-h3);
+      font-weight: 600;
+      letter-spacing: var(--tracking-heading);
+      line-height: 1.2;
+    }
+
+    .step-detail {
+      color: var(--text-secondary);
+      font-size: var(--text-small);
+      line-height: 1.45;
+      margin-block-start: var(--space-1);
+    }
+
+    .evidence {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+      margin-block-start: var(--space-2);
+    }
+
+    .evidence-link {
+      display: inline-grid;
+      place-items: center;
+      min-inline-size: var(--tap-min);
+      min-block-size: var(--tap-min);
+      padding-inline: var(--space-1);
+      border: var(--rule-strong);
+      text-decoration: none;
+      transition:
+        background-color var(--duration-fast) var(--ease-standard),
+        color var(--duration-fast) var(--ease-standard);
+    }
+
+    .evidence-link:hover {
+      background: var(--surface-ink);
+      color: var(--text-inverse);
+      border-color: var(--surface-ink);
+    }
+
+    /* Wide: stages read left to right, joined by a continuous rule with arrowheads. */
+    @media (min-width: 64rem) {
+      .steps {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+        column-gap: var(--grid-gutter);
+        border-block-start: var(--rule);
+      }
+
+      .step {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto 1fr auto;
+        border-block-start: 0;
+        padding-block: var(--space-4) 0;
+      }
+
+      .step > :not(.step-index) {
+        grid-column: 1;
+      }
+
+      .step-index {
+        grid-row: auto;
+        padding-block-start: 0;
+        margin-block-end: var(--space-3);
+      }
+
+      .step::before {
+        content: '';
+        position: absolute;
+        inset-block-start: -4px;
+        inset-inline-start: 0;
+        inline-size: 7px;
+        block-size: 7px;
+        background: var(--text-primary);
+      }
+
+      .step:not(:last-child)::after {
+        content: '→';
+        position: absolute;
+        inset-block-start: -0.8em;
+        inset-inline-end: calc(var(--grid-gutter) / -2 - 0.5em);
+        padding-inline: 0.2em;
+        background: var(--surface-paper);
+        color: var(--signal-text);
+        font-family: var(--font-mono);
+        line-height: 1.6;
+      }
+
+      .evidence {
+        margin-block-start: var(--space-4);
+      }
+    }
+  }
+</style>

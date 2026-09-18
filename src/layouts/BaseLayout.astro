@@ -1,0 +1,91 @@
+---
+import { Font } from 'astro:assets';
+import SiteHeader from '../components/navigation/SiteHeader.astro';
+import SiteFooter from '../components/navigation/SiteFooter.astro';
+import { profile } from '../data/profile';
+import { withBase } from '../utils/url';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description: string;
+  /** Keeps placeholder routes (e.g. an empty Lab) out of search indexes. */
+  noindex?: boolean;
+}
+
+const { title, description, noindex = false } = Astro.props;
+const pageTitle = title ? `${title} — ${profile.name}` : `${profile.name} — ${profile.descriptor}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style is:inline>
+      @layer reset, tokens, base, layout, components, utilities;
+    </style>
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <meta name="author" content={profile.name} />
+    <meta name="theme-color" content="#f2f0e8" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en" />
+    <meta property="og:image" content={new URL(withBase('/og.png'), Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${profile.name} — ${profile.descriptor}, Tokyo`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
+    <Font
+      cssVariable="--font-instrument-sans"
+      preload={[{ weight: 400 }, { weight: 600 }, { weight: 700 }]}
+    />
+    <Font cssVariable="--font-ibm-plex-mono" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <SiteHeader />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>
+
+<style>
+  @layer components {
+    .skip-link {
+      position: absolute;
+      inset-block-start: var(--space-2);
+      inset-inline-start: var(--space-2);
+      z-index: 10;
+      padding: var(--space-2) var(--space-3);
+      background: var(--surface-ink);
+      color: var(--text-inverse);
+      font-family: var(--font-mono);
+      font-size: var(--text-meta);
+      text-transform: uppercase;
+      letter-spacing: var(--tracking-meta);
+      transform: translateY(calc(-100% - var(--space-4)));
+    }
+
+    .skip-link:focus-visible {
+      transform: none;
+    }
+
+    main:focus {
+      outline: none;
+    }
+  }
+</style>

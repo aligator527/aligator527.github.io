@@ -1,0 +1,66 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/core/PageHeader.astro';
+import { withBase } from '../../utils/url';
+
+const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort((a, b) =>
+  b.data.publishedAt.localeCompare(a.data.publishedAt),
+);
+---
+
+<BaseLayout
+  title="Notes"
+  description="Engineering and architecture writing by Ivan Dolgov."
+  noindex={notes.length === 0}
+>
+  <PageHeader
+    sheet="Notes / Unpublished"
+    title="Notes"
+    lead="Engineering and architecture writing."
+  />
+  <section class="page" aria-labelledby="notes-list">
+    <h2 id="notes-list" class="visually-hidden">
+      Articles
+    </h2>
+    {notes.length === 0 ? (
+      <p class="empty">No published notes yet.</p>
+    ) : (
+      <ol class="entries">
+        {notes.map((note) => (
+          <li class="entry">
+            <p class="meta meta-quiet">
+              <time datetime={note.data.publishedAt}>
+                {note.data.publishedAt.replaceAll('-', '/')}
+              </time>
+            </p>
+            <h3>
+              <a href={withBase(`/notes/${note.id}/`)}>{note.data.title}</a>
+            </h3>
+            <p>{note.data.summary}</p>
+          </li>
+        ))}
+      </ol>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  @layer components {
+    .entries {
+      display: grid;
+    }
+
+    .entry {
+      display: grid;
+      gap: var(--space-2);
+      padding-block: var(--space-4);
+      border-block-start: var(--rule-strong);
+      max-inline-size: var(--measure);
+    }
+
+    .empty {
+      color: var(--text-secondary);
+    }
+  }
+</style>

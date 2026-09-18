@@ -1,0 +1,189 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/core/PageHeader.astro';
+import { profile } from '../../data/profile';
+import { withBase } from '../../utils/url';
+import { DEPTH_LABEL, STATUS_LABEL, getWork, workHref, workPeriod } from '../../utils/work';
+
+const work = await getWork();
+---
+
+<BaseLayout
+  title="Work"
+  description="Professional engagements: warehouse management architecture, a 0→1 AI chat game platform, a production packaging SaaS, and client web delivery."
+>
+  <PageHeader
+    sheet="Sheet 01 / Work"
+    title="Work"
+    lead="Professional engagements, most recent first. Case studies cover context, decisions, delivery, and what I would change. Briefs state only the role, scope, and system facts that can be published, and are expanded where more can be cleared."
+  />
+
+  <section class="page" aria-labelledby="index-heading">
+    <h2 id="index-heading" class="visually-hidden">
+      Project index
+    </h2>
+    <div class="index-head meta meta-quiet" aria-hidden="true">
+      <span>ID</span>
+      <span>Project</span>
+      <span>Role</span>
+      <span>Period</span>
+      <span>Status</span>
+    </div>
+    <ol class="index" role="list">
+      {work.map((entry) => {
+        const period = workPeriod(entry, profile.revision);
+        return (
+          <li class="row">
+            <p class="meta code">{entry.data.code}</p>
+            <div class="project">
+              <h3 class="title">
+                <a href={withBase(workHref(entry))}>{entry.data.title}</a>
+              </h3>
+              <p class="summary">{entry.data.summary}</p>
+              <p class="meta meta-quiet domains">
+                {[DEPTH_LABEL[entry.data.depth], ...entry.data.domains].join(' · ')}
+              </p>
+            </div>
+            <dl class="facts">
+              <div class="fact-role">
+                <dt class="visually-hidden">Role</dt>
+                <dd>
+                  {entry.data.role}
+                  {entry.data.organization && <span class="quiet">{entry.data.organization}</span>}
+                </dd>
+              </div>
+              <div class="fact-period">
+                <dt class="visually-hidden">Period</dt>
+                <dd>
+                  {period.range}
+                  <span class="quiet">{period.duration}</span>
+                </dd>
+              </div>
+              <div class="fact-status">
+                <dt class="visually-hidden">Status</dt>
+                <dd class="meta" data-status={entry.data.status}>
+                  {STATUS_LABEL[entry.data.status]}
+                </dd>
+              </div>
+            </dl>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+</BaseLayout>
+
+<style>
+  @layer components {
+    .index-head {
+      display: none;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 3rem minmax(0, 1fr);
+      column-gap: var(--space-3);
+      row-gap: var(--space-3);
+      padding-block: var(--space-5);
+      border-block-start: var(--rule-strong);
+    }
+
+    .row:last-child {
+      border-block-end: var(--rule-strong);
+    }
+
+    .code {
+      color: var(--signal-text);
+      padding-block-start: 0.5em;
+    }
+
+    .project,
+    .facts {
+      grid-column: 2;
+      min-inline-size: 0;
+    }
+
+    .title {
+      font-size: var(--text-h3);
+    }
+
+    .title a {
+      text-decoration: none;
+    }
+
+    .title a:hover {
+      text-decoration: underline;
+      text-decoration-color: var(--signal);
+    }
+
+    .summary {
+      margin-block-start: var(--space-1);
+      max-inline-size: 58ch;
+    }
+
+    .domains {
+      margin-block-start: var(--space-2);
+    }
+
+    .facts {
+      display: grid;
+      gap: var(--space-2);
+      font-size: var(--text-small);
+      color: var(--text-secondary);
+    }
+
+    .facts dd {
+      margin: 0;
+    }
+
+    .quiet {
+      display: block;
+      color: var(--text-secondary);
+    }
+
+    [data-status='active'] {
+      color: var(--signal-text);
+    }
+
+    [data-status='active']::before {
+      content: '● ';
+    }
+
+    @media (min-width: 64rem) {
+      .index-head,
+      .row {
+        grid-template-columns: 4rem minmax(0, 5fr) minmax(0, 2.5fr) minmax(0, 1.6fr) minmax(0, 1fr);
+        column-gap: var(--grid-gutter);
+      }
+
+      .index-head {
+        display: grid;
+        padding-block-end: var(--space-2);
+      }
+
+      .facts {
+        display: contents;
+      }
+
+      .project {
+        grid-column: 2;
+      }
+
+      .fact-role {
+        grid-column: 3;
+      }
+
+      .fact-period {
+        grid-column: 4;
+      }
+
+      .fact-status {
+        grid-column: 5;
+      }
+
+      .facts > div {
+        padding-block-start: 0.3em;
+      }
+    }
+  }
+</style>
