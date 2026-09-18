@@ -24,8 +24,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: withastro/action@v5
+        # No package-manager input: the action detects pnpm from the lockfile and takes the exact
+        # version from package.json `packageManager`. Passing `pnpm@latest` here conflicts with it.
         with:
-          package-manager: pnpm@latest
           node-version: 22
 
   deploy:
