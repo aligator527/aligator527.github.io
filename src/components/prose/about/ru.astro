@@ -5,9 +5,13 @@
  *
  * Draft by Claude, not yet reviewed by Ivan — Russian stays out of `INDEXABLE_LOCALES` until it is.
  */
+import Annotation from '../../core/Annotation.astro';
+import { glossarySources } from '../../../data/glossary';
+import { localize } from '../../../i18n/ui';
 import type { AboutProseProps } from './index';
 
 const { section, experience, email, workHref } = Astro.props as AboutProseProps;
+const { t } = localize(Astro.url);
 ---
 
 {section === 'background' && (
@@ -15,7 +19,16 @@ const { section, experience, email, workHref } = Astro.props as AboutProseProps;
     <p>
       Мой профессиональный опыт — {experience}. С сентября 2026 года я Tech Lead{' '}
       <a href={workHref('next-generation-wms')}>системы управления складом нового поколения</a> в
-      Frameworx (группа Daiwa House): отвечаю за техническое планирование и архитектуру.
+      Frameworx, которая входит в{' '}
+      <Annotation
+        id="about-daiwa-house"
+        term="группу Daiwa House"
+        note={t.glossary['daiwa-house']}
+        sourceHref={glossarySources['daiwa-house'].href}
+        sourceLabel={glossarySources['daiwa-house'].label}
+        trailing="."
+      />
+      Отвечаю за техническое планирование и архитектуру.
     </p>
     <p>
       До этого работал по контрактам и над клиентскими проектами. Руководил разработкой{' '}

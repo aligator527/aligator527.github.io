@@ -9,9 +9,13 @@
  *
  * `experience`, `email` and the hrefs come from props, so no fact is restated per locale.
  */
+import Annotation from '../../core/Annotation.astro';
+import { glossarySources } from '../../../data/glossary';
+import { localize } from '../../../i18n/ui';
 import type { AboutProseProps } from './index';
 
 const { section, experience, email, workHref } = Astro.props as AboutProseProps;
+const { t } = localize(Astro.url);
 ---
 
 {section === 'background' && (
@@ -19,8 +23,16 @@ const { section, experience, email, workHref } = Astro.props as AboutProseProps;
     <p>
       I have {experience} of professional experience. Since September 2026 I have been Tech Lead for
       a <a href={workHref('next-generation-wms')}>next-generation warehouse management system</a> at
-      Frameworx, part of Daiwa House Group, where I am responsible for technical planning and
-      architecture.
+      Frameworx, part of{' '}
+      <Annotation
+        id="about-daiwa-house"
+        term="Daiwa House Group"
+        note={t.glossary['daiwa-house']}
+        sourceHref={glossarySources['daiwa-house'].href}
+        sourceLabel={glossarySources['daiwa-house'].label}
+        trailing="."
+      />
+      My responsibility there is technical planning and architecture.
     </p>
     <p>
       Before that I worked on contract engagements and client projects. I led 0→1 development of an{' '}

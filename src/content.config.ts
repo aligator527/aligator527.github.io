@@ -4,6 +4,7 @@ import { z } from 'astro/zod';
 import { CAPABILITY_IDS } from './data/capabilities';
 import { LOCALES, DEFAULT_LOCALE } from './utils/i18n';
 import { localized } from './utils/localized';
+import { GLOSSARY_IDS } from './data/glossary';
 
 const yearMonth = z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'Use YYYY-MM');
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use YYYY-MM-DD');
@@ -26,6 +27,12 @@ const work = defineCollection({
        * the translation, which is the gate `INDEXABLE_LOCALES` is released against.
        */
       translation: z.object({ source: z.enum(LOCALES), reviewedOn: isoDate.optional() }).optional(),
+      /**
+       * Context terms this page annotates, rendered in the rail. Declared per entry rather than
+       * detected from the prose: which terms a reader needs is an editorial decision, and the
+       * body is Markdown, which cannot host a component.
+       */
+      glossary: z.array(z.enum(GLOSSARY_IDS)).default([]),
       code: z.string().regex(/^P\d{2}$/),
       title: z.string(),
       summary: z.string(),

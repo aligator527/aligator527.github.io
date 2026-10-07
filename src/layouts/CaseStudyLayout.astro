@@ -1,6 +1,7 @@
 ---
 import type { MarkdownHeading } from 'astro';
 import BaseLayout from './BaseLayout.astro';
+import GlossaryTerm from '../components/core/GlossaryTerm.astro';
 import MetaList from '../components/core/MetaList.astro';
 import EnvironmentMatrix from '../components/diagrams/EnvironmentMatrix.astro';
 import LayerDiagram from '../components/diagrams/LayerDiagram.astro';
@@ -85,6 +86,26 @@ const diagramVariant = {
               ))}
             </ol>
           </nav>
+        )}
+        {data.glossary.length > 0 && (
+          /*
+           * Context, not navigation: terms this project depends on that a reader outside Japan or
+           * outside logistics has no reason to know. They sit in the rail because the body is
+           * Markdown — it cannot host a component — and because the rail is where this page
+           * already keeps the facts you read before the prose.
+           */
+          <section class="context" aria-labelledby={`context-${entry.id}`}>
+            <p class="meta meta-quiet" id={`context-${entry.id}`}>
+              {t.studyContext}
+            </p>
+            <ul role="list">
+              {data.glossary.map((id) => (
+                <li>
+                  <GlossaryTerm id={id} term={t.glossaryTerm[id]} anchor={`context-${id}`} />
+                </li>
+              ))}
+            </ul>
+          </section>
         )}
       </aside>
 
@@ -197,6 +218,36 @@ const diagramVariant = {
 
     .contents {
       display: none;
+    }
+
+    .context {
+      margin-block-start: var(--space-4);
+      padding-block-start: var(--space-2);
+      border-block-start: var(--rule);
+    }
+
+    .context ul {
+      display: grid;
+      gap: var(--space-3);
+      margin-block-start: var(--space-2);
+      padding: 0;
+      list-style: none;
+      font-size: var(--text-small);
+    }
+
+    /* In the rail the term is already the list item, so a note repeating it as a label is one */
+    /* word of noise beside another. In a sentence the label is what ties the note to its word, */
+    /* so it is hidden only here — and only where the note and the term are visible together. */
+    @media (min-width: 64rem) {
+      .context :global(.note-label) {
+        display: none;
+      }
+
+      .context :global(.note) {
+        float: none;
+        inline-size: auto;
+        margin-inline-start: 0;
+      }
     }
 
     .contents ol {

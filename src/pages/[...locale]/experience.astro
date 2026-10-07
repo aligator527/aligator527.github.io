@@ -1,6 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import GlossaryTerm from '../../components/core/GlossaryTerm.astro';
 import PageHeader from '../../components/core/PageHeader.astro';
 import SectionHeading from '../../components/core/SectionHeading.astro';
 import ActionLink from '../../components/core/ActionLink.astro';
@@ -95,7 +96,13 @@ const roles = entries.map(({ role }) => role);
             <li>
               <p class="item-title">{item.title}</p>
               <p class="quiet">
-                {item.institution} · {item.period}
+                <GlossaryTerm
+                  id={item.glossary}
+                  term={item.institution}
+                  anchor={`credentials-${item.id}`}
+                />
+                {' · '}
+                {item.period}
                 {item.status && ` · ${item.status}`}
               </p>
             </li>
@@ -108,7 +115,13 @@ const roles = entries.map(({ role }) => role);
           {profile.certifications.map((item) => (
             <li>
               <p class="item-title">{item.title}</p>
-              <p class="quiet">{item.issuer}</p>
+              <p class="quiet">
+                <GlossaryTerm
+                  id={item.glossary}
+                  term={item.issuer}
+                  anchor={`credentials-cert-${item.id}`}
+                />
+              </p>
             </li>
           ))}
         </ul>

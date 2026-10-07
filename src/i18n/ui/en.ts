@@ -192,7 +192,8 @@ export const en = {
       'I design and ship complex web systems — from requirements and architecture to production.',
     experience: '5+ years',
     location: 'Tokyo, Japan',
-    availability: 'Open to selected consulting and contract work, remote or international.',
+    availability:
+      'Open to selected consulting and contract work: remote from Tokyo, or with teams outside Japan.',
     languages: {
       RU: { name: 'Russian', level: 'Native' },
       JA: { name: 'Japanese', level: 'Professional working proficiency (JLPT N1)' },
@@ -276,6 +277,47 @@ export const en = {
   matrixCapability: 'Capability',
   matrixYes: 'Yes',
   matrixNo: 'No',
+
+  annotationAbout: (term: string) => `About ${term}`,
+
+  /*
+   * Glossary wording. Sources are in `src/data/glossary.ts`; each gloss states only what the page
+   * it cites actually says. Superlatives an organisation publishes about itself with no stated
+   * metric — "Japan's largest homebuilder", "leading WMS vendor", "Japan's largest business
+   * school" — are deliberately absent.
+   */
+  glossary: {
+    'daiwa-house':
+      'A Japanese construction and real-estate group: ¥5.58 trillion in net sales, and in the Fortune Global 500 for 17 consecutive years.',
+    frameworx:
+      'A Daiwa House Group company founded in 2007, specialising in logistics systems: warehouse management and control software, and logistics consulting.',
+    wms: 'A warehouse management system runs the work inside a warehouse — receiving, inspection, storage, stocktaking, shipping — and instructs the people doing it.',
+    wcs: 'A warehouse control system drives the machinery instead: it controls automated equipment directly, where a WMS manages the work and the people.',
+    'logistics-shortage':
+      'Japan’s transport ministry estimated that, without countermeasures, trucking capacity could fall short by 14.2% in 2024 and 34.1% by 2030.',
+    'ipa-exams':
+      'A Japanese national examination, run by the Information-technology Promotion Agency under METI, certifying IT knowledge and skills at a defined level.',
+    'jlpt-n1':
+      'The most advanced level of the Japanese-Language Proficiency Test: the ability to understand Japanese used in a variety of circumstances.',
+    globis:
+      'A Tokyo graduate business school whose Japanese and English MBA programmes count about 13,180 current students and graduates.',
+    'matsuo-lab':
+      'A deep-learning laboratory at the University of Tokyo. Its endowed Global Consumer Intelligence course teaches data science and AI foundations.',
+  },
+
+  studyContext: 'Context',
+  /* How each glossary term is named in running text; the gloss itself is in `glossary`. */
+  glossaryTerm: {
+    'daiwa-house': 'Daiwa House Group',
+    frameworx: 'Frameworx',
+    wms: 'WMS',
+    wcs: 'WCS',
+    'logistics-shortage': 'Japan’s logistics capacity',
+    'ipa-exams': 'IPA examinations',
+    'jlpt-n1': 'JLPT N1',
+    globis: 'GLOBIS University',
+    'matsuo-lab': 'Matsuo–Iwasawa Lab',
+  },
 
   // Diagrams
   environmentsInOrder: (unit: string) => `${unit} environments, in promotion order`,

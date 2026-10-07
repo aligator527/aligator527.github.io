@@ -1,0 +1,40 @@
+---
+/**
+ * An annotated glossary term: the wording comes from the dictionary, the source from the data
+ * module, and the caller supplies only which term it is and where on the page it sits.
+ *
+ * `anchor` exists because a popover is addressed by element id, and the same term can appear on
+ * several pages — or twice on one. It must be unique within a page; the caller knows its context,
+ * so it passes one rather than this component inventing a counter.
+ */
+import Annotation from './Annotation.astro';
+import { glossarySources, type GlossaryId } from '../../data/glossary';
+import { localize } from '../../i18n/ui';
+
+interface Props {
+  /** Which gloss to show. */
+  id: GlossaryId;
+  /** The term as it reads in this sentence, which is not always the glossary id's English name. */
+  term: string;
+  /** Unique element id for the popover, e.g. `credentials-jlpt-n1`. */
+  anchor: string;
+  /** Punctuation that must stay glued to the term; see `Annotation.astro`. */
+  trailing?: string | undefined;
+  /** Punctuation before the term; see `Annotation.astro`. */
+  leading?: string | undefined;
+}
+
+const { id, term, anchor, trailing, leading } = Astro.props;
+const { t } = localize(Astro.url);
+const source = glossarySources[id];
+---
+
+<Annotation
+  id={anchor}
+  term={term}
+  note={t.glossary[id]}
+  sourceHref={source.href}
+  sourceLabel={source.label}
+  trailing={trailing}
+  leading={leading}
+/>

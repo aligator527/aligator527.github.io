@@ -25,13 +25,13 @@ export const profile = {
    */
   languages: [{ code: 'RU' }, { code: 'JA' }, { code: 'EN' }] as const,
   education: [
-    { id: 'mba', period: '2026/04–' },
-    { id: 'gci', period: '2026–' },
+    { id: 'mba', period: '2026/04–', glossary: 'globis' },
+    { id: 'gci', period: '2026–', glossary: 'matsuo-lab' },
   ] as const,
   certifications: [
-    { id: 'fe', issuer: 'IPA Japan' },
-    { id: 'ism', issuer: 'IPA Japan' },
-    { id: 'jlpt', issuer: 'JLPT' },
+    { id: 'fe', issuer: 'IPA Japan', glossary: 'ipa-exams' },
+    { id: 'ism', issuer: 'IPA Japan', glossary: 'ipa-exams' },
+    { id: 'jlpt', issuer: 'JLPT', glossary: 'jlpt-n1' },
   ] as const,
   technologies: [
     {

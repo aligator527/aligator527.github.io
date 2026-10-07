@@ -2,6 +2,7 @@
 locale: ru
 translation:
   source: en
+glossary: [daiwa-house, frameworx, wms, wcs, logistics-shortage]
 code: P01
 title: WMS нового поколения
 summary: 'Техническое планирование и архитектура системы управления складом (WMS) нового поколения: прикладные слои, облако, безопасность и интеграция с системой управления складским оборудованием.'

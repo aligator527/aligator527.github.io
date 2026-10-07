@@ -87,3 +87,45 @@ test.describe('the Russian locale', () => {
     await expect(page.getByRole('navigation', { name: /language|язык/i })).toHaveCount(0);
   });
 });
+
+/**
+ * Annotations: the same markup reads two ways, and both have to keep working without script.
+ *
+ * The regression this guards against is specific and was real: a `display` declaration on the note
+ * overrode the browser's own `[popover]:not(:popover-open) { display: none }`, so on a phone every
+ * note sat in the page with a `?` button beside it that appeared to do nothing.
+ */
+test.describe('context annotations', () => {
+  test('are open beside the text on a wide screen, and closed behind a marker on a narrow one', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/work/next-generation-wms/');
+    const notes = page.locator('.context [popover]');
+    await expect(notes.first()).toBeVisible();
+    await expect(page.locator('.context button.marker').first()).toBeHidden();
+
+    await page.setViewportSize({ width: 390, height: 760 });
+    await page.reload();
+    await expect(notes.first()).toBeHidden();
+
+    const marker = page.locator('.context button.marker').first();
+    await expect(marker).toBeVisible();
+    await marker.click();
+    await expect(notes.first()).toBeVisible();
+
+    // One at a time, and Escape closes it: the popover behaviour, not a script's imitation of it.
+    await page.keyboard.press('Escape');
+    await expect(notes.first()).toBeHidden();
+  });
+
+  test('every annotation cites a source', async ({ page }) => {
+    await page.goto('/work/next-generation-wms/');
+    const notes = page.locator('.context [popover]');
+    const count = await notes.count();
+    expect(count).toBeGreaterThan(0);
+    for (let index = 0; index < count; index++) {
+      await expect(notes.nth(index).locator('a[href^="https://"]')).toHaveCount(1);
+    }
+  });
+});

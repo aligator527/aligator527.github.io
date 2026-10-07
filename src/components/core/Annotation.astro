@@ -1,0 +1,172 @@
+---
+/**
+ * A margin annotation: context a reader outside Japan — or outside this domain — does not have.
+ *
+ * Two presentations of the same markup, no client JavaScript in either:
+ *
+ * - **Wide screens.** The note sits beside the paragraph as a ruled sidenote, in the register the
+ *   rest of the site uses for annotation: mono label, hairline rule, secondary text. It is visible
+ *   without any interaction, which is the point — the reader who needs it does not know they need
+ *   it, so it cannot be hidden behind a control they have no reason to press.
+ * - **Narrow screens.** There is no margin to put it in, so the note collapses behind a `?` marker
+ *   and opens as a native popover: `popovertarget` is HTML, not script. It opens on click or
+ *   Enter/Space, closes on Esc or a click outside, and is in the keyboard order where the term is.
+ *
+ * `@supports` guards the popover: a browser without it renders the note inline instead of hiding
+ * it. Content a browser cannot reveal is content it must not conceal.
+ *
+ * Every annotation carries its source. `.ai/content/claims.md` requires a defensible source for a
+ * published claim, and a fact about somebody else's company is exactly where that matters.
+ */
+import { localize } from '../../i18n/ui';
+
+interface Props {
+  /** The term being annotated, as it appears in the text. Used as the note's label. */
+  term: string;
+  /** The gloss. One or two sentences; a paragraph here is a sign it belongs in the body text. */
+  note: string;
+  /** Where the claim comes from. Shown as a link, because a claim about a third party needs one. */
+  sourceHref?: string | undefined;
+  /** The source's name, e.g. "daiwahouse.com". Defaults to the link's host. */
+  sourceLabel?: string | undefined;
+  /** Stable id for the popover relationship; must be unique on the page. */
+  id: string;
+  /**
+   * Punctuation that follows the term — a full stop, a comma, a closing bracket.
+   *
+   * It is a prop rather than page text because Astro keeps the whitespace around a component, and
+   * a formatter is free to put the next character on its own line: `<Annotation />` followed by a
+   * comma renders as "Daiwa House Group , where". Passing the mark in emits it inside the same
+   * span, where no line break can get between them.
+   */
+  trailing?: string | undefined;
+  /** Punctuation that precedes the term, e.g. an opening bracket. Same reason as `trailing`. */
+  leading?: string | undefined;
+}
+
+const { term, note, sourceHref, sourceLabel, id, trailing, leading } = Astro.props;
+const { t } = localize(Astro.url);
+const host = sourceHref ? new URL(sourceHref).host.replace(/^www\./, '') : undefined;
+---
+
+<span class="annotated">
+  {leading}
+  <span class="term">{term}</span>
+  <button type="button" class="marker" popovertarget={id} aria-label={t.annotationAbout(term)}>
+    <span aria-hidden="true">?</span>
+  </button>
+  {trailing}
+
+  <span id={id} class="note" popover role="note">
+    <span class="note-label meta">{term}</span>
+    <span class="note-body">{note}</span>
+    {sourceHref && (
+      <a class="note-source meta" href={sourceHref} rel="nofollow noopener">
+        {sourceLabel ?? host}
+      </a>
+    )}
+  </span>
+</span>
+
+<style>
+  @layer components {
+    .annotated {
+      position: relative;
+    }
+
+    .term {
+      /* The dotted rule is the only mark on the term itself: it says "annotated", quietly. */
+      border-block-end: 1px dotted var(--line-strong);
+    }
+
+    .marker {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: 1.15em;
+      block-size: 1.15em;
+      margin-inline-start: 0.25em;
+      padding: 0;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--signal-text);
+      font-family: var(--font-mono);
+      font-size: 0.7em;
+      line-height: 1;
+      cursor: pointer;
+      vertical-align: super;
+    }
+
+    .marker:hover {
+      border-color: var(--signal);
+      color: var(--signal);
+    }
+
+    /* No `display` here, deliberately. The browser hides a closed popover with */
+    /* `[popover]:not(:popover-open) { display: none }`, and an author rule beats a UA rule. An */
+    /* earlier version set `display: grid` on this selector, so on a narrow screen every note sat */
+    /* in the page with a `?` button beside it that looked broken. Each state sets its own. */
+    .note {
+      gap: var(--space-1);
+      max-inline-size: min(22rem, calc(100vw - 2 * var(--page-margin)));
+      padding: var(--space-3);
+      border: var(--rule-ink);
+      background: var(--surface-paper-elevated);
+      font-size: var(--text-small);
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    .note-label {
+      color: var(--signal-text);
+    }
+
+    .note-source {
+      justify-self: start;
+      color: var(--text-secondary);
+    }
+
+    /* Narrow screens: the popover opens over the page, anchored to the middle of the viewport. */
+    .note:popover-open {
+      display: grid;
+      position: fixed;
+      inset: auto var(--page-margin) var(--space-5);
+      margin: 0;
+    }
+
+    /* Wide screens: no control, no overlay — the note is simply beside the text it annotates. */
+    @media (min-width: 64rem) {
+      .marker {
+        display: none;
+      }
+
+      .note {
+        display: grid;
+        float: inline-end;
+        position: static;
+        inline-size: 16rem;
+        margin-inline-start: var(--space-4);
+        margin-block: 0.35em var(--space-2);
+        padding: 0 0 0 var(--space-3);
+        border: 0;
+        border-inline-start: var(--rule-ink);
+        background: transparent;
+      }
+    }
+
+    /* Without popover support the note cannot be opened, so it is never hidden: it renders as */
+    /* a block under the paragraph and the marker disappears. Content a browser cannot reveal is */
+    /* content it must not conceal. */
+    @supports not selector(:popover-open) {
+      .marker {
+        display: none;
+      }
+
+      .note {
+        display: grid;
+        margin-block: var(--space-2);
+      }
+    }
+  }
+</style>
