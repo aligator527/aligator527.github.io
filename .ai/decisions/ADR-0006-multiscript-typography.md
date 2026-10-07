@@ -76,8 +76,13 @@ property and not a typographic argument, and it did not outweigh the drawing.
 ### 2. Japanese is set in a system stack, as a deliberate third family
 
 `:root:lang(ja)` sets `--font-sans` to Instrument Sans followed by Hiragino Sans, Hiragino Kaku
-Gothic ProN, Yu Gothic Medium, Yu Gothic, Meiryo, Noto Sans JP and Noto Sans CJK JP. No Japanese
-webfont is downloaded.
+Gothic ProN, Yu Gothic Medium, Yu Gothic, YuGothic (the PostScript name Windows answers to), Meiryo,
+Noto Sans JP and Noto Sans CJK JP. No Japanese webfont is downloaded.
+
+One correction to a claim that reads naturally and is wrong: `0→1` is not one of those Latin runs.
+U+2192 is outside the `latin` subset Instrument Sans is emitted with, so the arrow is drawn by
+whichever font in the stack has it — on a Japanese page, the system gothic. That is the right
+outcome, and it is recorded here so nobody "fixes" it by widening the subset.
 
 A subsetted Japanese webfont is not a 20KB decision. A gothic covering JIS level 1 and 2 is
 megabytes; even an aggressive per-page subset is an order of magnitude above this site's entire
@@ -89,7 +94,7 @@ Noto Sans JP. The page will not be the same picture on the three platforms, and 
 depend on it being so. This is the reason the Japanese block sets leading and measures rather than
 optical corrections to one particular face.
 
-Instrument Sans stays first in the stack so Latin runs — `DynamoDB`, `P01`, `REV.01`, `0→1` — keep
+Instrument Sans stays first in the stack so Latin runs — `DynamoDB`, `P01`, `REV.01` — keep
 the site's Latin voice, but it is declared on `/ja/` **without preload**: those runs are a minority
 of a Japanese page, and a Japanese reader should not wait on three Latin files.
 

@@ -42,7 +42,10 @@ Use `clamp()` with tested bounds. Do not scale every heading mechanically; prese
 
 ## Measures
 
-Every `max-inline-size` on running text comes from a token in `tokens.css`. A line length is a
+Every `max-inline-size` on *running text* comes from a token in `tokens.css`. Two containers are
+deliberately not measures and keep a `rem` width: the résumé column (`52rem`) and the work-entry
+facts table (`36rem`). They size a block, not a line — which is why the résumé needed
+`--measure-prose` to cap the lines inside it. A line length is a
 property of the script, not of the component, so the whole scale is restated in one place per
 locale. English and Russian values are in `ch` — the advance of "0" in whichever font renders the
 element. Japanese values are in `em`, for the reason below.
@@ -71,6 +74,11 @@ in the font that renders it; on a Japanese page that is Instrument Sans — the 
 without preload — so a `ch` measure there is a line length defined by a Latin font that arrives
 late, and by Arial while it is arriving. A CJK glyph fills its em box, so in `em` the number simply
 is the glyph count: 9 glyphs for a display title, 18 for a lede, 24 for a note, 34 for body text.
+
+The Japanese values are provisional until there is Japanese copy to set. They were derived from the
+English inventory and the glyph geometry, not from reading a Japanese page — the lede step in
+particular (18em, shared by three tokens) is the least evidenced of the four. Re-measure them
+against the real translation in the Japanese stage and record what changed.
 
 **Four steps, not eleven.** Japanese does not distinguish a 26-glyph line from a 28-glyph one, and
 the eleven English steps exist because Latin measures are tuned against word shapes. The tokens keep

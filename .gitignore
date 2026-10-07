@@ -1,6 +1,7 @@
 node_modules/
 # Any build output: dist/, dist-subpath/ and the per-locale preview builds a locale stage makes.
-dist*/
+dist/
+dist-*/
 .astro/
 playwright-report/
 test-results/

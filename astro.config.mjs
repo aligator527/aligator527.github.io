@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import { isIndexable, localeOfPath } from './src/utils/i18n.ts';
+import { isIndexable, localeFromPathname } from './src/utils/i18n.ts';
 
 // The production site is a GitHub user site served from `/`.
 // BASE_PATH lets CI build under a repository subpath to prove every link is base-safe.
@@ -33,7 +33,9 @@ export default defineConfig({
       filter: (page) => {
         const { pathname } = new URL(page);
         if (EMPTY_SECTIONS.some((path) => pathname.endsWith(path))) return false;
-        return isIndexable(localeOfPath(pathname.slice(base.length - 1)));
+        // `localeFromPathname` strips the base itself; it must be passed explicitly here because
+        // `import.meta.env.BASE_URL` is not defined in the config's own module scope.
+        return isIndexable(localeFromPathname(pathname, base));
       },
     }),
   ],

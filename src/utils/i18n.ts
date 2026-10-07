@@ -41,25 +41,17 @@ export const INDEXABLE_LOCALES = ['en'] as const satisfies readonly Locale[];
  * that "which locales are public" is a single fact with a single reader rather than a constant that
  * three places interpret for themselves.
  *
- * Three consumers, and they must agree or the site contradicts itself: `BaseLayout.astro` emits
- * `noindex` for a locale that is false here, `astro.config.mjs` keeps those pages out of the
- * sitemap, and `alternates()` below leaves them out of the `hreflang` cluster. A page that is
- * `noindex` but present in the sitemap, or absent from the sitemap but advertised as an alternate,
- * is exactly the half-published state this gate exists to prevent — `scripts/check-i18n.mjs`
- * asserts all three agree on every built page.
+ * Two consumers today, and they must agree or the site contradicts itself: `BaseLayout.astro` emits
+ * `noindex` for a locale that is false here, and `astro.config.mjs` keeps those pages out of the
+ * sitemap. `scripts/check-i18n.mjs` asserts the two agree on every built page, at every base path.
+ *
+ * `alternates()` below is the third consumer by design, but nothing renders it yet: no built page
+ * carries a `hreflang` link. It joins when the locale-rendering stage adds the alternates to
+ * `BaseLayout.astro`, and `check-i18n.mjs` gains the reciprocity assertion in the same change.
  */
 export function isIndexable(locale: Locale): boolean {
   assertLocale(locale);
   return (INDEXABLE_LOCALES as readonly Locale[]).includes(locale);
-}
-
-/**
- * The locale a built page belongs to, derived from its site-root-relative path. Used by the sitemap
- * filter, which sees URLs rather than routes.
- */
-export function localeOfPath(pathname: string): Locale {
-  const match = LOCALE_PREFIX.exec(pathname.startsWith('/') ? pathname : `/${pathname}`);
-  return match ? (match[1] as Locale) : DEFAULT_LOCALE;
 }
 
 /**

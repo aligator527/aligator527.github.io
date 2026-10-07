@@ -10,6 +10,7 @@ import {
   OG_LOCALE,
   alternates,
   assertLocale,
+  isIndexable,
   localeFromPathname,
   localeHref,
   localeParam,
@@ -289,4 +290,56 @@ describe('route generation', () => {
       }
     }
   });
+});
+
+/*
+ * The indexing gate. `isIndexable()` decides two things that must never disagree: whether a page
+ * says `noindex`, and whether the sitemap lists it. The sitemap filter in `astro.config.mjs` is the
+ * one caller that sees a full pathname including the deployment base, so the base-path cases below
+ * are the ones that matter: an earlier version of that filter stripped the base with an off-by-one
+ * slice, which classified every `/portfolio/ru/...` page as English, and therefore as indexable,
+ * and put nine `noindex` pages into the sitemap under the subpath build.
+ */
+describe('the indexing gate', () => {
+  it('admits exactly the locales declared indexable', () => {
+    for (const locale of LOCALES) {
+      expect(isIndexable(locale)).toBe((INDEXABLE_LOCALES as readonly Locale[]).includes(locale));
+    }
+  });
+
+  it('rejects a value that is not a locale', () => {
+    // @ts-expect-error — the runtime guard is the point: a bad locale must not silently be indexable.
+    expect(() => isIndexable('de')).toThrow();
+  });
+
+  it.each([
+    ['/', '/', 'en'],
+    ['/', '/work/', 'en'],
+    ['/', '/ru/', 'ru'],
+    ['/', '/ru/work/packaging-saas/', 'ru'],
+    ['/', '/ja/about/', 'ja'],
+    ['/portfolio/', '/portfolio/', 'en'],
+    ['/portfolio/', '/portfolio/work/', 'en'],
+    ['/portfolio/', '/portfolio/ru/', 'ru'],
+    ['/portfolio/', '/portfolio/ru/work/packaging-saas/', 'ru'],
+    ['/portfolio/', '/portfolio/ja/about/', 'ja'],
+  ])(
+    'reads the locale of %s%s as %s, which is what the sitemap filter asks it',
+    (base, pathname, expected) => {
+      expect(localeFromPathname(pathname, base)).toBe(expected);
+    },
+  );
+
+  it.each(['/', '/portfolio/'])(
+    'agrees with itself about every emitted route at base %s',
+    (base) => {
+      for (const locale of EMITTED_LOCALES) {
+        for (const route of ROUTES) {
+          const pathname = withBase(localePath(route, locale), base);
+          expect(localeFromPathname(pathname, base)).toBe(locale);
+          expect(isIndexable(localeFromPathname(pathname, base))).toBe(isIndexable(locale));
+        }
+      }
+    },
+  );
 });

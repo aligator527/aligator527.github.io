@@ -154,7 +154,7 @@
    * and splitting a nine-line contract across two files is how one of its lines gets lost.
    */
   :root:lang(ja) {
-    /* Latin runs (DynamoDB, P01, REV.01, 0→1) keep the site's Latin voice; the CJK glyphs come from
+    /* Latin runs (DynamoDB, P01, REV.01) keep the site's Latin voice; the CJK glyphs come from
        the reader's system in the order macOS, Windows, then Android/Linux. Nothing is downloaded for
        Japanese, and the page therefore looks different on each of those platforms — ADR-0006. */
     --font-sans:
