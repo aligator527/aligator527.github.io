@@ -1,12 +1,19 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { profile } from '../data/profile';
-import { localize } from '../i18n/ui';
-import { formatRange } from '../utils/dates';
-import { getRoles } from '../utils/experience';
-import { engagementLabel } from '../utils/work';
-import { RESUME_PDF_PATH, hasResumePdf } from '../utils/resume';
-import { withBase } from '../utils/url';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { profile } from '../../data/profile';
+import { localize } from '../../i18n/ui';
+import { formatRange } from '../../utils/dates';
+import { getRoles } from '../../utils/experience';
+import { engagementLabel } from '../../utils/work';
+import { RESUME_PDF_PATH, hasResumePdf } from '../../utils/resume';
+import { withBase } from '../../utils/url';
+import { localePaths } from '../../utils/i18n';
+/*
+ * One route per locale. English is the `undefined` rest parameter, so this file emits `/resume/` —
+ * not `/en/resume/` — and the indexed URL is unchanged. See `localePaths()`.
+ */
+export const getStaticPaths = localePaths satisfies GetStaticPaths;
 
 const { locale, t } = localize(Astro.url);
 const roles = await getRoles(locale);

@@ -1,9 +1,16 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHeader from '../../components/core/PageHeader.astro';
-import { profile } from '../../data/profile';
-import { localize } from '../../i18n/ui';
-import { depthLabel, getWork, statusLabel, workHref, workPeriod } from '../../utils/work';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHeader from '../../../components/core/PageHeader.astro';
+import { profile } from '../../../data/profile';
+import { localize } from '../../../i18n/ui';
+import { localePaths } from '../../../utils/i18n';
+import { depthLabel, getWork, statusLabel, workHref, workPeriod } from '../../../utils/work';
+/*
+ * One route per locale. English is the `undefined` rest parameter, so this file emits `/work/` —
+ * not `/en/work/` — and the indexed URL is unchanged. See `localePaths()`.
+ */
+export const getStaticPaths = localePaths satisfies GetStaticPaths;
 
 const { locale, t } = localize(Astro.url);
 const work = await getWork(locale);

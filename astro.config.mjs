@@ -16,6 +16,11 @@ export default defineConfig({
   base,
   output: 'static',
   trailingSlash: 'ignore',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'ru', 'ja'],
+    routing: { prefixDefaultLocale: false },
+  },
   build: { format: 'directory' },
   integrations: [
     sitemap({

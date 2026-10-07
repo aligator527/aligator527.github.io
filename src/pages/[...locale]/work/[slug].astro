@@ -1,0 +1,35 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import CaseStudyLayout from '../../../layouts/CaseStudyLayout.astro';
+import { EMITTED_LOCALES, localeParam } from '../../../utils/i18n';
+import { getWork, workSlug } from '../../../utils/work';
+
+/*
+ * One route per locale per work entry. English is the `undefined` rest parameter, so this file emits
+ * `/work/<slug>/` — not `/en/work/<slug>/` — and these indexed URLs are unchanged. A translated
+ * entry keeps its slug, which is why `workSlug()` is the only thing that reads `entry.id`.
+ *
+ * The previous/next pager is built per locale, from that locale's own ordered work list, so a
+ * localised case study can never page into another locale's sequence.
+ */
+export const getStaticPaths = (async () => {
+  const perLocale = await Promise.all(
+    EMITTED_LOCALES.map(async (locale) => {
+      const work = await getWork(locale);
+      return work.map((entry, index) => ({
+        params: { locale: localeParam(locale), slug: workSlug(entry) },
+        props: { entry, previous: work[index - 1], next: work[index + 1] },
+      }));
+    }),
+  );
+  return perLocale.flat();
+}) satisfies GetStaticPaths;
+
+const { entry, previous, next } = Astro.props;
+const { Content, headings } = await render(entry);
+---
+
+<CaseStudyLayout entry={entry} headings={headings} previous={previous} next={next}>
+  <Content />
+</CaseStudyLayout>

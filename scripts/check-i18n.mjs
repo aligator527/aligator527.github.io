@@ -15,7 +15,10 @@
  *   3. No <meta http-equiv="refresh"> anywhere. Locale handling has to stay static and
  *      JavaScript-free; a meta refresh is a client-side redirect that costs both indexability and
  *      accessibility, and it is the first shortcut a language switcher reaches for.
- *   4. A woff2 budget over dist/_astro, counted RECURSIVELY. Astro emits font files into
+ *   4. Nothing is served under /en/. English is the unprefixed default locale, so an `/en/...`
+ *      document means the locale route started emitting a second URL for a page that is already
+ *      indexed at its unprefixed path — duplicate content, and a silent one.
+ *   5. A woff2 budget over dist/_astro, counted RECURSIVELY. Astro emits font files into
  *      _astro/fonts/, so a non-recursive glob matches nothing and would pass however many faces
  *      were added. Russian needs a second Cyrillic-capable family; this is the tripwire that makes
  *      the cost of that visible and deliberate rather than accidental.
@@ -136,7 +139,21 @@ for (const file of htmlFiles) {
   }
 }
 
-// 4. Font budget, recursive on purpose.
+/*
+ * 4. English must never gain a prefix. `localePath()` refuses to build an `/en/` URL and
+ * `localeParam()` maps English to the `undefined` rest parameter; this is the same rule checked
+ * against what was actually written to disk, which is what search engines see.
+ */
+for (const file of htmlFiles) {
+  const route = routeOf(file);
+  if (route === '/en/' || route.startsWith('/en/')) {
+    fail(
+      `${toPosix(file)} is served at ${route}; English is unprefixed and must stay at ${route.slice('/en'.length)}`,
+    );
+  }
+}
+
+// 5. Font budget, recursive on purpose.
 const assets = join(dist, '_astro');
 const fonts = existsSync(assets)
   ? (await walk(assets)).filter((file) => file.endsWith('.woff2'))

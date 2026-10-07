@@ -37,7 +37,8 @@ src/
 ├── data/         profile, capability vocabulary, delivery-flow stages
 ├── i18n/ui/      UI chrome dictionaries, one per locale (en today)
 ├── layouts/      BaseLayout, CaseStudyLayout
-├── pages/        /, /work, /work/[slug], /experience, /about, /resume, /lab, /notes, 404
+├── pages/        [...locale]/ one route per locale: /, /work, /work/[slug], /experience,
+│                 /about, /resume — plus /lab, /notes, 404 and robots.txt at the root
 ├── styles/       reset, tokens, global, utilities (cascade layers)
 └── utils/        url (base-safe links), i18n (locale paths), dates, timeline, work, experience,
                   navigation, resume
@@ -64,6 +65,22 @@ Notes for future changes:
   is complete. UI chrome lives in `src/i18n/ui/<locale>.ts`, read as properties (`t.navWork`) so a
   missing key is an `astro check` error; facts stay in `src/data/profile.ts` and prose in the content
   collections, so dictionary entries that need a fact take it as an argument.
+- **Route tree.** Localisable pages live under `src/pages/[...locale]/` and take their
+  `getStaticPaths` from `localePaths()`. The rest parameter is `undefined` for English
+  (`localeParam()`), so that route emits `/work/` and never `/en/work/` — the indexed URLs are
+  unchanged by the locale tree, and `check:i18n` fails the build if an `/en/` document ever appears.
+  `EMITTED_LOCALES` decides which locales are built, `INDEXABLE_LOCALES` which are advertised; a
+  locale is built first and advertised later, so a translation can be reviewed on a real URL without
+  competing with the English page. `/lab`, `/notes`, `404.astro` and `robots.txt.ts` stay at the root
+  on purpose: the first two are English-only, GitHub Pages serves one `404.html` for every unmatched
+  path including `/ru/anything`, and there is one `robots.txt` per origin. `astro.config.mjs` sets
+  `i18n` only so that `Astro.currentLocale` is populated — there is no fallback and no
+  `redirectToDefaultLocale`, and components still derive their locale from `Astro.url`.
+  `.ai/product/sitemap.md` holds the full route table. A rest parameter can match several segments,
+  so this route was expected to swallow unknown paths such as `/typo` in `astro dev`; measured on
+  Astro 7.3.3 it does not, because Astro constrains the route to the paths `getStaticPaths` returns in
+  dev too. Re-check after an Astro upgrade. Production cannot regress either way: the build writes
+  only declared paths and GitHub Pages serves `404.html` for the rest.
 - **Cascade layers.** The layer order (`reset, tokens, base, layout, components, utilities`) is
   declared in an inline `<style>` in `BaseLayout.astro`, because component-scoped styles are
   emitted ahead of `src/styles/global.css` in the CSS bundle and would otherwise establish the

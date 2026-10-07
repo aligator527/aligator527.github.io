@@ -3,6 +3,7 @@ import { en } from '../../src/i18n/ui/en';
 import { useTranslations } from '../../src/i18n/ui';
 import {
   DEFAULT_LOCALE,
+  EMITTED_LOCALES,
   INDEXABLE_LOCALES,
   LOCALES,
   LOCALE_ENDONYM,
@@ -11,7 +12,9 @@ import {
   assertLocale,
   localeFromPathname,
   localeHref,
+  localeParam,
   localePath,
+  localePaths,
   logicalPath,
   stripLocale,
   type Locale,
@@ -243,5 +246,47 @@ describe('dictionaries', () => {
   it('is indexed by locale, so a new locale needs a dictionary', () => {
     const locale: Locale = 'ja';
     expect(typeof useTranslations(locale).navWork).toBe('string');
+  });
+});
+
+describe('route generation', () => {
+  it('maps the default locale to an absent rest parameter, so English URLs keep their shape', () => {
+    expect(localeParam('en')).toBeUndefined();
+    expect(localeParam('ru')).toBe('ru');
+    expect(localeParam('ja')).toBe('ja');
+  });
+
+  it('rejects an unknown locale rather than emitting a route for it', () => {
+    expect(() => localeParam('de' as Locale)).toThrow(/Unknown locale/);
+  });
+
+  it('emits one route per emitted locale, English first and unprefixed', () => {
+    expect(localePaths()).toEqual([{ params: { locale: undefined }, props: { locale: 'en' } }]);
+  });
+
+  it('emits every locale it builds and never a locale it does not know', () => {
+    for (const locale of EMITTED_LOCALES) {
+      expect(LOCALES).toContain(locale);
+    }
+    expect(localePaths().map(({ props }) => props.locale)).toEqual([...EMITTED_LOCALES]);
+  });
+
+  /*
+   * A locale is built before it is advertised, never the other way round: an indexable locale with
+   * no emitted routes would put URLs in `hreflang` that return 404.
+   */
+  it('advertises only locales it also emits', () => {
+    for (const locale of INDEXABLE_LOCALES) {
+      expect(EMITTED_LOCALES).toContain(locale);
+    }
+  });
+
+  it('turns its own params back into the route each page renders at', () => {
+    for (const { params, props } of localePaths()) {
+      const prefix = params.locale === undefined ? '' : `/${params.locale}`;
+      for (const route of ROUTES) {
+        expect(`${prefix}${route}`).toBe(localePath(route, props.locale));
+      }
+    }
   });
 });

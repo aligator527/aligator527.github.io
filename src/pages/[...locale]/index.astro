@@ -1,16 +1,29 @@
 ---
+import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionHeading from '../components/core/SectionHeading.astro';
-import DeliveryFlow from '../components/diagrams/DeliveryFlow.astro';
-import WorkEntry from '../components/work/WorkEntry.astro';
-import CapabilityMatrix from '../components/work/CapabilityMatrix.astro';
-import ActionLink from '../components/core/ActionLink.astro';
-import { profile } from '../data/profile';
-import { localize } from '../i18n/ui';
-import { formatMonth } from '../utils/dates';
-import { localeHref } from '../utils/i18n';
-import { getWork, workHref } from '../utils/work';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/core/SectionHeading.astro';
+import DeliveryFlow from '../../components/diagrams/DeliveryFlow.astro';
+import WorkEntry from '../../components/work/WorkEntry.astro';
+import CapabilityMatrix from '../../components/work/CapabilityMatrix.astro';
+import ActionLink from '../../components/core/ActionLink.astro';
+import { profile } from '../../data/profile';
+import { localize } from '../../i18n/ui';
+import { formatMonth } from '../../utils/dates';
+import { localeHref, localePaths } from '../../utils/i18n';
+import { getWork, workHref } from '../../utils/work';
+/*
+ * One route per locale. English is the `undefined` rest parameter, so this file emits `/` — not
+ * `/en/` — and the indexed URL is unchanged. See `localePaths()`.
+ *
+ * A rest parameter can match several segments, so this route was expected to swallow unknown paths
+ * such as `/typo` in `astro dev` and render the home page instead of the 404. It does not: Astro
+ * constrains the route to the paths `getStaticPaths` returns in dev as well as in the build.
+ * Measured on Astro 7.3.3 — `/typo`, `/x/y/z`, `/en/`, `/en/work/`, `/ru/` and `/ja/` all return the
+ * 404 from the dev server. Worth re-checking after an Astro upgrade; the static build is unaffected
+ * either way, because it writes only declared paths and GitHub Pages serves `404.html` for the rest.
+ */
+export const getStaticPaths = localePaths satisfies GetStaticPaths;
 
 const { locale, t } = localize(Astro.url);
 const work = await getWork(locale);

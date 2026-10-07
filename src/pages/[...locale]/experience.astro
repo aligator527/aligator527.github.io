@@ -1,15 +1,21 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/core/PageHeader.astro';
-import SectionHeading from '../components/core/SectionHeading.astro';
-import ActionLink from '../components/core/ActionLink.astro';
-import Timeline from '../components/experience/Timeline.astro';
-import { profile } from '../data/profile';
-import { localize } from '../i18n/ui';
-import { formatDuration, formatRange } from '../utils/dates';
-import { getRolesWithWork } from '../utils/experience';
-import { localeHref } from '../utils/i18n';
-import { depthLabel, engagementLabel, workHref } from '../utils/work';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/core/PageHeader.astro';
+import SectionHeading from '../../components/core/SectionHeading.astro';
+import ActionLink from '../../components/core/ActionLink.astro';
+import Timeline from '../../components/experience/Timeline.astro';
+import { profile } from '../../data/profile';
+import { localize } from '../../i18n/ui';
+import { formatDuration, formatRange } from '../../utils/dates';
+import { getRolesWithWork } from '../../utils/experience';
+import { localeHref, localePaths } from '../../utils/i18n';
+import { depthLabel, engagementLabel, workHref } from '../../utils/work';
+/*
+ * One route per locale. English is the `undefined` rest parameter, so this file emits
+ * `/experience/` — not `/en/experience/` — and the indexed URL is unchanged. See `localePaths()`.
+ */
+export const getStaticPaths = localePaths satisfies GetStaticPaths;
 
 const { locale, t } = localize(Astro.url);
 // Each role arrives with its `work:` reference already resolved and validated; see utils/experience.

@@ -192,3 +192,45 @@ export function alternates(
   ).map<Alternate>((locale) => ({ hreflang: locale, href: localeHref(path, locale, base) }));
   return [...localized, { hreflang: 'x-default', href: localeHref(path, DEFAULT_LOCALE, base) }];
 }
+
+/**
+ * Locales whose routes are actually emitted by the build.
+ *
+ * Deliberately separate from `INDEXABLE_LOCALES`: a locale is built before it is advertised, so that
+ * a translation can be reviewed on a real URL while search engines are still pointed only at the
+ * pages that are finished. Today only English is emitted, so the build output is unchanged; the
+ * locale stages add `ru` and then `ja` here, and later to `INDEXABLE_LOCALES`.
+ */
+export const EMITTED_LOCALES = ['en'] as const satisfies readonly Locale[];
+
+/**
+ * The value of the `[...locale]` rest parameter for a locale.
+ *
+ * English is `undefined`, which is how a rest parameter renders as nothing at all: the route
+ * `src/pages/[...locale]/work/index.astro` emits `/work/` rather than `/en/work/`. This is the
+ * single place that encodes "the default locale has no segment", and it is why the indexed English
+ * URLs survive the move under the locale route.
+ */
+export function localeParam(locale: Locale): string | undefined {
+  assertLocale(locale);
+  return locale === DEFAULT_LOCALE ? undefined : locale;
+}
+
+export interface LocaleRoute {
+  params: { locale: string | undefined };
+  props: { locale: Locale };
+}
+
+/**
+ * `getStaticPaths` for a page that exists once per locale and needs nothing else from the build.
+ *
+ * The locale is also passed as a prop, for frontmatter that needs it before a URL exists. Page
+ * bodies and components should keep deriving it from `Astro.url` through `localize()`, so that a
+ * component renders the same whether or not its page happened to forward a prop.
+ */
+export function localePaths(): LocaleRoute[] {
+  return EMITTED_LOCALES.map((locale) => ({
+    params: { locale: localeParam(locale) },
+    props: { locale },
+  }));
+}
