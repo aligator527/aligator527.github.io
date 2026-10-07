@@ -20,7 +20,7 @@ truth) and [`.claude/`](.claude/README.md) (Claude Code adapter).
 | `pnpm test:unit` | Vitest unit tests |
 | `pnpm test:e2e` | Playwright browser tests, including axe, against a production build |
 | `pnpm check:links` | Verifies every internal href, asset and fragment in `dist/` resolves, including same-origin absolute URLs such as `canonical` and `og:url` |
-| `pnpm check:i18n` | Holds the indexing and locale contract in `dist/`: the live URLs in `tests/fixtures/indexed-urls.json`, one self-referencing canonical per page, no `meta refresh`, and the `_astro` font budget |
+| `pnpm check:i18n` | Holds the indexing and locale contract in `dist/`: the live URLs in `tests/fixtures/indexed-urls.json`, one self-referencing canonical per page, no `meta refresh`, nothing served under `/en/`, the `_astro` font budget, and the per-locale font preloads of ADR-0006 |
 | `pnpm check` | Format, lint, typecheck, unit tests, build, link check, indexing check |
 
 Playwright needs its browser once: `pnpm exec playwright install chromium`.
@@ -81,6 +81,13 @@ Notes for future changes:
   Astro 7.3.3 it does not, because Astro constrains the route to the paths `getStaticPaths` returns in
   dev too. Re-check after an Astro upgrade. Production cannot regress either way: the build writes
   only declared paths and GitHub Pages serves `404.html` for the rest.
+- **Locale typography.** `tokens.css` ends with `:root:lang(ru)` and `:root:lang(ja)`, which restate
+  the type family and — for Japanese — tracking, leading, the measure scale and three CJK text
+  properties. Every `max-inline-size` on running text is a `--measure-*` token for that reason: a
+  line length is a property of the script, so the whole scale is restated once per locale instead of
+  component by component. `.ai/design/typography.md` has the table and the measurements behind the
+  Japanese values; ADR-0006 has the families. Japanese downloads no font, so `/ja/` renders
+  differently on macOS, Windows and Android by design.
 - **Cascade layers.** The layer order (`reset, tokens, base, layout, components, utilities`) is
   declared in an inline `<style>` in `BaseLayout.astro`, because component-scoped styles are
   emitted ahead of `src/styles/global.css` in the CSS bundle and would otherwise establish the
@@ -122,9 +129,13 @@ Runtime dependencies are deliberately few; nothing ships JavaScript to the brows
 `@astrojs/mdx` was removed: the work briefs are plain CommonMark, so it earned nothing. Re-add it
 (with a note in this table) when a case study needs to embed a component such as `LayerDiagram`.
 
-Fonts (Instrument Sans, IBM Plex Mono) are self-hosted through Astro's built-in Fonts API with the
-Fontsource provider: only the latin subset and the weights in use are downloaded at build time,
-with metric-adjusted fallbacks to avoid layout shift. No font package is a runtime dependency.
+Fonts are self-hosted through Astro's built-in Fonts API with the Fontsource provider: only the
+subsets and weights in use are downloaded at build time, with metric-adjusted fallbacks to avoid
+layout shift. No font package is a runtime dependency. There is one family per script — Instrument
+Sans for Latin, Golos Text for Cyrillic, a system gothic stack for Japanese, IBM Plex Mono (latin +
+cyrillic) for metadata — and `BaseLayout.astro` emits and preloads only the family a page is set in:
+English preloads three Instrument Sans faces, Russian four Golos Text faces, Japanese none.
+ADR-0006 records why, and `check:i18n` enforces that table per document.
 
 Dev-only: TypeScript, `@astrojs/check`, Vitest, Playwright, `@axe-core/playwright`, Prettier,
 ESLint. React is intentionally absent until an interaction justifies an island.

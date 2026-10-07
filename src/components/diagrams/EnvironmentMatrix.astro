@@ -89,7 +89,7 @@ const { t } = localize(Astro.url);
 
     .role {
       font-size: var(--text-small);
-      max-inline-size: 40ch;
+      max-inline-size: var(--measure-note-tight);
     }
 
     .items {
@@ -135,6 +135,8 @@ const { t } = localize(Astro.url);
       content: '→';
       position: absolute;
       inset-block-start: 50%;
+      /* Half a digit advance, not a measure: it centres the arrow in the gutter and follows */
+      /* whichever mono renders the stage labels, in any locale. */
       inset-inline-end: calc(var(--space-3) / -2 - 0.5ch);
       translate: 0 -50%;
       color: var(--signal-text);
@@ -151,7 +153,7 @@ const { t } = localize(Astro.url);
       margin-block-start: var(--space-3);
       font-size: var(--text-small);
       color: var(--text-secondary);
-      max-inline-size: 60ch;
+      max-inline-size: var(--measure-caption);
     }
 
     /* Wide: stage boxes line up across rows into columns, which is what makes it a matrix. */

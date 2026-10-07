@@ -63,10 +63,40 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
     <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
-    <Font
-      cssVariable="--font-instrument-sans"
-      preload={[{ weight: 400 }, { weight: 600 }, { weight: 700 }]}
-    />
+    {/*
+      One sans per locale, and only that locale's faces are emitted and preloaded (ADR-0006).
+      Preloading is high priority, so a face a page cannot use costs the real LCP element its
+      bandwidth: Russian is set in Golos Text and never touches Instrument Sans, and Japanese is set
+      in a system stack that downloads nothing, where three preloaded Latin faces would be three
+      wasted critical requests. Japanese still declares Instrument Sans — its Latin runs (DynamoDB,
+      P01, REV.01) are the site's Latin voice — but declares it without preload, because those runs
+      are a minority of the page and can arrive late.
+    */}
+    {locale === 'ru' ? (
+      /*
+       * Golos Text ships one file per weight AND subset, so an unfiltered weight list preloads six
+       * files (58KB). These four are the faces a Russian page paints first, measured on the built
+       * page: the Cyrillic 400/600/700 it is written in, plus Latin 700 for the wordmark, which is
+       * the largest-contentful-paint element at desktop widths (at 390px it is the Cyrillic 400
+       * promise line). 34KB against English's 51KB; the Latin 400/600 arrive on demand.
+       */
+      <Font
+        cssVariable="--font-golos-text"
+        preload={[
+          { weight: 400, subset: 'cyrillic' },
+          { weight: 600, subset: 'cyrillic' },
+          { weight: 700, subset: 'cyrillic' },
+          { weight: 700, subset: 'latin' },
+        ]}
+      />
+    ) : locale === 'ja' ? (
+      <Font cssVariable="--font-instrument-sans" />
+    ) : (
+      <Font
+        cssVariable="--font-instrument-sans"
+        preload={[{ weight: 400 }, { weight: 600 }, { weight: 700 }]}
+      />
+    )}
     <Font cssVariable="--font-ibm-plex-mono" />
   </head>
   <body>

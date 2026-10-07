@@ -1,6 +1,6 @@
 # ADR-0004: Self-host fonts through Astro's Fonts API
 
-Status: Accepted
+Status: Superseded by ADR-0006
 Date: 2026-09-18
 
 ## Context

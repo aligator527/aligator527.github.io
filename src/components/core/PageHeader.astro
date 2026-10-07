@@ -37,13 +37,13 @@ const { sheet, title, lead } = Astro.props;
     }
 
     .title {
-      max-inline-size: 18ch;
+      max-inline-size: var(--measure-title-wide);
     }
 
     .lead {
       margin-block-start: var(--space-4);
       font-size: var(--text-body-lg);
-      max-inline-size: 52ch;
+      max-inline-size: var(--measure-lede-wide);
     }
 
     @media (min-width: 64rem) {

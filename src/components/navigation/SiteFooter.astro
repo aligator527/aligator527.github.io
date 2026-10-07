@@ -86,13 +86,13 @@ const { t } = localize(Astro.url);
 
     .heading {
       font-size: var(--text-h2);
-      max-inline-size: 18ch;
+      max-inline-size: var(--measure-title-wide);
     }
 
     .availability {
       margin-block-start: var(--space-4);
       color: var(--text-inverse-secondary);
-      max-inline-size: 42ch;
+      max-inline-size: var(--measure-note);
     }
 
     .channels {
@@ -103,7 +103,9 @@ const { t } = localize(Astro.url);
 
     .channels > div {
       display: grid;
-      grid-template-columns: 7rem 1fr;
+      /* Label column: the English width as a floor, then content-sized. A translated label is */
+      /* not guaranteed to fit a track measured against English. */
+      grid-template-columns: minmax(7rem, max-content) 1fr;
       gap: var(--space-3);
       align-items: baseline;
       padding-block-end: var(--space-3);

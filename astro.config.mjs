@@ -27,6 +27,13 @@ export default defineConfig({
       filter: (page) => !EMPTY_SECTIONS.some((path) => new URL(page).pathname.endsWith(path)),
     }),
   ],
+  /*
+   * Three scripts, two webfont families, one system stack — see ADR-0006.
+   * Instrument Sans has no Cyrillic (Fontsource ships it as latin + latin-ext only), so Russian is
+   * set in Golos Text, which is drawn Cyrillic-first. Japanese takes a system stack and downloads
+   * nothing. `BaseLayout.astro` decides per locale which family is emitted and preloaded; a family
+   * listed here is only fetched by a page that renders its <Font>.
+   */
   fonts: [
     {
       provider: fontProviders.fontsource(),
@@ -39,11 +46,25 @@ export default defineConfig({
     },
     {
       provider: fontProviders.fontsource(),
+      name: 'Golos Text',
+      cssVariable: '--font-golos-text',
+      weights: [400, 600, 700],
+      styles: ['normal'],
+      // Latin as well as Cyrillic: a Russian page is set in one voice, including the technology
+      // names and project IDs inside its sentences, and loads one family rather than two.
+      subsets: ['cyrillic', 'latin'],
+      fallbacks: ['Helvetica Neue', 'Arial', 'sans-serif'],
+    },
+    {
+      provider: fontProviders.fontsource(),
       name: 'IBM Plex Mono',
       cssVariable: '--font-ibm-plex-mono',
       weights: [400, 500],
       styles: ['normal'],
-      subsets: ['latin'],
+      // Metadata labels (ROLE, SYSTEM, STATUS) are translated; the Cyrillic subset keeps them in
+      // the intended mono instead of a system fallback. Each subset is a separate @font-face with
+      // its own unicode-range, so an English page never fetches the Cyrillic file.
+      subsets: ['latin', 'cyrillic'],
       fallbacks: ['ui-monospace', 'Menlo', 'Consolas', 'monospace'],
     },
   ],

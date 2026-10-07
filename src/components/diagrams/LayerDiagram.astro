@@ -80,7 +80,7 @@ const { layers, caption, variant, prefix = 'L', class: className } = Astro.props
       border-block-start: var(--rule);
       font-size: var(--text-small);
       color: var(--text-secondary);
-      max-inline-size: 60ch;
+      max-inline-size: var(--measure-caption);
     }
 
     /* STACK: layers joined by a vertical spine, like a request descending through tiers. */

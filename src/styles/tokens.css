@@ -67,6 +67,27 @@
     --grid-gutter: var(--space-3);
     --page-margin: 1.25rem;
     --page-max: 90rem;
+
+    /*
+     * Measures — the maximum line length of a text block, in `ch` (the advance of "0" in the font
+     * that renders it). Every `max-inline-size` on running text in this codebase comes from one of
+     * these, so that a locale can restate the whole scale in one place: a line length is a
+     * script-dependent decision, not a component-level one, and Japanese needs roughly 40ch where
+     * English takes 68ch. The names describe the typographic role, and `.ai/design/typography.md`
+     * lists which element each one sets. Several have a single consumer today; they exist as tokens
+     * because `:root:lang(ja)` below has to be able to restate them, which is the semantic reason
+     * the token discipline in `.ai/design/design-system.md` asks for.
+     */
+    --measure-title: 16ch;
+    --measure-title-wide: 18ch;
+    --measure-lede-tight: 34ch;
+    --measure-lede: 48ch;
+    --measure-lede-wide: 52ch;
+    --measure-note-tight: 40ch;
+    --measure-note: 42ch;
+    --measure-note-wide: 44ch;
+    --measure-caption-tight: 58ch;
+    --measure-caption: 60ch;
     --measure: 68ch;
 
     /* Radius */
@@ -99,5 +120,79 @@
       --grid-columns: 12;
       --page-margin: clamp(var(--space-5), 4vw, var(--space-7));
     }
+  }
+
+  /*
+   * Locale typography. Instrument Sans ships latin and latin-ext only, so Russian and Japanese each
+   * restate the family and whatever the script changes about the setting. ADR-0006 records why
+   * these three families, and `.ai/design/typography.md` records the measured numbers behind the
+   * values below.
+   */
+
+  /*
+   * Russian: Golos Text carries both scripts, so a Russian sentence and the technology names inside
+   * it are one voice. Its type scale, tracking and measures are the root ones — it is a grotesque of
+   * the same build as Instrument Sans, and Cyrillic takes the same line lengths as Latin. Its "0" is
+   * 0.62em against Instrument Sans's 0.67em, so a measure in `ch` is ~7% narrower in pixels here and
+   * holds about the same number of characters, which is what a measure is for.
+   */
+  :root:lang(ru) {
+    --font-sans: var(--font-golos-text), 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /*
+   * Japanese. The three declarations at the end are properties rather than custom properties, and
+   * they sit here on purpose: they are part of the same locale contract as the tokens above them,
+   * and splitting a nine-line contract across two files is how one of its lines gets lost.
+   */
+  :root:lang(ja) {
+    /* Latin runs (DynamoDB, P01, REV.01, 0→1) keep the site's Latin voice; the CJK glyphs come from
+       the reader's system in the order macOS, Windows, then Android/Linux. Nothing is downloaded for
+       Japanese, and the page therefore looks different on each of those platforms — ADR-0006. */
+    --font-sans:
+      var(--font-instrument-sans), 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic Medium',
+      'Yu Gothic', YuGothic, Meiryo, 'Noto Sans JP', 'Noto Sans CJK JP', sans-serif;
+    /* IBM Plex Mono has no CJK. Without these names a translated metadata label falls back to
+       whatever the platform picks for monospace CJK, which on Linux is usually a serif. */
+    --font-mono:
+      var(--font-ibm-plex-mono), ui-monospace, Menlo, Consolas, 'Hiragino Sans', 'Yu Gothic Medium',
+      'Yu Gothic', Meiryo, 'Noto Sans JP', 'Noto Sans CJK JP', monospace;
+
+    /* Negative tracking is a Latin correction. CJK glyphs are designed on a fixed body; tightening
+       them closes the gaps the characters are drawn to have. */
+    --tracking-display: 0;
+    --tracking-heading: 0;
+
+    /* A CJK glyph fills its em box, so the Latin display leading of 0.95 has nothing to absorb:
+       measured at 64px on Noto Sans CJK JP, successive lines visually touch. 1.02 is still far
+       tighter than the 1.2–1.4 Japanese display type normally takes. Body leading goes the other
+       way — dense full-width glyphs need more air between lines, not less. */
+    --leading-tight: 1.02;
+    --leading-heading: 1.25;
+    --leading-body: 1.8;
+
+    /* Japanese sets about 1.5 characters per `ch` here (the digit advance stays Instrument Sans's
+       0.67em while a CJK glyph is 1em), so the English measures would run to 45 characters a line.
+       These land between 8 glyphs for a display title and 27 for body text. */
+    --measure-title: 12ch;
+    --measure-title-wide: 14ch;
+    --measure-lede-tight: 22ch;
+    --measure-lede: 30ch;
+    --measure-lede-wide: 32ch;
+    --measure-note-tight: 26ch;
+    --measure-note: 27ch;
+    --measure-note-wide: 28ch;
+    --measure-caption-tight: 36ch;
+    --measure-caption: 38ch;
+    --measure: 40ch;
+
+    /* Kinsoku shori: do not start a line with a small kana or a closing bracket. */
+    line-break: strict;
+    /* Trim the half-em that opening brackets carry when they land at the start of a line. Measured
+       difference against the initial value in Chromium 153; ignored where unsupported. */
+    text-spacing-trim: trim-start;
+    /* The quarter-em between CJK and the Latin runs this site is full of. `normal` is the initial
+       value and is declared so the intent is visible next to the two lines above it. */
+    text-autospace: normal;
   }
 }

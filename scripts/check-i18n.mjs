@@ -22,6 +22,10 @@
  *      _astro/fonts/, so a non-recursive glob matches nothing and would pass however many faces
  *      were added. Russian needs a second Cyrillic-capable family; this is the tripwire that makes
  *      the cost of that visible and deliberate rather than accidental.
+ *   6. The per-document preload contract from ADR-0006: a page may preload only faces of the family
+ *      it is actually set in. The repository budget in 5 counts files on disk, which says nothing
+ *      about what a single page makes the browser fetch at high priority — and a locale page
+ *      preloading a family it cannot render a word of is an LCP regression no other check sees.
  *
  * Usage: node scripts/check-i18n.mjs <dist-dir>   (BASE_PATH is honoured, as in check-links.mjs)
  */
@@ -35,12 +39,34 @@ const basePrefix = base.endsWith('/') ? base : `${base}/`;
 const fixturePath = resolve(import.meta.dirname, '..', 'tests', 'fixtures', 'indexed-urls.json');
 
 /*
- * Measured from the current build (`find dist/_astro -name '*.woff2' -printf '%s\n'`): 5 files,
- * 80876 bytes — the latin subsets of Instrument Sans 400/600/700 and IBM Plex Mono 400/500.
+ * Measured from the current build (`find dist/_astro -name '*.woff2' -printf '%s\n'`): 13 files,
+ * 155572 bytes. Raised from 5 files / 80876 bytes by ADR-0006, and the increase breaks down as:
+ *
+ *   Instrument Sans latin 400/600/700   3 files   51280 bytes  (unchanged, English and Latin runs)
+ *   IBM Plex Mono latin 400/500         2 files   29596 bytes  (unchanged)
+ *   IBM Plex Mono cyrillic 400/500      2 files   16816 bytes  (new: translated metadata labels)
+ *   Golos Text cyrillic 400/600/700     3 files   21208 bytes  (new: the Russian text face)
+ *   Golos Text latin 400/600/700        3 files   36672 bytes  (new: Latin runs inside Russian)
+ *
+ * The six Golos files are on disk but referenced by no document until /ru/ is emitted, and the two
+ * Cyrillic mono files have a Cyrillic unicode-range, so an English visitor still downloads exactly
+ * the three Instrument Sans files and, if a page uses it, the Latin mono it did before.
+ *
  * Raising these numbers is allowed; doing it without noticing is not. Re-measure and update both
  * values in the same commit that adds or removes a font face, and say in the message why.
  */
-const FONT_BUDGET = { maxFiles: 5, maxBytes: 80_876 };
+const FONT_BUDGET = { maxFiles: 13, maxBytes: 155_572 };
+
+/*
+ * Which family each locale may preload, per ADR-0006. English is set in Instrument Sans, Russian in
+ * Golos Text, and Japanese in a system stack that downloads nothing — a preload there would be a
+ * high-priority fetch for a face the page barely paints. `max` is a ceiling, not the current count.
+ */
+const PRELOAD_CONTRACT = {
+  en: { families: ['Instrument Sans'], max: 3 },
+  ru: { families: ['Golos Text'], max: 4 },
+  ja: { families: [], max: 0 },
+};
 
 /* Google's Search Console verification file is 53 bytes of plain text, not an HTML document. */
 const NOT_A_DOCUMENT = /(^|\/)google[^/]*\.html$/;
@@ -169,10 +195,54 @@ if (fontBytes > FONT_BUDGET.maxBytes) {
   fail(`${fontBytes} woff2 byte(s) in _astro, budget is ${FONT_BUDGET.maxBytes}`);
 }
 
+/*
+ * 6. Per-document preloads. The font family names Astro emits carry a build hash
+ * (`Instrument Sans-c05ce52b…`); the @font-face rules in the document itself are what maps a
+ * preloaded file back to its family, so the check reads the page rather than guessing from config.
+ */
+const FAMILY_HASH = /-[\da-f]{16}$/;
+let preloadCount = 0;
+
+for (const file of htmlFiles) {
+  const html = await readFile(file, 'utf8');
+  const name = toPosix(file);
+  const route = routeOf(file);
+  const locale = /^\/(ru|ja)(\/|$)/.exec(route)?.[1] ?? 'en';
+  const contract = PRELOAD_CONTRACT[locale];
+
+  const familyByUrl = new Map();
+  for (const [, family, url] of html.matchAll(
+    /@font-face\{font-family:"([^"]+)";src:url\("([^"]+)"\)/g,
+  )) {
+    familyByUrl.set(url, family.replace(FAMILY_HASH, ''));
+  }
+
+  const preloads = [...html.matchAll(/<link rel="preload" href="([^"]+)" as="font"/g)].map(
+    (match) => match[1],
+  );
+  preloadCount += preloads.length;
+
+  if (preloads.length > contract.max) {
+    fail(
+      `${name} preloads ${preloads.length} font file(s); ${locale} may preload at most ${contract.max}`,
+    );
+  }
+  for (const url of preloads) {
+    const family = familyByUrl.get(url) ?? '(no @font-face in this document)';
+    if (!contract.families.includes(family)) {
+      fail(
+        `${name} preloads ${family} — ${locale} pages are set in ` +
+          `${contract.families.join(', ') || 'system fonts and preload nothing'}`,
+      );
+    }
+  }
+}
+
 console.log(
   `Checked ${htmlFiles.length} document(s) in ${posix.normalize(relative(process.cwd(), dist))} ` +
     `with base "${basePrefix}": ${pages.length} indexed page(s), ${files.length} indexed file(s), ` +
-    `${fonts.length}/${FONT_BUDGET.maxFiles} woff2 file(s), ${fontBytes}/${FONT_BUDGET.maxBytes} font byte(s).`,
+    `${fonts.length}/${FONT_BUDGET.maxFiles} woff2 file(s), ${fontBytes}/${FONT_BUDGET.maxBytes} font byte(s), ` +
+    `${preloadCount} font preload(s) across all documents.`,
 );
 if (failures.length > 0) {
   console.error(`\n${failures.length} i18n/indexing contract failure(s):`);

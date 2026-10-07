@@ -39,7 +39,9 @@ const { items, layout = 'rail', class: className } = Astro.props;
 
     .inline .row {
       display: grid;
-      grid-template-columns: 8.5rem minmax(0, 1fr);
+      /* Label column: the English width as a floor, then content-sized. A translated label is */
+      /* not guaranteed to fit a track measured against English. */
+      grid-template-columns: minmax(8.5rem, max-content) minmax(0, 1fr);
       gap: var(--space-3);
       align-items: baseline;
     }

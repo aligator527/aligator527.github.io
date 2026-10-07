@@ -215,7 +215,7 @@ const nextIndex = () => ++sectionIndex;
     .promise {
       margin-block-start: var(--space-3);
       font-size: var(--text-body-lg);
-      max-inline-size: 34ch;
+      max-inline-size: var(--measure-lede-tight);
     }
 
     .supporting {
@@ -230,7 +230,9 @@ const nextIndex = () => ++sectionIndex;
 
     .hero-rail > div {
       display: grid;
-      grid-template-columns: 6.5rem minmax(0, 1fr);
+      /* Label column: the English width as a floor, then content-sized. A translated label is */
+      /* not guaranteed to fit a track measured against English. */
+      grid-template-columns: minmax(6.5rem, max-content) minmax(0, 1fr);
       gap: var(--space-2);
       align-items: baseline;
       padding-block: var(--space-2);
