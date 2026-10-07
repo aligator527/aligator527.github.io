@@ -173,6 +173,11 @@ const pdfAvailable = hasResumePdf();
       font-weight: 600;
     }
 
+    /* The column is 52rem; the lines inside it are capped per script — see `--measure-prose`. */
+    .block :is(p, li) {
+      max-inline-size: var(--measure-prose);
+    }
+
     .block {
       margin-block-start: var(--space-6);
       padding-block-start: var(--space-2);

@@ -159,6 +159,10 @@ export const en = {
   labTitle: 'Lab',
   labLead: 'Public code, prototypes, and experiments.',
   labEntriesHeading: 'Entries',
+  /* Lab entry status, from the content schema's enum — never rendered raw. */
+  labStatus: { active: 'Active', complete: 'Complete', archived: 'Archived' },
+  labRepository: 'Repository',
+  labDemo: 'Demo',
   labEmpty: 'No public entries yet.',
   notesDescription: (name: string) => `Engineering and architecture writing by ${name}.`,
   notesSheet: 'Notes / Unpublished',

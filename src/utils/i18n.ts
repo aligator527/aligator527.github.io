@@ -37,6 +37,32 @@ export const DEFAULT_LOCALE = 'en' satisfies Locale;
 export const INDEXABLE_LOCALES = ['en'] as const satisfies readonly Locale[];
 
 /**
+ * Whether a locale's pages may be indexed and advertised. The one function every consumer calls, so
+ * that "which locales are public" is a single fact with a single reader rather than a constant that
+ * three places interpret for themselves.
+ *
+ * Three consumers, and they must agree or the site contradicts itself: `BaseLayout.astro` emits
+ * `noindex` for a locale that is false here, `astro.config.mjs` keeps those pages out of the
+ * sitemap, and `alternates()` below leaves them out of the `hreflang` cluster. A page that is
+ * `noindex` but present in the sitemap, or absent from the sitemap but advertised as an alternate,
+ * is exactly the half-published state this gate exists to prevent — `scripts/check-i18n.mjs`
+ * asserts all three agree on every built page.
+ */
+export function isIndexable(locale: Locale): boolean {
+  assertLocale(locale);
+  return (INDEXABLE_LOCALES as readonly Locale[]).includes(locale);
+}
+
+/**
+ * The locale a built page belongs to, derived from its site-root-relative path. Used by the sitemap
+ * filter, which sees URLs rather than routes.
+ */
+export function localeOfPath(pathname: string): Locale {
+  const match = LOCALE_PREFIX.exec(pathname.startsWith('/') ? pathname : `/${pathname}`);
+  return match ? (match[1] as Locale) : DEFAULT_LOCALE;
+}
+
+/**
  * Open Graph expects `language_TERRITORY`, not a bare language code. The site currently emits
  * `og:locale` as `en`, which is not a valid Open Graph value; the locale-rendering stage switches
  * the tag to this map, which is a deliberate, reviewable change to the live English pages.

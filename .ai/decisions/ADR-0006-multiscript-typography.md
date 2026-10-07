@@ -54,6 +54,18 @@ That did not decide it — the drawing did — but it is not a reason to prefer 
 Golos Text carries the Latin subset too, so a Russian sentence and the technology names inside it
 are one voice, and a Russian page loads one family rather than two.
 
+**The consequence, stated plainly: on `/ru/` the whole page is Golos Text — the wordmark, every
+heading, and every Latin word inside a Russian sentence. The site's display voice is therefore not
+the same in English and Russian.** That is the decision, not an oversight. The alternative is
+Instrument Sans for Latin with Golos picking up Cyrillic by `unicode-range`, which puts two
+grotesques inside a single sentence — in running Russian prose, where Latin technology names appear
+every few lines, that mixture is visible at body size and worse at display size. A voice that is
+consistent within a page and differs between locales is the lesser of the two, and it also keeps the
+Russian page to one family and one set of preloads. The wordmark is Latin text in every locale, so
+it is the clearest case: `Ivan Dolgov` is set in Golos on `/ru/` and in Instrument Sans everywhere
+else. Revisit if the two faces ever sit side by side in one viewport — a language switcher showing
+both endonyms is the place that will happen first.
+
 Measured consequence, recorded because it is counter-intuitive: Golos Text's "0" is 0.62em against
 Instrument Sans's 0.67em, so a measure expressed in `ch` is about 7% narrower in pixels on `/ru/`.
 That is correct rather than a defect — a measure is a character count, and the two faces hold
@@ -79,8 +91,17 @@ optical corrections to one particular face.
 
 Instrument Sans stays first in the stack so Latin runs — `DynamoDB`, `P01`, `REV.01`, `0→1` — keep
 the site's Latin voice, but it is declared on `/ja/` **without preload**: those runs are a minority
-of a Japanese page, the metric-adjusted fallback paints them immediately with no layout shift, and a
-Japanese reader should not wait on three Latin files.
+of a Japanese page, and a Japanese reader should not wait on three Latin files.
+
+That trade has one consequence worth stating, because an earlier draft of this ADR got it wrong and
+claimed there was none. A `ch` is the advance of `0` in the font that renders it. Had the Japanese
+measures stayed in `ch`, every Japanese line length would have been measured against Instrument Sans
+— the one face `/ja/` deliberately does not preload — and, during the `font-display: swap` window,
+against Arial instead, so the measures would have shifted when the Latin face arrived. The Japanese
+measures are therefore expressed in `em`, which is the unit a CJK glyph is actually drawn in: a
+value is a glyph count and it does not depend on a Latin face at all. Latin runs inside a Japanese
+line still reflow slightly when Instrument Sans swaps in; that is a word-level shift inside a fixed
+column, not a change to the column.
 
 IBM Plex Mono has no CJK, so the Japanese `--font-mono` appends the same gothics. Without them a
 translated metadata label falls back to whatever the platform picks for monospace CJK, which on

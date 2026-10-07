@@ -44,30 +44,41 @@ Use `clamp()` with tested bounds. Do not scale every heading mechanically; prese
 
 Every `max-inline-size` on running text comes from a token in `tokens.css`. A line length is a
 property of the script, not of the component, so the whole scale is restated in one place per
-locale. Values are in `ch` — the advance of "0" in whichever font renders the element.
+locale. English and Russian values are in `ch` — the advance of "0" in whichever font renders the
+element. Japanese values are in `em`, for the reason below.
 
-| Token | English | Japanese | Sets |
+| Token | English / Russian | Japanese | Sets |
 |---|---|---|---|
-| `--measure-title` | 16ch | 12ch | Case-study title, work-entry title, 404 heading |
-| `--measure-title-wide` | 18ch | 14ch | Page-header title, footer contact heading |
-| `--measure-lede-tight` | 34ch | 22ch | Home hero promise |
-| `--measure-lede` | 48ch | 30ch | Work-entry summary |
-| `--measure-lede-wide` | 52ch | 32ch | Page-header lede, case-study lead |
-| `--measure-note-tight` | 40ch | 26ch | Environment-matrix unit role |
-| `--measure-note` | 42ch | 27ch | Footer availability |
-| `--measure-note-wide` | 44ch | 28ch | Section-heading note |
-| `--measure-caption-tight` | 58ch | 36ch | Work-index entry summary |
-| `--measure-caption` | 60ch | 38ch | Diagram and timeline captions, experience summary and scope, brief note |
-| `--measure` | 68ch | 40ch | Prose (`.prose`), principles, lab and notes |
+| `--measure-title` | 16ch | 9em | Case-study title, work-entry title, 404 heading |
+| `--measure-title-wide` | 18ch | 9em | Page-header title, footer contact heading |
+| `--measure-lede-tight` | 34ch | 18em | Home hero promise |
+| `--measure-lede` | 48ch | 18em | Work-entry summary |
+| `--measure-lede-wide` | 52ch | 18em | Page-header lede, case-study lead |
+| `--measure-note-tight` | 40ch | 24em | Environment-matrix unit role |
+| `--measure-note` | 42ch | 24em | Footer availability |
+| `--measure-note-wide` | 44ch | 24em | Section-heading note |
+| `--measure-caption-tight` | 58ch | 34em | Work-index entry summary |
+| `--measure-caption` | 60ch | 34em | Diagram and timeline captions, experience summary and scope, brief note |
+| `--measure` | 68ch | 34em | Prose (`.prose`), principles, lab and notes |
+| `--measure-prose` | none | `var(--measure)` | Résumé prose inside the 52rem résumé column |
 
 Russian keeps the English values. Cyrillic takes the same line lengths as Latin, and Golos Text's
 narrower "0" already makes each measure about 7% narrower in pixels, which absorbs part of the
 length Russian gains over English.
 
-The Japanese column is not the English column doubled. Measured in the built page: with Instrument
-Sans still supplying the digits, `1ch` is 0.667em while a CJK glyph is a full em, so the English
-68ch measure would run to 45 Japanese characters a line. The Japanese values land between 8 glyphs
-for a display title and 27 for body text.
+**Japanese measures are in `em`, not `ch`, and that is load-bearing.** A `ch` is the advance of "0"
+in the font that renders it; on a Japanese page that is Instrument Sans — the face `/ja/` declares
+without preload — so a `ch` measure there is a line length defined by a Latin font that arrives
+late, and by Arial while it is arriving. A CJK glyph fills its em box, so in `em` the number simply
+is the glyph count: 9 glyphs for a display title, 18 for a lede, 24 for a note, 34 for body text.
+
+**Four steps, not eleven.** Japanese does not distinguish a 26-glyph line from a 28-glyph one, and
+the eleven English steps exist because Latin measures are tuned against word shapes. The tokens keep
+their names so no component changes, and several share a value on purpose.
+
+`--measure-prose` is `none` in English and Russian, where the résumé's own 52rem column caps the
+line first, and a real cap in Japanese, where that column would otherwise set about 46 glyphs a
+line. It is the one place where a container, rather than a measure token, was doing the work.
 
 The one `ch` left outside this system is the arrow offset in `EnvironmentMatrix.astro`
 (`0.5ch`). It is half a glyph advance used to centre an arrow in a gutter, not a measure, and it is

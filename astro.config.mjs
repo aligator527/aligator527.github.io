@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import { isIndexable, localeOfPath } from './src/utils/i18n.ts';
 
 // The production site is a GitHub user site served from `/`.
 // BASE_PATH lets CI build under a repository subpath to prove every link is base-safe.
@@ -24,7 +25,16 @@ export default defineConfig({
   build: { format: 'directory' },
   integrations: [
     sitemap({
-      filter: (page) => !EMPTY_SECTIONS.some((path) => new URL(page).pathname.endsWith(path)),
+      /*
+       * Two reasons a built page stays out of the sitemap, and both must match what the page itself
+       * says in its robots meta: the section has no entries yet, or its locale is built but not
+       * published. `isIndexable()` is the shared predicate — see src/utils/i18n.ts.
+       */
+      filter: (page) => {
+        const { pathname } = new URL(page);
+        if (EMPTY_SECTIONS.some((path) => pathname.endsWith(path))) return false;
+        return isIndexable(localeOfPath(pathname.slice(base.length - 1)));
+      },
     }),
   ],
   /*

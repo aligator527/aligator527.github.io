@@ -4,6 +4,7 @@ import SiteHeader from '../components/navigation/SiteHeader.astro';
 import SiteFooter from '../components/navigation/SiteFooter.astro';
 import { profile } from '../data/profile';
 import { withBase } from '../utils/url';
+import { OG_LOCALE, isIndexable } from '../utils/i18n';
 /*
  * Keep this import where it is, and add new imports BELOW it.
  *
@@ -23,8 +24,15 @@ interface Props {
   noindex?: boolean;
 }
 
-const { title, description, noindex = false } = Astro.props;
+const { title, description, noindex: noindexProp = false } = Astro.props;
 const { locale, t } = localize(Astro.url);
+/*
+ * A locale is built before it is advertised, so a page is `noindex` either because its route is a
+ * placeholder (the `noindex` prop, e.g. an empty Lab) or because its locale is not published yet.
+ * `isIndexable()` is the same predicate the sitemap filter and the hreflang set read, so the three
+ * can never disagree about whether a page is public — see src/utils/i18n.ts.
+ */
+const noindex = noindexProp || !isIndexable(locale);
 const pageTitle = title ? `${title} — ${profile.name}` : `${profile.name} — ${profile.descriptor}`;
 // Self-referencing, and the only canonical on the page: scripts/check-i18n.mjs enforces both.
 // Locales are linked by hreflang alternates (`alternates()` in src/utils/i18n.ts), not by this tag.
@@ -42,7 +50,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {noindex && <meta name="robots" content="noindex" />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="author" content={profile.name} />
     <meta name="theme-color" content="#f2f0e8" />
     <meta property="og:type" content="website" />
@@ -50,12 +58,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {/*
-      Open Graph wants `language_TERRITORY`; `en` is not a valid value and should be OG_LOCALE[locale]
-      (`en_US`). Left as-is here because this stage must not change a byte of the published English
-      pages — switching it is a one-line, reviewable change in the locale-rendering stage.
-    */}
-    <meta property="og:locale" content="en" />
+    {/* Open Graph wants `language_TERRITORY`; the bare `en` this previously emitted is not a valid
+        value. This is a deliberate change to the published English pages: `en` -> `en_US`. */}
+    <meta property="og:locale" content={OG_LOCALE[locale]} />
     <meta property="og:image" content={new URL(withBase('/og.png'), Astro.site)} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />

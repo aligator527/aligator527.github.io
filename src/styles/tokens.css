@@ -90,6 +90,14 @@
     --measure-caption: 60ch;
     --measure: 68ch;
 
+    /*
+     * Prose inside a container that is already narrower than a measure — the résumé's 52rem column.
+     * In English that column caps the line before `--measure` would, so this is `none` and nothing
+     * changes. Japanese sets ~46 glyphs across 52rem, well past the 34em this script reads at, so
+     * `:root:lang(ja)` below turns it into a real cap. One token, one place, no component edit.
+     */
+    --measure-prose: none;
+
     /* Radius */
     --radius-0: 0;
     --radius-1: 2px;
@@ -171,20 +179,29 @@
     --leading-heading: 1.25;
     --leading-body: 1.8;
 
-    /* Japanese sets about 1.5 characters per `ch` here (the digit advance stays Instrument Sans's
-       0.67em while a CJK glyph is 1em), so the English measures would run to 45 characters a line.
-       These land between 8 glyphs for a display title and 27 for body text. */
-    --measure-title: 12ch;
-    --measure-title-wide: 14ch;
-    --measure-lede-tight: 22ch;
-    --measure-lede: 30ch;
-    --measure-lede-wide: 32ch;
-    --measure-note-tight: 26ch;
-    --measure-note: 27ch;
-    --measure-note-wide: 28ch;
-    --measure-caption-tight: 36ch;
-    --measure-caption: 38ch;
-    --measure: 40ch;
+    /*
+     * Japanese measures are in `em`, not `ch`. A `ch` is the advance of "0" in the font that renders
+     * it — on a Japanese page that is Instrument Sans, the one face this locale deliberately does not
+     * preload, so every line length would be measured against a Latin font that arrives late and, in
+     * the `font-display: swap` window, against Arial instead. A CJK glyph fills its em box, so `em`
+     * measures Japanese in the unit Japanese is actually set in, and the value is a glyph count.
+     *
+     * Four steps, not eleven. Japanese does not distinguish a 26-glyph line from a 28-glyph one; the
+     * English scale has eleven steps because Latin measures are tuned against word shapes. Each
+     * token keeps its name so components do not change, and several deliberately share a value.
+     */
+    --measure-title: 9em;
+    --measure-title-wide: 9em;
+    --measure-lede-tight: 18em;
+    --measure-lede: 18em;
+    --measure-lede-wide: 18em;
+    --measure-note-tight: 24em;
+    --measure-note: 24em;
+    --measure-note-wide: 24em;
+    --measure-caption-tight: 34em;
+    --measure-caption: 34em;
+    --measure: 34em;
+    --measure-prose: var(--measure);
 
     /* Kinsoku shori: do not start a line with a small kana or a closing bracket. */
     line-break: strict;

@@ -86,6 +86,17 @@ function toPosix(file) {
   return relative(dist, file).split(sep).join('/');
 }
 
+/*
+ * Routes that are legitimately outside the sitemap while still being indexable documents: the error
+ * document, which no sitemap lists, and the sections whose placeholder pages `astro.config.mjs`
+ * filters out until they have entries.
+ */
+const PLACEHOLDER_ROUTES = [/(^|\/)404\.html$/, /(^|\/)lab\//, /(^|\/)notes\//];
+
+function isPlaceholderRoute(file) {
+  return PLACEHOLDER_ROUTES.some((pattern) => pattern.test(toPosix(file)));
+}
+
 /**
  * The route a built file is served as, which is what Astro used for its canonical URL.
  * `index.html` → `/`, `about/index.html` → `/about/`, and the error document `404.html` → `/404/`.
@@ -125,8 +136,9 @@ for (const path of files) {
 }
 
 const sitemapPath = join(dist, 'sitemap-0.xml');
+let locs = null;
 if (existsSync(sitemapPath)) {
-  const locs = new Set(
+  locs = new Set(
     [...(await readFile(sitemapPath, 'utf8')).matchAll(/<loc>([^<]+)<\/loc>/g)].map(
       (match) => match[1],
     ),
@@ -162,6 +174,25 @@ for (const file of htmlFiles) {
 
   if (/<meta[^>]+http-equiv="refresh"/i.test(html)) {
     fail(`${name} contains <meta http-equiv="refresh">; redirects must not be client-side`);
+  }
+
+  /*
+   * 2b. The page's own robots meta and the sitemap must agree. A locale is built before it is
+   * published, so during a rollout half the build is deliberately `noindex` — the failure mode
+   * worth catching is the two halves disagreeing: a page asking to be indexed while absent from the
+   * sitemap, or listed in the sitemap while asking not to be. Both are how a localised site ends up
+   * with pages Search Console reports as "Excluded by 'noindex' tag" after it was told to crawl
+   * them. `isIndexable()` in src/utils/i18n.ts is the single source both sides are generated from.
+   */
+  if (locs) {
+    const noindex = /<meta name="robots" content="[^"]*noindex/i.test(html);
+    const inSitemap = locs.has(absolute(origin, routeOf(file)));
+    if (noindex && inSitemap) {
+      fail(`${name} is noindex but is listed in sitemap-0.xml`);
+    }
+    if (!noindex && !inSitemap && !isPlaceholderRoute(file)) {
+      fail(`${name} is indexable but missing from sitemap-0.xml`);
+    }
   }
 }
 

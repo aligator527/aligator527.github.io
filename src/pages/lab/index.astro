@@ -27,13 +27,13 @@ const entries = (await getCollection('lab')).sort((a, b) => b.data.date.localeCo
         {entries.map((entry) => (
           <li class="entry">
             <p class="meta meta-quiet">
-              {formatMonth(entry.data.date.slice(0, 7))} · {entry.data.status}
+              {formatMonth(entry.data.date.slice(0, 7))} · {t.labStatus[entry.data.status]}
             </p>
             <h3>{entry.data.title}</h3>
             <p>{entry.data.summary}</p>
             <p class="links">
-              {entry.data.repository && <a href={entry.data.repository}>Repository</a>}
-              {entry.data.demo && <a href={entry.data.demo}>Demo</a>}
+              {entry.data.repository && <a href={entry.data.repository}>{t.labRepository}</a>}
+              {entry.data.demo && <a href={entry.data.demo}>{t.labDemo}</a>}
             </p>
           </li>
         ))}
