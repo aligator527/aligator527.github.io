@@ -1,27 +1,32 @@
 ---
 import { profile } from '../../data/profile';
+import { localize } from '../../i18n/ui';
+import { localeHref, logicalPath } from '../../utils/i18n';
 import { getPrimaryNav } from '../../utils/navigation';
-import { isCurrent, withBase } from '../../utils/url';
+import { isCurrent } from '../../utils/url';
 
-const base = import.meta.env.BASE_URL;
-const pathname = Astro.url.pathname;
-// Compare against paths without the deployment base so the same logic works under any subpath.
-const localPath = '/' + pathname.slice(withBase('/', base).length);
-const nav = await getPrimaryNav();
-const homeCurrent = isCurrent('/', localPath);
+const { locale, t } = localize(Astro.url);
+/*
+ * Current-page comparisons happen on logical paths: the deployment base AND the locale prefix are
+ * stripped from both sides. Without the locale strip, /ru/work/ would compare against the nav's
+ * /ru/work/ href only by accident, and a mismatch in either direction silently drops aria-current.
+ */
+const path = logicalPath(Astro.url.pathname);
+const nav = await getPrimaryNav(locale);
+const homeCurrent = isCurrent('/', path);
 ---
 
 <header class="site-header">
   <div class="page bar">
-    <a class="wordmark" href={withBase('/')} aria-current={homeCurrent}>
+    <a class="wordmark" href={localeHref('/', locale)} aria-current={homeCurrent}>
       <span class="wordmark-name">{profile.name}</span>
       <span class="meta meta-quiet wordmark-role">{profile.descriptor}</span>
     </a>
-    <nav class="primary" aria-label="Primary">
+    <nav class="primary" aria-label={t.navPrimary}>
       <ul class="nav-list" role="list">
         {nav.map((item) => (
           <li>
-            <a href={withBase(item.href)} aria-current={isCurrent(item.href, localPath)}>
+            <a href={item.href} aria-current={isCurrent(item.path, path)}>
               {item.label}
             </a>
           </li>
@@ -29,10 +34,10 @@ const homeCurrent = isCurrent('/', localPath);
       </ul>
       <a
         class="resume-link"
-        href={withBase('/resume/')}
-        aria-current={isCurrent('/resume/', localPath)}
+        href={localeHref('/resume/', locale)}
+        aria-current={isCurrent('/resume/', path)}
       >
-        Résumé
+        {t.navResume}
       </a>
     </nav>
   </div>

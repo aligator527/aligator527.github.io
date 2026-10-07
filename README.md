@@ -35,10 +35,12 @@ src/
 ├── components/   core (heading, meta list, action link), navigation, diagrams, work, experience
 ├── content/      work briefs (Markdown), experience roles (YAML), principles (YAML), lab, notes
 ├── data/         profile, capability vocabulary, delivery-flow stages
+├── i18n/ui/      UI chrome dictionaries, one per locale (en today)
 ├── layouts/      BaseLayout, CaseStudyLayout
 ├── pages/        /, /work, /work/[slug], /experience, /about, /resume, /lab, /notes, 404
 ├── styles/       reset, tokens, global, utilities (cascade layers)
-└── utils/        url (base-safe links), dates, timeline, work, experience, navigation, resume
+└── utils/        url (base-safe links), i18n (locale paths), dates, timeline, work, experience,
+                  navigation, resume
 ```
 
 Notes for future changes:
@@ -51,10 +53,25 @@ Notes for future changes:
 - **Indexed URLs.** `tests/fixtures/indexed-urls.json` lists the URLs and files that Google already
   knows about. It is a floor, not a whitelist: adding routes is routine, removing one breaks a live
   URL. Read `tests/fixtures/README.md` before editing it.
+- **Locales and URLs.** `src/utils/i18n.ts` owns the locale layer. English is the default and is
+  served unprefixed, because its URLs are indexed; `ru` and `ja` are prefixed (`/ru/work/`). A
+  *logical path* (`/work/`) carries neither the deployment base nor a locale, and is what navigation
+  and `isCurrent()` compare; `localeHref()` turns one into a finished href, and anything that takes a
+  `locale` — `workHref()`, `getPrimaryNav()` — already returns a resolved href, so it is not wrapped
+  in `withBase()` again. Shared files (`/og.png`, `/favicon.svg`, `/sitemap-index.xml`, the CV PDF)
+  stay on plain `withBase()` and are never localised; `localePath()` throws if handed one.
+  `INDEXABLE_LOCALES` is what `hreflang` advertises, and a locale joins it only when its translation
+  is complete. UI chrome lives in `src/i18n/ui/<locale>.ts`, read as properties (`t.navWork`) so a
+  missing key is an `astro check` error; facts stay in `src/data/profile.ts` and prose in the content
+  collections, so dictionary entries that need a fact take it as an argument.
 - **Cascade layers.** The layer order (`reset, tokens, base, layout, components, utilities`) is
   declared in an inline `<style>` in `BaseLayout.astro`, because component-scoped styles are
   emitted ahead of `src/styles/global.css` in the CSS bundle and would otherwise establish the
-  order themselves.
+  order themselves. Relatedly, Astro orders a page's `<link rel="stylesheet">` tags by each CSS
+  module's index among its importer's imports, so a new import added *above*
+  `import '../styles/global.css'` in `BaseLayout.astro` moves global.css after the page's own
+  scoped styles and flips which of two equally specific rules in the same layer wins. Add imports
+  below it.
 - **Astro scoped-style specificity.** Scoped selectors gain an attribute selector, so a
   `.parent > *` rule outranks a later `.child` rule. Responsive overrides are therefore written
   as `.parent > .child`. Styling a child component's root element needs `:global()`.

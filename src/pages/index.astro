@@ -7,11 +7,13 @@ import WorkEntry from '../components/work/WorkEntry.astro';
 import CapabilityMatrix from '../components/work/CapabilityMatrix.astro';
 import ActionLink from '../components/core/ActionLink.astro';
 import { profile } from '../data/profile';
+import { localize } from '../i18n/ui';
 import { formatMonth } from '../utils/dates';
-import { withBase } from '../utils/url';
-import { getWork } from '../utils/work';
+import { localeHref } from '../utils/i18n';
+import { getWork, workHref } from '../utils/work';
 
-const work = await getWork();
+const { locale, t } = localize(Astro.url);
+const work = await getWork(locale);
 const featured = work.filter((entry) => entry.data.featured);
 const current = work.find((entry) => entry.data.status === 'active');
 const principles = (await getCollection('principles'))
@@ -23,12 +25,12 @@ let sectionIndex = 0;
 const nextIndex = () => ++sectionIndex;
 ---
 
-<BaseLayout description={`${profile.descriptor} in Tokyo. ${profile.promise}`}>
+<BaseLayout description={t.homeDescription(profile.descriptor, profile.promise)}>
   <section class="hero page" aria-labelledby="hero-title">
     <div class="grid hero-grid">
       <p class="meta hero-sheet" aria-hidden="true">
-        <span>Sheet 00 / Identity</span>
-        <span>Rev. {formatMonth(profile.revision)}</span>
+        <span>{t.heroSheet}</span>
+        <span>{t.revision(formatMonth(profile.revision))}</span>
       </p>
 
       <h1 id="hero-title" class="hero-name">
@@ -50,12 +52,12 @@ const nextIndex = () => ++sectionIndex;
         <p class="meta meta-quiet supporting">{profile.supportingLine}</p>
       </div>
 
-      <dl class="hero-rail" aria-label="Profile summary">
+      <dl class="hero-rail" aria-label={t.heroProfileSummary}>
         {current && (
           <div>
-            <dt class="meta meta-quiet">Current</dt>
+            <dt class="meta meta-quiet">{t.heroCurrent}</dt>
             <dd>
-              <a href={withBase(`/work/${current.id}/`)}>
+              <a href={workHref(current, locale)}>
                 {current.data.role} — {current.data.title}
               </a>
               <span class="quiet">{current.data.organization}</span>
@@ -63,18 +65,18 @@ const nextIndex = () => ++sectionIndex;
           </div>
         )}
         <div>
-          <dt class="meta meta-quiet">Experience</dt>
+          <dt class="meta meta-quiet">{t.heroExperience}</dt>
           <dd>{profile.experience}</dd>
         </div>
         <div>
-          <dt class="meta meta-quiet">Base</dt>
+          <dt class="meta meta-quiet">{t.heroBase}</dt>
           <dd>
             {profile.location}
             <span class="quiet">{profile.timeZone}</span>
           </dd>
         </div>
         <div>
-          <dt class="meta meta-quiet">Languages</dt>
+          <dt class="meta meta-quiet">{t.heroLanguages}</dt>
           <dd>
             <ul class="langs" role="list">
               {profile.languages.map((language) => (
@@ -90,7 +92,7 @@ const nextIndex = () => ++sectionIndex;
           </dd>
         </div>
         <div>
-          <dt class="meta meta-quiet">Status</dt>
+          <dt class="meta meta-quiet">{t.heroStatus}</dt>
           <dd>
             <span class="availability">{profile.availability}</span>
             <a class="rail-email" href={`mailto:${profile.email}`}>
@@ -110,8 +112,8 @@ const nextIndex = () => ++sectionIndex;
     <SectionHeading
       index={nextIndex()}
       id="work-heading"
-      title="Selected work"
-      note="Most recent first. Case studies explain decisions; briefs state only role, scope, and system facts that can be published."
+      title={t.selectedWork}
+      note={t.homeWorkNote}
     />
     <div class="work-list">
       {featured.map((entry) => (
@@ -119,8 +121,8 @@ const nextIndex = () => ++sectionIndex;
       ))}
     </div>
     <p class="section-action">
-      <ActionLink href={withBase('/work/')}>All work</ActionLink>
-      <ActionLink href={withBase('/experience/')}>Full chronology</ActionLink>
+      <ActionLink href={localeHref('/work/', locale)}>{t.homeAllWork}</ActionLink>
+      <ActionLink href={localeHref('/experience/', locale)}>{t.homeChronology}</ActionLink>
     </p>
   </section>
 
@@ -128,8 +130,8 @@ const nextIndex = () => ++sectionIndex;
     <SectionHeading
       index={nextIndex()}
       id="capabilities-heading"
-      title="Capabilities, with evidence"
-      note="Each mark points to a project where the responsibility is documented. Unmarked does not mean unable; it means not shown here."
+      title={t.homeCapabilitiesTitle}
+      note={t.homeCapabilitiesNote}
     />
     <div class="grid">
       <div class="matrix-wrap">
@@ -140,14 +142,14 @@ const nextIndex = () => ++sectionIndex;
 
   {principles.length > 0 && (
     <section class="section page" aria-labelledby="principles-heading">
-      <SectionHeading index={nextIndex()} id="principles-heading" title="Working principles" />
+      <SectionHeading index={nextIndex()} id="principles-heading" title={t.homePrinciplesTitle} />
       <ol class="principles">
         {principles.map((principle, index) => (
           <li class="principle">
             <p class="meta signal-text">P-{String(index + 1).padStart(2, '0')}</p>
             <h3>{principle.data.title}</h3>
             <p>{principle.data.body}</p>
-            <p class="meta meta-quiet">Practice: {principle.data.evidence}</p>
+            <p class="meta meta-quiet">{t.homePractice(principle.data.evidence)}</p>
           </li>
         ))}
       </ol>

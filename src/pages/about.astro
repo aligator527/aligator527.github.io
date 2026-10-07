@@ -4,27 +4,29 @@ import PageHeader from '../components/core/PageHeader.astro';
 import SectionHeading from '../components/core/SectionHeading.astro';
 import ActionLink from '../components/core/ActionLink.astro';
 import { profile } from '../data/profile';
-import { withBase } from '../utils/url';
+import { localize } from '../i18n/ui';
+import { localeHref } from '../utils/i18n';
+
+const { locale, t } = localize(Astro.url);
+/*
+ * The two prose blocks below are still English literals. They are chrome in the sense that they live
+ * in a template, but they are narrative with inline links to work pages, so they do not fit a flat
+ * dictionary entry; the locale stages give them per-locale page content instead. Everything around
+ * them — sheet, title, lead, section headings — already comes from the dictionary.
+ */
 ---
 
-<BaseLayout
-  title="About"
-  description="Ivan Dolgov is a Tokyo-based Tech Lead and full-stack engineer working in Russian, Japanese, and English."
->
-  <PageHeader
-    sheet="Sheet 03 / About"
-    title="About"
-    lead="Tech Lead and full-stack engineer in Tokyo, working across requirements, architecture, implementation, and release."
-  />
+<BaseLayout title={t.aboutTitle} description={t.aboutDescription(profile.name)}>
+  <PageHeader sheet={t.aboutSheet} title={t.aboutTitle} lead={t.aboutLead} />
 
   <section class="page" aria-labelledby="background-heading">
-    <SectionHeading index={1} id="background-heading" title="Background" />
+    <SectionHeading index={1} id="background-heading" title={t.aboutBackgroundTitle} />
     <div class="grid">
       <div class="prose body">
         <p>
           I have {profile.experience} of professional experience. Since September 2026 I have been
           Tech Lead for a{' '}
-          <a href={withBase('/work/next-generation-wms/')}>
+          <a href={localeHref('/work/next-generation-wms/', locale)}>
             next-generation warehouse management system
           </a>
           at Frameworx, part of Daiwa House Group, where I am responsible for technical planning and
@@ -32,11 +34,14 @@ import { withBase } from '../utils/url';
         </p>
         <p>
           Before that I worked on contract engagements and client projects. I led 0→1 development of
-          an <a href={withBase('/work/ai-chat-platform/')}>AI chat game platform</a> at Ikigai,
-          worked full-stack on a{' '}
-          <a href={withBase('/work/packaging-saas/')}>production SaaS for the packaging industry</a>{' '}
+          an <a href={localeHref('/work/ai-chat-platform/', locale)}>AI chat game platform</a> at
+          Ikigai, worked full-stack on a{' '}
+          <a href={localeHref('/work/packaging-saas/', locale)}>
+            production SaaS for the packaging industry
+          </a>{' '}
           at Nagashima Konpo, and led{' '}
-          <a href={withBase('/work/client-delivery/')}>client web projects</a> at Flaretech.
+          <a href={localeHref('/work/client-delivery/', locale)}>client web projects</a> at
+          Flaretech.
         </p>
         <p>
           I started in August 2021 as an independent full-stack engineer, delivering web
@@ -56,8 +61,8 @@ import { withBase } from '../utils/url';
     <SectionHeading
       index={2}
       id="languages-heading"
-      title="Languages"
-      note="My day-to-day working environment is Japanese enterprise engineering, and I can run technical work in English or Russian as well."
+      title={t.aboutLanguagesTitle}
+      note={t.aboutLanguagesNote}
     />
     <dl class="languages">
       {profile.languages.map((language) => (
@@ -73,7 +78,7 @@ import { withBase } from '../utils/url';
   </section>
 
   <section class="section page" aria-labelledby="engage-heading">
-    <SectionHeading index={3} id="engage-heading" title="Working together" />
+    <SectionHeading index={3} id="engage-heading" title={t.aboutEngageTitle} />
     <div class="grid">
       <div class="prose body">
         <p>{profile.availability}</p>
@@ -84,8 +89,8 @@ import { withBase } from '../utils/url';
         </p>
       </div>
       <p class="actions">
-        <ActionLink href={withBase('/work/')}>Selected work</ActionLink>
-        <ActionLink href={withBase('/resume/')}>Résumé</ActionLink>
+        <ActionLink href={localeHref('/work/', locale)}>{t.selectedWork}</ActionLink>
+        <ActionLink href={localeHref('/resume/', locale)}>{t.navResume}</ActionLink>
       </p>
     </div>
   </section>

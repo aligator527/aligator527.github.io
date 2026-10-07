@@ -5,14 +5,9 @@ import MetaList from '../components/core/MetaList.astro';
 import EnvironmentMatrix from '../components/diagrams/EnvironmentMatrix.astro';
 import LayerDiagram from '../components/diagrams/LayerDiagram.astro';
 import { profile } from '../data/profile';
-import { withBase } from '../utils/url';
-import {
-  ENGAGEMENT_LABEL,
-  STATUS_LABEL,
-  workHref,
-  workPeriod,
-  type WorkEntry,
-} from '../utils/work';
+import { localize } from '../i18n/ui';
+import { localeHref } from '../utils/i18n';
+import { engagementLabel, statusLabel, workHref, workPeriod, type WorkEntry } from '../utils/work';
 
 interface Props {
   entry: WorkEntry;
@@ -22,26 +17,29 @@ interface Props {
 }
 
 const { entry, headings, previous, next } = Astro.props;
+const { locale, t } = localize(Astro.url);
 const { data } = entry;
-const period = workPeriod(entry, profile.revision);
+const period = workPeriod(entry, profile.revision, t.dates);
 const sections = headings.filter((heading) => heading.depth === 2);
 
 // The facts a visitor needs first sit in the header, which also keeps them above the narrative on
 // narrow screens. The remainder stays in the rail, which follows the document when it unstacks.
 const headFacts = [
-  { label: 'Role', value: data.role },
-  ...(data.organization ? [{ label: 'Organization', value: data.organization }] : []),
-  { label: 'Period', value: period.range, note: period.duration },
-  { label: 'Status', value: STATUS_LABEL[data.status] },
+  { label: t.labelRole, value: data.role },
+  ...(data.organization ? [{ label: t.labelOrganization, value: data.organization }] : []),
+  { label: t.labelPeriod, value: period.range, note: period.duration },
+  { label: t.labelStatus, value: statusLabel(t, data.status) },
 ];
 
 const railFacts = [
   ...(data.engagementType
-    ? [{ label: 'Engagement', value: ENGAGEMENT_LABEL[data.engagementType] }]
+    ? [{ label: t.labelEngagement, value: engagementLabel(t, data.engagementType) }]
     : []),
-  ...(data.teamSize ? [{ label: 'Team', value: data.teamSize }] : []),
-  { label: 'Domain', value: data.domains.join(', ') },
-  ...(data.technologies.length ? [{ label: 'Stack', value: data.technologies.join(', ') }] : []),
+  ...(data.teamSize ? [{ label: t.labelTeam, value: data.teamSize }] : []),
+  { label: t.labelDomain, value: data.domains.join(', ') },
+  ...(data.technologies.length
+    ? [{ label: t.labelStack, value: data.technologies.join(', ') }]
+    : []),
 ];
 
 const diagramVariant = {
@@ -56,7 +54,7 @@ const diagramVariant = {
   <article class="study page" aria-labelledby="study-title">
     <header class="grid study-head">
       <p class="meta crumb">
-        <a href={withBase('/work/')}>Work</a>
+        <a href={localeHref('/work/', locale)}>{t.navWork}</a>
         <span aria-hidden="true">/</span>
         <span class="signal-text">{data.code}</span>
       </p>
@@ -66,22 +64,19 @@ const diagramVariant = {
       <p class="lead">{data.summary}</p>
       {data.depth === 'brief' && (
         <p class="brief-note">
-          <span class="meta">Brief</span>
-          <span>
-            This page covers verified role, scope, and system facts only. Decisions and outcomes are
-            not published here.
-          </span>
+          <span class="meta">{t.workDepth.brief}</span>
+          <span>{t.studyBriefNote}</span>
         </p>
       )}
       <MetaList class="head-facts" items={headFacts} layout="inline" />
     </header>
 
     <div class="grid study-body">
-      <aside class="rail" aria-label="Project details">
+      <aside class="rail" aria-label={t.studyDetails}>
         <MetaList items={railFacts} />
         {sections.length > 1 && (
-          <nav class="contents" aria-label="Sections">
-            <p class="meta meta-quiet">Contents</p>
+          <nav class="contents" aria-label={t.studySections}>
+            <p class="meta meta-quiet">{t.studyContents}</p>
             <ol>
               {sections.map((heading) => (
                 <li>
@@ -113,18 +108,18 @@ const diagramVariant = {
       </div>
     </div>
 
-    <nav class="grid pager" aria-label="More work">
+    <nav class="grid pager" aria-label={t.studyMoreWork}>
       {previous ? (
-        <a class="pager-link prev" href={withBase(workHref(previous))}>
-          <span class="meta meta-quiet">← Previous · {previous.data.code}</span>
+        <a class="pager-link prev" href={workHref(previous, locale)}>
+          <span class="meta meta-quiet">{t.pagerPrevious(previous.data.code)}</span>
           <span class="pager-title">{previous.data.title}</span>
         </a>
       ) : (
         <span />
       )}
       {next && (
-        <a class="pager-link next" href={withBase(workHref(next))}>
-          <span class="meta meta-quiet">Next · {next.data.code} →</span>
+        <a class="pager-link next" href={workHref(next, locale)}>
+          <span class="meta meta-quiet">{t.pagerNext(next.data.code)}</span>
           <span class="pager-title">{next.data.title}</span>
         </a>
       )}

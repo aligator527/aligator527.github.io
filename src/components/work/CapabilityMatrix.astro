@@ -1,6 +1,6 @@
 ---
 import { CAPABILITY_IDS, capabilities } from '../../data/capabilities';
-import { withBase } from '../../utils/url';
+import { localeFromPathname } from '../../utils/i18n';
 import { workHref, type WorkEntry } from '../../utils/work';
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { work } = Astro.props;
+const locale = localeFromPathname(Astro.url.pathname);
 const rows = CAPABILITY_IDS.map((id) => ({
   id,
   ...capabilities[id],
@@ -31,7 +32,7 @@ const rows = CAPABILITY_IDS.map((id) => ({
         </th>
         {work.map((entry) => (
           <th scope="col" class="meta col-project">
-            <a href={withBase(workHref(entry))}>
+            <a href={workHref(entry, locale)}>
               {entry.data.code}
               <span class="visually-hidden"> {entry.data.title}</span>
             </a>
@@ -75,7 +76,7 @@ const rows = CAPABILITY_IDS.map((id) => ({
         <p class="list-evidence">
           <span class="visually-hidden">Shown in: </span>
           {row.evidence.map((entry) => (
-            <a class="meta chip" href={withBase(workHref(entry))}>
+            <a class="meta chip" href={workHref(entry, locale)}>
               {entry.data.code}
               <span class="visually-hidden"> {entry.data.title}</span>
             </a>

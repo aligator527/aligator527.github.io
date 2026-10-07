@@ -1,22 +1,25 @@
 ---
 import { profile } from '../../data/profile';
+import { localize } from '../../i18n/ui';
 import { formatMonth } from '../../utils/dates';
+
+const { t } = localize(Astro.url);
 ---
 
 <footer class="site-footer" aria-labelledby="contact-heading">
   <div class="page grid footer-grid">
     <div class="lead">
       <p class="meta signal-mark" aria-hidden="true">
-        END / CONTACT
+        {t.footerMark}
       </p>
       <h2 id="contact-heading" class="heading">
-        If you have a system to design or ship, write to me.
+        {t.footerHeading}
       </h2>
       <p class="availability">{profile.availability}</p>
     </div>
     <dl class="channels">
       <div>
-        <dt class="meta meta-quiet">Email</dt>
+        <dt class="meta meta-quiet">{t.footerEmail}</dt>
         <dd>
           <a class="email" href={`mailto:${profile.email}`}>
             {profile.email}
@@ -24,7 +27,7 @@ import { formatMonth } from '../../utils/dates';
         </dd>
       </div>
       <div>
-        <dt class="meta meta-quiet">GitHub</dt>
+        <dt class="meta meta-quiet">{t.footerGithub}</dt>
         <dd>
           <a href={profile.github.href} rel="me">
             {profile.github.label}
@@ -32,7 +35,7 @@ import { formatMonth } from '../../utils/dates';
         </dd>
       </div>
       <div>
-        <dt class="meta meta-quiet">LinkedIn</dt>
+        <dt class="meta meta-quiet">{t.footerLinkedin}</dt>
         <dd>
           <a href={profile.linkedin.href} rel="me">
             {profile.linkedin.label}
@@ -40,16 +43,16 @@ import { formatMonth } from '../../utils/dates';
         </dd>
       </div>
       <div>
-        <dt class="meta meta-quiet">Base</dt>
+        <dt class="meta meta-quiet">{t.footerBase}</dt>
         <dd>
           {profile.location} · {profile.timeZone}
         </dd>
       </div>
     </dl>
     <p class="colophon meta">
-      <span>© 2026 {profile.name}</span>
-      <span>Rev. {formatMonth(profile.revision)}</span>
-      <span>Static HTML · Astro · no client JavaScript</span>
+      <span>{t.footerCopyright(2026, profile.name)}</span>
+      <span>{t.revision(formatMonth(profile.revision))}</span>
+      <span>{t.footerColophon}</span>
     </p>
   </div>
 </footer>

@@ -5,23 +5,23 @@ import SectionHeading from '../components/core/SectionHeading.astro';
 import ActionLink from '../components/core/ActionLink.astro';
 import Timeline from '../components/experience/Timeline.astro';
 import { profile } from '../data/profile';
+import { localize } from '../i18n/ui';
 import { formatDuration, formatRange } from '../utils/dates';
-import { getRoles } from '../utils/experience';
-import { withBase } from '../utils/url';
-import { DEPTH_LABEL, ENGAGEMENT_LABEL, getWork } from '../utils/work';
+import { getRolesWithWork } from '../utils/experience';
+import { localeHref } from '../utils/i18n';
+import { depthLabel, engagementLabel, workHref } from '../utils/work';
 
-const roles = await getRoles();
-const workDepth = new Map((await getWork()).map((entry) => [entry.id, entry.data.depth]));
+const { locale, t } = localize(Astro.url);
+// Each role arrives with its `work:` reference already resolved and validated; see utils/experience.
+const entries = await getRolesWithWork(locale);
+const roles = entries.map(({ role }) => role);
 ---
 
-<BaseLayout
-  title="Experience"
-  description="Career chronology of Ivan Dolgov: Tech Lead, project lead, and full-stack engineer roles since 2021, plus education and certifications."
->
+<BaseLayout title={t.experienceTitle} description={t.experienceDescription(profile.name)}>
   <PageHeader
-    sheet="Sheet 02 / Experience"
-    title="Experience"
-    lead={`${profile.experience} across technical leadership, contract product work, client delivery, and independent practice. Based in ${profile.location}.`}
+    sheet={t.experienceSheet}
+    title={t.experienceTitle}
+    lead={t.experienceLead(profile.experience, profile.location)}
   />
 
   {roles.length > 0 && (
@@ -34,17 +34,17 @@ const workDepth = new Map((await getWork()).map((entry) => [entry.id, entry.data
     <SectionHeading
       index={1}
       id="chronology-heading"
-      title="Chronology"
-      note="Scope as stated in my current CV."
+      title={t.chronologyTitle}
+      note={t.chronologyNote}
     />
     <ol class="roles" role="list">
-      {roles.map((role) => (
+      {entries.map(({ role, work }) => (
         <li class="role">
           <div class="when">
-            <p class="meta">{formatRange(role.data.startDate, role.data.endDate)}</p>
+            <p class="meta">{formatRange(role.data.startDate, role.data.endDate, t.dates)}</p>
             <p class="meta meta-quiet">
-              {formatDuration(role.data.startDate, role.data.endDate ?? profile.revision)}
-              {role.data.engagementType && ` · ${ENGAGEMENT_LABEL[role.data.engagementType]}`}
+              {formatDuration(role.data.startDate, role.data.endDate ?? profile.revision, t.dates)}
+              {role.data.engagementType && ` · ${engagementLabel(t, role.data.engagementType)}`}
             </p>
           </div>
           <div class="what">
@@ -63,12 +63,13 @@ const workDepth = new Map((await getWork()).map((entry) => [entry.id, entry.data
             </ul>
             {role.data.technologies.length > 0 && (
               <p class="stack">
-                <span class="meta meta-quiet">Stack</span> {role.data.technologies.join(', ')}
+                <span class="meta meta-quiet">{t.labelStack}</span>{' '}
+                {role.data.technologies.join(', ')}
               </p>
             )}
-            {role.data.work && (
-              <ActionLink href={withBase(`/work/${role.data.work}/`)}>
-                {DEPTH_LABEL[workDepth.get(role.data.work) ?? 'brief']}
+            {work && (
+              <ActionLink href={workHref(work, locale)}>
+                {depthLabel(t, work.data.depth)}
               </ActionLink>
             )}
           </div>
@@ -78,10 +79,10 @@ const workDepth = new Map((await getWork()).map((entry) => [entry.id, entry.data
   </section>
 
   <section class="section page" aria-labelledby="education-heading">
-    <SectionHeading index={2} id="education-heading" title="Education and certifications" />
+    <SectionHeading index={2} id="education-heading" title={t.credentialsTitle} />
     <div class="grid credentials">
       <div class="block">
-        <h3 class="meta meta-quiet block-title">Education</h3>
+        <h3 class="meta meta-quiet block-title">{t.educationLabel}</h3>
         <ul class="plain" role="list">
           {profile.education.map((item) => (
             <li>
@@ -95,7 +96,7 @@ const workDepth = new Map((await getWork()).map((entry) => [entry.id, entry.data
         </ul>
       </div>
       <div class="block">
-        <h3 class="meta meta-quiet block-title">Certifications</h3>
+        <h3 class="meta meta-quiet block-title">{t.certificationsLabel}</h3>
         <ul class="plain" role="list">
           {profile.certifications.map((item) => (
             <li>
@@ -106,7 +107,7 @@ const workDepth = new Map((await getWork()).map((entry) => [entry.id, entry.data
         </ul>
       </div>
       <div class="block">
-        <h3 class="meta meta-quiet block-title">Languages</h3>
+        <h3 class="meta meta-quiet block-title">{t.languagesLabel}</h3>
         <ul class="plain" role="list">
           {profile.languages.map((item) => (
             <li>
@@ -118,7 +119,7 @@ const workDepth = new Map((await getWork()).map((entry) => [entry.id, entry.data
       </div>
     </div>
     <p class="resume-action">
-      <ActionLink href={withBase('/resume/')}>Résumé</ActionLink>
+      <ActionLink href={localeHref('/resume/', locale)}>{t.navResume}</ActionLink>
     </p>
   </section>
 </BaseLayout>

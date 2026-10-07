@@ -2,67 +2,61 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/core/PageHeader.astro';
 import { profile } from '../../data/profile';
-import { withBase } from '../../utils/url';
-import { DEPTH_LABEL, STATUS_LABEL, getWork, workHref, workPeriod } from '../../utils/work';
+import { localize } from '../../i18n/ui';
+import { depthLabel, getWork, statusLabel, workHref, workPeriod } from '../../utils/work';
 
-const work = await getWork();
+const { locale, t } = localize(Astro.url);
+const work = await getWork(locale);
 ---
 
-<BaseLayout
-  title="Work"
-  description="Professional engagements: warehouse management architecture, a 0→1 AI chat game platform, a production packaging SaaS, and five client projects across five industries."
->
-  <PageHeader
-    sheet="Sheet 01 / Work"
-    title="Work"
-    lead="Professional engagements, most recent first. Case studies cover context, decisions, delivery, and what I would change. Briefs state only the role, scope, and system facts that can be published, and are expanded where more can be cleared."
-  />
+<BaseLayout title={t.workTitle} description={t.workDescription}>
+  <PageHeader sheet={t.workSheet} title={t.workTitle} lead={t.workLead} />
 
   <section class="page" aria-labelledby="index-heading">
     <h2 id="index-heading" class="visually-hidden">
-      Project index
+      {t.workIndexHeading}
     </h2>
     <div class="index-head meta meta-quiet" aria-hidden="true">
-      <span>ID</span>
-      <span>Project</span>
-      <span>Role</span>
-      <span>Period</span>
-      <span>Status</span>
+      <span>{t.labelId}</span>
+      <span>{t.labelProject}</span>
+      <span>{t.labelRole}</span>
+      <span>{t.labelPeriod}</span>
+      <span>{t.labelStatus}</span>
     </div>
     <ol class="index" role="list">
       {work.map((entry) => {
-        const period = workPeriod(entry, profile.revision);
+        const period = workPeriod(entry, profile.revision, t.dates);
         return (
           <li class="row">
             <p class="meta code">{entry.data.code}</p>
             <div class="project">
               <h3 class="title">
-                <a href={withBase(workHref(entry))}>{entry.data.title}</a>
+                <a href={workHref(entry, locale)}>{entry.data.title}</a>
               </h3>
               <p class="summary">{entry.data.summary}</p>
               <p class="meta meta-quiet domains">
-                {[DEPTH_LABEL[entry.data.depth], ...entry.data.domains].join(' · ')}
+                {[depthLabel(t, entry.data.depth), ...entry.data.domains].join(' · ')}
               </p>
             </div>
             <dl class="facts">
               <div class="fact-role">
-                <dt class="visually-hidden">Role</dt>
+                <dt class="visually-hidden">{t.labelRole}</dt>
                 <dd>
                   {entry.data.role}
                   {entry.data.organization && <span class="quiet">{entry.data.organization}</span>}
                 </dd>
               </div>
               <div class="fact-period">
-                <dt class="visually-hidden">Period</dt>
+                <dt class="visually-hidden">{t.labelPeriod}</dt>
                 <dd>
                   {period.range}
                   <span class="quiet">{period.duration}</span>
                 </dd>
               </div>
               <div class="fact-status">
-                <dt class="visually-hidden">Status</dt>
+                <dt class="visually-hidden">{t.labelStatus}</dt>
                 <dd class="meta" data-status={entry.data.status}>
-                  {STATUS_LABEL[entry.data.status]}
+                  {statusLabel(t, entry.data.status)}
                 </dd>
               </div>
             </dl>

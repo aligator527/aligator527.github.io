@@ -5,6 +5,8 @@
  * migration has to travel units × stages. On narrow containers the rows stack and each row keeps
  * its own labelled stage sequence, so no column header is needed to read it.
  */
+import { localize } from '../../i18n/ui';
+
 interface Props {
   caption: string;
   stages: string[];
@@ -14,6 +16,7 @@ interface Props {
 }
 
 const { caption, stages, units, shared, class: className } = Astro.props;
+const { t } = localize(Astro.url);
 ---
 
 <figure class:list={['environment-matrix', className]} style={`--stage-count: ${stages.length}`}>
@@ -34,7 +37,7 @@ const { caption, stages, units, shared, class: className } = Astro.props;
             </ul>
           )}
         </div>
-        <ol class="stages" aria-label={`${unit.name} environments, in promotion order`}>
+        <ol class="stages" aria-label={t.environmentsInOrder(unit.name)}>
           {stages.map((stage) => (
             <li>{stage}</li>
           ))}

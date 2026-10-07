@@ -1,6 +1,6 @@
 ---
 import { deliveryFlow } from '../../data/delivery-flow';
-import { withBase } from '../../utils/url';
+import { localeFromPathname } from '../../utils/i18n';
 import { workHref, type WorkEntry } from '../../utils/work';
 
 interface Props {
@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { work } = Astro.props;
+const locale = localeFromPathname(Astro.url.pathname);
 const byCode = new Map(work.map((entry) => [entry.data.code, entry]));
 
 for (const step of deliveryFlow) {
@@ -35,7 +36,7 @@ for (const step of deliveryFlow) {
           {step.evidence.map((code) => {
             const entry = byCode.get(code)!;
             return (
-              <a class="meta evidence-link" href={withBase(workHref(entry))}>
+              <a class="meta evidence-link" href={workHref(entry, locale)}>
                 {code}
                 <span class="visually-hidden"> {entry.data.title}</span>
               </a>

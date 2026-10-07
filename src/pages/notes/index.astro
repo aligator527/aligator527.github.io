@@ -2,29 +2,28 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/core/PageHeader.astro';
-import { withBase } from '../../utils/url';
+import { profile } from '../../data/profile';
+import { localize } from '../../i18n/ui';
+import { localeHref } from '../../utils/i18n';
 
+const { locale, t } = localize(Astro.url);
 const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort((a, b) =>
   b.data.publishedAt.localeCompare(a.data.publishedAt),
 );
 ---
 
 <BaseLayout
-  title="Notes"
-  description="Engineering and architecture writing by Ivan Dolgov."
+  title={t.notesTitle}
+  description={t.notesDescription(profile.name)}
   noindex={notes.length === 0}
 >
-  <PageHeader
-    sheet="Notes / Unpublished"
-    title="Notes"
-    lead="Engineering and architecture writing."
-  />
+  <PageHeader sheet={t.notesSheet} title={t.notesTitle} lead={t.notesLead} />
   <section class="page" aria-labelledby="notes-list">
     <h2 id="notes-list" class="visually-hidden">
-      Articles
+      {t.notesArticlesHeading}
     </h2>
     {notes.length === 0 ? (
-      <p class="empty">No published notes yet.</p>
+      <p class="empty">{t.notesEmpty}</p>
     ) : (
       <ol class="entries">
         {notes.map((note) => (
@@ -35,7 +34,7 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort((a,
               </time>
             </p>
             <h3>
-              <a href={withBase(`/notes/${note.id}/`)}>{note.data.title}</a>
+              <a href={localeHref(`/notes/${note.id}/`, locale)}>{note.data.title}</a>
             </h3>
             <p>{note.data.summary}</p>
           </li>

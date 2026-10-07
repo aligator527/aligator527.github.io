@@ -1,23 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { profile } from '../data/profile';
+import { localize } from '../i18n/ui';
 import { formatRange } from '../utils/dates';
 import { getRoles } from '../utils/experience';
-import { ENGAGEMENT_LABEL } from '../utils/work';
+import { engagementLabel } from '../utils/work';
 import { RESUME_PDF_PATH, hasResumePdf } from '../utils/resume';
 import { withBase } from '../utils/url';
 
-const roles = await getRoles();
+const { locale, t } = localize(Astro.url);
+const roles = await getRoles(locale);
 const pdfAvailable = hasResumePdf();
 ---
 
-<BaseLayout
-  title="Résumé"
-  description="Résumé of Ivan Dolgov, Tech Lead and full-stack engineer in Tokyo: experience, technologies, education, certifications, and languages."
->
+<BaseLayout title={t.navResume} description={t.resumeDescription(profile.name)}>
   <article class="resume page" aria-labelledby="resume-name">
     <header class="resume-head">
-      <p class="meta meta-quiet sheet">Résumé · Rev. {profile.revision.replace('-', '/')}</p>
+      <p class="meta meta-quiet sheet">{t.resumeSheet(profile.revision.replace('-', '/'))}</p>
       <h1 id="resume-name">{profile.name}</h1>
       <p class="descriptor">{profile.descriptor}</p>
       <ul class="contact">
@@ -34,8 +33,10 @@ const pdfAvailable = hasResumePdf();
       </ul>
       {pdfAvailable && (
         <p class="download">
+          {/* The PDF is one shared file, so it goes through withBase() and never gains a locale. */}
           <a href={withBase(`/${RESUME_PDF_PATH}`)} data-testid="resume-pdf">
-            Download PDF<span aria-hidden="true"> ↓</span>
+            {t.resumeDownload}
+            <span aria-hidden="true"> ↓</span>
           </a>
         </p>
       )}
@@ -43,19 +44,14 @@ const pdfAvailable = hasResumePdf();
 
     <section aria-labelledby="summary-heading" class="block">
       <h2 id="summary-heading" class="meta">
-        Summary
+        {t.resumeSummaryHeading}
       </h2>
-      <p>
-        Tech Lead and full-stack engineer with {profile.experience} of experience. Technical
-        planning and architecture, requirements definition, code review, and delivery of web systems
-        on React, TypeScript, Go, and AWS, mostly in enterprise contexts. Currently Tech Lead for a
-        warehouse management system in logistics.
-      </p>
+      <p>{t.resumeSummary(profile.experience)}</p>
     </section>
 
     <section aria-labelledby="experience-heading" class="block">
       <h2 id="experience-heading" class="meta">
-        Experience
+        {t.resumeExperienceHeading}
       </h2>
       <ol class="entries" role="list">
         {roles.map((role) => (
@@ -70,8 +66,8 @@ const pdfAvailable = hasResumePdf();
                 </span>
               </h3>
               <p class="meta meta-quiet">
-                {formatRange(role.data.startDate, role.data.endDate)}
-                {role.data.engagementType && ` · ${ENGAGEMENT_LABEL[role.data.engagementType]}`}
+                {formatRange(role.data.startDate, role.data.endDate, t.dates)}
+                {role.data.engagementType && ` · ${engagementLabel(t, role.data.engagementType)}`}
               </p>
             </div>
             <p>{role.data.summary}</p>
@@ -87,7 +83,7 @@ const pdfAvailable = hasResumePdf();
 
     <section aria-labelledby="skills-heading" class="block">
       <h2 id="skills-heading" class="meta">
-        Technologies
+        {t.resumeTechnologiesHeading}
       </h2>
       <dl class="skills">
         {profile.technologies.map((group) => (
@@ -101,7 +97,7 @@ const pdfAvailable = hasResumePdf();
 
     <section aria-labelledby="edu-heading" class="block">
       <h2 id="edu-heading" class="meta">
-        Education and certifications
+        {t.resumeCredentialsHeading}
       </h2>
       <ul class="compact">
         {profile.education.map((item) => (
@@ -120,7 +116,7 @@ const pdfAvailable = hasResumePdf();
 
     <section aria-labelledby="lang-heading" class="block">
       <h2 id="lang-heading" class="meta">
-        Languages
+        {t.resumeLanguagesHeading}
       </h2>
       <ul class="compact">
         {profile.languages.map((item) => (

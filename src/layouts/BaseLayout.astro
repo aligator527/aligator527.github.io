@@ -4,7 +4,17 @@ import SiteHeader from '../components/navigation/SiteHeader.astro';
 import SiteFooter from '../components/navigation/SiteFooter.astro';
 import { profile } from '../data/profile';
 import { withBase } from '../utils/url';
+/*
+ * Keep this import where it is, and add new imports BELOW it.
+ *
+ * Astro orders a page's <link rel="stylesheet"> tags by each CSS module's index among its importer's
+ * imports (`cssOrder` in astro/dist/core/build/runtime.js). Moving global.css one position later is
+ * enough to emit it AFTER a page's own scoped styles — which, inside the shared `components` layer,
+ * reverses which of two equally specific rules wins. Verified: adding an import above this line
+ * flipped the two stylesheets in dist/index.html.
+ */
 import '../styles/global.css';
+import { localize } from '../i18n/ui';
 
 interface Props {
   title?: string;
@@ -14,12 +24,15 @@ interface Props {
 }
 
 const { title, description, noindex = false } = Astro.props;
+const { locale, t } = localize(Astro.url);
 const pageTitle = title ? `${title} — ${profile.name}` : `${profile.name} — ${profile.descriptor}`;
+// Self-referencing, and the only canonical on the page: scripts/check-i18n.mjs enforces both.
+// Locales are linked by hreflang alternates (`alternates()` in src/utils/i18n.ts), not by this tag.
 const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -37,6 +50,11 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    {/*
+      Open Graph wants `language_TERRITORY`; `en` is not a valid value and should be OG_LOCALE[locale]
+      (`en_US`). Left as-is here because this stage must not change a byte of the published English
+      pages — switching it is a one-line, reviewable change in the locale-rendering stage.
+    */}
     <meta property="og:locale" content="en" />
     <meta property="og:image" content={new URL(withBase('/og.png'), Astro.site)} />
     <meta property="og:image:width" content="1200" />
@@ -53,7 +71,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <a class="skip-link" href="#main">
-      Skip to content
+      {t.skipToContent}
     </a>
     <SiteHeader />
     <main id="main" tabindex="-1">

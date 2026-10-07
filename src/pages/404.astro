@@ -1,27 +1,30 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ActionLink from '../components/core/ActionLink.astro';
-import { withBase } from '../utils/url';
+import { localize } from '../i18n/ui';
+import { localeHref } from '../utils/i18n';
+
+const { locale, t } = localize(Astro.url);
 ---
 
-<BaseLayout title="Not found" description="The requested page does not exist." noindex>
+<BaseLayout title={t.notFoundTitle} description={t.notFoundDescription} noindex>
   <section class="page not-found" aria-labelledby="nf-title">
     <div class="grid">
-      <p class="meta code">Status 404 / Route not found</p>
-      <h1 id="nf-title">No page exists at this address.</h1>
-      <p class="lead">The link may be outdated, or the page may have moved.</p>
-      <ol class="routes" role="list" aria-label="Where to go next">
+      <p class="meta code">{t.notFoundStatus}</p>
+      <h1 id="nf-title">{t.notFoundHeading}</h1>
+      <p class="lead">{t.notFoundLead}</p>
+      <ol class="routes" role="list" aria-label={t.notFoundRoutes}>
         <li>
           <span class="meta meta-quiet" aria-hidden="true">
             → 01
           </span>
-          <ActionLink href={withBase('/work/')}>Work</ActionLink>
+          <ActionLink href={localeHref('/work/', locale)}>{t.navWork}</ActionLink>
         </li>
         <li>
           <span class="meta meta-quiet" aria-hidden="true">
             → 02
           </span>
-          <ActionLink href={withBase('/')}>Home</ActionLink>
+          <ActionLink href={localeHref('/', locale)}>{t.notFoundHome}</ActionLink>
         </li>
       </ol>
     </div>

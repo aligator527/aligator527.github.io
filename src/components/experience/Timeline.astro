@@ -8,6 +8,7 @@
  * per engagement, because a month column is only a few pixels there and organization names cannot
  * sit above the bars.
  */
+import { localize } from '../../i18n/ui';
 import { buildTimeline, yearTicks } from '../../utils/timeline';
 import { formatRange } from '../../utils/dates';
 import type { Role } from '../../utils/experience';
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const { roles, now } = Astro.props;
+const { t } = localize(Astro.url);
 const timeline = buildTimeline(
   roles.map((role) => ({
     id: role.id,
@@ -65,15 +67,14 @@ const yearOffset = (ticks.find((tick) => tick.column > 1)?.column ?? 1) - 1;
       >
         <span class="bar-label">
           <span class="bar-org">{bar.item.label}</span>
-          <span class="meta bar-range">{formatRange(bar.item.start, bar.item.end)}</span>
+          <span class="meta bar-range">{formatRange(bar.item.start, bar.item.end, t.dates)}</span>
         </span>
-        {bar.item.end === null && <span class="meta now">Now</span>}
+        {bar.item.end === null && <span class="meta now">{t.timelineNow}</span>}
       </span>
     ))}
   </div>
   <figcaption id="timeline-caption" class="caption">
-    <span class="meta">Fig. 1</span> Engagements over time. Contract work overlapped with other
-    roles; the chronology below lists each one in full.
+    <span class="meta">{t.timelineFigure}</span> {t.timelineCaption}
   </figcaption>
 </figure>
 

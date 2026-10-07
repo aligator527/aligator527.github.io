@@ -10,8 +10,8 @@
  */
 import ActionLink from '../core/ActionLink.astro';
 import LayerDiagram from '../diagrams/LayerDiagram.astro';
-import { withBase } from '../../utils/url';
-import { DEPTH_LABEL, STATUS_LABEL, workHref, workPeriod, type WorkEntry } from '../../utils/work';
+import { localize } from '../../i18n/ui';
+import { readLabel, statusLabel, workHref, workPeriod, type WorkEntry } from '../../utils/work';
 
 interface Props {
   entry: WorkEntry;
@@ -19,8 +19,9 @@ interface Props {
 }
 
 const { entry, now } = Astro.props;
+const { locale, t } = localize(Astro.url);
 const { data } = entry;
-const period = workPeriod(entry, now);
+const period = workPeriod(entry, now, t.dates);
 const titleId = `work-${entry.id}`;
 const diagramVariant = {
   'scope-map': 'scope',
@@ -35,11 +36,11 @@ const diagramVariant = {
     <p class="meta code">
       <span class="code-id">{data.code}</span>
       <span class="status" data-status={data.status}>
-        {STATUS_LABEL[data.status]}
+        {statusLabel(t, data.status)}
       </span>
     </p>
     <h3 id={titleId} class="title">
-      <a href={withBase(workHref(entry))}>{data.title}</a>
+      <a href={workHref(entry, locale)}>{data.title}</a>
     </h3>
   </header>
 
@@ -47,30 +48,30 @@ const diagramVariant = {
     <p class="summary">{data.summary}</p>
     <dl class="facts">
       <div>
-        <dt class="meta meta-quiet">Role</dt>
+        <dt class="meta meta-quiet">{t.labelRole}</dt>
         <dd>{data.role}</dd>
       </div>
       {data.organization && (
         <div>
-          <dt class="meta meta-quiet">Org</dt>
+          <dt class="meta meta-quiet">{t.labelOrganizationShort}</dt>
           <dd>{data.organization}</dd>
         </div>
       )}
       <div>
-        <dt class="meta meta-quiet">Period</dt>
+        <dt class="meta meta-quiet">{t.labelPeriod}</dt>
         <dd>
           {period.range} <span class="quiet">· {period.duration}</span>
         </dd>
       </div>
       {data.teamSize && (
         <div>
-          <dt class="meta meta-quiet">Team</dt>
+          <dt class="meta meta-quiet">{t.labelTeam}</dt>
           <dd>{data.teamSize}</dd>
         </div>
       )}
     </dl>
-    <ActionLink href={withBase(workHref(entry))} describedBy={titleId} class="more">
-      Read the {DEPTH_LABEL[data.depth].toLowerCase()}
+    <ActionLink href={workHref(entry, locale)} describedBy={titleId} class="more">
+      {readLabel(t, data.depth)}
     </ActionLink>
   </div>
 

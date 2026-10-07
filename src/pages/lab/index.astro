@@ -2,27 +2,26 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/core/PageHeader.astro';
+import { profile } from '../../data/profile';
+import { localize } from '../../i18n/ui';
 import { formatMonth } from '../../utils/dates';
 
+const { t } = localize(Astro.url);
 const entries = (await getCollection('lab')).sort((a, b) => b.data.date.localeCompare(a.data.date));
 ---
 
 <BaseLayout
-  title="Lab"
-  description="Public code, prototypes, and experiments by Ivan Dolgov."
+  title={t.labTitle}
+  description={t.labDescription(profile.name)}
   noindex={entries.length === 0}
 >
-  <PageHeader
-    sheet="Lab / Unpublished"
-    title="Lab"
-    lead="Public code, prototypes, and experiments."
-  />
+  <PageHeader sheet={t.labSheet} title={t.labTitle} lead={t.labLead} />
   <section class="page" aria-labelledby="lab-list">
     <h2 id="lab-list" class="visually-hidden">
-      Entries
+      {t.labEntriesHeading}
     </h2>
     {entries.length === 0 ? (
-      <p class="empty">No public entries yet.</p>
+      <p class="empty">{t.labEmpty}</p>
     ) : (
       <ol class="entries">
         {entries.map((entry) => (
