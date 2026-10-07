@@ -19,8 +19,9 @@ truth) and [`.claude/`](.claude/README.md) (Claude Code adapter).
 | `pnpm lint` / `pnpm format:check` | ESLint / Prettier |
 | `pnpm test:unit` | Vitest unit tests |
 | `pnpm test:e2e` | Playwright browser tests, including axe, against a production build |
-| `pnpm check:links` | Verifies every internal href, asset and fragment in `dist/` resolves |
-| `pnpm check` | Format, lint, typecheck, unit tests, build, link check |
+| `pnpm check:links` | Verifies every internal href, asset and fragment in `dist/` resolves, including same-origin absolute URLs such as `canonical` and `og:url` |
+| `pnpm check:i18n` | Holds the indexing and locale contract in `dist/`: the live URLs in `tests/fixtures/indexed-urls.json`, one self-referencing canonical per page, no `meta refresh`, and the `_astro` font budget |
+| `pnpm check` | Format, lint, typecheck, unit tests, build, link check, indexing check |
 
 Playwright needs its browser once: `pnpm exec playwright install chromium`.
 
@@ -44,7 +45,12 @@ Notes for future changes:
 
 - **Base paths.** Every internal URL goes through `withBase()` in `src/utils/url.ts`. The site
   currently serves from `/`; `pnpm build:subpath` plus `check:links` proves it also survives a
-  repository subpath.
+  repository subpath. Both checkers take the output directory as an argument and read `BASE_PATH`,
+  so the subpath build is verified by the same code; `check-links.mjs` derives the origin and base
+  it expects from the `Sitemap:` line of the built `robots.txt`.
+- **Indexed URLs.** `tests/fixtures/indexed-urls.json` lists the URLs and files that Google already
+  knows about. It is a floor, not a whitelist: adding routes is routine, removing one breaks a live
+  URL. Read `tests/fixtures/README.md` before editing it.
 - **Cascade layers.** The layer order (`reset, tokens, base, layout, components, utilities`) is
   declared in an inline `<style>` in `BaseLayout.astro`, because component-scoped styles are
   emitted ahead of `src/styles/global.css` in the CSS bundle and would otherwise establish the

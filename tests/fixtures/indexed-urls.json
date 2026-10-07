@@ -1,0 +1,38 @@
+{
+  "_comment": [
+    "SEARCH CONSOLE CONTRACT — not a convenience list.",
+    "https://aligator527.github.io is live and indexed. Every URL and file below is already known",
+    "to Google and may already be linked from elsewhere. The build must keep producing all of them,",
+    "at exactly these paths, forever.",
+    "scripts/check-i18n.mjs fails the build if any entry disappears. Adding entries is routine.",
+    "REMOVING OR RENAMING AN ENTRY IS A DELIBERATE ACT: it breaks a live URL, and nothing in the",
+    "toolchain will warn you a second time. Do it only together with a decision about redirects,",
+    "and record that decision. See tests/fixtures/README.md.",
+    "Paths are site-root-relative, so the same contract holds for the base-path build",
+    "(pnpm build:subpath), where every path is served under the configured base instead.",
+    "Extra pages are allowed — this is a floor, not a whitelist — so adding /ru/ and /ja/ routes",
+    "needs no change here beyond listing them once they are live."
+  ],
+  "origin": "https://aligator527.github.io",
+  "pages": [
+    "/",
+    "/about/",
+    "/experience/",
+    "/resume/",
+    "/work/",
+    "/work/ai-chat-platform/",
+    "/work/client-delivery/",
+    "/work/next-generation-wms/",
+    "/work/packaging-saas/"
+  ],
+  "files": [
+    "/404.html",
+    "/robots.txt",
+    "/sitemap-index.xml",
+    "/sitemap-0.xml",
+    "/google3005928254037eaa.html",
+    "/og.png",
+    "/favicon.svg",
+    "/resume/ivan-dolgov-cv.pdf"
+  ]
+}
