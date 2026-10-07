@@ -4,7 +4,7 @@ import SiteHeader from '../components/navigation/SiteHeader.astro';
 import SiteFooter from '../components/navigation/SiteFooter.astro';
 import { profile } from '../data/profile';
 import { withBase } from '../utils/url';
-import { OG_LOCALE, isIndexable } from '../utils/i18n';
+import { LOCALES, OG_LOCALE, alternates, isIndexable, logicalPath } from '../utils/i18n';
 /*
  * Keep this import where it is, and add new imports BELOW it.
  *
@@ -37,6 +37,18 @@ const pageTitle = title ? `${title} — ${profile.name}` : `${profile.name} — 
 // Self-referencing, and the only canonical on the page: scripts/check-i18n.mjs enforces both.
 // Locales are linked by hreflang alternates (`alternates()` in src/utils/i18n.ts), not by this tag.
 const canonical = new URL(Astro.url.pathname, Astro.site);
+/*
+ * The hreflang cluster. Every published locale of this page links to every other AND to itself, and
+ * one `x-default` points at English — Google discards a cluster where a single link is missing or
+ * not reciprocated, so these are generated from one helper rather than written per page.
+ *
+ * Suppressed on a `noindex` page: advertising alternates for a page that asks not to be indexed is
+ * the contradictory half-published state `isIndexable()` exists to prevent. With one published
+ * locale the helper returns that locale plus `x-default`, which is a valid but pointless cluster,
+ * so it is skipped until a second locale is published.
+ */
+const localeAlternates = alternates(logicalPath(Astro.url.pathname), LOCALES);
+const showAlternates = !noindex && localeAlternates.length > 2;
 ---
 
 <!doctype html>
@@ -51,6 +63,14 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, follow" />}
+    {showAlternates &&
+      localeAlternates.map((alternate) => (
+        <link
+          rel="alternate"
+          hreflang={alternate.hreflang}
+          href={new URL(alternate.href, Astro.site)}
+        />
+      ))}
     <meta name="author" content={profile.name} />
     <meta name="theme-color" content="#f2f0e8" />
     <meta property="og:type" content="website" />

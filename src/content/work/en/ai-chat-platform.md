@@ -1,4 +1,5 @@
 ---
+locale: en
 code: P02
 title: AI Chat Game Platform
 summary: 0→1 development of a consumer AI chat game platform, led as Project Lead and full-stack engineer in a 20-person cross-functional team.

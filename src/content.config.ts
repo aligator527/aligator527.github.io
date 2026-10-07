@@ -2,6 +2,7 @@ import { defineCollection } from 'astro:content';
 import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { CAPABILITY_IDS } from './data/capabilities';
+import { LOCALES, DEFAULT_LOCALE } from './utils/i18n';
 
 const yearMonth = z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'Use YYYY-MM');
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use YYYY-MM-DD');
@@ -12,6 +13,18 @@ const work = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/work' }),
   schema: z
     .object({
+      /**
+       * The language this file is written in, and the folder it lives in: `work/en/...`,
+       * `work/ru/...`. Required with no default — a default would let a translated file silently
+       * claim to be English, and the locale is what decides which pages it builds.
+       */
+      locale: z.enum(LOCALES),
+      /**
+       * Where a translation came from and whether a human has read it. Required on every file that
+       * is not in the default locale; `reviewedOn` stays absent until the author has actually read
+       * the translation, which is the gate `INDEXABLE_LOCALES` is released against.
+       */
+      translation: z.object({ source: z.enum(LOCALES), reviewedOn: isoDate.optional() }).optional(),
       code: z.string().regex(/^P\d{2}$/),
       title: z.string(),
       summary: z.string(),
@@ -57,6 +70,9 @@ const work = defineCollection({
     })
     .refine((entry) => entry.publicVisibility !== 'private', {
       message: 'Private work must not be committed to the public content collection',
+    })
+    .refine((entry) => entry.locale === DEFAULT_LOCALE || entry.translation !== undefined, {
+      message: 'A translated entry must record where it was translated from',
     }),
 });
 

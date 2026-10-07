@@ -1,0 +1,106 @@
+---
+/**
+ * Language switch.
+ *
+ * Four decisions, each with a reason:
+ *
+ * 1. **It advertises published locales only.** The links come from `alternates()`, which reads
+ *    `INDEXABLE_LOCALES` — the same predicate behind the robots meta and the sitemap. A locale that
+ *    is built but still under review is reachable by typing its URL, and nowhere else. With one
+ *    published locale there is nothing to switch between, so the component renders nothing at all.
+ *
+ * 2. **It keeps the reader on the page they are reading.** The target is the current logical path
+ *    in the other locale, not that locale's home page. A visitor who switches language halfway
+ *    through a case study expects the same case study.
+ *
+ * 3. **Codes are visible, endonyms are announced.** `EN`, `RU`, `JA` in uppercase mono is the site's
+ *    own notation — the same register as `P01`, `REV.01` and `L1` (`.ai/design/art-direction.md`),
+ *    and it stays two characters wide in a header that already reflows at 36rem. A bare code is a
+ *    poor accessible name, so each link also carries its endonym as visually-hidden text, written
+ *    in its own language and marked with `lang` so a screen reader pronounces it correctly. No
+ *    flags: a flag is a country, not a language.
+ *
+ * 4. **No JavaScript, and the current locale is not a link.** Three anchors, one of which is a
+ *    `span` with `aria-current="true"`. Nothing to hydrate, nothing to hover-reveal, and the
+ *    keyboard order is the reading order.
+ */
+import { localize } from '../../i18n/ui';
+import { LOCALE_ENDONYM, alternates, localeHref, logicalPath, type Locale } from '../../utils/i18n';
+
+const { locale, t } = localize(Astro.url);
+const path = logicalPath(Astro.url.pathname);
+
+// `alternates()` returns the hreflang set, which includes `x-default`; the switch wants locales.
+const published = alternates(path)
+  .filter((alternate) => alternate.hreflang !== 'x-default')
+  .map((alternate) => alternate.hreflang as Locale);
+---
+
+{published.length > 1 && (
+  <nav class="lang" aria-label={t.navLanguage}>
+    <ul role="list">
+      {published.map((target) =>
+        target === locale ? (
+          <li>
+            <span class="code current" aria-current="true" lang={target}>
+              <span aria-hidden="true">{target.toUpperCase()}</span>
+              <span class="visually-hidden">{LOCALE_ENDONYM[target]}</span>
+            </span>
+          </li>
+        ) : (
+          <li>
+            <a class="code" href={localeHref(path, target)} lang={target} hreflang={target}>
+              <span aria-hidden="true">{target.toUpperCase()}</span>
+              <span class="visually-hidden">{LOCALE_ENDONYM[target]}</span>
+            </a>
+          </li>
+        ),
+      )}
+    </ul>
+  </nav>
+)}
+
+<style>
+  @layer components {
+    .lang ul {
+      display: flex;
+      align-items: stretch;
+      block-size: 100%;
+    }
+
+    .code {
+      display: flex;
+      align-items: center;
+      min-block-size: var(--tap-min);
+      padding-inline: var(--space-2);
+      font-family: var(--font-mono);
+      font-size: var(--text-meta);
+      letter-spacing: var(--tracking-meta);
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--text-secondary);
+    }
+
+    /* The separator is a rule between items, not a middot: the header is already ruled. */
+    .lang li + li .code {
+      border-inline-start: var(--rule);
+    }
+
+    a.code:hover {
+      color: var(--text-primary);
+      text-decoration: underline;
+      text-decoration-color: var(--signal);
+    }
+
+    .current {
+      color: var(--signal-text);
+    }
+
+    @media (forced-colors: active) {
+      .current {
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+      }
+    }
+  }
+</style>

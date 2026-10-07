@@ -17,6 +17,7 @@
 export const en = {
   // Chrome
   skipToContent: 'Skip to content',
+  navLanguage: 'Language',
   navPrimary: 'Primary',
   navWork: 'Work',
   navLab: 'Lab',

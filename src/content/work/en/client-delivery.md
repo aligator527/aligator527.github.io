@@ -1,4 +1,5 @@
 ---
+locale: en
 code: P04
 title: Client Project Delivery
 summary: Five client projects across five industries, from a two-month corporate site led end to end to a 40-person insurance system — web delivery, CRM, and enterprise backend work.

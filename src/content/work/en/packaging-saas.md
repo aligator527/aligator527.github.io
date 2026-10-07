@@ -1,4 +1,5 @@
 ---
+locale: en
 code: P03
 title: Packaging-Industry SaaS
 summary: Full-stack work on a production web and mobile SaaS for the packaging industry, where growing data had degraded responsiveness for every customer.
