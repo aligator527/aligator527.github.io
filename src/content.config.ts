@@ -3,6 +3,7 @@ import { file, glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 import { CAPABILITY_IDS } from './data/capabilities';
 import { LOCALES, DEFAULT_LOCALE } from './utils/i18n';
+import { localized } from './utils/localized';
 
 const yearMonth = z.string().regex(/^\d{4}-(0[1-9]|1[0-2])$/, 'Use YYYY-MM');
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Use YYYY-MM-DD');
@@ -85,8 +86,9 @@ const experience = defineCollection({
     engagementType: z.enum(['contract', 'freelance']).optional(),
     startDate: yearMonth,
     endDate: yearMonth.nullable(),
-    summary: z.string(),
-    scope: z.array(z.string()).min(1),
+    // Wording is per locale; everything above it is a fact — see src/utils/localized.ts.
+    summary: localized(z.string()),
+    scope: localized(z.array(z.string()).min(1)),
     technologies: z.array(z.string()),
     work: z.string().optional(),
   }),
@@ -96,9 +98,9 @@ const principles = defineCollection({
   loader: file('./src/content/principles/principles.yaml'),
   schema: z.object({
     order: z.number().int(),
-    title: z.string(),
-    body: z.string(),
-    evidence: z.string(),
+    title: localized(z.string()),
+    body: localized(z.string()),
+    evidence: localized(z.string()),
     approved: z.boolean(),
   }),
 });

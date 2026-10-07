@@ -1,6 +1,6 @@
 ---
 import { deliveryFlow } from '../../data/delivery-flow';
-import { localeFromPathname } from '../../utils/i18n';
+import { localize } from '../../i18n/ui';
 import { workHref, type WorkEntry } from '../../utils/work';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { work } = Astro.props;
-const locale = localeFromPathname(Astro.url.pathname);
+const { locale, t } = localize(Astro.url);
 const byCode = new Map(work.map((entry) => [entry.data.code, entry]));
 
 for (const step of deliveryFlow) {
@@ -20,8 +20,8 @@ for (const step of deliveryFlow) {
 
 <figure class="delivery-flow" aria-labelledby="flow-caption">
   <figcaption id="flow-caption" class="flow-caption">
-    <span class="meta">Fig. 1</span>
-    <span>Where I work in a system’s life, with the projects that show each stage.</span>
+    <span class="meta">{t.flowFigure}</span>
+    <span>{t.flowCaption}</span>
   </figcaption>
   <ol class="steps" role="list">
     {deliveryFlow.map((step, index) => (
@@ -29,10 +29,10 @@ for (const step of deliveryFlow) {
         <p class="meta step-index" aria-hidden="true">
           {String(index + 1).padStart(2, '0')}
         </p>
-        <p class="step-name">{step.stage}</p>
-        <p class="step-detail">{step.detail}</p>
+        <p class="step-name">{t.deliveryFlow[step.id].stage}</p>
+        <p class="step-detail">{t.deliveryFlow[step.id].detail}</p>
         <p class="evidence">
-          <span class="visually-hidden">Evidence: </span>
+          <span class="visually-hidden">{t.flowEvidence}</span>
           {step.evidence.map((code) => {
             const entry = byCode.get(code)!;
             return (

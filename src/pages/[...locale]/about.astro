@@ -1,10 +1,11 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { aboutProse } from '../../components/prose/about';
 import PageHeader from '../../components/core/PageHeader.astro';
 import SectionHeading from '../../components/core/SectionHeading.astro';
 import ActionLink from '../../components/core/ActionLink.astro';
-import { profile } from '../../data/profile';
+import { localizedProfile } from '../../data/profile';
 import { localize } from '../../i18n/ui';
 import { localeHref, localePaths } from '../../utils/i18n';
 /*
@@ -14,6 +15,13 @@ import { localeHref, localePaths } from '../../utils/i18n';
 export const getStaticPaths = localePaths satisfies GetStaticPaths;
 
 const { locale, t } = localize(Astro.url);
+const profile = localizedProfile(t);
+const AboutProse = aboutProse[locale];
+const proseProps = {
+  experience: profile.experience,
+  email: profile.email,
+  workHref: (slug: string) => localeHref(`/work/${slug}/`, locale),
+};
 /*
  * The two prose blocks below are still English literals. They are chrome in the sense that they live
  * in a template, but they are narrative with inline links to work pages, so they do not fit a flat
@@ -29,36 +37,7 @@ const { locale, t } = localize(Astro.url);
     <SectionHeading index={1} id="background-heading" title={t.aboutBackgroundTitle} />
     <div class="grid">
       <div class="prose body">
-        <p>
-          I have {profile.experience} of professional experience. Since September 2026 I have been
-          Tech Lead for a{' '}
-          <a href={localeHref('/work/next-generation-wms/', locale)}>
-            next-generation warehouse management system
-          </a>
-          at Frameworx, part of Daiwa House Group, where I am responsible for technical planning and
-          architecture.
-        </p>
-        <p>
-          Before that I worked on contract engagements and client projects. I led 0→1 development of
-          an <a href={localeHref('/work/ai-chat-platform/', locale)}>AI chat game platform</a> at
-          Ikigai, worked full-stack on a{' '}
-          <a href={localeHref('/work/packaging-saas/', locale)}>
-            production SaaS for the packaging industry
-          </a>{' '}
-          at Nagashima Konpo, and led{' '}
-          <a href={localeHref('/work/client-delivery/', locale)}>client web projects</a> at
-          Flaretech.
-        </p>
-        <p>
-          I started in August 2021 as an independent full-stack engineer, delivering web
-          applications and business systems in one- to two-person teams and handling requirements
-          directly with clients.
-        </p>
-        <p>
-          I am currently studying for an MBA at GLOBIS University, and I am taking part in the
-          Global Consumer Intelligence program at the Matsuo–Iwasawa Laboratory, The University of
-          Tokyo.
-        </p>
+        <AboutProse section="background" {...proseProps} />
       </div>
     </div>
   </section>
@@ -88,11 +67,7 @@ const { locale, t } = localize(Astro.url);
     <div class="grid">
       <div class="prose body">
         <p>{profile.availability}</p>
-        <p>
-          The best starting point is a short email describing the system, where it is today, and
-          what needs to change. I reply from <a href={`mailto:${profile.email}`}>{profile.email}</a>
-          .
-        </p>
+        <AboutProse section="engage" {...proseProps} />
       </div>
       <p class="actions">
         <ActionLink href={localeHref('/work/', locale)}>{t.selectedWork}</ActionLink>

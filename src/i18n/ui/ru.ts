@@ -184,6 +184,106 @@ export const ru: Dictionary = {
   notFoundRoutes: 'Куда перейти',
   notFoundHome: 'Главная',
 
+  /* Wording of the profile; the facts are in `src/data/profile.ts`. Institution names take their
+     established Russian forms, and the two IPA examinations keep their English names in brackets —
+     that is how a Russian-language CV cites a Japanese national certification. */
+  profile: {
+    supportingLine: 'Веб-системы · архитектура · облако · корпоративное ПО',
+    promise:
+      'Проектирую и довожу до продакшена сложные веб-системы — от требований и архитектуры до эксплуатации.',
+    experience: '5+ лет',
+    location: 'Токио, Япония',
+    availability:
+      'Открыт к отдельным проектам в консалтинге и по контракту — удалённо или за пределами Японии.',
+    languages: {
+      RU: { name: 'Русский', level: 'Родной' },
+      JA: { name: 'Японский', level: 'Свободный рабочий уровень (JLPT N1)' },
+      EN: { name: 'Английский', level: 'Свободный рабочий уровень' },
+    },
+    education: {
+      mba: { title: 'MBA', institution: 'Бизнес-школа GLOBIS', status: 'Учусь сейчас' },
+      gci: {
+        title: 'Программа Global Consumer Intelligence',
+        institution: 'Лаборатория Мацуо–Ивасавы, Токийский университет',
+        status: 'Учусь сейчас',
+      },
+    },
+    certifications: {
+      fe: {
+        title: 'Экзамен на базового ИТ-инженера (Fundamental Information Technology Engineer)',
+      },
+      ism: {
+        title:
+          'Экзамен по управлению информационной безопасностью (Information Security Management)',
+      },
+      jlpt: { title: 'Экзамен по японскому языку JLPT N1' },
+    },
+  },
+
+  /* Этапы потока работ; ключи — из `src/data/delivery-flow.ts`. */
+  deliveryFlow: {
+    requirements: {
+      stage: 'Требования',
+      detail: 'Определить и зафиксировать вместе с клиентом, что система должна делать',
+    },
+    architecture: {
+      stage: 'Архитектура',
+      detail: 'Выбрать технический подход и сначала проверить рискованные места',
+    },
+    implementation: {
+      stage: 'Реализация',
+      detail: 'Собрать клиентские приложения, сервисы и инфраструктуру',
+    },
+    release: {
+      stage: 'Релиз',
+      detail: 'Код-ревью, инженерные стандарты и выпуск в продакшен',
+    },
+    operation: {
+      stage: 'Эксплуатация',
+      detail: 'Держать систему живой: производительность, миграции, поддержка в продакшене',
+    },
+  },
+
+  /* Словарь компетенций; ключи — из `src/data/capabilities.ts`. */
+  capabilities: {
+    requirements: {
+      label: 'Требования и работа с клиентом',
+      detail: 'Определить и задокументировать вместе с клиентом, что система должна делать',
+    },
+    architecture: {
+      label: 'Архитектура и выбор технологий',
+      detail: 'Техническое планирование и технологические решения',
+    },
+    leadership: {
+      label: 'Руководство проектом',
+      detail: 'Планирование и координация команд разработки',
+    },
+    frontend: { label: 'Фронтенд-разработка', detail: 'Веб- и мобильные клиентские приложения' },
+    backend: { label: 'Бэкенд и API', detail: 'Серверные сервисы и API' },
+    cloud: { label: 'Облачная инфраструктура', detail: 'Инфраструктура и развёртывание в AWS' },
+    security: {
+      label: 'Аутентификация и безопасность',
+      detail: 'Аутентификация, авторизация и безопасность как часть архитектуры',
+    },
+    integration: { label: 'Системная интеграция', detail: 'Планирование интеграции WMS/WCS' },
+    standards: {
+      label: 'Стандарты и код-ревью',
+      detail: 'Инженерные гайдлайны, архитектурные стандарты и код-ревью',
+    },
+    release: {
+      label: 'Релизы и поддержка продакшена',
+      detail: 'Довести изменения до продакшена и поддерживать их там',
+    },
+  },
+
+  flowFigure: 'Рис. 1',
+  flowCaption: 'Где я работаю в жизненном цикле системы и какие проекты это показывают.',
+  flowEvidence: 'Подтверждение: ',
+  matrixCaption: 'Компетенции и проекты, которые их подтверждают',
+  matrixCapability: 'Компетенция',
+  matrixYes: 'Да',
+  matrixNo: 'Нет',
+
   // Diagrams
   environmentsInOrder: (unit: string) => `${unit}: окружения в порядке продвижения`,
 };

@@ -1,6 +1,6 @@
 ---
-import { CAPABILITY_IDS, capabilities } from '../../data/capabilities';
-import { localeFromPathname } from '../../utils/i18n';
+import { CAPABILITY_IDS } from '../../data/capabilities';
+import { localize } from '../../i18n/ui';
 import { workHref, type WorkEntry } from '../../utils/work';
 
 interface Props {
@@ -8,10 +8,10 @@ interface Props {
 }
 
 const { work } = Astro.props;
-const locale = localeFromPathname(Astro.url.pathname);
+const { locale, t } = localize(Astro.url);
 const rows = CAPABILITY_IDS.map((id) => ({
   id,
-  ...capabilities[id],
+  ...t.capabilities[id],
   evidence: work.filter((entry) => entry.data.capabilities.includes(id)),
 }))
   .filter((row) => row.evidence.length > 0)
@@ -22,13 +22,11 @@ const rows = CAPABILITY_IDS.map((id) => ({
 <div class="matrix">
   <!-- Wide screens: a true table, capabilities against project evidence. -->
   <table class="matrix-table">
-    <caption class="visually-hidden">
-      Capabilities and the selected work that shows each one
-    </caption>
+    <caption class="visually-hidden">{t.matrixCaption}</caption>
     <thead>
       <tr>
         <th scope="col" class="meta meta-quiet col-capability">
-          Capability
+          {t.matrixCapability}
         </th>
         {work.map((entry) => (
           <th scope="col" class="meta col-project">
@@ -54,10 +52,10 @@ const rows = CAPABILITY_IDS.map((id) => ({
                 {present ? (
                   <>
                     <span class="mark" aria-hidden="true" />
-                    <span class="visually-hidden">Yes</span>
+                    <span class="visually-hidden">{t.matrixYes}</span>
                   </>
                 ) : (
-                  <span class="visually-hidden">No</span>
+                  <span class="visually-hidden">{t.matrixNo}</span>
                 )}
               </td>
             );

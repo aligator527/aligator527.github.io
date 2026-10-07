@@ -1,0 +1,51 @@
+---
+/**
+ * The About page's narrative, in English.
+ *
+ * Narrative with inline links to work pages does not fit a flat dictionary entry: a translator
+ * needs the sentence, and the links have to stay base- and locale-correct, which a string cannot
+ * do without `set:html`. So each locale writes the prose as a component and `about.astro` picks one
+ * — see `src/components/prose/about/index.ts`.
+ *
+ * `experience`, `email` and the hrefs come from props, so no fact is restated per locale.
+ */
+import type { AboutProseProps } from './index';
+
+const { section, experience, email, workHref } = Astro.props as AboutProseProps;
+---
+
+{section === 'background' && (
+  <>
+    <p>
+      I have {experience} of professional experience. Since September 2026 I have been Tech Lead for
+      a <a href={workHref('next-generation-wms')}>next-generation warehouse management system</a> at
+      Frameworx, part of Daiwa House Group, where I am responsible for technical planning and
+      architecture.
+    </p>
+    <p>
+      Before that I worked on contract engagements and client projects. I led 0→1 development of an{' '}
+      <a href={workHref('ai-chat-platform')}>AI chat game platform</a> at Ikigai, worked full-stack
+      on a <a href={workHref('packaging-saas')}>production SaaS for the packaging industry</a> at
+      Nagashima Konpo, and led <a href={workHref('client-delivery')}>client web projects</a> at
+      Flaretech.
+    </p>
+    <p>
+      I started in August 2021 as an independent full-stack engineer, delivering web applications
+      and business systems in one- to two-person teams and handling requirements directly with
+      clients.
+    </p>
+    <p>
+      I am currently studying for an MBA at GLOBIS University, and I am taking part in the Global
+      Consumer Intelligence program at the Matsuo–Iwasawa Laboratory, The University of Tokyo.
+    </p>
+  </>
+)}
+
+{section === 'engage' && (
+  <>
+    <p>
+      The best starting point is a short email describing the system, where it is today, and what
+      needs to change. I reply from <a href={`mailto:${email}`}>{email}</a>.
+    </p>
+  </>
+)}

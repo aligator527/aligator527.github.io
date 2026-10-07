@@ -1,26 +1,54 @@
 # Wording approved by Ivan on 2026-09-18. Entries render only when `approved: true`.
 # Each principle is framed as a working practice and names the CV evidence it rests on.
+#
+# `title`, `body` and `evidence` carry one value per locale (see src/utils/localized.ts). The
+# Russian is a draft by Claude, reviewed by nobody yet: Russian stays out of INDEXABLE_LOCALES
+# until Ivan has read it.
 - id: decide-in-writing
   order: 1
-  title: Record decisions where the team can find them
-  body: Architecture decisions, guidelines, and standards are written down so that a choice made once does not have to be re-argued in every review.
-  evidence: Architecture standardization, engineering guidelines, and architecture decisions — Next-Generation WMS.
+  title:
+    en: Record decisions where the team can find them
+    ru: Фиксируйте решения там, где команда их найдёт
+  body:
+    en: Architecture decisions, guidelines, and standards are written down so that a choice made once does not have to be re-argued in every review.
+    ru: Архитектурные решения, гайдлайны и стандарты записаны, поэтому выбор, сделанный один раз, не приходится заново отстаивать на каждом ревью.
+  evidence:
+    en: Architecture standardization, engineering guidelines, and architecture decisions — Next-Generation WMS.
+    ru: Стандартизация архитектуры, инженерные гайдлайны и архитектурные решения — WMS нового поколения.
   approved: true
 - id: prove-before-committing
   order: 2
-  title: Prove risky choices with a small build first
-  body: When a technology or integration is uncertain, a bounded proof of concept is cheaper than discovering the limitation in production.
-  evidence: Technical PoCs — Next-Generation WMS and packaging-industry SaaS.
+  title:
+    en: Prove risky choices with a small build first
+    ru: Проверяйте рискованный выбор небольшим прототипом
+  body:
+    en: When a technology or integration is uncertain, a bounded proof of concept is cheaper than discovering the limitation in production.
+    ru: Когда технология или интеграция под вопросом, ограниченный по объёму PoC обходится дешевле, чем обнаружить ограничение уже в продакшене.
+  evidence:
+    en: Technical PoCs — Next-Generation WMS and packaging-industry SaaS.
+    ru: Технические PoC — WMS нового поколения и SaaS для упаковочной отрасли.
   approved: true
 - id: review-as-standard-setting
   order: 3
-  title: Use code review to spread standards, not only to catch defects
-  body: Reviews are where conventions become shared practice across a team, including external developers.
-  evidence: Code reviews and standards — AI chat game platform; reviews and external developer support — packaging-industry SaaS.
+  title:
+    en: Use code review to spread standards, not only to catch defects
+    ru: Код-ревью распространяет стандарты, а не только ловит дефекты
+  body:
+    en: Reviews are where conventions become shared practice across a team, including external developers.
+    ru: Именно на ревью договорённости становятся общей практикой команды — включая внешних разработчиков.
+  evidence:
+    en: Code reviews and standards — AI chat game platform; reviews and external developer support — packaging-industry SaaS.
+    ru: Код-ревью и стандарты — платформа AI-чат-игры; ревью и поддержка внешних разработчиков — SaaS для упаковочной отрасли.
   approved: true
 - id: requirements-are-engineering
   order: 4
-  title: Treat requirements as engineering work
-  body: Clarifying what a client or operator needs is part of the system design, not a hand-off that happens before it.
-  evidence: Requirements definition and client coordination — Flaretech client projects and freelance work.
+  title:
+    en: Treat requirements as engineering work
+    ru: Требования — это инженерная работа
+  body:
+    en: Clarifying what a client or operator needs is part of the system design, not a hand-off that happens before it.
+    ru: Выяснить, что нужно клиенту или оператору, — часть проектирования системы, а не этап, который кто-то закрывает до него.
+  evidence:
+    en: Requirements definition and client coordination — Flaretech client projects and freelance work.
+    ru: Определение требований и работа с клиентом — клиентские проекты Flaretech и фриланс.
   approved: true

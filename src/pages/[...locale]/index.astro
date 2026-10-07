@@ -1,16 +1,16 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/core/SectionHeading.astro';
 import DeliveryFlow from '../../components/diagrams/DeliveryFlow.astro';
 import WorkEntry from '../../components/work/WorkEntry.astro';
 import CapabilityMatrix from '../../components/work/CapabilityMatrix.astro';
 import ActionLink from '../../components/core/ActionLink.astro';
-import { profile } from '../../data/profile';
+import { localizedProfile } from '../../data/profile';
 import { localize } from '../../i18n/ui';
 import { formatMonth } from '../../utils/dates';
 import { localeHref, localePaths } from '../../utils/i18n';
+import { getPrinciples } from '../../utils/experience';
 import { getWork, workHref } from '../../utils/work';
 /*
  * One route per locale. English is the `undefined` rest parameter, so this file emits `/` — not
@@ -26,12 +26,11 @@ import { getWork, workHref } from '../../utils/work';
 export const getStaticPaths = localePaths satisfies GetStaticPaths;
 
 const { locale, t } = localize(Astro.url);
+const profile = localizedProfile(t);
 const work = await getWork(locale);
 const featured = work.filter((entry) => entry.data.featured);
 const current = work.find((entry) => entry.data.status === 'active');
-const principles = (await getCollection('principles'))
-  .filter((entry) => entry.data.approved)
-  .sort((a, b) => a.data.order - b.data.order);
+const principles = await getPrinciples(locale);
 
 // Section numbers follow what actually renders, so hiding an unapproved section leaves no gap.
 let sectionIndex = 0;

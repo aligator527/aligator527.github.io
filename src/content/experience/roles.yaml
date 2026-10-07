@@ -1,16 +1,29 @@
 # Source: .ai/content/facts.md (current English CV). Keep in sync; do not add unverified scope.
+#
+# Dates, organisations, technologies and the `work:` reference are facts and have one value.
+# `summary` and `scope` carry one value per locale (see src/utils/localized.ts). The Russian is a
+# draft by Claude that nobody has reviewed yet; Russian stays out of INDEXABLE_LOCALES until Ivan
+# has read it.
 - id: frameworx
   organization: Frameworx
   organizationNote: Daiwa House Group
   role: Tech Lead — Next-Generation WMS
   startDate: '2026-09'
   endDate: null
-  summary: Technical direction for a next-generation warehouse management system (WMS).
+  summary:
+    en: Technical direction for a next-generation warehouse management system (WMS).
+    ru: Техническое руководство системой управления складом (WMS) нового поколения.
   scope:
-    - Technical planning and architecture across frontend, backend, cloud, security, and WMS/WCS integration.
-    - Technology selection and architecture standardization.
-    - Engineering guidelines and architecture decisions.
-    - Technical proofs of concept.
+    en:
+      - Technical planning and architecture across frontend, backend, cloud, security, and WMS/WCS integration.
+      - Technology selection and architecture standardization.
+      - Engineering guidelines and architecture decisions.
+      - Technical proofs of concept.
+    ru:
+      - 'Техническое планирование и архитектура: фронтенд, бэкенд, облако, безопасность и интеграция WMS/WCS.'
+      - Выбор технологий и стандартизация архитектуры.
+      - Инженерные гайдлайны и архитектурные решения.
+      - Технические PoC.
   technologies: []
   work: next-generation-wms
 - id: ikigai
@@ -19,12 +32,20 @@
   engagementType: contract
   startDate: '2025-07'
   endDate: '2026-05'
-  summary: Led 0→1 development of an AI chat game platform in a 20-person cross-functional team.
+  summary:
+    en: Led 0→1 development of an AI chat game platform in a 20-person cross-functional team.
+    ru: Руководил разработкой платформы AI-чат-игры с нуля в кросс-функциональной команде из 20 человек.
   scope:
-    - Planning, technical decisions, code reviews, engineering standards, and release work.
-    - React and TypeScript frontend; Go backend.
-    - AWS infrastructure with Terraform, Lambda, API Gateway, and DynamoDB.
-    - Authentication and authorization with Keycloak.
+    en:
+      - Planning, technical decisions, code reviews, engineering standards, and release work.
+      - React and TypeScript frontend; Go backend.
+      - AWS infrastructure with Terraform, Lambda, API Gateway, and DynamoDB.
+      - Authentication and authorization with Keycloak.
+    ru:
+      - Планирование, технические решения, код-ревью, инженерные стандарты и релизы.
+      - Фронтенд на React и TypeScript; бэкенд на Go.
+      - 'Инфраструктура AWS на Terraform: Lambda, API Gateway, DynamoDB.'
+      - Аутентификация и авторизация на Keycloak.
   technologies: [React, TypeScript, Go, AWS, Terraform, Lambda, API Gateway, DynamoDB, Keycloak]
   work: ai-chat-platform
 - id: nagashima-konpo
@@ -33,12 +54,20 @@
   engagementType: contract
   startDate: '2024-12'
   endDate: '2025-12'
-  summary: Production web and mobile SaaS for the packaging industry, in a team of approximately 10 people.
+  summary:
+    en: Production web and mobile SaaS for the packaging industry, in a team of approximately 10 people.
+    ru: Промышленный веб- и мобильный SaaS для упаковочной отрасли, команда около 10 человек.
   scope:
-    - Search and large-data performance work, after growing data had degraded responsiveness across the platform.
-    - Node.js 16 → 20 migration.
-    - Proofs of concept, code reviews, and support for external developers.
-    - Release work.
+    en:
+      - Search and large-data performance work, after growing data had degraded responsiveness across the platform.
+      - Node.js 16 → 20 migration.
+      - Proofs of concept, code reviews, and support for external developers.
+      - Release work.
+    ru:
+      - Ускорение поиска и работы с большими объёмами данных после того, как рост данных замедлил всю платформу.
+      - Миграция Node.js 16 → 20.
+      - PoC, код-ревью и поддержка внешних разработчиков.
+      - Релизы.
   technologies: [React, Next.js, React Native, Expo, AWS Amplify, Lambda, AppSync, DynamoDB, S3]
   work: packaging-saas
 - id: flaretech
@@ -47,12 +76,20 @@
   role: Software Engineer / Project Lead
   startDate: '2023-03'
   endDate: '2025-05'
-  summary: Client projects in five industries, from five-person teams led end to end to a 40-person insurance system.
+  summary:
+    en: Client projects in five industries, from five-person teams led end to end to a 40-person insurance system.
+    ru: Клиентские проекты в пяти отраслях — от команд по пять человек, которые я вёл целиком, до системы для страховой компании с командой около 40 человек.
   scope:
-    - 'Project lead on corporate and multilingual site delivery: client negotiation, requirements, documentation, React and Next.js development, AWS deployment, launch, and operation.'
-    - Full-stack engineering on an insurance sales and application-management system (JavaScript, Java/Spring) in an approximately 40-person project.
-    - Full-stack engineering on a CRM for a corporate electricity retailer (React, PHP/Laravel).
-    - Frontend engineering and refactoring on a SaaS for freelance job matching (Next.js, React, TypeScript).
+    en:
+      - 'Project lead on corporate and multilingual site delivery: client negotiation, requirements, documentation, React and Next.js development, AWS deployment, launch, and operation.'
+      - Full-stack engineering on an insurance sales and application-management system (JavaScript, Java/Spring) in an approximately 40-person project.
+      - Full-stack engineering on a CRM for a corporate electricity retailer (React, PHP/Laravel).
+      - Frontend engineering and refactoring on a SaaS for freelance job matching (Next.js, React, TypeScript).
+    ru:
+      - 'Руководство проектами корпоративных и многоязычных сайтов: переговоры с клиентом, требования, документация, разработка на React и Next.js, развёртывание в AWS, запуск и эксплуатация.'
+      - Full-stack разработка системы продаж и управления заявками для страховой компании (JavaScript, Java/Spring) в проекте примерно на 40 человек.
+      - Full-stack разработка CRM для поставщика электроэнергии корпоративным клиентам (React, PHP/Laravel).
+      - Фронтенд-разработка и рефакторинг SaaS для подбора фриланс-проектов (Next.js, React, TypeScript).
   technologies: [React, Next.js, TypeScript, JavaScript, Java/Spring, PHP/Laravel, AWS]
   work: client-delivery
 - id: freelance
@@ -61,9 +98,16 @@
   engagementType: freelance
   startDate: '2021-08'
   endDate: '2023-01'
-  summary: Delivered web applications and business systems in one- to two-person delivery environments.
+  summary:
+    en: Delivered web applications and business systems in one- to two-person delivery environments.
+    ru: Делал веб-приложения и бизнес-системы в командах из одного-двух человек.
   scope:
-    - Client-facing requirements work.
-    - Web applications and business systems.
-    - Automation, data collection, and e-commerce improvements.
+    en:
+      - Client-facing requirements work.
+      - Web applications and business systems.
+      - Automation, data collection, and e-commerce improvements.
+    ru:
+      - Сбор требований напрямую с клиентом.
+      - Веб-приложения и бизнес-системы.
+      - Автоматизация, сбор данных и улучшения в интернет-магазинах.
   technologies: [React, Vue.js, Python/Django, PHP]

@@ -102,5 +102,21 @@ const published = alternates(path)
         text-decoration-thickness: 2px;
       }
     }
+
+    /* Narrow screens: the header's second row already carries four links, and the Russian */
+    /* labels are wider than the English ones, so two more items overflow 320px. The switch */
+    /* takes the full width below them, ruled off like every other band here, rather than */
+    /* shrinking any tap target below 44px. The rule lives here because it is this */
+    /* component's own reflow, not the header's. */
+    @media (max-width: 35.99rem) {
+      .lang {
+        flex-basis: 100%;
+        border-block-start: var(--rule);
+      }
+
+      .lang ul {
+        justify-content: flex-end;
+      }
+    }
   }
 </style>

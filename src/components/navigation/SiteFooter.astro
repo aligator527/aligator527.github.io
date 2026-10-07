@@ -1,9 +1,10 @@
 ---
-import { profile } from '../../data/profile';
+import { localizedProfile } from '../../data/profile';
 import { localize } from '../../i18n/ui';
 import { formatMonth } from '../../utils/dates';
 
 const { t } = localize(Astro.url);
+const profile = localizedProfile(t);
 ---
 
 <footer class="site-footer" aria-labelledby="contact-heading">

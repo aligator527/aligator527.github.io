@@ -5,7 +5,7 @@ import PageHeader from '../../components/core/PageHeader.astro';
 import SectionHeading from '../../components/core/SectionHeading.astro';
 import ActionLink from '../../components/core/ActionLink.astro';
 import Timeline from '../../components/experience/Timeline.astro';
-import { profile } from '../../data/profile';
+import { localizedProfile } from '../../data/profile';
 import { localize } from '../../i18n/ui';
 import { formatDuration, formatRange } from '../../utils/dates';
 import { getRolesWithWork } from '../../utils/experience';
@@ -18,6 +18,7 @@ import { depthLabel, engagementLabel, workHref } from '../../utils/work';
 export const getStaticPaths = localePaths satisfies GetStaticPaths;
 
 const { locale, t } = localize(Astro.url);
+const profile = localizedProfile(t);
 // Each role arrives with its `work:` reference already resolved and validated; see utils/experience.
 const entries = await getRolesWithWork(locale);
 const roles = entries.map(({ role }) => role);

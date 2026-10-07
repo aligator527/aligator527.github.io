@@ -219,7 +219,7 @@ export function alternates(
  * pages that are finished. Today only English is emitted, so the build output is unchanged; the
  * locale stages add `ru` and then `ja` here, and later to `INDEXABLE_LOCALES`.
  */
-export const EMITTED_LOCALES = ['en'] as const satisfies readonly Locale[];
+export const EMITTED_LOCALES = ['en', 'ru'] as const satisfies readonly Locale[];
 
 /**
  * The value of the `[...locale]` rest parameter for a locale.

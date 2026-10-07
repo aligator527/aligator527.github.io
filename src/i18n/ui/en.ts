@@ -181,6 +181,102 @@ export const en = {
   notFoundRoutes: 'Where to go next',
   notFoundHome: 'Home',
 
+  /*
+   * The wording of the profile. The facts it describes live in `src/data/profile.ts`; this is the
+   * language they are stated in, keyed by the ids that file carries. `localizedProfile()` joins the
+   * two, so a locale cannot render an English credential by accident.
+   */
+  profile: {
+    supportingLine: 'Web systems · architecture · cloud · enterprise software',
+    promise:
+      'I design and ship complex web systems — from requirements and architecture to production.',
+    experience: '5+ years',
+    location: 'Tokyo, Japan',
+    availability: 'Open to selected consulting and contract work, remote or international.',
+    languages: {
+      RU: { name: 'Russian', level: 'Native' },
+      JA: { name: 'Japanese', level: 'Professional working proficiency (JLPT N1)' },
+      EN: { name: 'English', level: 'Professional working proficiency' },
+    },
+    education: {
+      mba: { title: 'MBA', institution: 'GLOBIS University', status: 'In progress' },
+      gci: {
+        title: 'Global Consumer Intelligence program',
+        institution: 'Matsuo–Iwasawa Laboratory, The University of Tokyo',
+        status: 'In progress',
+      },
+    },
+    certifications: {
+      fe: { title: 'Fundamental Information Technology Engineer Examination' },
+      ism: { title: 'Information Security Management Examination' },
+      jlpt: { title: 'Japanese-Language Proficiency Test N1' },
+    },
+  },
+
+  /* Delivery-flow stages, keyed by `src/data/delivery-flow.ts` ids. */
+  deliveryFlow: {
+    requirements: {
+      stage: 'Requirements',
+      detail: 'Defining and documenting what the system has to do, with the client',
+    },
+    architecture: {
+      stage: 'Architecture',
+      detail: 'Choosing the technical approach and proving the risky parts first',
+    },
+    implementation: {
+      stage: 'Implementation',
+      detail: 'Building the clients, services, and infrastructure',
+    },
+    release: {
+      stage: 'Release',
+      detail: 'Code review, engineering standards, and getting releases out',
+    },
+    operation: {
+      stage: 'Operation',
+      detail: 'Keeping it running: performance, migrations, production support',
+    },
+  },
+
+  /* Capability vocabulary, keyed by `src/data/capabilities.ts` ids. */
+  capabilities: {
+    requirements: {
+      label: 'Requirements & client coordination',
+      detail: 'Defining and documenting what a system has to do, with the client',
+    },
+    architecture: {
+      label: 'Architecture & technology selection',
+      detail: 'Technical planning and technology decisions',
+    },
+    leadership: {
+      label: 'Project leadership',
+      detail: 'Planning and coordination of delivery teams',
+    },
+    frontend: { label: 'Frontend engineering', detail: 'Web and mobile client applications' },
+    backend: { label: 'Backend & APIs', detail: 'Server-side services and APIs' },
+    cloud: { label: 'Cloud infrastructure', detail: 'Cloud infrastructure and deployment on AWS' },
+    security: {
+      label: 'Authentication & security',
+      detail: 'Authentication, authorization, and security as an architecture concern',
+    },
+    integration: { label: 'System integration', detail: 'WMS/WCS integration planning' },
+    standards: {
+      label: 'Standards & code review',
+      detail: 'Engineering guidelines, architecture standards, and code review',
+    },
+    release: {
+      label: 'Release & production support',
+      detail: 'Getting changes into production and supporting them there',
+    },
+  },
+
+  flowFigure: 'Fig. 1',
+  flowCaption: 'Where I work in a system’s life, with the projects that show each stage.',
+  flowEvidence: 'Evidence: ',
+  matrixCaption: 'Capabilities and the selected work that shows each one',
+  matrixCapability: 'Capability',
+  matrixYes: 'Yes',
+  matrixNo: 'No',
+
   // Diagrams
   environmentsInOrder: (unit: string) => `${unit} environments, in promotion order`,
 };

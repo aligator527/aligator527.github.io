@@ -1,7 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { profile } from '../../data/profile';
+import { localizedProfile } from '../../data/profile';
 import { localize } from '../../i18n/ui';
 import { formatRange } from '../../utils/dates';
 import { getRoles } from '../../utils/experience';
@@ -16,6 +16,7 @@ import { localePaths } from '../../utils/i18n';
 export const getStaticPaths = localePaths satisfies GetStaticPaths;
 
 const { locale, t } = localize(Astro.url);
+const profile = localizedProfile(t);
 const roles = await getRoles(locale);
 const pdfAvailable = hasResumePdf();
 ---

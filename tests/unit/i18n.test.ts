@@ -262,7 +262,15 @@ describe('route generation', () => {
   });
 
   it('emits one route per emitted locale, English first and unprefixed', () => {
-    expect(localePaths()).toEqual([{ params: { locale: undefined }, props: { locale: 'en' } }]);
+    // Derived from EMITTED_LOCALES rather than hard-coded: this asserts the rule — English has no
+    // segment, every other locale is its own code — and keeps passing as locales are added.
+    expect(localePaths()).toEqual(
+      EMITTED_LOCALES.map((locale) => ({
+        params: { locale: locale === DEFAULT_LOCALE ? undefined : locale },
+        props: { locale },
+      })),
+    );
+    expect(localePaths()[0]?.props.locale).toBe(DEFAULT_LOCALE);
   });
 
   it('emits every locale it builds and never a locale it does not know', () => {

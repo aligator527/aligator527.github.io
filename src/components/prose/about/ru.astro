@@ -1,0 +1,45 @@
+---
+/**
+ * The About page's narrative, in Russian. See `en.astro` for why this is a component per locale
+ * rather than a dictionary entry.
+ *
+ * Draft by Claude, not yet reviewed by Ivan — Russian stays out of `INDEXABLE_LOCALES` until it is.
+ */
+import type { AboutProseProps } from './index';
+
+const { section, experience, email, workHref } = Astro.props as AboutProseProps;
+---
+
+{section === 'background' && (
+  <>
+    <p>
+      Мой профессиональный опыт — {experience}. С сентября 2026 года я Tech Lead{' '}
+      <a href={workHref('next-generation-wms')}>системы управления складом нового поколения</a> в
+      Frameworx (группа Daiwa House): отвечаю за техническое планирование и архитектуру.
+    </p>
+    <p>
+      До этого работал по контрактам и над клиентскими проектами. Руководил разработкой{' '}
+      <a href={workHref('ai-chat-platform')}>игровой платформы AI-чатов</a> с нуля в Ikigai, делал
+      full-stack работу над <a href={workHref('packaging-saas')}>SaaS для упаковочной отрасли</a> в
+      Nagashima Konpo и вёл <a href={workHref('client-delivery')}>клиентские веб-проекты</a> во
+      Flaretech.
+    </p>
+    <p>
+      Начинал в августе 2021 года как независимый full-stack инженер: делал веб-приложения и
+      бизнес-системы в командах из одного-двух человек и собирал требования напрямую с клиентом.
+    </p>
+    <p>
+      Сейчас учусь на MBA в бизнес-школе GLOBIS и участвую в программе Global Consumer Intelligence
+      лаборатории Мацуо–Ивасавы в Токийском университете.
+    </p>
+  </>
+)}
+
+{section === 'engage' && (
+  <>
+    <p>
+      Проще всего начать с короткого письма: что за система, в каком она состоянии сейчас и что
+      нужно изменить. Я отвечаю с адреса <a href={`mailto:${email}`}>{email}</a>.
+    </p>
+  </>
+)}
