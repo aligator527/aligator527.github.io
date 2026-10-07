@@ -34,7 +34,7 @@ export const DEFAULT_LOCALE = 'en' satisfies Locale;
  * translation is complete: a half-translated locale in the index competes with the English page it
  * was translated from. Russian joins when its stage lands, Japanese after it.
  */
-export const INDEXABLE_LOCALES = ['en'] as const satisfies readonly Locale[];
+export const INDEXABLE_LOCALES = ['en', 'ru'] as const satisfies readonly Locale[];
 
 /**
  * Whether a locale's pages may be indexed and advertised. The one function every consumer calls, so
@@ -179,6 +179,28 @@ export function localeFromPathname(
   base: string = import.meta.env.BASE_URL,
 ): Locale {
   return stripLocale(withoutBase(pathname, base)).locale;
+}
+
+/**
+ * Routes that exist in English only, as logical paths.
+ *
+ * `/lab/` and `/notes/` are placeholders with no entries yet, so there is nothing to translate;
+ * `/404/` is one document GitHub Pages serves for every unmatched path in every locale. They live
+ * outside the `[...locale]` tree, which is why no Russian or Japanese version is emitted — and why
+ * nothing may advertise one. A language switch offering `/ru/lab/`, or an `hreflang` pointing at
+ * it, is a link to a 404; `scripts/check-links.mjs` caught exactly that.
+ */
+const ENGLISH_ONLY_PATHS: readonly string[] = ['/lab/', '/notes/', '/404/'];
+
+/**
+ * The locales a given page actually exists in. Every consumer of `alternates()` passes this rather
+ * than the full locale list, so "which languages is this page available in" is answered once.
+ */
+export function localesFor(path: string): readonly Locale[] {
+  const logical = normalizePath(path);
+  return ENGLISH_ONLY_PATHS.some((prefix) => logical.startsWith(prefix))
+    ? [DEFAULT_LOCALE]
+    : LOCALES;
 }
 
 export interface Alternate {

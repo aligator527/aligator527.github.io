@@ -91,7 +91,7 @@ Each of these is tolerable with a small table and one customer. Together, with a
 - Caching.
 - Resolver changes to remove N+1 patterns.
 - Removal of requests the clients did not need to make at all.
-- Migration of the Case data table to the new structure.
+- Migration of the job table — the record that carries a packing order through its whole life — to the new structure.
 - Timeout work on the paths that export large volumes of data, where the old structure failed most visibly.
 
 When the work was done, I updated the data-model documentation, so that the next change would not have to start from reverse-engineering again.
@@ -104,7 +104,7 @@ The Node.js 16 → 20 migration ran into dependency problems and issues with the
 
 I also supported external contractors joining the project: reviewing their code, onboarding them, writing documentation, and walking them through their first tasks.
 
-Performance was not the whole engagement. I also built and improved product features — schedule reloading, the quotation, invoice, and packing-creation flows, automatic screen transitions, and notifications — fixed mobile layout and list-navigation problems, and ran proofs of concept for taking the product further onto mobile.
+Performance was not the whole engagement. The product follows a packing order from end to end: the job is created, quoted, designed, packed, invoiced, planned into a container, and loaded onto a truck. I built and improved features along that chain — schedule reloading, the quotation, invoice, and packing flows, automatic screen transitions, and notifications — fixed mobile layout and list-navigation problems, and ran proofs of concept for taking the product further onto mobile.
 
 ## 06 / Outcome
 

@@ -4,7 +4,7 @@ import SiteHeader from '../components/navigation/SiteHeader.astro';
 import SiteFooter from '../components/navigation/SiteFooter.astro';
 import { profile } from '../data/profile';
 import { withBase } from '../utils/url';
-import { LOCALES, OG_LOCALE, alternates, isIndexable, logicalPath } from '../utils/i18n';
+import { OG_LOCALE, alternates, isIndexable, localesFor, logicalPath } from '../utils/i18n';
 /*
  * Keep this import where it is, and add new imports BELOW it.
  *
@@ -47,7 +47,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
  * locale the helper returns that locale plus `x-default`, which is a valid but pointless cluster,
  * so it is skipped until a second locale is published.
  */
-const localeAlternates = alternates(logicalPath(Astro.url.pathname), LOCALES);
+const pagePath = logicalPath(Astro.url.pathname);
+const localeAlternates = alternates(pagePath, localesFor(pagePath));
 const showAlternates = !noindex && localeAlternates.length > 2;
 ---
 

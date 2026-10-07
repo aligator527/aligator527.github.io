@@ -25,44 +25,48 @@
  *    keyboard order is the reading order.
  */
 import { localize } from '../../i18n/ui';
-import { LOCALE_ENDONYM, alternates, localeHref, logicalPath, type Locale } from '../../utils/i18n';
+import {
+  LOCALE_ENDONYM,
+  alternates,
+  localeHref,
+  localesFor,
+  logicalPath,
+  type Locale,
+} from '../../utils/i18n';
 
 const { locale, t } = localize(Astro.url);
 const path = logicalPath(Astro.url.pathname);
 
 // `alternates()` returns the hreflang set, which includes `x-default`; the switch wants locales.
-const published = alternates(path)
+const published = alternates(path, localesFor(path))
   .filter((alternate) => alternate.hreflang !== 'x-default')
   .map((alternate) => alternate.hreflang as Locale);
 ---
 
 {published.length > 1 && (
   <nav class="lang" aria-label={t.navLanguage}>
-    <ul role="list">
-      {published.map((target) =>
-        target === locale ? (
-          <li>
-            <span class="code current" aria-current="true" lang={target}>
-              <span aria-hidden="true">{target.toUpperCase()}</span>
-              <span class="visually-hidden">{LOCALE_ENDONYM[target]}</span>
-            </span>
-          </li>
-        ) : (
-          <li>
-            <a class="code" href={localeHref(path, target)} lang={target} hreflang={target}>
-              <span aria-hidden="true">{target.toUpperCase()}</span>
-              <span class="visually-hidden">{LOCALE_ENDONYM[target]}</span>
-            </a>
-          </li>
-        ),
-      )}
-    </ul>
+    {published.map((target) =>
+      target === locale ? (
+        <span class="code current" aria-current="true" lang={target}>
+          <span aria-hidden="true">{target.toUpperCase()}</span>
+          <span class="visually-hidden">{LOCALE_ENDONYM[target]}</span>
+        </span>
+      ) : (
+        <a class="code" href={localeHref(path, target)} lang={target} hreflang={target}>
+          <span aria-hidden="true">{target.toUpperCase()}</span>
+          <span class="visually-hidden">{LOCALE_ENDONYM[target]}</span>
+        </a>
+      ),
+    )}
   </nav>
 )}
 
 <style>
   @layer components {
-    .lang ul {
+    /* Two or three links need no list wrapper, and the wrapper was not free: its list items */
+    /* boxed the links and took the pointer over them — Playwright caught a link that resolved, */
+    /* was visible and stable, and could not be clicked. */
+    .lang {
       display: flex;
       align-items: stretch;
       block-size: 100%;
@@ -82,7 +86,7 @@ const published = alternates(path)
     }
 
     /* The separator is a rule between items, not a middot: the header is already ruled. */
-    .lang li + li .code {
+    .code + .code {
       border-inline-start: var(--rule);
     }
 
@@ -110,11 +114,15 @@ const published = alternates(path)
     /* component's own reflow, not the header's. */
     @media (max-width: 35.99rem) {
       .lang {
+        /* A third full-width line of the header's own flex row, not a nested wrap: nesting */
+        /* one wrapping row inside another let this line escape the header and overlap */
+        /* the page content, which Playwright caught as a link that could not be clicked. */
         flex-basis: 100%;
         border-block-start: var(--rule);
+        padding-block: var(--space-1);
       }
 
-      .lang ul {
+      .lang {
         justify-content: flex-end;
       }
     }

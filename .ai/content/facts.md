@@ -1,6 +1,6 @@
 # Verified Public Facts
 
-Last reviewed: 2026-10-07. Primary sources: Ivan Dolgov's current English CV and his Japanese SkillSheet (reviewed 2026-10-07; it is not updated for the Frameworx role, which the CV covers). Reconfirm before publication when career information changes.
+Last reviewed: 2026-10-08. Primary sources: Ivan Dolgov's current English CV and his Japanese SkillSheet (reviewed 2026-10-07; it is not updated for the Frameworx role, which the CV covers). Reconfirm before publication when career information changes.
 
 ## Identity and contact
 
@@ -65,6 +65,7 @@ Do not publish unreleased product screenshots, internal roadmaps, confidential d
   - Ivan updated the data-model documentation after the work.
   - Node.js 16→20: difficulties with dependencies and Lambda; verified with tests and manually against a predefined workflow of tenant setup and normal SaaS use.
   - External developers were contractors; support covered review, onboarding, documentation, and explaining their first tasks.
+  - Domain detail, confirmed by Ivan on 2026-10-08: the SaaS covers the whole job lifecycle for a packing order — 案件作成 (creating the job) → 見積 (quotation) → 梱包設計 (packing design) → 梱包作業 (the packing work itself) → 請求書 (invoice) → コンテナ設計 (container loading plan) → loading onto the truck. The "Case" table is this 案件 entity: the job, not an English common noun.
   - Architecture: frontend, backend, and mobile in separate repositories, each with its own Amplify app and dev/staging/production environments. GraphQL (AppSync) over DynamoDB. The web frontend acted mostly as a BFF; the backend held specific heavy processing unsuitable for the frontend.
   - Retrospective: plan how to return production to its previous state for each change, since dev → staging → production does not guarantee a successful production release; assess impact on other components in advance.
   - Outcome, qualitative wording approved for publication: search timeouts decreased and customer complaints decreased substantially.
@@ -76,10 +77,10 @@ Do not publish unreleased product screenshots, internal roadmaps, confidential d
 - Led multiple client projects with teams of approximately five people.
 - Requirements, documentation, React/Next.js development, AWS deployment, production support, and client coordination.
 - Project detail from Ivan's SkillSheet, confirmed by Ivan on 2026-10-07 to have been delivered through Flaretech. Client names are not approved for publication; industries are.
-  - Insurance, 2025/01–2025/04, approximately 40 people, Full-Stack Engineer (not lead): sales-support and application-management system. JavaScript frontend; Java and Spring Framework backend. Screens for proposal documents, agents, and application/proposal search; customization work; testing; support for coordinating outsourced development. Azure DevOps.
+  - Insurance, 2025/01–2025/04, approximately 40 people, Full-Stack Engineer (not lead): sales-support and application-management system. Confirmed by Ivan on 2026-10-08: the "agents" in this system are insurance sales representatives (募集人), the licensed people who sell policies — not agencies, and not software agents. JavaScript frontend; Java and Spring Framework backend. Screens for proposal documents, agents, and application/proposal search; customization work; testing; support for coordinating outsourced development. Azure DevOps.
   - Recruitment agency, 2024/12–2025/01, approximately 5 people, Project Lead: new corporate site. Client negotiation, requirements, specification work, Next.js/React frontend, AWS setup, launch and operation, SEO. Japanese-language requirements interviews and design documentation.
   - Information and communications, 2024/08–2024/12, approximately 5 people, Project Lead: multilingual corporate site in Japanese, English, Chinese, and Russian. Same end-to-end scope, including UI/UX and SEO.
-  - Electricity and gas, 2023/10–2024/08, approximately 5 people, Full-Stack Engineer: CRM for a corporate electricity retailer. React frontend; PHP/Laravel backend; call-management and content features; investigation, testing, and implementation support for introducing a call system.
+  - Electricity and gas, 2023/10–2024/08, approximately 5 people, Full-Stack Engineer: CRM for a company that connects electricity consumers with suppliers. Confirmed by Ivan on 2026-10-08: the CRM held not only customers but the supply-point identification numbers (供給地点特定番号), the voltage class of each connection (低圧 / 高圧 / 特別高圧), and the tariff structure (基本料金 and 電力量料金, including seasonal rates). React frontend; PHP/Laravel backend; call-management and content features; investigation, testing, and implementation support for introducing a call system.
   - Information and communications, 2023/04–2024/02, approximately 5 people, Frontend Engineer: SaaS for freelance job matching and career support. Next.js, React, TypeScript; new features, UI improvement, refactoring of the existing codebase from Figma mockups.
 - Team sizes therefore range from approximately 5 to approximately 40; do not state a single figure for all projects.
 

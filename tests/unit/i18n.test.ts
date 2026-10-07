@@ -14,6 +14,7 @@ import {
   localeFromPathname,
   localeHref,
   localeParam,
+  localesFor,
   localePath,
   localePaths,
   logicalPath,
@@ -50,8 +51,16 @@ describe('locale set', () => {
     expect(DEFAULT_LOCALE).toBe('en');
   });
 
-  it('advertises only locales whose translation is complete', () => {
-    expect([...INDEXABLE_LOCALES]).toEqual(['en']);
+  /*
+   * Asserted as a rule rather than a list: a locale may only be advertised once it is emitted and
+   * translated, and English — the x-default target — is never absent. Hard-coding the membership
+   * made this test fail the moment Russian was published, which is noise, not a regression.
+   */
+  it('advertises only locales that are also emitted, English among them', () => {
+    expect([...INDEXABLE_LOCALES]).toContain(DEFAULT_LOCALE);
+    for (const locale of INDEXABLE_LOCALES) {
+      expect(EMITTED_LOCALES).toContain(locale);
+    }
   });
 
   it('uses valid Open Graph locale values, not bare language codes', () => {
@@ -206,19 +215,25 @@ describe('stripLocale and logicalPath', () => {
 });
 
 describe('alternates', () => {
-  it('lists only indexable locales and exactly one x-default on the English URL', () => {
-    expect(alternates('/work/', LOCALES, '/')).toEqual([
-      { hreflang: 'en', href: '/work/' },
-      { hreflang: 'x-default', href: '/work/' },
-    ]);
-    expect(alternates('/work/', LOCALES, '/portfolio')).toEqual([
-      { hreflang: 'en', href: '/portfolio/work/' },
-      { hreflang: 'x-default', href: '/portfolio/work/' },
-    ]);
+  it('lists every indexable locale, then exactly one x-default on the English URL', () => {
+    for (const [base, prefix] of [
+      ['/', ''],
+      ['/portfolio', '/portfolio'],
+    ] as const) {
+      expect(alternates('/work/', LOCALES, base)).toEqual([
+        ...INDEXABLE_LOCALES.map((locale) => ({
+          hreflang: locale,
+          href: locale === DEFAULT_LOCALE ? `${prefix}/work/` : `${prefix}/${locale}/work/`,
+        })),
+        { hreflang: 'x-default', href: `${prefix}/work/` },
+      ]);
+    }
   });
 
   it('intersects with the locales a page actually exists in', () => {
-    expect(alternates('/about/', ['ru'], '/')).toEqual([
+    // A page that exists only in Japanese, which is emitted but not published, advertises nothing
+    // but the x-default — the alternates are the intersection, never the wish list.
+    expect(alternates('/about/', ['ja'], '/')).toEqual([
       { hreflang: 'x-default', href: '/about/' },
     ]);
   });
@@ -348,6 +363,30 @@ describe('the indexing gate', () => {
           expect(isIndexable(localeFromPathname(pathname, base))).toBe(isIndexable(locale));
         }
       }
+    },
+  );
+});
+
+/*
+ * English-only routes. `/lab/`, `/notes/` and `/404/` live outside the `[...locale]` tree, so no
+ * Russian or Japanese document exists for them. Advertising one is a link to a 404 — which is what
+ * `scripts/check-links.mjs` found when the language switch offered `/ru/lab/`.
+ */
+describe('pages that exist in English only', () => {
+  it.each(['/lab/', '/notes/', '/404/'])('offers no other locale for %s', (path) => {
+    expect([...localesFor(path)]).toEqual([DEFAULT_LOCALE]);
+    // English still references itself; what must not appear is a second locale. Two entries is
+    // the signal `BaseLayout.astro` uses to render no hreflang block at all.
+    expect(alternates(path, localesFor(path), '/')).toEqual([
+      { hreflang: DEFAULT_LOCALE, href: path },
+      { hreflang: 'x-default', href: path },
+    ]);
+  });
+
+  it.each(['/', '/work/', '/work/packaging-saas/', '/about/'])(
+    'offers every locale for %s',
+    (path) => {
+      expect([...localesFor(path)]).toEqual([...LOCALES]);
     },
   );
 });

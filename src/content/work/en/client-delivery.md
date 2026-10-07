@@ -43,7 +43,7 @@ The projects differed in a way worth stating plainly: on the small ones I led de
 
 January to April 2025, approximately 40 people, Full-Stack Engineer.
 
-A sales-support and application-management system for an insurance company: JavaScript on the frontend, Java and Spring Framework on the backend. I built and extended screens for proposal documents, agents, and application search, handled customization against the client's business rules, tested, and supported the coordination of outsourced development. The domain carries its own vocabulary — proposal documents, agent management, application flow — and a good share of the work was understanding it precisely enough to implement it.
+A sales-support and application-management system for an insurance company: JavaScript on the frontend, Java and Spring Framework on the backend. I built and extended screens for proposal documents, for managing the sales representatives licensed to sell policies, and for searching applications; handled customization against the client's business rules; tested; and supported the coordination of outsourced development. The domain carries its own vocabulary, and a good share of the work was understanding it precisely enough to implement it.
 
 ### Recruitment agency — corporate site
 
@@ -61,7 +61,7 @@ The same end-to-end scope for a site published in Japanese, English, Chinese, an
 
 October 2023 to August 2024, approximately 5 people, Full-Stack Engineer.
 
-A CRM for a corporate electricity retailer: React on the frontend, PHP and Laravel on the backend. Call-management and content features for the sales team, plus investigation, testing, and implementation support for introducing a call system.
+A CRM for a company that connects electricity consumers with suppliers: React on the frontend, PHP and Laravel on the backend. A record there is not just a customer — it carries the supply-point identification number, the voltage class of the connection, and the tariff structure, down to rates that differ between summer and the rest of the year. I built call-management and content features for the sales team, and supported the investigation, testing, and implementation of a call system.
 
 ### Information and communications — freelance matching SaaS
 

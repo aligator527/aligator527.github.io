@@ -20,9 +20,7 @@ const RU_ROUTES = [
 
 test.describe('the Russian locale', () => {
   for (const route of RU_ROUTES) {
-    test(`${route} is in Russian, declares it, and asks not to be indexed yet`, async ({
-      page,
-    }) => {
+    test(`${route} is in Russian, declares it, and is published`, async ({ page }) => {
       const errors: string[] = [];
       page.on('console', (message) => {
         if (message.type() === 'error') errors.push(message.text());
@@ -31,8 +29,8 @@ test.describe('the Russian locale', () => {
 
       await expect(page.locator('html')).toHaveAttribute('lang', 'ru');
       await expect(page.locator('h1')).toHaveCount(1);
-      // Russian is built for review before it is published; see INDEXABLE_LOCALES.
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+      // Russian is published, so it must NOT ask to be left out of the index.
+      await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
       expect(errors).toEqual([]);
     });
   }
@@ -78,13 +76,46 @@ test.describe('the Russian locale', () => {
   });
 
   /*
-   * The switch advertises published locales only, so with Russian still unpublished there is
-   * nothing to switch between and the component renders nothing. Asserting the absence keeps the
-   * rule honest: if a future change starts advertising an unreviewed locale, this fails.
+   * The switch keeps the reader on the page they are reading. Switching language from a case study
+   * must land on the same case study, not on the other locale's home page — the single most common
+   * way a language switch wastes the reader's time.
    */
-  test('the language switch stays hidden while only one locale is published', async ({ page }) => {
-    await page.goto('/');
-    await expect(page.getByRole('navigation', { name: /language|язык/i })).toHaveCount(0);
+  test('the language switch is a round trip from a deep route', async ({ page }) => {
+    await page.goto('/work/packaging-saas/');
+    const switcher = page.getByRole('navigation', { name: /language|язык/i });
+    await expect(switcher).toBeVisible();
+
+    await switcher.getByRole('link', { name: 'Русский' }).click();
+    await expect(page).toHaveURL(/\/ru\/work\/packaging-saas\/$/);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'ru');
+
+    await switcher.getByRole('link', { name: 'English' }).click();
+    await expect(page).toHaveURL(/(?<!\/ru)\/work\/packaging-saas\/$/);
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+  });
+
+  /*
+   * hreflang is the one piece of this that is actively harmful when wrong: Google discards a whole
+   * cluster if a single link is missing or not reciprocated. The per-page facts are checked for
+   * every built page by scripts/check-i18n.mjs; this covers the rendered relationship end to end.
+   */
+  test('each page advertises both locales and one x-default', async ({ page }) => {
+    for (const route of ['/work/packaging-saas/', '/ru/work/packaging-saas/']) {
+      await page.goto(route);
+      const alternates = page.locator('link[rel="alternate"][hreflang]');
+      await expect(alternates).toHaveCount(3);
+      const expected: { hreflang: string; href: string }[] = [
+        { hreflang: 'en', href: '/work/packaging-saas/' },
+        { hreflang: 'ru', href: '/ru/work/packaging-saas/' },
+        { hreflang: 'x-default', href: '/work/packaging-saas/' },
+      ];
+      for (const { hreflang, href } of expected) {
+        await expect(page.locator(`link[rel="alternate"][hreflang="${hreflang}"]`)).toHaveAttribute(
+          'href',
+          new RegExp(`${href.replace(/\//g, '\\/')}$`),
+        );
+      }
+    }
   });
 });
 
