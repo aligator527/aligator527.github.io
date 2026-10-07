@@ -10,25 +10,26 @@ endDate: '2026-05'
 status: complete
 domains: [Consumer product, AI chat platform]
 capabilities: [leadership, architecture, frontend, backend, cloud, security, standards, release]
-technologies: [React, TypeScript, Vite, Go, AWS, Terraform, Lambda, API Gateway, DynamoDB, Keycloak]
+technologies:
+  [React, TypeScript, Vite, TanStack, Go, AWS, Terraform, Lambda, API Gateway, PostgreSQL, Keycloak]
 featured: true
 order: 2
 publicVisibility: public
 depth: case-study
 heroVariant: stack-left
 teamSize: 20-person cross-functional team
-sourceNote: facts.md — Ikigai Co., Ltd. entry (current CV) and case-study detail confirmed by Ivan on 2026-09-18. Release status and product outcomes were not supplied and are not published.
+sourceNote: facts.md — Ikigai Co., Ltd. entry (current CV), case-study detail confirmed by Ivan on 2026-09-18, and SkillSheet detail reviewed 2026-10-07. PostgreSQL supersedes the CV's DynamoDB for this engagement. Release status and product outcomes were not supplied and are not published.
 diagram:
   caption: A request's path, top to bottom. Sign-in runs through a Keycloak server on its own domain, meant as the shared entry point for a planned family of applications. Simplified reconstruction, not the production architecture diagram.
   layers:
     - label: Client
-      items: [React, TypeScript, Vite]
+      items: [React, TypeScript, Vite, TanStack]
     - label: Identity · own domain
       items: [Keycloak]
     - label: API & compute
       items: [API Gateway, Lambda, Go]
     - label: Data · shared
-      items: [DynamoDB]
+      items: [PostgreSQL]
     - label: Infrastructure as code
       items: [Terraform]
 ---
@@ -69,17 +70,25 @@ Keycloak ran on its own domain rather than inside the application. It was intend
 
 A request passes through four tiers, shown in the diagram above:
 
-1. The web client, built with React, TypeScript, and Vite.
+1. The web client, built with React, TypeScript, and Vite, with TanStack for data fetching and state.
 2. Keycloak, on a separate domain, handling authentication and authorization.
 3. The API, written in Go, on AWS Lambda and API Gateway.
-4. DynamoDB as the data store.
+4. PostgreSQL as the data store.
 
-The AWS infrastructure was defined in Terraform.
+The AWS infrastructure was defined in Terraform, which made development and verification environments reproducible rather than hand-built.
 
-## 05 / Delivery
+What I built on the client was the chat interface, the game-progress screens, and the state logic that keeps a conversation and a scenario in step. On the server, the Go API covered chat-history storage, session control, and the calls that produce an AI reply.
 
-As Project Lead, I was responsible for planning, technical decisions, code review, engineering standards, and releases. Product outcomes belong to the cross-functional team as a whole, and release status and results are not covered here.
+## 05 / AI conversation
 
-## 06 / Retrospective
+The conversation is the product, so the AI side was a design problem rather than an integration task. My part of it was the shape of the exchange: designing the chat experience around what the model can be relied on to do, and the prompt engineering that keeps a character in its role — able to refuse, and still answering fast enough to feel like talking to someone.
+
+## 06 / Delivery
+
+As Project Lead, I was responsible for planning, technical decisions, code review, engineering standards, technology selection, and releases. Work ran in sprints, with planning and task management alongside the hands-on engineering.
+
+Product outcomes belong to the cross-functional team as a whole, and release status and results are not covered here.
+
+## 07 / Retrospective
 
 Today I would standardize the team's workflow for AI-assisted development from the start. Without a shared workflow, output often did not meet the team's shared expectations and had to be reworked, which lowered overall quality. The Go decision anticipated AI-assisted development; the workflow around it needed the same deliberate treatment.

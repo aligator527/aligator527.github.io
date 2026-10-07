@@ -17,7 +17,7 @@ publicVisibility: public
 depth: case-study
 heroVariant: stack-right
 teamSize: Approximately 10 people
-sourceNote: facts.md — Nagashima Konpo Co., Ltd. entry and case-study detail confirmed by Ivan on 2026-09-18. Adoption figure is the CV-approved claim. No performance metric is published.
+sourceNote: facts.md — Nagashima Konpo Co., Ltd. entry, case-study detail confirmed by Ivan on 2026-09-18, and SkillSheet detail reviewed 2026-10-07. Adoption figure is the CV-approved claim. No performance metric is published.
 diagram:
   caption: Web and mobile clients over one shared AWS backend, reconstructed from my own description. Not a production architecture diagram.
   layers:
@@ -84,12 +84,14 @@ Each of these is tolerable with a small table and one customer. Together, with a
 
 ## 04 / Changes
 
-- New indexes and access patterns designed around how the product reads its data.
+- Indexes designed for the queries search actually runs, and access patterns built around how the product reads its data.
 - Pagination, so screens request only what they display.
 - A separate search mechanism.
 - Caching.
 - Resolver changes to remove N+1 patterns.
-- Data migration to the new structures.
+- Removal of requests the clients did not need to make at all.
+- Migration of the Case data table to the new structure.
+- Timeout work on the paths that export large volumes of data, where the old structure failed most visibly.
 
 When the work was done, I updated the data-model documentation, so that the next change would not have to start from reverse-engineering again.
 
@@ -100,6 +102,8 @@ The changes shipped as a series of milestones. Each milestone was verified step 
 The Node.js 16 → 20 migration ran into dependency problems and issues with the Lambda runtime. I verified it with the automated tests and by walking through a predefined workflow by hand: setting up a tenant, then using the SaaS as a customer company would.
 
 I also supported external contractors joining the project: reviewing their code, onboarding them, writing documentation, and walking them through their first tasks.
+
+Performance was not the whole engagement. I also built and improved product features — schedule reloading, the quotation, invoice, and packing-creation flows, automatic screen transitions, and notifications — fixed mobile layout and list-navigation problems, and ran proofs of concept for taking the product further onto mobile.
 
 ## 06 / Outcome
 

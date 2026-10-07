@@ -37,7 +37,7 @@ test('case studies link to the previous and next project', async ({ page }) => {
   const pager = page.getByRole('navigation', { name: 'More work' });
   await expect(pager.getByRole('link')).toHaveCount(2);
   await pager.getByRole('link', { name: /Next/ }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Client Web Delivery');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Client Project Delivery');
 });
 
 test('the résumé route offers the PDF only when the file exists', async ({ page, request }) => {

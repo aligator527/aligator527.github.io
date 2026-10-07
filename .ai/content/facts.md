@@ -1,6 +1,6 @@
 # Verified Public Facts
 
-Last reviewed: 2026-09-18. Primary source: Ivan Dolgov's current English CV. Reconfirm before publication when career information changes.
+Last reviewed: 2026-10-07. Primary sources: Ivan Dolgov's current English CV and his Japanese SkillSheet (reviewed 2026-10-07; it is not updated for the Frameworx role, which the CV covers). Reconfirm before publication when career information changes.
 
 ## Identity and contact
 
@@ -35,7 +35,8 @@ Do not publish unreleased product screenshots, internal roadmaps, confidential d
 - July 2025 – May 2026.
 - Led 0→1 development of an AI chat game platform in a 20-person cross-functional team.
 - Confirmed by Ivan on 2026-09-18: the platform was consumer-facing.
-- React and TypeScript frontend; Go backend; AWS infrastructure with Terraform, Lambda, API Gateway, and DynamoDB.
+- React and TypeScript frontend; Go backend; AWS infrastructure with Terraform, Lambda, and API Gateway.
+- Database: PostgreSQL. Confirmed by Ivan on 2026-10-07 from his SkillSheet; this supersedes the CV's DynamoDB for this engagement.
 - Keycloak authentication and authorization; planning, technical decisions, code reviews, standards, and release work.
 - Case-study detail, confirmed by Ivan on 2026-09-18:
   - Product: users converse with AI characters inside a game scenario. The scenario adapts to the player's replies while its overall flow stays as designed. The central product concern was realistic conversation: responses are computed by a small ecosystem of AI agents, balancing response speed against realism, including the ability of a character to refuse rather than agree with everything.
@@ -45,6 +46,7 @@ Do not publish unreleased product screenshots, internal roadmaps, confidential d
   - Keycloak was selected over Cognito and Auth0 because the B2C product was planned for a potentially very large user base, where per-user managed-identity pricing would have become a major cost. Do not publish a planned user count.
   - Architecture at publishable abstraction: user → web client (Vite) → platform-level Keycloak → API server → database. Keycloak ran on a separate domain as a shared sign-in entry point for a planned platform of multiple AI-interactive applications with one database and one entry point. The wider platform was planned, not delivered; present it as design intent.
   - Retrospective: today Ivan would standardize the workflow for AI-assisted development; its absence lowered overall output quality and caused rework that did not meet shared expectations.
+  - SkillSheet detail (Ivan's own Japanese SkillSheet, reviewed 2026-10-07): chat UI, game-progress screens, and state-management logic in React and TypeScript; TanStack for data fetching and state; chat-history storage and session control; AI response API integration; LLM-based chat experience design and prompt engineering; Terraform IaC improving reproducibility of development and verification environments; agile delivery with sprint planning, task management, code review, technology selection, and release management.
 
 ### Nagashima Konpo Co., Ltd. — Full-Stack Engineer, contract
 
@@ -66,12 +68,20 @@ Do not publish unreleased product screenshots, internal roadmaps, confidential d
   - Architecture: frontend, backend, and mobile in separate repositories, each with its own Amplify app and dev/staging/production environments. GraphQL (AppSync) over DynamoDB. The web frontend acted mostly as a BFF; the backend held specific heavy processing unsuitable for the frontend.
   - Retrospective: plan how to return production to its previous state for each change, since dev → staging → production does not guarantee a successful production release; assess impact on other components in advance.
   - Outcome, qualitative wording approved for publication: search timeouts decreased and customer complaints decreased substantially.
+  - SkillSheet detail (reviewed 2026-10-07): index design for faster search; timeout improvements when exporting large volumes of data; migration of the Case data table; refactoring of the formula modal; removal of unnecessary requests; feature work including schedule reload, quotation/invoice/packing creation flows, automatic transitions, and notifications; UI fixes for mobile layout, list navigation, and searchability; validation and bug-fix work; PoCs for the move to a mobile application.
 
 ### Flaretech Co., Ltd. — formerly Marvel — Software Engineer / Project Lead
 
 - March 2023 – May 2025.
 - Led multiple client projects with teams of approximately five people.
 - Requirements, documentation, React/Next.js development, AWS deployment, production support, and client coordination.
+- Project detail from Ivan's SkillSheet, confirmed by Ivan on 2026-10-07 to have been delivered through Flaretech. Client names are not approved for publication; industries are.
+  - Insurance, 2025/01–2025/04, approximately 40 people, Full-Stack Engineer (not lead): sales-support and application-management system. JavaScript frontend; Java and Spring Framework backend. Screens for proposal documents, agents, and application/proposal search; customization work; testing; support for coordinating outsourced development. Azure DevOps.
+  - Recruitment agency, 2024/12–2025/01, approximately 5 people, Project Lead: new corporate site. Client negotiation, requirements, specification work, Next.js/React frontend, AWS setup, launch and operation, SEO. Japanese-language requirements interviews and design documentation.
+  - Information and communications, 2024/08–2024/12, approximately 5 people, Project Lead: multilingual corporate site in Japanese, English, Chinese, and Russian. Same end-to-end scope, including UI/UX and SEO.
+  - Electricity and gas, 2023/10–2024/08, approximately 5 people, Full-Stack Engineer: CRM for a corporate electricity retailer. React frontend; PHP/Laravel backend; call-management and content features; investigation, testing, and implementation support for introducing a call system.
+  - Information and communications, 2023/04–2024/02, approximately 5 people, Frontend Engineer: SaaS for freelance job matching and career support. Next.js, React, TypeScript; new features, UI improvement, refactoring of the existing codebase from Figma mockups.
+- Team sizes therefore range from approximately 5 to approximately 40; do not state a single figure for all projects.
 
 ### Independent freelance — Full-Stack Engineer
 

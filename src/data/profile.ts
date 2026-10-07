@@ -1,6 +1,6 @@
 /**
  * Identity and contact data approved for publication.
- * Source: .ai/content/facts.md (reviewed 2026-09-18). Update that file first when anything changes.
+ * Source: .ai/content/facts.md (reviewed 2026-10-07). Update that file first when anything changes.
  */
 export const profile = {
   name: 'Ivan Dolgov',
@@ -12,7 +12,7 @@ export const profile = {
   location: 'Tokyo, Japan',
   timeZone: 'JST (UTC+9)',
   availability: 'Open to selected consulting and contract work, remote or international.',
-  revision: '2026-09',
+  revision: '2026-10',
   email: 'ivan.d@wanya.group',
   github: { label: 'github.com/aligator527', href: 'https://github.com/aligator527' },
   linkedin: { label: 'linkedin.com/in/aligator527', href: 'https://linkedin.com/in/aligator527' },

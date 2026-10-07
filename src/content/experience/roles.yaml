@@ -47,13 +47,13 @@
   role: Software Engineer / Project Lead
   startDate: '2023-03'
   endDate: '2025-05'
-  summary: Led multiple client projects with teams of approximately five people.
+  summary: Client projects in five industries, from five-person teams led end to end to a 40-person insurance system.
   scope:
-    - Requirements definition and documentation.
-    - React and Next.js development.
-    - AWS deployment and production support.
-    - Client coordination.
-  technologies: [React, Next.js, AWS]
+    - 'Project lead on corporate and multilingual site delivery: client negotiation, requirements, documentation, React and Next.js development, AWS deployment, launch, and operation.'
+    - Full-stack engineering on an insurance sales and application-management system (JavaScript, Java/Spring) in an approximately 40-person project.
+    - Full-stack engineering on a CRM for a corporate electricity retailer (React, PHP/Laravel).
+    - Frontend engineering and refactoring on a SaaS for freelance job matching (Next.js, React, TypeScript).
+  technologies: [React, Next.js, TypeScript, JavaScript, Java/Spring, PHP/Laravel, AWS]
   work: client-delivery
 - id: freelance
   organization: Independent
