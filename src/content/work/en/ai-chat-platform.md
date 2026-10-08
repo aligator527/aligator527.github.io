@@ -37,7 +37,7 @@ diagram:
 
 ## 00 / Summary
 
-A contract engagement from July 2025 to May 2026, leading the 0→1 build of a consumer product in which players talk with AI characters inside a game scenario. I combined project leadership with hands-on full-stack work in a 20-person cross-functional team, reporting directly to the company director and the project manager.
+A contract engagement from July 2025 to May 2026, leading the 0→1 build of a consumer product in which players talk with AI characters inside a game scenario. I combined project leadership with hands-on full-stack work in a 20-person cross-functional team, reporting directly to the company's president and the project manager.
 
 ## 01 / Context
 
