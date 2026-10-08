@@ -46,6 +46,8 @@ export const ru: Dictionary = {
   footerColophon: 'Статический HTML · Astro · без клиентского JavaScript',
   footerCopyright: (year: number, name: string) => `© ${year} ${name}`,
 
+  organizationNote: (note: string) => ` (${note})`,
+
   // Shared metadata labels
   labelRole: 'Роль',
   labelOrganization: 'Организация',

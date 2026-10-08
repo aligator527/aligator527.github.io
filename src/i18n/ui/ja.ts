@@ -44,6 +44,8 @@ export const ja: Dictionary = {
   footerColophon: '静的HTML · Astro · クライアントJavaScriptなし',
   footerCopyright: (year: number, name: string) => `© ${year} ${name}`,
 
+  organizationNote: (note: string) => `（${note}）`,
+
   // Shared metadata labels
   labelRole: '役割',
   labelOrganization: '所属',

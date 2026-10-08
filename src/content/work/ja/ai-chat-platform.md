@@ -6,7 +6,7 @@ code: P02
 title: AIチャットゲームプラットフォーム
 summary: コンシューマー向けAIチャットゲームプラットフォームの新規立ち上げ。20名のクロスファンクショナルなチームで、プロジェクトリード兼フルスタックエンジニアとして主導しました。
 role: プロジェクトリード / フルスタックエンジニア
-organization: Ikigai Co., Ltd.
+organization: 株式会社Ikigai
 engagementType: contract
 startDate: '2025-07'
 endDate: '2026-05'

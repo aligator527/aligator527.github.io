@@ -6,7 +6,7 @@ code: P03
 title: 梱包業界向けSaaS
 summary: 梱包業界向けに本番稼働しているWebおよびモバイルのSaaSでのフルスタック開発。データ量の増加によって、すべての顧客で応答性が低下していた状況でした。
 role: フルスタックエンジニア
-organization: Nagashima Konpo Co., Ltd.
+organization: 長島梱包株式会社
 engagementType: contract
 startDate: '2024-12'
 endDate: '2025-12'

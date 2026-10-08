@@ -45,7 +45,7 @@
   organization:
     en: 'Ikigai Co., Ltd.'
     ru: 'Ikigai Co., Ltd.'
-    ja: 'Ikigai Co., Ltd.'
+    ja: '株式会社Ikigai'
   role:
     en: 'Project Lead / Full-Stack Engineer'
     ru: 'Project Lead / Full-Stack Engineer'
@@ -79,7 +79,7 @@
   organization:
     en: 'Nagashima Konpo Co., Ltd.'
     ru: 'Nagashima Konpo Co., Ltd.'
-    ja: 'Nagashima Konpo Co., Ltd.'
+    ja: '長島梱包株式会社'
   role:
     en: 'Full-Stack Engineer'
     ru: 'Full-Stack Engineer'
@@ -113,11 +113,11 @@
   organization:
     en: 'Flaretech Co., Ltd.'
     ru: 'Flaretech Co., Ltd.'
-    ja: 'Flaretech Co., Ltd.'
+    ja: 'FLARETECH株式会社'
   organizationNote:
     en: 'formerly Marvel'
     ru: 'ранее Marvel'
-    ja: '旧Marvel'
+    ja: '旧Marvel株式会社'
   role:
     en: 'Software Engineer / Project Lead'
     ru: 'Software Engineer / Project Lead'

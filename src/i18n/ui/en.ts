@@ -45,6 +45,12 @@ export const en = {
   footerColophon: 'Static HTML · Astro · no client JavaScript',
   footerCopyright: (year: number, name: string) => `© ${year} ${name}`,
 
+  /*
+   * A parenthetical after an organisation's name. Japanese sets brackets full-width and without a
+   * leading space, so the punctuation belongs to the locale rather than to the template.
+   */
+  organizationNote: (note: string) => ` (${note})`,
+
   // Shared metadata labels. The same slot in a work entry, a case study rail and a résumé row.
   labelRole: 'Role',
   labelOrganization: 'Organization',

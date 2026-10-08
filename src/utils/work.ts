@@ -43,7 +43,6 @@ const INVARIANT_FIELDS = [
   'depth',
   'heroVariant',
   'engagementType',
-  'organization',
 ] as const satisfies readonly (keyof WorkEntry['data'])[];
 
 /**

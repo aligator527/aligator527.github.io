@@ -71,7 +71,7 @@ const pdfAvailable = hasResumePdf();
                 <span class="org">
                   {' '}
                   · {role.data.organization}
-                  {role.data.organizationNote && ` (${role.data.organizationNote})`}
+                  {role.data.organizationNote && t.organizationNote(role.data.organizationNote)}
                 </span>
               </h3>
               <p class="meta meta-quiet">

@@ -28,6 +28,16 @@ Last reviewed: 2026-10-08. Primary sources: Ivan Dolgov's current English CV and
 
 Do not publish unreleased product screenshots, internal roadmaps, confidential diagrams, security details, customer names, or private delivery dates without explicit approval.
 
+### Japanese company names
+
+Confirmed by Ivan on 2026-10-08, for the Japanese locale only. The English and Russian pages keep
+the Latin names.
+
+- Frameworx — 株式会社フレームワークス (also published by Daiwa House on its group-company page).
+- Ikigai Co., Ltd. — 株式会社Ikigai.
+- Nagashima Konpo Co., Ltd. — 長島梱包株式会社.
+- Flaretech Co., Ltd. (formerly Marvel) — FLARETECH株式会社（旧Marvel株式会社）.
+
 ## Previous experience
 
 ### Ikigai Co., Ltd. — Project Lead / Full-Stack Engineer, contract
