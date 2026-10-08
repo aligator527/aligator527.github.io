@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { aboutProse } from '../../components/prose/about';
 import PageHeader from '../../components/core/PageHeader.astro';
+import StructuredData from '../../components/core/StructuredData.astro';
 import SectionHeading from '../../components/core/SectionHeading.astro';
 import ActionLink from '../../components/core/ActionLink.astro';
 import { localizedProfile } from '../../data/profile';
@@ -31,6 +32,7 @@ const proseProps = {
 ---
 
 <BaseLayout title={t.aboutTitle} description={t.aboutDescription(profile.name)}>
+  <StructuredData slot="head" kind="about" />
   <PageHeader sheet={t.aboutSheet} title={t.aboutTitle} lead={t.aboutLead} />
 
   <section class="page" aria-labelledby="background-heading">

@@ -99,14 +99,19 @@ test.describe('the Russian locale', () => {
    * cluster if a single link is missing or not reciprocated. The per-page facts are checked for
    * every built page by scripts/check-i18n.mjs; this covers the rendered relationship end to end.
    */
-  test('each page advertises both locales and one x-default', async ({ page }) => {
-    for (const route of ['/work/packaging-saas/', '/ru/work/packaging-saas/']) {
+  test('each page advertises every locale and one x-default', async ({ page }) => {
+    for (const route of [
+      '/work/packaging-saas/',
+      '/ru/work/packaging-saas/',
+      '/ja/work/packaging-saas/',
+    ]) {
       await page.goto(route);
       const alternates = page.locator('link[rel="alternate"][hreflang]');
-      await expect(alternates).toHaveCount(3);
+      await expect(alternates).toHaveCount(4);
       const expected: { hreflang: string; href: string }[] = [
         { hreflang: 'en', href: '/work/packaging-saas/' },
         { hreflang: 'ru', href: '/ru/work/packaging-saas/' },
+        { hreflang: 'ja', href: '/ja/work/packaging-saas/' },
         { hreflang: 'x-default', href: '/work/packaging-saas/' },
       ];
       for (const { hreflang, href } of expected) {
@@ -176,7 +181,7 @@ const JA_ROUTES = [
 
 test.describe('the Japanese locale', () => {
   for (const route of JA_ROUTES) {
-    test(`${route} is in Japanese, declares it, and is not indexed yet`, async ({ page }) => {
+    test(`${route} is in Japanese, declares it, and is published`, async ({ page }) => {
       const errors: string[] = [];
       page.on('console', (message) => {
         if (message.type() === 'error') errors.push(message.text());
@@ -185,7 +190,7 @@ test.describe('the Japanese locale', () => {
 
       await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
       await expect(page.locator('h1')).toHaveCount(1);
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+      await expect(page.locator('meta[name="robots"]')).toHaveCount(0);
       expect(errors).toEqual([]);
     });
   }
@@ -228,8 +233,7 @@ test.describe('the Japanese locale', () => {
     }
   });
 
-  /* The switch must mark where the reader is, even on a locale that is not advertised yet. */
-  test('the switch marks the current locale on an unpublished one', async ({ page }) => {
+  test('the switch marks the current locale', async ({ page }) => {
     await page.goto('/ja/work/packaging-saas/');
     const switcher = page.getByRole('navigation', { name: /language|язык|言語/i });
     await expect(switcher.locator('[aria-current="true"]')).toHaveCount(1);

@@ -1,0 +1,117 @@
+---
+/**
+ * JSON-LD for the pages where it describes something real.
+ *
+ * What is here, and why only this much:
+ *
+ * - **`Person` and `ProfilePage` on `/about/`.** The one page that is about the person. Every
+ *   property comes from `profile.ts` or the dictionaries, so the markup cannot drift from the page:
+ *   a claim search engines read but visitors do not is exactly where an unchecked fact would sit.
+ * - **`WebSite` on the home page.** Names the site and its language. No `SearchAction`: there is no
+ *   site search, and describing one that does not exist is a lie that validates.
+ * - **`BreadcrumbList` on a case study.** It mirrors the rendered crumb exactly — `Work / P01`, two
+ *   items — because Google's guidance is that breadcrumb markup matches what the page shows.
+ *
+ * What is deliberately absent: ratings, awards, `Organization` for employers (the page makes no
+ * claim to represent them), `JobPosting`, `FAQPage`, and any `aggregateRating`. None of it is true
+ * here, and structured data is the easiest place to publish something false by accident.
+ *
+ * The `@id`s are stable across locales (`${site}#person`), so the three language versions describe
+ * one person and one site rather than three of each.
+ */
+import { localizedProfile, profile } from '../../data/profile';
+import { localize } from '../../i18n/ui';
+import { localeHref } from '../../utils/i18n';
+
+interface Props {
+  /** Which graph this page carries. */
+  kind: 'home' | 'about' | 'work';
+  /** Case-study only: the project's code and title, for the breadcrumb and its URL. */
+  work?: { code: string; title: string; href: string } | undefined;
+}
+
+const { kind, work } = Astro.props;
+const { locale, t } = localize(Astro.url);
+const p = localizedProfile(t);
+const site = Astro.site?.href.replace(/\/$/, '') ?? '';
+const absolute = (path: string) => new URL(path, Astro.site).href;
+
+/*
+ * `alternateName` carries the readings a search in Cyrillic or katakana would use. They are facts
+ * confirmed on 2026-10-08 and recorded in facts.md, not transliterations invented here.
+ */
+const person = {
+  '@type': 'Person',
+  '@id': `${site}#person`,
+  name: profile.name,
+  alternateName: ['Иван Долгов', 'イワン・ドルゴフ'],
+  jobTitle: profile.descriptor,
+  description: p.promise,
+  email: `mailto:${profile.email}`,
+  url: absolute(localeHref('/', locale)),
+  address: { '@type': 'PostalAddress', addressLocality: 'Tokyo', addressCountry: 'JP' },
+  knowsLanguage: profile.languages.map((language) => language.code.toLowerCase()),
+  sameAs: [profile.github.href, profile.linkedin.href],
+  worksFor: { '@type': 'Organization', name: 'Frameworx' },
+  hasCredential: p.certifications.map((credential) => ({
+    '@type': 'EducationalOccupationalCredential',
+    name: credential.title,
+    credentialCategory: 'certification',
+    recognizedBy: { '@type': 'Organization', name: credential.issuer },
+  })),
+};
+
+const graphs = {
+  home: [
+    {
+      '@type': 'WebSite',
+      /*
+       * Per locale, unlike the person: three language versions of a site are three `WebSite`
+       * nodes with three urls and three languages, and giving them one `@id` would have them
+       * contradict each other about all three. The person is one person in any language.
+       */
+      '@id': `${absolute(localeHref('/', locale))}#website`,
+      url: absolute(localeHref('/', locale)),
+      name: profile.name,
+      inLanguage: locale,
+      publisher: { '@id': `${site}#person` },
+    },
+    person,
+  ],
+  about: [
+    {
+      '@type': 'ProfilePage',
+      '@id': `${absolute(localeHref('/about/', locale))}#profilepage`,
+      url: absolute(localeHref('/about/', locale)),
+      inLanguage: locale,
+      mainEntity: { '@id': `${site}#person` },
+    },
+    person,
+  ],
+  work: work
+    ? [
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: t.navWork,
+              item: absolute(localeHref('/work/', locale)),
+            },
+            { '@type': 'ListItem', position: 2, name: work.code, item: absolute(work.href) },
+          ],
+        },
+      ]
+    : [],
+} satisfies Record<Props['kind'], unknown[]>;
+
+const graph = graphs[kind];
+const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+---
+
+{graph.length > 0 && (
+  /* `is:inline` keeps it in the document: a JSON-LD block Astro bundled would be a request, and
+       this site makes none. `set:html` writes the JSON unescaped, which is what a parser needs. */
+  <script type="application/ld+json" is:inline set:html={json}></script>
+)}

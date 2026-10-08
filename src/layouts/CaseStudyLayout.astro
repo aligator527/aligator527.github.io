@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from 'astro';
 import BaseLayout from './BaseLayout.astro';
 import GlossaryTerm from '../components/core/GlossaryTerm.astro';
+import StructuredData from '../components/core/StructuredData.astro';
 import MetaList from '../components/core/MetaList.astro';
 import EnvironmentMatrix from '../components/diagrams/EnvironmentMatrix.astro';
 import LayerDiagram from '../components/diagrams/LayerDiagram.astro';
@@ -52,6 +53,11 @@ const diagramVariant = {
 ---
 
 <BaseLayout title={data.title} description={data.summary}>
+  <StructuredData
+    slot="head"
+    kind="work"
+    work={{ code: data.code, title: data.title, href: workHref(entry, locale) }}
+  />
   <article class="study page" aria-labelledby="study-title">
     <header class="grid study-head">
       <p class="meta crumb">

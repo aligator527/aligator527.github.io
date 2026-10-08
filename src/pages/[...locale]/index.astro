@@ -2,6 +2,7 @@
 import type { GetStaticPaths } from 'astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/core/SectionHeading.astro';
+import StructuredData from '../../components/core/StructuredData.astro';
 import DeliveryFlow from '../../components/diagrams/DeliveryFlow.astro';
 import WorkEntry from '../../components/work/WorkEntry.astro';
 import CapabilityMatrix from '../../components/work/CapabilityMatrix.astro';
@@ -38,6 +39,7 @@ const nextIndex = () => ++sectionIndex;
 ---
 
 <BaseLayout description={t.homeDescription(profile.descriptor, profile.promise)}>
+  <StructuredData slot="head" kind="home" />
   <section class="hero page" aria-labelledby="hero-title">
     <div class="grid hero-grid">
       <p class="meta hero-sheet" aria-hidden="true">

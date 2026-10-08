@@ -91,6 +91,8 @@ const showAlternates = !noindex && localeAlternates.length > 2;
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
     <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
+    {/* Structured data, where a page has something real to describe — see StructuredData.astro. */}
+    <slot name="head" />
     {/*
       One sans per locale, and only that locale's faces are emitted and preloaded (ADR-0006).
       Preloading is high priority, so a face a page cannot use costs the real LCP element its

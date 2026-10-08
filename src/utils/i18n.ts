@@ -34,7 +34,7 @@ export const DEFAULT_LOCALE = 'en' satisfies Locale;
  * translation is complete: a half-translated locale in the index competes with the English page it
  * was translated from. Russian joins when its stage lands, Japanese after it.
  */
-export const INDEXABLE_LOCALES = ['en', 'ru'] as const satisfies readonly Locale[];
+export const INDEXABLE_LOCALES = ['en', 'ru', 'ja'] as const satisfies readonly Locale[];
 
 /**
  * Whether a locale's pages may be indexed and advertised. The one function every consumer calls, so

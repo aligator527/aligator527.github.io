@@ -68,6 +68,11 @@ const PRELOAD_CONTRACT = {
   ja: { families: [], max: 0 },
 };
 
+/** The locale a built document belongs to, from its path: `/ja/about/index.html` is Japanese. */
+function localeOf(file) {
+  return /(^|\/)(ru|ja)\//.exec(toPosix(file))?.[2] ?? 'en';
+}
+
 /* Google's Search Console verification file is 53 bytes of plain text, not an HTML document. */
 const NOT_A_DOCUMENT = /(^|\/)google[^/]*\.html$/;
 
@@ -237,8 +242,7 @@ let preloadCount = 0;
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8');
   const name = toPosix(file);
-  const route = routeOf(file);
-  const locale = /^\/(ru|ja)(\/|$)/.exec(route)?.[1] ?? 'en';
+  const locale = localeOf(file);
   const contract = PRELOAD_CONTRACT[locale];
 
   const familyByUrl = new Map();
@@ -269,12 +273,72 @@ for (const file of htmlFiles) {
   }
 }
 
+/*
+ * 7. Structured data. Every JSON-LD block parses, declares a context, and — where it names a
+ *    language — agrees with the document it sits in. A JSON-LD block is invisible on the page, so
+ *    a syntax error or a stale language tag is the kind of defect nobody notices until Search
+ *    Console reports the markup as unreadable. The shape is not validated here beyond that: the
+ *    vocabulary is schema.org's business, not this script's.
+ *
+ *    The title and description budgets are PRINTED, never failed. A character cap enforced by a
+ *    build is how "during the engagement" and "approximately" get cut out of a title, and those
+ *    qualifiers are what `.ai/content/claims.md` makes load-bearing.
+ */
+const SEO_BUDGET = { title: { en: 60, ru: 60, ja: 30 }, description: { en: 160, ru: 160, ja: 90 } };
+let jsonLdCount = 0;
+const longMeta = [];
+
+for (const file of htmlFiles) {
+  const html = await readFile(file, 'utf8');
+  const name = toPosix(file);
+  const locale = localeOf(file);
+
+  for (const [, block] of html.matchAll(
+    /<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g,
+  )) {
+    jsonLdCount += 1;
+    let parsed;
+    try {
+      parsed = JSON.parse(block);
+    } catch (error) {
+      fail(`${name} has JSON-LD that does not parse: ${error.message}`);
+      continue;
+    }
+    if (parsed['@context'] !== 'https://schema.org') {
+      fail(`${name} has JSON-LD without a schema.org @context`);
+    }
+    for (const node of parsed['@graph'] ?? [parsed]) {
+      if (node.inLanguage !== undefined && node.inLanguage !== locale) {
+        fail(`${name} declares inLanguage "${node.inLanguage}" on a ${locale} page`);
+      }
+    }
+  }
+
+  const title = /<title>([^<]*)<\/title>/.exec(html)?.[1] ?? '';
+  const description = /<meta name="description" content="([^"]*)"/.exec(html)?.[1] ?? '';
+  if (title.length > SEO_BUDGET.title[locale]) {
+    longMeta.push(
+      `${name} title is ${title.length} chars (${locale} budget ${SEO_BUDGET.title[locale]})`,
+    );
+  }
+  if (description.length > SEO_BUDGET.description[locale]) {
+    longMeta.push(
+      `${name} description is ${description.length} chars (${locale} budget ${SEO_BUDGET.description[locale]})`,
+    );
+  }
+}
+
 console.log(
   `Checked ${htmlFiles.length} document(s) in ${posix.normalize(relative(process.cwd(), dist))} ` +
     `with base "${basePrefix}": ${pages.length} indexed page(s), ${files.length} indexed file(s), ` +
     `${fonts.length}/${FONT_BUDGET.maxFiles} woff2 file(s), ${fontBytes}/${FONT_BUDGET.maxBytes} font byte(s), ` +
-    `${preloadCount} font preload(s) across all documents.`,
+    `${preloadCount} font preload(s) across all documents, ${jsonLdCount} JSON-LD block(s).`,
 );
+if (longMeta.length > 0) {
+  console.warn(`\n${longMeta.length} title(s)/description(s) over the search-result budget:`);
+  for (const item of longMeta) console.warn(`  ${item}`);
+  console.warn('  Not a failure: shortening these is an editorial decision, not a build rule.');
+}
 if (failures.length > 0) {
   console.error(`\n${failures.length} i18n/indexing contract failure(s):`);
   for (const failure of failures) console.error(`  ${failure}`);

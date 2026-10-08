@@ -231,11 +231,20 @@ describe('alternates', () => {
   });
 
   it('intersects with the locales a page actually exists in', () => {
-    // A page that exists only in Japanese, which is emitted but not published, advertises nothing
-    // but the x-default — the alternates are the intersection, never the wish list.
-    expect(alternates('/about/', ['ja'], '/')).toEqual([
+    /*
+     * The set is availability ∩ indexable, plus one x-default — never the wish list. Asserted
+     * with a page that exists in English only, because which locales are published changes as
+     * each one ships, and a test pinned to that churns for no reason.
+     */
+    expect(alternates('/about/', [DEFAULT_LOCALE], '/')).toEqual([
+      { hreflang: DEFAULT_LOCALE, href: '/about/' },
       { hreflang: 'x-default', href: '/about/' },
     ]);
+    for (const locale of LOCALES) {
+      const list = alternates('/about/', [locale], '/');
+      expect(list.filter((alternate) => alternate.hreflang === 'x-default')).toHaveLength(1);
+      expect(list.length).toBe(isIndexable(locale) ? 2 : 1);
+    }
   });
 
   it('keeps exactly one x-default, pointing at English, for every route and base', () => {
