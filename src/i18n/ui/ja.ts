@@ -31,6 +31,9 @@ export const ja: Dictionary = {
   navResume: '経歴書',
   revision: (month: string) => `REV. ${month}`,
 
+  /* Latin wordmark, Japanese title: this is where a katakana search finds the page. */
+  siteTitle: (name: string) => `${name}（イワン・ドルゴフ）— テックリード / フルスタックエンジニア`,
+
   // Footer
   footerMark: 'END / CONTACT',
   footerHeading: '設計や開発が必要なシステムがあれば、ご連絡ください。',

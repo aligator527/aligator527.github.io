@@ -28,6 +28,13 @@ export const en = {
   /** Revision marker, e.g. `Rev. 2026/10`. The month is already locale-neutral notation. */
   revision: (month: string) => `Rev. ${month}`,
 
+  /*
+   * The home page's <title>. A locale may add its own reading of the name here: the tab title is
+   * metadata, and a reader searching in Cyrillic or katakana will not find a page whose title is
+   * only Latin. The visible wordmark stays Latin everywhere.
+   */
+  siteTitle: (name: string, descriptor: string) => `${name} — ${descriptor}`,
+
   // Footer
   footerMark: 'END / CONTACT',
   footerHeading: 'If you have a system to design or ship, write to me.',

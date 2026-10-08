@@ -33,6 +33,8 @@ export const ru: Dictionary = {
   navResume: 'Резюме',
   revision: (month: string) => `Ред. ${month}`,
 
+  siteTitle: (name: string, descriptor: string) => `${name} (Иван Долгов) — ${descriptor}`,
+
   // Footer
   footerMark: 'КОНЕЦ / КОНТАКТЫ',
   footerHeading:
