@@ -28,7 +28,7 @@ export const ja: Dictionary = {
   navExperience: '経歴',
   navNotes: 'ノート',
   navAbout: 'プロフィール',
-  navResume: '経歴書',
+  navResume: 'Résumé',
   revision: (month: string) => `REV. ${month}`,
 
   /* Latin wordmark, Japanese title: this is where a katakana search finds the page. */
@@ -83,7 +83,7 @@ export const ja: Dictionary = {
   heroLanguages: '言語',
   heroStatus: '状況',
   homeWorkNote:
-    '新しい順。ケーススタディでは判断の理由まで、概要では公開できる役割・担当範囲・システムの事実のみを記載しています。',
+    '新しいプロジェクトから順に並べています。ケーススタディでは判断の理由まで、概要では公開できる役割・担当範囲・システムの事実のみを記載しています。',
   homeAllWork: 'すべての実績',
   homeChronology: '経歴の全体',
   homeCapabilitiesTitle: '担当領域と根拠',
@@ -98,7 +98,7 @@ export const ja: Dictionary = {
   workSheet: 'SHEET 01 / 実績',
   workTitle: '実績',
   workLead:
-    '担当したプロジェクトを新しい順に掲載しています。ケーススタディでは背景・技術判断・進め方・今なら変える点まで、概要では公開できる役割・担当範囲・システムの事実のみを記載し、公開可能な範囲が広がり次第、追記しています。',
+    '担当したプロジェクトを、新しいものから順に掲載しています。ケーススタディでは背景・技術判断・進め方・今なら変える点まで、概要では公開できる役割・担当範囲・システムの事実のみを記載し、公開可能な範囲が広がり次第、追記しています。',
   workIndexHeading: 'プロジェクト一覧',
 
   // Case study
@@ -140,7 +140,7 @@ export const ja: Dictionary = {
   aboutBackgroundTitle: 'これまで',
   aboutLanguagesTitle: '言語',
   aboutLanguagesNote:
-    '日常の業務環境は日本企業でのエンジニアリングですが、英語・ロシア語でも同様に技術的な仕事を進められます。',
+    '普段は日本企業の開発現場で日本語を使って仕事をしています。英語とロシア語でも、同じように技術的な業務を進められます。',
   aboutEngageTitle: 'ご相談について',
 
   // Résumé

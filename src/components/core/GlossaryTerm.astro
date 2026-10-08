@@ -22,9 +22,11 @@ interface Props {
   trailing?: string | undefined;
   /** Punctuation before the term; see `Annotation.astro`. */
   leading?: string | undefined;
+  /** Dense list: marker at every width, never a sidenote. See `Annotation.astro`. */
+  compact?: boolean | undefined;
 }
 
-const { id, term, anchor, trailing, leading } = Astro.props;
+const { id, term, anchor, trailing, leading, compact } = Astro.props;
 const { t } = localize(Astro.url);
 const source = glossarySources[id];
 ---
@@ -37,4 +39,5 @@ const source = glossarySources[id];
   sourceLabel={source.label}
   trailing={trailing}
   leading={leading}
+  compact={compact}
 />

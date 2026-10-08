@@ -112,7 +112,12 @@ const pdfAvailable = hasResumePdf();
         {profile.education.map((item) => (
           <li>
             {item.title},{' '}
-            <GlossaryTerm id={item.glossary} term={item.institution} anchor={`resume-${item.id}`} />{' '}
+            <GlossaryTerm
+              id={item.glossary}
+              term={item.institution}
+              anchor={`resume-${item.id}`}
+              compact
+            />{' '}
             ({item.period}
             {item.status && `, ${item.status.toLowerCase()}`})
           </li>
@@ -120,7 +125,12 @@ const pdfAvailable = hasResumePdf();
         {profile.certifications.map((item) => (
           <li>
             {item.title} (
-            <GlossaryTerm id={item.glossary} term={item.issuer} anchor={`resume-cert-${item.id}`} />
+            <GlossaryTerm
+              id={item.glossary}
+              term={item.issuer}
+              anchor={`resume-cert-${item.id}`}
+              compact
+            />
             )
           </li>
         ))}

@@ -42,20 +42,33 @@ interface Props {
   trailing?: string | undefined;
   /** Punctuation that precedes the term, e.g. an opening bracket. Same reason as `trailing`. */
   leading?: string | undefined;
+  /**
+   * Dense list: keep the `?` marker at every width instead of opening the note beside the text.
+   *
+   * The sidenote needs a text column wide enough to lose 16rem to a float. A résumé credential is
+   * a one-line list item, so the float squeezed the line into whatever was left and turned a
+   * 28px row into a 167px one — the layout collapsed into two interleaved columns.
+   */
+  compact?: boolean | undefined;
 }
 
-const { term, note, sourceHref, sourceLabel, id, trailing, leading } = Astro.props;
+const { term, note, sourceHref, sourceLabel, id, trailing, leading, compact } = Astro.props;
 const { t } = localize(Astro.url);
 const host = sourceHref ? new URL(sourceHref).host.replace(/^www\./, '') : undefined;
 ---
 
-<span class="annotated">
-  {leading}
-  <span class="term">{term}</span>
-  <button type="button" class="marker" popovertarget={id} aria-label={t.annotationAbout(term)}>
-    <span aria-hidden="true">?</span>
-  </button>
-  {trailing}
+<!--
+  The tags below are glued together with no whitespace between them, and Prettier is told to leave
+  them alone. Astro keeps the whitespace in markup, so a line break between the term and its comma
+  renders as "Daiwa House Group , where" — and a break before the marker lets it wrap onto its own
+  line, away from the word it belongs to.
+-->
+<!-- prettier-ignore -->
+<span class:list={['annotated', { compact }]}
+  >{leading}<span class="term">{term}</span
+  ><button type="button" class="marker" popovertarget={id} aria-label={t.annotationAbout(term)}
+    ><span aria-hidden="true">?</span></button
+  >{trailing}
 
   <span id={id} class="note" popover role="note">
     <span class="note-label meta">{term}</span>
@@ -137,11 +150,11 @@ const host = sourceHref ? new URL(sourceHref).host.replace(/^www\./, '') : undef
 
     /* Wide screens: no control, no overlay — the note is simply beside the text it annotates. */
     @media (min-width: 64rem) {
-      .marker {
+      .annotated:not(.compact) .marker {
         display: none;
       }
 
-      .note {
+      .annotated:not(.compact) .note {
         display: grid;
         float: inline-end;
         position: static;

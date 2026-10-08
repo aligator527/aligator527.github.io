@@ -100,6 +100,7 @@ const roles = entries.map(({ role }) => role);
                   id={item.glossary}
                   term={item.institution}
                   anchor={`credentials-${item.id}`}
+                  compact
                 />
                 {' · '}
                 {item.period}
@@ -120,6 +121,7 @@ const roles = entries.map(({ role }) => role);
                   id={item.glossary}
                   term={item.issuer}
                   anchor={`credentials-cert-${item.id}`}
+                  compact
                 />
               </p>
             </li>

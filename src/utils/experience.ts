@@ -22,19 +22,44 @@ type RoleEntry = CollectionEntry<'experience'>;
  * to that locale's wording, so no page handles a `{ en, ru, ja }` object.
  */
 export type Role = Omit<RoleEntry, 'data'> & {
-  data: Omit<RoleEntry['data'], 'summary' | 'scope'> & { summary: string; scope: string[] };
+  data: Omit<
+    RoleEntry['data'],
+    'summary' | 'scope' | 'role' | 'organization' | 'organizationNote'
+  > & {
+    summary: string;
+    scope: string[];
+    role: string;
+    organization: string;
+    organizationNote?: string | undefined;
+  };
 };
 
 /** Resolves one entry's wording, and refuses to publish a locale that is missing any of it. */
 function localizeRole(role: RoleEntry, locale: Locale): Role {
-  assertTranslated(role.data.summary, `roles.yaml (${role.id})`, 'summary');
-  assertTranslated(role.data.scope, `roles.yaml (${role.id})`, 'scope');
+  const { summary, scope, role: title, organization, organizationNote, ...facts } = role.data;
+  for (const [field, value] of [
+    ['summary', summary],
+    ['scope', scope],
+    ['role', title],
+    ['organization', organization],
+    ...(organizationNote ? [['organizationNote', organizationNote] as const] : []),
+  ] as const) {
+    assertTranslated(value, `roles.yaml (${role.id})`, field);
+  }
+  /*
+   * The localised fields are rebuilt rather than spread over: spreading `role.data` keeps the
+   * `{ en, ru, ja }` objects alongside the resolved strings, and the two shapes then union into a
+   * type no consumer can use.
+   */
   return {
     ...role,
     data: {
-      ...role.data,
-      summary: pick(role.data.summary, locale),
-      scope: pick(role.data.scope, locale),
+      ...facts,
+      summary: pick(summary, locale),
+      scope: pick(scope, locale),
+      role: pick(title, locale),
+      organization: pick(organization, locale),
+      ...(organizationNote ? { organizationNote: pick(organizationNote, locale) } : {}),
     },
   };
 }

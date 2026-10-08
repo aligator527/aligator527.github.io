@@ -5,9 +5,18 @@
 # draft by Claude that nobody has reviewed yet; Russian stays out of INDEXABLE_LOCALES until Ivan
 # has read it.
 - id: frameworx
-  organization: Frameworx
-  organizationNote: Daiwa House Group
-  role: Tech Lead — Next-Generation WMS
+  organization:
+    en: 'Frameworx'
+    ru: 'Frameworx'
+    ja: '株式会社フレームワークス'
+  organizationNote:
+    en: 'Daiwa House Group'
+    ru: 'Daiwa House Group'
+    ja: '大和ハウスグループ'
+  role:
+    en: 'Tech Lead — Next-Generation WMS'
+    ru: 'Tech Lead — Next-Generation WMS'
+    ja: 'テックリード — 次世代WMS'
   startDate: '2026-09'
   endDate: null
   summary:
@@ -33,8 +42,14 @@
   technologies: []
   work: next-generation-wms
 - id: ikigai
-  organization: Ikigai Co., Ltd.
-  role: Project Lead / Full-Stack Engineer
+  organization:
+    en: 'Ikigai Co., Ltd.'
+    ru: 'Ikigai Co., Ltd.'
+    ja: 'Ikigai Co., Ltd.'
+  role:
+    en: 'Project Lead / Full-Stack Engineer'
+    ru: 'Project Lead / Full-Stack Engineer'
+    ja: 'プロジェクトリード / フルスタックエンジニア'
   engagementType: contract
   startDate: '2025-07'
   endDate: '2026-05'
@@ -61,8 +76,14 @@
   technologies: [React, TypeScript, Go, AWS, Terraform, Lambda, API Gateway, DynamoDB, Keycloak]
   work: ai-chat-platform
 - id: nagashima-konpo
-  organization: Nagashima Konpo Co., Ltd.
-  role: Full-Stack Engineer
+  organization:
+    en: 'Nagashima Konpo Co., Ltd.'
+    ru: 'Nagashima Konpo Co., Ltd.'
+    ja: 'Nagashima Konpo Co., Ltd.'
+  role:
+    en: 'Full-Stack Engineer'
+    ru: 'Full-Stack Engineer'
+    ja: 'フルスタックエンジニア'
   engagementType: contract
   startDate: '2024-12'
   endDate: '2025-12'
@@ -89,9 +110,18 @@
   technologies: [React, Next.js, React Native, Expo, AWS Amplify, Lambda, AppSync, DynamoDB, S3]
   work: packaging-saas
 - id: flaretech
-  organization: Flaretech Co., Ltd.
-  organizationNote: formerly Marvel
-  role: Software Engineer / Project Lead
+  organization:
+    en: 'Flaretech Co., Ltd.'
+    ru: 'Flaretech Co., Ltd.'
+    ja: 'Flaretech Co., Ltd.'
+  organizationNote:
+    en: 'formerly Marvel'
+    ru: 'ранее Marvel'
+    ja: '旧Marvel'
+  role:
+    en: 'Software Engineer / Project Lead'
+    ru: 'Software Engineer / Project Lead'
+    ja: 'ソフトウェアエンジニア / プロジェクトリード'
   startDate: '2023-03'
   endDate: '2025-05'
   summary:
@@ -117,8 +147,14 @@
   technologies: [React, Next.js, TypeScript, JavaScript, Java/Spring, PHP/Laravel, AWS]
   work: client-delivery
 - id: freelance
-  organization: Independent
-  role: Full-Stack Engineer
+  organization:
+    en: 'Independent'
+    ru: 'Независимая практика'
+    ja: '個人事業主'
+  role:
+    en: 'Full-Stack Engineer'
+    ru: 'Full-Stack Engineer'
+    ja: 'フルスタックエンジニア'
   engagementType: freelance
   startDate: '2021-08'
   endDate: '2023-01'

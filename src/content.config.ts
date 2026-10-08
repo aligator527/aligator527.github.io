@@ -87,9 +87,16 @@ const work = defineCollection({
 const experience = defineCollection({
   loader: file('./src/content/experience/roles.yaml'),
   schema: z.object({
-    organization: z.string(),
-    organizationNote: z.string().optional(),
-    role: z.string(),
+    /*
+     * Also wording, but only just: a company's name changes between locales ONLY where that
+     * company publishes a name in that language. Frameworx does (株式会社フレームワークス, on the
+     * Daiwa House group site); the others' Japanese legal names are not verified, so they stay
+     * Latin rather than being invented. "Independent" is a word, not a name, and is translated.
+     */
+    organization: localized(z.string()),
+    organizationNote: localized(z.string()).optional(),
+    // Job titles are wording: Russian keeps them Latin, Japanese writes them in katakana.
+    role: localized(z.string()),
     engagementType: z.enum(['contract', 'freelance']).optional(),
     startDate: yearMonth,
     endDate: yearMonth.nullable(),
