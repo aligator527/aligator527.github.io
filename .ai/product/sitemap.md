@@ -26,7 +26,8 @@ indexed, and a locale directory is added beside it rather than around it.
 
 `EMITTED_LOCALES` in `src/utils/i18n.ts` decides which locales are built; `INDEXABLE_LOCALES` decides
 which are advertised through `hreflang`. A locale is built before it is advertised, never the reverse.
-Today both are `['en']`, so the right-hand column is planned output, not current output.
+Both are `['en', 'ru', 'ja']` as of 2026-10-08: 30 documents, 27 of them in the sitemap — nine routes
+per locale, plus the three English-only sections and the shared error document.
 
 | Source file | English route | Localised routes |
 |---|---|---|

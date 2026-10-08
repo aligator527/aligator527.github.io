@@ -52,7 +52,7 @@ const diagramVariant = {
 } as const;
 ---
 
-<BaseLayout title={data.title} description={data.summary}>
+<BaseLayout title={data.title} description={data.description ?? data.summary}>
   <StructuredData
     slot="head"
     kind="work"

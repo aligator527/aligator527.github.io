@@ -35,6 +35,9 @@ export const en = {
    */
   siteTitle: (name: string, descriptor: string) => `${name} — ${descriptor}`,
 
+  /* A sub-page's <title>. Japanese uses ｜, which is both idiomatic and shorter. */
+  pageTitle: (title: string, name: string) => `${title} — ${name}`,
+
   // Footer
   footerMark: 'END / CONTACT',
   footerHeading: 'If you have a system to design or ship, write to me.',
@@ -106,7 +109,7 @@ export const en = {
 
   // Work index
   workDescription:
-    'Professional engagements: warehouse management architecture, a 0→1 AI chat game platform, a production packaging SaaS, and five client projects across five industries.',
+    'Warehouse management architecture, a 0→1 AI chat platform, a production packaging SaaS, and five client projects across five industries.',
   workSheet: 'Sheet 01 / Work',
   workTitle: 'Work',
   workLead:

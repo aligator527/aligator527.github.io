@@ -36,6 +36,13 @@ const work = defineCollection({
       code: z.string().regex(/^P\d{2}$/),
       title: z.string(),
       summary: z.string(),
+      /**
+       * Meta description, when the summary is longer than a search result shows (~160 characters,
+       * ~90 in Japanese). Optional: most entries need none. It exists so that shortening what a
+       * search engine shows never means shortening what the reader is shown, which is how hedges
+       * like "approximately" and "during the engagement" get lost.
+       */
+      description: z.string().optional(),
       role: z.string(),
       organization: z.string().optional(),
       // Omitted when the source does not state the engagement type.

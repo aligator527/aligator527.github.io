@@ -6,6 +6,7 @@ glossary: [daiwa-house, frameworx, wms, wcs, logistics-shortage]
 code: P01
 title: WMS нового поколения
 summary: 'Техническое планирование и архитектура системы управления складом (WMS) нового поколения: прикладные слои, облако, безопасность и интеграция с системой управления складским оборудованием.'
+description: 'Tech Lead системы управления складом нового поколения: техническое планирование и архитектура — прикладные слои, облако, безопасность, интеграция WMS/WCS.'
 role: Tech Lead
 organization: Frameworx, Daiwa House Group
 startDate: '2026-09'

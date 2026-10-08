@@ -34,7 +34,7 @@ const { locale, t } = localize(Astro.url);
  */
 const noindex = noindexProp || !isIndexable(locale);
 const pageTitle = title
-  ? `${title} — ${profile.name}`
+  ? t.pageTitle(title, profile.name)
   : t.siteTitle(profile.name, profile.descriptor);
 // Self-referencing, and the only canonical on the page: scripts/check-i18n.mjs enforces both.
 // Locales are linked by hreflang alternates (`alternates()` in src/utils/i18n.ts), not by this tag.

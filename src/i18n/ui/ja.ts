@@ -32,7 +32,9 @@ export const ja: Dictionary = {
   revision: (month: string) => `REV. ${month}`,
 
   /* Latin wordmark, Japanese title: this is where a katakana search finds the page. */
-  siteTitle: (name: string) => `${name}（イワン・ドルゴフ）— テックリード / フルスタックエンジニア`,
+  siteTitle: (name: string) => `${name}（イワン・ドルゴフ）｜テックリード`,
+
+  pageTitle: (title: string, name: string) => `${title}｜${name}`,
 
   // Footer
   footerMark: 'END / CONTACT',

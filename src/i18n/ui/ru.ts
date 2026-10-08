@@ -35,6 +35,8 @@ export const ru: Dictionary = {
 
   siteTitle: (name: string, descriptor: string) => `${name} (Иван Долгов) — ${descriptor}`,
 
+  pageTitle: (title: string, name: string) => `${title} — ${name}`,
+
   // Footer
   footerMark: 'КОНЕЦ / КОНТАКТЫ',
   footerHeading:
@@ -101,7 +103,7 @@ export const ru: Dictionary = {
 
   // Work index
   workDescription:
-    'Профессиональные проекты: архитектура системы управления складом, запуск платформы AI-чат-игры с нуля, промышленный SaaS для упаковочной отрасли и пять клиентских проектов в пяти отраслях.',
+    'Архитектура системы управления складом, запуск платформы AI-чатов с нуля, промышленный SaaS для упаковки и пять клиентских проектов в пяти отраслях.',
   workSheet: 'Лист 01 / Проекты',
   workTitle: 'Проекты',
   workLead:

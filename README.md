@@ -20,7 +20,7 @@ truth) and [`.claude/`](.claude/README.md) (Claude Code adapter).
 | `pnpm test:unit` | Vitest unit tests |
 | `pnpm test:e2e` | Playwright browser tests, including axe, against a production build |
 | `pnpm check:links` | Verifies every internal href, asset and fragment in `dist/` resolves, including same-origin absolute URLs such as `canonical` and `og:url` |
-| `pnpm check:i18n` | Holds the indexing and locale contract in `dist/`: the live URLs in `tests/fixtures/indexed-urls.json`, one self-referencing canonical per page, no `meta refresh`, nothing served under `/en/`, the `_astro` font budget, and the per-locale font preloads of ADR-0006 |
+| `pnpm check:i18n` | Holds the indexing and locale contract in `dist/`: the live URLs in `tests/fixtures/indexed-urls.json`, one self-referencing canonical per page, robots meta and sitemap agreeing, no `meta refresh`, nothing served under `/en/`, the `_astro` font budget, the per-locale font preloads of ADR-0006, and every JSON-LD block parsing with a language that matches its page. Prints titles and descriptions over the search-result budget without failing |
 | `pnpm check` | Format, lint, typecheck, unit tests, build, link check, indexing check |
 
 Playwright needs its browser once: `pnpm exec playwright install chromium`.
@@ -43,6 +43,18 @@ src/
 └── utils/        url (base-safe links), i18n (locale paths), dates, timeline, work, experience,
                   navigation, resume
 ```
+
+The site is trilingual. English is served unprefixed at the URLs it was indexed at; Russian lives
+under `/ru/` and Japanese under `/ja/`. `src/utils/i18n.ts` owns every locale decision, and the two
+arrays at the top of it are the only switches that matter:
+
+- `EMITTED_LOCALES` — which locales produce pages.
+- `INDEXABLE_LOCALES` — which locales are advertised. A locale is built, deployed and reviewable at
+  its real URL before it joins this list; until then it is `noindex`, absent from the sitemap, and
+  absent from every `hreflang` cluster. Publishing one is adding it here; rolling back is removing
+  it, and no URL 404s either way.
+
+ADR-0005 records the routing and content model, `.ai/content/translation.md` the editorial rules.
 
 Notes for future changes:
 

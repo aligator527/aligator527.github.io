@@ -4,6 +4,7 @@ glossary: [daiwa-house, frameworx, wms, wcs, logistics-shortage]
 code: P01
 title: Next-Generation WMS
 summary: Technical planning and architecture for a next-generation warehouse management system, spanning application layers, cloud, security, and warehouse-control integration.
+description: 'Tech Lead for a next-generation WMS: technical planning and architecture across application layers, cloud, security and WMS/WCS integration.'
 role: Tech Lead
 organization: Frameworx, Daiwa House Group
 startDate: '2026-09'

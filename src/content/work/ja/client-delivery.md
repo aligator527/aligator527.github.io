@@ -5,6 +5,7 @@ translation:
 code: P04
 title: 受託開発プロジェクト
 summary: 5業種にわたる5件の受託プロジェクト。2か月のコーポレートサイトを一貫して主導した案件から、約40名体制の保険システムまで。Web開発、CRM、エンタープライズ領域のバックエンド開発を担当しました。
+description: 'Flaretechでの5業種・5案件。保険システム、CRM、求人マッチングSaaS、一貫して担当したコーポレートサイト2件。'
 role: ソフトウェアエンジニア / プロジェクトリード
 organization: FLARETECH株式会社（旧Marvel株式会社）
 startDate: '2023-03'

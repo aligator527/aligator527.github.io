@@ -3,6 +3,7 @@ locale: en
 code: P04
 title: Client Project Delivery
 summary: Five client projects across five industries, from a two-month corporate site led end to end to an insurance system built by roughly forty people — web delivery, CRM, and enterprise backend work.
+description: 'Five client projects in five industries at Flaretech: an insurance system, a CRM, a freelance-matching SaaS, and two corporate sites led end to end.'
 role: Software Engineer / Project Lead
 organization: Flaretech Co., Ltd. (formerly Marvel)
 startDate: '2023-03'

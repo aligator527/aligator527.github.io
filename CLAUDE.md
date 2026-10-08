@@ -9,6 +9,7 @@ Read and follow:
 - @.ai/design/art-direction.md
 - @.ai/design/anti-ai.md
 - @.ai/content/facts.md
+- @.ai/content/translation.md
 - @.ai/content/claims.md
 - @.ai/engineering/architecture.md
 - @.ai/qa/definition-of-done.md
