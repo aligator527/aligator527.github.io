@@ -159,7 +159,9 @@ const { t } = localize(Astro.url);
     /* Wide: stage boxes line up across rows into columns, which is what makes it a matrix. */
     @container (min-width: 40rem) {
       .unit {
-        grid-template-columns: 7rem minmax(0, 1fr) minmax(max-content, 1.3fr);
+        /* The name column is content-sized above a 7rem floor. A fixed 7rem fits the English */
+        /* names and splits バックエンド mid-word: Japanese gives the browser no spaces to break at. */
+        grid-template-columns: minmax(7rem, max-content) minmax(0, 1fr) minmax(max-content, 1.3fr);
         column-gap: var(--space-3);
         align-items: start;
       }

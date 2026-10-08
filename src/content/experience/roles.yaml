@@ -13,6 +13,7 @@
   summary:
     en: Technical direction for a next-generation warehouse management system (WMS).
     ru: Техническое руководство системой управления складом (WMS) нового поколения.
+    ja: '次世代の倉庫管理システム（WMS）における技術面のリード。'
   scope:
     en:
       - Technical planning and architecture across frontend, backend, cloud, security, and WMS/WCS integration.
@@ -24,6 +25,11 @@
       - Выбор технологий и стандартизация архитектуры.
       - Инженерные гайдлайны и архитектурные решения.
       - Технические PoC.
+    ja:
+      - 'フロントエンド、バックエンド、クラウド、セキュリティ、WMS／WCS連携にまたがる技術計画とアーキテクチャ。'
+      - '技術選定とアーキテクチャ標準化。'
+      - '開発ガイドラインとアーキテクチャ決定の策定。'
+      - 'PoC（技術検証）。'
   technologies: []
   work: next-generation-wms
 - id: ikigai
@@ -35,6 +41,7 @@
   summary:
     en: Led 0→1 development of an AI chat game platform in a 20-person cross-functional team.
     ru: Руководил разработкой платформы AI-чат-игры с нуля в кросс-функциональной команде из 20 человек.
+    ja: '20名規模のクロスファンクショナルなチームで、AIチャットゲームプラットフォームの新規立ち上げを主導。'
   scope:
     en:
       - Planning, technical decisions, code reviews, engineering standards, and release work.
@@ -46,6 +53,11 @@
       - Фронтенд на React и TypeScript; бэкенд на Go.
       - 'Инфраструктура AWS на Terraform: Lambda, API Gateway, DynamoDB.'
       - Аутентификация и авторизация на Keycloak.
+    ja:
+      - '計画、技術的な意思決定、コードレビュー、開発標準の整備、リリース。'
+      - 'ReactとTypeScriptによるフロントエンド、Goによるバックエンド。'
+      - 'Terraform、Lambda、API Gateway、DynamoDBを用いたAWSインフラ。'
+      - 'Keycloakによる認証・認可。'
   technologies: [React, TypeScript, Go, AWS, Terraform, Lambda, API Gateway, DynamoDB, Keycloak]
   work: ai-chat-platform
 - id: nagashima-konpo
@@ -57,6 +69,7 @@
   summary:
     en: Production web and mobile SaaS for the packaging industry, in a team of approximately 10 people.
     ru: Промышленный веб- и мобильный SaaS для упаковочной отрасли, команда около 10 человек.
+    ja: '梱包業界向けの本番Web／モバイルSaaS。約10名のチーム。'
   scope:
     en:
       - Search and large-data performance work, after growing data had degraded responsiveness across the platform.
@@ -68,6 +81,11 @@
       - Миграция Node.js 16 → 20.
       - PoC, код-ревью и поддержка внешних разработчиков.
       - Релизы.
+    ja:
+      - 'データ量の増加でプラットフォーム全体の応答性が低下したあとの、検索と大量データのパフォーマンス改善。'
+      - 'Node.js 16 → 20 への移行。'
+      - 'PoC、コードレビュー、外部開発者の支援。'
+      - 'リリース作業。'
   technologies: [React, Next.js, React Native, Expo, AWS Amplify, Lambda, AppSync, DynamoDB, S3]
   work: packaging-saas
 - id: flaretech
@@ -79,6 +97,7 @@
   summary:
     en: Client projects in five industries, from five-person teams led end to end to a 40-person insurance system.
     ru: Клиентские проекты в пяти отраслях — от команд по пять человек, которые я вёл целиком, до системы для страховой компании с командой около 40 человек.
+    ja: '5業種のクライアント案件。一貫して担当した5名規模のチームから、約40名体制の保険システムまで。'
   scope:
     en:
       - 'Project lead on corporate and multilingual site delivery: client negotiation, requirements, documentation, React and Next.js development, AWS deployment, launch, and operation.'
@@ -90,6 +109,11 @@
       - Full-stack разработка системы продаж и управления заявками для страховой компании (JavaScript, Java/Spring) в проекте примерно на 40 человек.
       - Full-stack разработка CRM для поставщика электроэнергии корпоративным клиентам (React, PHP/Laravel).
       - Фронтенд-разработка и рефакторинг SaaS для подбора фриланс-проектов (Next.js, React, TypeScript).
+    ja:
+      - 'コーポレートサイトおよび多言語サイトでのプロジェクトリード：クライアント折衝、要件定義、ドキュメント作成、ReactとNext.jsでの開発、AWSへのデプロイ、公開、運用。'
+      - '約40名規模のプロジェクトで、保険の営業支援・申込管理システムをフルスタック開発（JavaScript、Java／Spring）。'
+      - '法人向け電力事業者のCRMをフルスタック開発（React、PHP／Laravel）。'
+      - 'フリーランス向け求人マッチングSaaSのフロントエンド開発とリファクタリング（Next.js、React、TypeScript）。'
   technologies: [React, Next.js, TypeScript, JavaScript, Java/Spring, PHP/Laravel, AWS]
   work: client-delivery
 - id: freelance
@@ -101,6 +125,7 @@
   summary:
     en: Delivered web applications and business systems in one- to two-person delivery environments.
     ru: Делал веб-приложения и бизнес-системы в командах из одного-двух человек.
+    ja: '1〜2名体制で、Webアプリケーションと業務システムを開発。'
   scope:
     en:
       - Client-facing requirements work.
@@ -110,4 +135,8 @@
       - Сбор требований напрямую с клиентом.
       - Веб-приложения и бизнес-системы.
       - Автоматизация, сбор данных и улучшения в интернет-магазинах.
+    ja:
+      - 'クライアントとの要件定義。'
+      - 'Webアプリケーションと業務システム。'
+      - '自動化、データ収集、ECサイトの改善。'
   technologies: [React, Vue.js, Python/Django, PHP]

@@ -160,3 +160,79 @@ test.describe('context annotations', () => {
     }
   });
 });
+
+/*
+ * Japanese is built for review and not published yet, so its checks are the mirror of the Russian
+ * ones at the other end of the rollout: the pages must exist, declare themselves, and ask to be
+ * left out of the index until Ivan has read them.
+ */
+const JA_ROUTES = [
+  '/ja/',
+  '/ja/work/',
+  '/ja/work/packaging-saas/',
+  '/ja/experience/',
+  '/ja/about/',
+];
+
+test.describe('the Japanese locale', () => {
+  for (const route of JA_ROUTES) {
+    test(`${route} is in Japanese, declares it, and is not indexed yet`, async ({ page }) => {
+      const errors: string[] = [];
+      page.on('console', (message) => {
+        if (message.type() === 'error') errors.push(message.text());
+      });
+      await page.goto(route);
+
+      await expect(page.locator('html')).toHaveAttribute('lang', 'ja');
+      await expect(page.locator('h1')).toHaveCount(1);
+      await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+      expect(errors).toEqual([]);
+    });
+  }
+
+  /*
+   * The same leak check as Russian, with the script swapped: a text node with no kana or kanji
+   * that still holds two Latin words in a row is an untranslated string. Latin that is supposed
+   * to be there — `DynamoDB`, `P01`, `REV.`, `Ivan Dolgov` — is one word, or notation.
+   */
+  test('no English sentence survives on a Japanese page', async ({ page }) => {
+    for (const route of JA_ROUTES) {
+      await page.goto(route);
+      const leaks = await page.evaluate(() => {
+        const found = new Set<string>();
+        const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+        for (let node = walk.nextNode(); node; node = walk.nextNode()) {
+          const parent = node.parentElement;
+          if (!parent || parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE') continue;
+          const text = (node.textContent ?? '').trim();
+          if (!text || /[ぁ-んァ-ヶ一-龠]/.test(text)) continue;
+          if (/[A-Za-z]{3,}\s+[a-z]{3,}/.test(text)) found.add(text.slice(0, 80));
+        }
+        return [...found];
+      });
+      expect(leaks, `untranslated text on ${route}`).toEqual([]);
+    }
+  });
+
+  test('Japanese reflows at 320px without horizontal scroll', async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 720 });
+    for (const route of JA_ROUTES) {
+      await page.goto(route);
+      const overflow = await page.evaluate(() => ({
+        scroll: document.documentElement.scrollWidth,
+        client: document.documentElement.clientWidth,
+      }));
+      expect(overflow.scroll, `horizontal overflow on ${route}`).toBeLessThanOrEqual(
+        overflow.client,
+      );
+    }
+  });
+
+  /* The switch must mark where the reader is, even on a locale that is not advertised yet. */
+  test('the switch marks the current locale on an unpublished one', async ({ page }) => {
+    await page.goto('/ja/work/packaging-saas/');
+    const switcher = page.getByRole('navigation', { name: /language|язык|言語/i });
+    await expect(switcher.locator('[aria-current="true"]')).toHaveCount(1);
+    await expect(switcher.locator('[aria-current="true"]')).toContainText('JA');
+  });
+});
