@@ -1,0 +1,57 @@
+---
+/**
+ * The About page's narrative, in Japanese. See `en.astro` for why this is a component per locale.
+ *
+ * Draft by Claude, not yet reviewed by Ivan — Japanese stays out of `INDEXABLE_LOCALES` until it
+ * is. Register is です・ます, and job titles are katakana, per the decisions in `src/i18n/ui/ja.ts`.
+ */
+import Annotation from '../../core/Annotation.astro';
+import { glossarySources } from '../../../data/glossary';
+import { localize } from '../../../i18n/ui';
+import type { AboutProseProps } from './index';
+
+const { section, experience, email, workHref } = Astro.props as AboutProseProps;
+const { t } = localize(Astro.url);
+---
+
+{section === 'background' && (
+  <>
+    <p>
+      実務経験は{experience}です。2026年9月からは
+      <Annotation
+        id="about-daiwa-house"
+        term="大和ハウスグループ"
+        note={t.glossary['daiwa-house']}
+        sourceHref={glossarySources['daiwa-house'].href}
+        sourceLabel={glossarySources['daiwa-house'].label}
+        trailing="の"
+      />
+      フレームワークスで、<a href={workHref('next-generation-wms')}>次世代の倉庫管理システム</a>
+      のテックリードとして、技術計画とアーキテクチャを担当しています。
+    </p>
+    <p>
+      それ以前は、業務委託とクライアント案件に携わってきました。Ikigaiでは
+      <a href={workHref('ai-chat-platform')}>AIチャットゲームのプラットフォーム</a>
+      を0→1で立ち上げ、ナガシマ梱包では
+      <a href={workHref('packaging-saas')}>梱包業界向けの本番SaaS</a>
+      をフルスタックで担当し、Flaretechでは
+      <a href={workHref('client-delivery')}>クライアントのWeb案件</a>を推進しました。
+    </p>
+    <p>
+      2021年8月、独立したフルスタックエンジニアとして、1〜2名体制でWebアプリケーションや業務システムを開発し、要件定義をクライアントと直接進めるところから始めています。
+    </p>
+    <p>
+      現在はグロービス経営大学院でMBAを、東京大学
+      松尾・岩澤研究室のグローバル消費インテリジェンス寄付講座（GCI）を受講しています。
+    </p>
+  </>
+)}
+
+{section === 'engage' && (
+  <>
+    <p>
+      ご相談は、対象のシステム、現在の状況、変えたい点を簡単に記したメールが最も早いです。
+      <a href={`mailto:${email}`}>{email}</a>よりご返信します。
+    </p>
+  </>
+)}

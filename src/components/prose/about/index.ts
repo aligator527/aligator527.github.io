@@ -1,6 +1,7 @@
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import type { Locale } from '../../../utils/i18n';
 import en from './en.astro';
+import ja from './ja.astro';
 import ru from './ru.astro';
 
 /**
@@ -11,10 +12,8 @@ import ru from './ru.astro';
  * do through `set:html`. Each locale writes the prose as a component instead, and this map selects
  * one — exhaustively, so adding a locale without its prose is an `astro check` error.
  *
- * Japanese points at English until its stage lands, which is the same visible fallback the string
- * dictionaries use and the same reason Japanese is not in `INDEXABLE_LOCALES`.
  */
-export const aboutProse = { en, ru, ja: en } satisfies Record<Locale, AstroComponentFactory>;
+export const aboutProse = { en, ru, ja } satisfies Record<Locale, AstroComponentFactory>;
 
 export interface AboutProseProps {
   /** Which narrative block to render; the two sit in different sections of the page. */

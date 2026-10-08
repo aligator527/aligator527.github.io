@@ -46,8 +46,15 @@ const nextIndex = () => ++sectionIndex;
       </p>
 
       <h1 id="hero-title" class="hero-name">
+        {/*
+          The wordmark is Latin in every locale, so this is where a reader who knows the name in
+          their own script finds it: announced to a screen reader, and indexed. `nameReading` is
+          the Latin name in English, «Иван Долгов» in Russian, 「イワン・ドルゴフ」 in Japanese.
+        */}
         <span class="visually-hidden">
-          {profile.name}, {profile.descriptor}
+          {profile.name}
+          {profile.nameReading === profile.name ? '' : ` (${profile.nameReading})`},{' '}
+          {profile.descriptor}
         </span>
         <span aria-hidden="true">
           Ivan

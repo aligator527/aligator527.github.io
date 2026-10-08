@@ -4,7 +4,7 @@ Last reviewed: 2026-10-08. Primary sources: Ivan Dolgov's current English CV and
 
 ## Identity and contact
 
-- Name: Ivan Dolgov.
+- Name: Ivan Dolgov. Confirmed by Ivan on 2026-10-08: «Иван Долгов» in Russian and 「イワン・ドルゴフ」 in Japanese, used for the hidden full name and search metadata. The visible wordmark stays Latin in every locale.
 - Location: Tokyo, Japan.
 - Public email: `ivan.d@wanya.group`.
 - GitHub: `https://github.com/aligator527`.
@@ -65,6 +65,7 @@ Do not publish unreleased product screenshots, internal roadmaps, confidential d
   - Ivan updated the data-model documentation after the work.
   - Node.js 16→20: difficulties with dependencies and Lambda; verified with tests and manually against a predefined workflow of tenant setup and normal SaaS use.
   - External developers were contractors; support covered review, onboarding, documentation, and explaining their first tasks.
+  - Terminology, confirmed by Ivan on 2026-10-08: a tenant in this SaaS is one packing company; the 案件 (jobs) are created inside it. "Information and communications" in the Flaretech project list is the Japanese industry classification 情報通信業, not an English industry name.
   - Domain detail, confirmed by Ivan on 2026-10-08: the SaaS covers the whole job lifecycle for a packing order — 案件作成 (creating the job) → 見積 (quotation) → 梱包設計 (packing design) → 梱包作業 (the packing work itself) → 請求書 (invoice) → コンテナ設計 (container loading plan) → loading onto the truck. The "Case" table is this 案件 entity: the job, not an English common noun.
   - Architecture: frontend, backend, and mobile in separate repositories, each with its own Amplify app and dev/staging/production environments. GraphQL (AppSync) over DynamoDB. The web frontend acted mostly as a BFF; the backend held specific heavy processing unsuitable for the frontend.
   - Retrospective: plan how to return production to its previous state for each change, since dev → staging → production does not guarantee a successful production release; assess impact on other components in advance.

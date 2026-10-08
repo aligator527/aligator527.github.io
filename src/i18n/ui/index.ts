@@ -1,5 +1,6 @@
 import { localeFromPathname, type Locale } from '../../utils/i18n';
 import { en, type Dictionary } from './en';
+import { ja } from './ja';
 import { ru } from './ru';
 
 export type { Dictionary } from './en';
@@ -10,16 +11,10 @@ export type { Dictionary } from './en';
  * `satisfies Record<Locale, Dictionary>` is the contract: adding a locale to `LOCALES` without a
  * dictionary, or shipping a dictionary that is missing a key English has, fails `astro check`.
  *
- * Japanese deliberately points at the English dictionary until its translation stage lands. The
- * fallback is visible here rather than hidden inside `useTranslations()`, so that it is a line to
- * delete rather than a behaviour to discover: as long as a locale aliases `en`, its pages render
- * English chrome, which is also why it is absent from `INDEXABLE_LOCALES`.
+ * Every locale now has its own dictionary. A locale is still published separately — see
+ * `INDEXABLE_LOCALES` — because a complete dictionary is not a reviewed one.
  */
-const dictionaries = {
-  en,
-  ru,
-  ja: en,
-} satisfies Record<Locale, Dictionary>;
+const dictionaries = { en, ru, ja } satisfies Record<Locale, Dictionary>;
 
 /** The chrome strings for one locale. */
 export function useTranslations(locale: Locale): Dictionary {

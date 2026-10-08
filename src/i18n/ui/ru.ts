@@ -188,6 +188,7 @@ export const ru: Dictionary = {
      established Russian forms, and the two IPA examinations keep their English names in brackets —
      that is how a Russian-language CV cites a Japanese national certification. */
   profile: {
+    nameReading: 'Иван Долгов',
     supportingLine: 'Веб-системы · архитектура · облако · корпоративное ПО',
     promise:
       'Проектирую и довожу до продакшена сложные веб-системы — от требований и архитектуры до эксплуатации.',

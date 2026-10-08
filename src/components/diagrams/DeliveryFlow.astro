@@ -1,6 +1,7 @@
 ---
 import { deliveryFlow } from '../../data/delivery-flow';
 import { localize } from '../../i18n/ui';
+import { DEFAULT_LOCALE } from '../../utils/i18n';
 import { workHref, type WorkEntry } from '../../utils/work';
 
 interface Props {
@@ -11,9 +12,17 @@ const { work } = Astro.props;
 const { locale, t } = localize(Astro.url);
 const byCode = new Map(work.map((entry) => [entry.data.code, entry]));
 
-for (const step of deliveryFlow) {
-  for (const code of step.evidence) {
-    if (!byCode.has(code)) throw new Error(`Delivery flow references unknown work code ${code}`);
+/*
+ * The codes are a foreign key into the work collection, so a typo must fail the build — but only
+ * the default locale can answer "does this project exist at all". A locale mid-translation has
+ * fewer entries, and a missing translation is not a broken reference: that stage simply shows the
+ * evidence it has. Checking every locale turned an untranslated case study into a build failure.
+ */
+if (locale === DEFAULT_LOCALE) {
+  for (const step of deliveryFlow) {
+    for (const code of step.evidence) {
+      if (!byCode.has(code)) throw new Error(`Delivery flow references unknown work code ${code}`);
+    }
   }
 }
 ---
@@ -33,15 +42,17 @@ for (const step of deliveryFlow) {
         <p class="step-detail">{t.deliveryFlow[step.id].detail}</p>
         <p class="evidence">
           <span class="visually-hidden">{t.flowEvidence}</span>
-          {step.evidence.map((code) => {
-            const entry = byCode.get(code)!;
-            return (
-              <a class="meta evidence-link" href={workHref(entry, locale)}>
-                {code}
-                <span class="visually-hidden"> {entry.data.title}</span>
-              </a>
-            );
-          })}
+          {step.evidence
+            .filter((code) => byCode.has(code))
+            .map((code) => {
+              const entry = byCode.get(code)!;
+              return (
+                <a class="meta evidence-link" href={workHref(entry, locale)}>
+                  {code}
+                  <span class="visually-hidden"> {entry.data.title}</span>
+                </a>
+              );
+            })}
         </p>
       </li>
     ))}

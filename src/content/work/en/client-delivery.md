@@ -51,7 +51,7 @@ December 2024 to January 2025, approximately 5 people, Project Lead.
 
 A new corporate site, led end to end: client negotiation, requirements, specification, Next.js and React implementation, AWS setup, launch, and operation, including SEO. Requirements interviews and design documentation were in Japanese.
 
-### Information and communications — multilingual corporate site
+### Information and communications (情報通信業) — multilingual corporate site
 
 August to December 2024, approximately 5 people, Project Lead.
 
@@ -63,7 +63,7 @@ October 2023 to August 2024, approximately 5 people, Full-Stack Engineer.
 
 A CRM for a company that connects electricity consumers with suppliers: React on the frontend, PHP and Laravel on the backend. A record there is not just a customer — it carries the supply-point identification number, the voltage class of the connection, and the tariff structure, down to rates that differ between summer and the rest of the year. I built call-management and content features for the sales team, and supported the investigation, testing, and implementation of a call system.
 
-### Information and communications — freelance matching SaaS
+### Information and communications (情報通信業) — freelance matching SaaS
 
 April 2023 to February 2024, approximately 5 people, Frontend Engineer.
 

@@ -187,6 +187,7 @@ export const en = {
    * two, so a locale cannot render an English credential by accident.
    */
   profile: {
+    nameReading: 'Ivan Dolgov',
     supportingLine: 'Web systems · architecture · cloud · enterprise software',
     promise:
       'I design and ship complex web systems — from requirements and architecture to production.',

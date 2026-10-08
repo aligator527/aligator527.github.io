@@ -37,7 +37,7 @@ environments:
   stages: [dev, staging, production]
   units:
     - name: Web
-      role: Web client, acting mostly as a backend-for-frontend.
+      role: Web client, which also served as the backend for the frontend (BFF).
       items: [React, Next.js]
     - name: Mobile
       role: Mobile client.
@@ -100,7 +100,7 @@ When the work was done, I updated the data-model documentation, so that the next
 
 The changes shipped as a series of milestones. Each milestone was verified step by step on staging while engineers on the team reviewed the code in parallel. Production releases ran at night, outside the hours when customers used the system.
 
-The Node.js 16 → 20 migration ran into dependency problems and issues with the Lambda runtime. I verified it with the automated tests and by walking through a predefined workflow by hand: setting up a tenant, then using the SaaS as a customer company would.
+The Node.js 16 → 20 migration ran into dependency problems and issues with the Lambda runtime. I verified it with the automated tests and by walking through a predefined workflow by hand: setting up a tenant — one packing company, with its own jobs inside it — and then using the SaaS as that company would.
 
 I also supported external contractors joining the project: reviewing their code, onboarding them, writing documentation, and walking them through their first tasks.
 

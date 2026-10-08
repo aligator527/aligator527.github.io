@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { monthIndex } from './dates';
-import type { Locale } from './i18n';
+import { DEFAULT_LOCALE, type Locale } from './i18n';
 import { assertTranslated, pick } from './localized';
 import { getWorkIndex, type WorkEntry } from './work';
 
@@ -49,13 +49,24 @@ function localizeRole(role: RoleEntry, locale: Locale): Role {
  * page that renders it still exists.
  */
 async function loadRoles(locale: Locale): Promise<{ roles: Role[]; work: Map<string, WorkEntry> }> {
-  const [unsorted, work] = await Promise.all([getCollection('experience'), getWorkIndex(locale)]);
+  const [unsorted, work, source] = await Promise.all([
+    getCollection('experience'),
+    getWorkIndex(locale),
+    getWorkIndex(DEFAULT_LOCALE),
+  ]);
+  /*
+   * The foreign key is checked against the DEFAULT locale, not the current one. A `work:` value
+   * that names no entry at all is a typo and must fail the build; a value whose translation does
+   * not exist yet is a locale mid-translation, and that locale simply renders the role without a
+   * link. Checking against the current locale conflated the two and broke the build the moment
+   * Japanese pages were emitted before Japanese case studies existed.
+   */
   for (const role of unsorted) {
     const slug = role.data.work;
-    if (slug !== undefined && !work.has(slug)) {
+    if (slug !== undefined && !source.has(slug)) {
       throw new Error(
         `Role "${role.id}" in roles.yaml references work "${slug}", which is not a work entry. ` +
-          `Known slugs: ${[...work.keys()].join(', ')}.`,
+          `Known slugs: ${[...source.keys()].join(', ')}.`,
       );
     }
   }

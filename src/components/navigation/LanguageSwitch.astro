@@ -26,6 +26,7 @@
  */
 import { localize } from '../../i18n/ui';
 import {
+  LOCALES,
   LOCALE_ENDONYM,
   alternates,
   localeHref,
@@ -37,15 +38,24 @@ import {
 const { locale, t } = localize(Astro.url);
 const path = logicalPath(Astro.url.pathname);
 
-// `alternates()` returns the hreflang set, which includes `x-default`; the switch wants locales.
+/*
+ * `alternates()` returns the hreflang set, which includes `x-default`; the switch wants locales.
+ *
+ * The current locale is always in the list, even when it is not published yet. On an unpublished
+ * locale's page — which exists so it can be reviewed at a real URL — the switch would otherwise
+ * show only the other languages, with nothing marking where the reader actually is.
+ */
 const published = alternates(path, localesFor(path))
   .filter((alternate) => alternate.hreflang !== 'x-default')
   .map((alternate) => alternate.hreflang as Locale);
+const shown = published.includes(locale)
+  ? published
+  : [...published, locale].sort((a, b) => LOCALES.indexOf(a) - LOCALES.indexOf(b));
 ---
 
-{published.length > 1 && (
+{shown.length > 1 && (
   <nav class="lang" aria-label={t.navLanguage}>
-    {published.map((target) =>
+    {shown.map((target) =>
       target === locale ? (
         <span class="code current" aria-current="true" lang={target}>
           <span aria-hidden="true">{target.toUpperCase()}</span>
