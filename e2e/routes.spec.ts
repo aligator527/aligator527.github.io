@@ -13,6 +13,7 @@ const ROUTES = [
   '/notes/',
   '/notes/dynamodb-slow-as-data-grew/',
   '/notes/per-user-identity-pricing/',
+  '/notes/choosing-a-stack-by-proof-of-concept/',
   '/lab/',
   '/lab/japan-logistics-map/',
 ];

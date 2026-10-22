@@ -25,7 +25,15 @@ const { t } = localize(Astro.url);
     />
     <div class="page grid">
       <div class="rail">
-        <MetaList items={[{ label: t.notesTopicsLabel, value: note.data.topics.join(' · ') }]} />
+        <MetaList
+          items={[
+            {
+              label: t.notesTopicsLabel,
+              /* A topic is one token in a two-column rail, so it must not break across lines. */
+              value: note.data.topics.map((topic) => topic.replaceAll(' ', '\u00A0')).join(' · '),
+            },
+          ]}
+        />
       </div>
       <div class="prose document">
         <Content />
