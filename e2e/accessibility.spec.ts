@@ -8,7 +8,7 @@ const ROUTES = [
   '/experience/',
   '/about/',
   '/resume/',
-  '/notes/dynamodb-slow-as-data-grew/',
+  '/notes/per-user-identity-pricing/',
   '/lab/japan-logistics-map/',
   '/404/',
 ];
