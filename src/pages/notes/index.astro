@@ -17,7 +17,11 @@ const notes = (await getCollection('notes', ({ data }) => !data.draft)).sort((a,
   description={t.notesDescription(profile.name)}
   noindex={notes.length === 0}
 >
-  <PageHeader sheet={t.notesSheet} title={t.notesTitle} lead={t.notesLead} />
+  <PageHeader
+    sheet={notes.length === 0 ? t.notesSheetEmpty : t.notesSheet}
+    title={t.notesTitle}
+    lead={t.notesLead}
+  />
   <section class="page" aria-labelledby="notes-list">
     <h2 id="notes-list" class="visually-hidden">
       {t.notesArticlesHeading}

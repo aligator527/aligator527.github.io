@@ -170,9 +170,12 @@ export const en = {
   resumeCredentialsHeading: 'Education and certifications',
   resumeLanguagesHeading: 'Languages',
 
-  // Lab and Notes: built but unlisted until their collections hold entries.
+  /* Lab and Notes carry a state marker while their collection is empty, and join the numbered */
+  /* sheet series once it is not. The index pages pick between the two on the same predicate */
+  /* that decides whether the page is indexable, so neither can go stale while the other is right. */
   labDescription: (name: string) => `Public code, prototypes, and experiments by ${name}.`,
-  labSheet: 'Lab / Unpublished',
+  labSheet: 'Sheet 05 / Lab',
+  labSheetEmpty: 'Lab / Unpublished',
   labTitle: 'Lab',
   labLead: 'Public code, prototypes, and experiments.',
   labEntriesHeading: 'Entries',
@@ -182,10 +185,12 @@ export const en = {
   labDemo: 'Demo',
   labEmpty: 'No public entries yet.',
   notesDescription: (name: string) => `Engineering and architecture writing by ${name}.`,
-  notesSheet: 'Notes / Unpublished',
+  notesSheet: 'Sheet 04 / Notes',
+  notesSheetEmpty: 'Notes / Unpublished',
   notesTitle: 'Notes',
   notesLead: 'Engineering and architecture writing.',
   notesArticlesHeading: 'Articles',
+  notesTopicsLabel: 'Topics',
   notesEmpty: 'No published notes yet.',
 
   // 404

@@ -27,8 +27,18 @@ const homeCurrent = isCurrent('/', path);
       <ul class="nav-list" role="list">
         {nav.map((item) => (
           <li>
-            <a href={item.href} aria-current={isCurrent(item.path, path)}>
+            <a
+              href={item.href}
+              aria-current={isCurrent(item.path, path)}
+              lang={item.foreignLocale}
+              hreflang={item.foreignLocale}
+            >
               {item.label}
+              {item.foreignLocale && (
+                /* This section exists in one language only. Saying so before the click is the
+                   difference between a deliberate language change and a surprise. */
+                <span class="meta foreign">{item.foreignLocale.toUpperCase()}</span>
+              )}
             </a>
           </li>
         ))}
@@ -103,6 +113,12 @@ const homeCurrent = isCurrent('/', path);
       transition: border-color var(--duration-fast) var(--ease-standard);
     }
 
+    .foreign {
+      margin-inline-start: 0.4em;
+      font-size: 0.72em;
+      color: var(--signal-text);
+    }
+
     .nav-list a:hover,
     .resume-link:hover {
       border-block-end-color: var(--line-strong);
@@ -142,8 +158,11 @@ const homeCurrent = isCurrent('/', path);
         border-block-start: var(--rule);
       }
 
+      /* A section joins this list whenever it gets its first entry, so the list has to survive */
+      /* growing: Notes made it five items, and 320px stopped fitting them on one line. */
       .nav-list {
-        gap: var(--space-3);
+        flex-wrap: wrap;
+        gap: 0 var(--space-3);
       }
 
       .resume-link {

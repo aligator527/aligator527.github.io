@@ -163,7 +163,8 @@ export const ja: Dictionary = {
 
   // Lab and Notes
   labDescription: (name: string) => `${name}による公開コード、プロトタイプ、実験。`,
-  labSheet: 'LAB / 未公開',
+  labSheet: 'SHEET 05 / ラボ',
+  labSheetEmpty: 'LAB / 未公開',
   labTitle: 'ラボ',
   labLead: '公開しているコード、プロトタイプ、実験。',
   labEntriesHeading: '一覧',
@@ -172,10 +173,12 @@ export const ja: Dictionary = {
   labDemo: 'デモ',
   labEmpty: '公開中の項目はまだありません。',
   notesDescription: (name: string) => `${name}によるエンジニアリングとアーキテクチャに関する記事。`,
-  notesSheet: 'NOTES / 未公開',
+  notesSheet: 'SHEET 04 / ノート',
+  notesSheetEmpty: 'NOTES / 未公開',
   notesTitle: 'ノート',
   notesLead: 'エンジニアリングとアーキテクチャについて。',
   notesArticlesHeading: '記事',
+  notesTopicsLabel: 'トピック',
   notesEmpty: '公開中の記事はまだありません。',
 
   // 404

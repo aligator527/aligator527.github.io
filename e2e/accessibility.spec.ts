@@ -8,6 +8,7 @@ const ROUTES = [
   '/experience/',
   '/about/',
   '/resume/',
+  '/notes/dynamodb-slow-as-data-grew/',
   '/404/',
 ];
 
@@ -28,7 +29,12 @@ for (const route of ROUTES) {
 
 test('content fits a 320px viewport without horizontal scrolling', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 720 });
-  for (const route of ['/', '/work/ai-chat-platform/', '/experience/']) {
+  for (const route of [
+    '/',
+    '/work/ai-chat-platform/',
+    '/experience/',
+    '/notes/dynamodb-slow-as-data-grew/',
+  ]) {
     await page.goto(route);
     const overflow = await page.evaluate(
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,

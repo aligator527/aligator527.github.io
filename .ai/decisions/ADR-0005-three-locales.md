@@ -66,7 +66,9 @@ two correct names, and 長島梱包株式会社 is not a divergence from "Nagash
 - Every new page costs three translations, and the author is the bottleneck for two of them. The
   publication gate exists so that cost never blocks shipping the English page.
 - `/lab/`, `/notes/` and `/404/` stay English-only and live outside the locale tree. `localesFor()`
-  encodes that, so nothing advertises a translation that does not exist.
+  encodes that, so nothing advertises a translation that does not exist. Navigation to such a
+  section resolves to the default locale and says so — `hreflang`, `lang`, and a visible `EN`
+  marker — rather than building a `/ja/notes/` that would 404.
 - A fourth locale is a dictionary, a content folder, and two array entries. Nothing else changes.
 
 ## Revisit when

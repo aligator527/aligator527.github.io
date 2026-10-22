@@ -3,6 +3,8 @@ import type { GetStaticPaths } from 'astro';
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHeader from '../../components/core/PageHeader.astro';
+import MetaList from '../../components/core/MetaList.astro';
+import { localize } from '../../i18n/ui';
 
 export const getStaticPaths = (async () => {
   const notes = await getCollection('notes', ({ data }) => !data.draft);
@@ -11,6 +13,7 @@ export const getStaticPaths = (async () => {
 
 const { note } = Astro.props;
 const { Content } = await render(note);
+const { t } = localize(Astro.url);
 ---
 
 <BaseLayout title={note.data.title} description={note.data.summary}>
@@ -20,10 +23,42 @@ const { Content } = await render(note);
       title={note.data.title}
       lead={note.data.summary}
     />
-    <div class="page">
-      <div class="prose">
+    <div class="page grid">
+      <div class="rail">
+        <MetaList items={[{ label: t.notesTopicsLabel, value: note.data.topics.join(' · ') }]} />
+      </div>
+      <div class="prose document">
         <Content />
       </div>
     </div>
   </article>
 </BaseLayout>
+
+<style>
+  @layer components {
+    /* The note's text starts in the same column as the title above it: `PageHeader` places its */
+    /* title and lede at `3 / span 8` on wide screens, and a full-width body under an indented */
+    /* lede reads as a second document rather than the continuation of the first. */
+    .document {
+      grid-column: 1 / -1;
+    }
+
+    /* The topics are the one piece of orientation the body cannot carry itself. They sit in the */
+    /* margin beside the first paragraph, which is the column the header leaves empty. */
+    .rail {
+      grid-column: 1 / -1;
+      margin-block-end: var(--space-4);
+    }
+
+    @media (min-width: 64rem) {
+      .document {
+        grid-column: 3 / span 8;
+      }
+
+      .rail {
+        grid-column: 1 / span 2;
+        margin-block-end: 0;
+      }
+    }
+  }
+</style>

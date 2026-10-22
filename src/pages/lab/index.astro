@@ -15,7 +15,11 @@ const entries = (await getCollection('lab')).sort((a, b) => b.data.date.localeCo
   description={t.labDescription(profile.name)}
   noindex={entries.length === 0}
 >
-  <PageHeader sheet={t.labSheet} title={t.labTitle} lead={t.labLead} />
+  <PageHeader
+    sheet={entries.length === 0 ? t.labSheetEmpty : t.labSheet}
+    title={t.labTitle}
+    lead={t.labLead}
+  />
   <section class="page" aria-labelledby="lab-list">
     <h2 id="lab-list" class="visually-hidden">
       {t.labEntriesHeading}

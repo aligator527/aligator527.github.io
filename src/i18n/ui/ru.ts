@@ -166,7 +166,8 @@ export const ru: Dictionary = {
 
   // Lab and Notes
   labDescription: (name: string) => `Открытый код, прототипы и эксперименты: ${name}.`,
-  labSheet: 'Лаборатория / Не опубликовано',
+  labSheet: 'Лист 05 / Лаборатория',
+  labSheetEmpty: 'Лаборатория / Не опубликовано',
   labTitle: 'Лаборатория',
   labLead: 'Открытый код, прототипы и эксперименты.',
   labEntriesHeading: 'Записи',
@@ -175,10 +176,12 @@ export const ru: Dictionary = {
   labDemo: 'Демо',
   labEmpty: 'Пока нет публичных записей.',
   notesDescription: (name: string) => `Тексты об инженерии и архитектуре: ${name}.`,
-  notesSheet: 'Заметки / Не опубликовано',
+  notesSheet: 'Лист 04 / Заметки',
+  notesSheetEmpty: 'Заметки / Не опубликовано',
   notesTitle: 'Заметки',
   notesLead: 'Тексты об инженерии и архитектуре.',
   notesArticlesHeading: 'Статьи',
+  notesTopicsLabel: 'Темы',
   notesEmpty: 'Пока нет опубликованных заметок.',
 
   // 404

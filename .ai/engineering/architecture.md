@@ -87,4 +87,8 @@ editorial rules. The parts that constrain code:
 - Keep facts in content data, not duplicated across templates.
 - Keep private drafting sources outside the public repository.
 - Never fetch sensitive data client-side.
+- Write internal links inside a Markdown body **relative to the page** (`../../work/<slug>/`).
+  Nothing applies `base` inside rendered Markdown — Astro 7's default Markdown processor takes no
+  unified plugins, and `markdown.rehypePlugins` would mean switching processors for one rewrite.
+  `scripts/check-links.mjs` under `BASE_PATH` is what catches a site-absolute one.
 
