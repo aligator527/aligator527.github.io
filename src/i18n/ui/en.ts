@@ -179,6 +179,8 @@ export const en = {
   labTitle: 'Lab',
   labLead: 'Public code, prototypes, and experiments.',
   labEntriesHeading: 'Entries',
+  labStatusLabel: 'Status',
+  labTechnologiesLabel: 'Technologies',
   /* Lab entry status, from the content schema's enum — never rendered raw. */
   labStatus: { active: 'Active', complete: 'Complete', archived: 'Archived' },
   labRepository: 'Repository',

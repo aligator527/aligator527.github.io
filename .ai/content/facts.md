@@ -119,6 +119,37 @@ Treat this as experience inventory, not a claim of equal mastery:
 - Data/security: PostgreSQL, MySQL, DynamoDB, Keycloak.
 - AI: LLM integration, RAG, workflow automation, prompt engineering, AI-driven R&D.
 
+## Public projects (Ivan's own repositories)
+
+Verified from the repositories and their GitHub metadata on 2026-10-23. These are personal
+projects on open data, not employer or client work, so the repository and the live site are the
+source for every claim about them. Confirm against the repository before changing a published
+description.
+
+- **logistics-map** — 総合物流マップ / Japan Logistics Map.
+  `https://github.com/aligator527/logistics-map`, live at
+  `https://aligator527.github.io/logistics-map/`. First-pass site screening for warehouse location
+  in Japan. Vite, Svelte 5, TypeScript, D3/TopoJSON, Web Workers, Node ETL scripts, GitHub Actions;
+  no backend. Created 2026-09-26, 92 commits to 2026-10-21. Non-commercial: several 国土数値情報
+  layers are licensed for non-commercial use, and are published as picture tiles only, after the
+  operating office confirmed with the ministry (2026-10) that display is not redistribution while
+  handing over the data may be.
+  - **Restriction, confirmed by Ivan on 2026-10-23:** do not name the DPL layer, Daiwa House or
+    Frameworx anywhere in the portfolio's description of this project. Ivan is Tech Lead at
+    Frameworx, a Daiwa House Group company, and the association is his to make, not the site's.
+- **career-map** — キャリアマップ / Career Map. `https://github.com/aligator527/career-map`, live at
+  `https://aligator527.github.io/career-map/`. Public wage statistics from eleven jurisdictions
+  (JP, US, UK, CA, DE, FR, IT, NL, AU, SG, KR) normalised by a Python pipeline into a static React
+  site; all computation in the browser. Created 2026-09-30, last commit 2026-10-01.
+- **zairyu-map** — 在留外国人統計. `https://github.com/aligator527/zairyu-map`, live at
+  `https://aligator527.github.io/zairyu-map/`. e-Stat crawler and normalised datasets on foreign
+  residents in Japan, with a Svelte map over them. Created and last committed 2026-09-25. The
+  architecture logistics-map was then built on.
+
+Not published, by decision on 2026-10-23: `CDIEXT-firefox`, `nasm-learn`, `mood-tracking`,
+`audio-interactive`, `dev-dashboard`, `esim-cart-sample`, `pixelit`, `vue-searchmusic`. A gallery
+of every repository is a documented non-goal.
+
 ## Unverified or approval-required
 
 Do not publish without a direct source and explicit approval:

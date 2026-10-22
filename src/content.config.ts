@@ -129,6 +129,8 @@ const principles = defineCollection({
 const lab = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/lab' }),
   schema: z.object({
+    /** The entry's place in the annotation grammar, like `P01` for work: `L01`, `L02`. */
+    code: z.string().regex(/^L\d{2}$/),
     title: z.string(),
     summary: z.string(),
     status: z.enum(['active', 'complete', 'archived']),
@@ -137,6 +139,8 @@ const lab = defineCollection({
     demo: z.url().optional(),
     date: isoDate,
     featured: z.boolean().default(false),
+    /** Internal provenance, deliberately never rendered: it records where each fact came from. */
+    sourceNote: z.string(),
   }),
 });
 

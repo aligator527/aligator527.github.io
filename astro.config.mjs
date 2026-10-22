@@ -1,4 +1,5 @@
 // @ts-check
+import { existsSync, readdirSync } from 'node:fs';
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { isIndexable, localeFromPathname } from './src/utils/i18n.ts';
@@ -7,10 +8,18 @@ import { isIndexable, localeFromPathname } from './src/utils/i18n.ts';
 // BASE_PATH lets CI build under a repository subpath to prove every link is base-safe.
 const base = process.env.BASE_PATH ?? '/';
 
-// Sections with no published entries yet. `src/utils/navigation.ts` derives the same emptiness from
-// the collections themselves; this list keeps their placeholder routes out of the sitemap. Both
-// must be updated when a section gets its first entry — Notes got one on 2026-10-23.
-const EMPTY_SECTIONS = ['/lab/'];
+// A section with no entries still builds a placeholder index, which must not enter the sitemap.
+// `src/utils/navigation.ts` derives the same emptiness from the collections; here it is read off
+// the content directory, because a hand-kept list of empty sections is wrong for exactly as long
+// as it takes someone to notice that a section stopped being empty.
+/** @param {string} collection */
+const hasEntries = (collection) => {
+  const dir = new URL(`./src/content/${collection}/`, import.meta.url);
+  return existsSync(dir) && readdirSync(dir).some((file) => /\.mdx?$/.test(file));
+};
+const EMPTY_SECTIONS = ['lab', 'notes']
+  .filter((collection) => !hasEntries(collection))
+  .map((collection) => `/${collection}/`);
 
 export default defineConfig({
   site: 'https://aligator527.github.io',

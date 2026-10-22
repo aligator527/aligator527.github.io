@@ -34,6 +34,13 @@ async function readSiteFromRobots() {
 const site = await readSiteFromRobots();
 
 /**
+ * A GitHub user site shares its origin with every project site in the account, so a Lab demo is on
+ * our origin and in another repository's build. This one cannot confirm those pages exist, and
+ * pretending it can would mean failing on a correct link.
+ */
+const SIBLING_SITES = ['/logistics-map/', '/career-map/', '/zairyu-map/'];
+
+/**
  * Absolute URLs used to be skipped wholesale, which meant `<link rel="canonical">` and `og:url`
  * were never checked at all — the two references most likely to point at a stale path. Ones on our
  * own origin are internal references and resolve like any other. Genuinely external URLs stay
@@ -47,6 +54,7 @@ function internalPathOf(url) {
     return null;
   }
   if (parsed.origin !== site.origin) return null;
+  if (SIBLING_SITES.some((path) => parsed.pathname.startsWith(path))) return null;
   return `${parsed.pathname}${parsed.hash}`;
 }
 

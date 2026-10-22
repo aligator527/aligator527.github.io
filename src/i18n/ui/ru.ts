@@ -171,6 +171,8 @@ export const ru: Dictionary = {
   labTitle: 'Лаборатория',
   labLead: 'Открытый код, прототипы и эксперименты.',
   labEntriesHeading: 'Записи',
+  labStatusLabel: 'Статус',
+  labTechnologiesLabel: 'Технологии',
   labStatus: { active: 'В работе', complete: 'Завершён', archived: 'В архиве' },
   labRepository: 'Репозиторий',
   labDemo: 'Демо',

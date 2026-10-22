@@ -12,6 +12,8 @@ const ROUTES = [
   '/resume/',
   '/notes/',
   '/notes/dynamodb-slow-as-data-grew/',
+  '/lab/',
+  '/lab/japan-logistics-map/',
 ];
 
 test.describe('routes', () => {

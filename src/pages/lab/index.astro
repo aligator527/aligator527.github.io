@@ -5,9 +5,12 @@ import PageHeader from '../../components/core/PageHeader.astro';
 import { profile } from '../../data/profile';
 import { localize } from '../../i18n/ui';
 import { formatMonth } from '../../utils/dates';
+import { localeHref } from '../../utils/i18n';
 
-const { t } = localize(Astro.url);
+const { locale, t } = localize(Astro.url);
 const entries = (await getCollection('lab')).sort((a, b) => b.data.date.localeCompare(a.data.date));
+/* Only an entry with a body has a page of its own — see `lab/[slug].astro`. */
+const detailed = new Set(entries.filter((entry) => entry.body?.trim()).map((entry) => entry.id));
 ---
 
 <BaseLayout
@@ -31,9 +34,16 @@ const entries = (await getCollection('lab')).sort((a, b) => b.data.date.localeCo
         {entries.map((entry) => (
           <li class="entry">
             <p class="meta meta-quiet">
-              {formatMonth(entry.data.date.slice(0, 7))} · {t.labStatus[entry.data.status]}
+              {entry.data.code} · {formatMonth(entry.data.date.slice(0, 7))} ·{' '}
+              {t.labStatus[entry.data.status]}
             </p>
-            <h3>{entry.data.title}</h3>
+            <h3>
+              {detailed.has(entry.id) ? (
+                <a href={localeHref(`/lab/${entry.id}/`, locale)}>{entry.data.title}</a>
+              ) : (
+                entry.data.title
+              )}
+            </h3>
             <p>{entry.data.summary}</p>
             <p class="links">
               {entry.data.repository && <a href={entry.data.repository}>{t.labRepository}</a>}

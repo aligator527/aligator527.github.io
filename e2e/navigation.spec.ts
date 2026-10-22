@@ -13,28 +13,35 @@ test('primary navigation marks the current section', async ({ page }) => {
   await expect(nav.getByRole('link', { name: 'Work' })).toHaveAttribute('aria-current', 'page');
 });
 
-test('a section appears in the navigation once it has an entry', async ({ page }) => {
+test('a section with entries links from the navigation', async ({ page }) => {
   await page.goto('/');
   const nav = page.getByRole('navigation', { name: 'Primary' });
-  // Lab has no entries yet, so `EMPTY_SECTIONS` keeps it out entirely.
-  await expect(nav.getByRole('link', { name: 'Lab' })).toHaveCount(0);
-  // Notes got its first entry, so it links — and says that it links into English.
-  const notes = nav.getByRole('link', { name: 'Notes' });
-  await expect(notes).toHaveAttribute('href', '/notes/');
-  await expect(notes).not.toHaveAttribute('hreflang', /.+/);
+  // Both sections hold entries, so both link, and in English they are ordinary links.
+  for (const [name, href] of [
+    ['Lab', '/lab/'],
+    ['Notes', '/notes/'],
+  ] as const) {
+    const link = nav.getByRole('link', { name });
+    await expect(link).toHaveAttribute('href', href);
+    await expect(link).not.toHaveAttribute('hreflang', /.+/);
+  }
 });
 
 test('an English-only section links out of a translated page in English', async ({ page }) => {
   await page.goto('/ja/');
-  // The landmark label and the link label are both Japanese; only the destination is English.
-  const notes = page.getByRole('navigation', { name: 'メインナビゲーション' }).getByRole('link', {
-    name: /ノート/,
-  });
-  // `/ja/notes/` does not exist. The link resolves to the default locale rather than 404,
-  // and carries the language change so a screen reader announces it.
-  await expect(notes).toHaveAttribute('href', '/notes/');
-  await expect(notes).toHaveAttribute('hreflang', 'en');
-  await expect(notes).toContainText('EN');
+  // The landmark label and the link labels are Japanese; only the destinations are English.
+  const nav = page.getByRole('navigation', { name: 'メインナビゲーション' });
+  for (const [label, href] of [
+    [/ラボ/, '/lab/'],
+    [/ノート/, '/notes/'],
+  ] as const) {
+    // `/ja/lab/` does not exist. The link resolves to the default locale rather than 404,
+    // and carries the language change so a screen reader announces it.
+    const link = nav.getByRole('link', { name: label });
+    await expect(link).toHaveAttribute('href', href);
+    await expect(link).toHaveAttribute('hreflang', 'en');
+    await expect(link).toContainText('EN');
+  }
 });
 
 test('every work page is reachable from the index', async ({ page }) => {

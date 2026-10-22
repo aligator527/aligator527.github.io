@@ -93,10 +93,15 @@ function toPosix(file) {
 
 /*
  * Routes that are legitimately outside the sitemap while still being indexable documents: the error
- * document, which no sitemap lists, and the sections whose placeholder pages `astro.config.mjs`
- * filters out until they have entries.
+ * document, which no sitemap lists, and the index of a section with no entries, which
+ * `astro.config.mjs` filters out. Only those two indexes are exempt: an entry's own page has no
+ * reason to be missing from the sitemap, and exempting the whole section hid that.
  */
-const PLACEHOLDER_ROUTES = [/(^|\/)404\.html$/, /(^|\/)lab\//, /(^|\/)notes\//];
+const PLACEHOLDER_ROUTES = [
+  /(^|\/)404\.html$/,
+  /(^|\/)lab\/index\.html$/,
+  /(^|\/)notes\/index\.html$/,
+];
 
 function isPlaceholderRoute(file) {
   return PLACEHOLDER_ROUTES.some((pattern) => pattern.test(toPosix(file)));

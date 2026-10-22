@@ -168,6 +168,8 @@ export const ja: Dictionary = {
   labTitle: 'ラボ',
   labLead: '公開しているコード、プロトタイプ、実験。',
   labEntriesHeading: '一覧',
+  labStatusLabel: 'ステータス',
+  labTechnologiesLabel: '使用技術',
   labStatus: { active: '進行中', complete: '完了', archived: 'アーカイブ' },
   labRepository: 'リポジトリ',
   labDemo: 'デモ',
