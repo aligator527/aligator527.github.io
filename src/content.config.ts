@@ -130,6 +130,12 @@ const services = defineCollection({
     work: localized(z.string()),
     deliverable: localized(z.string()),
     duration: localized(z.string()),
+    /**
+     * A floor, in JPY, excluding consumption tax. One number rather than one string per locale:
+     * the figure is a fact, and a translation that says a different one is a different offer.
+     * Rendered per locale in `services.astro` — ¥600,000 in English, 600,000円〜 in Japanese.
+     */
+    priceFrom: z.number().int().positive(),
     /** What on this site proves it. A slug in each collection, or null where there is none yet. */
     evidence: z.object({
       note: z.string().nullable(),

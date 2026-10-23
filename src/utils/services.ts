@@ -13,6 +13,8 @@ export interface Service {
   work: string;
   deliverable: string;
   duration: string;
+  /** A floor in JPY, excluding consumption tax. */
+  priceFrom: number;
   evidence: ServiceEntry['data']['evidence'];
 }
 
@@ -43,6 +45,7 @@ export async function getServices(locale: Locale): Promise<Service[]> {
       work: pick(entry.data.work, locale),
       deliverable: pick(entry.data.deliverable, locale),
       duration: pick(entry.data.duration, locale),
+      priceFrom: entry.data.priceFrom,
       evidence: entry.data.evidence,
     };
   });

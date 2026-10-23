@@ -184,10 +184,13 @@ export const en = {
   servicesProblem: 'Problem',
   servicesWork: 'What I do',
   servicesDeliverable: 'What you get',
+  servicesPriceLabel: 'From',
+  /* A floor, written the way each language writes one: `From ¥600,000`, `от ¥600 000`, `600,000円〜`. */
+  servicesPrice: (amount: string) => `¥${amount}`,
   servicesDuration: 'Duration',
   servicesEvidence: 'Evidence',
   servicesClosing:
-    'Fee depends on scope, and the first thing to establish is whether the engagement is the right one — so describe the problem and I will say what I would do and what it would cost, or that someone else is a better fit. Write to',
+    'Prices are floors, before consumption tax, and the scope sets the figure — so describe the problem and I will say what I would do and what it would cost, or that someone else is a better fit. Write to',
   servicesSeeWork: 'Or read the work first.',
 
   /* Lab and Notes carry a state marker while their collection is empty, and join the numbered */

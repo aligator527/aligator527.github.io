@@ -129,6 +129,8 @@ test.describe('routes', () => {
     await page.goto('/services/');
     const offers = page.locator('.offer');
     await expect(offers).toHaveCount(4);
+    // Every offer states a floor price. One missing is the offer that gets asked about by email.
+    await expect(page.locator('.aside').getByText(/^¥[\d,]+$/)).toHaveCount(4);
     const links = await page
       .locator('.evidence a')
       .evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));

@@ -154,9 +154,12 @@ of every repository is a documented non-goal.
 
 Do not publish without a direct source and explicit approval:
 
-- financial impact, and Ivan's own rates: the services page states scope and duration and no price,
-  by decision on 2026-10-23. Adding one means adding `price` to the services schema and a value per
-  offer — the page is built for it;
+- financial impact beyond the published service floors. Ivan approved publishing a price per
+  engagement on 2026-10-23, derived from market rates rather than from a rate he has charged:
+  ¥600,000 for the performance audit and the architecture review, ¥350,000 for the multilingual
+  audit, ¥400,000 for a Japan-bridge round — floors, before consumption tax. They are a position,
+  not a record of past invoices, and `src/content/services/services.yaml` is the only place to
+  change them;
 - conversion, performance, or revenue percentages;
 - named client relationships not already public;
 - user counts other than the CV-approved SaaS adoption claim above;

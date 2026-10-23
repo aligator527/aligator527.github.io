@@ -57,7 +57,15 @@ const notes = new Map((await getNotes(locale)).map((note) => [noteSlug(note), no
               />
             </div>
             <div class="aside">
-              <MetaList items={[{ label: t.servicesDuration, value: service.duration }]} />
+              <MetaList
+                items={[
+                  {
+                    label: t.servicesPriceLabel,
+                    value: t.servicesPrice(new Intl.NumberFormat(locale).format(service.priceFrom)),
+                  },
+                  { label: t.servicesDuration, value: service.duration },
+                ]}
+              />
               {(note || study) && (
                 <p class="evidence">
                   <span class="meta meta-quiet">{t.servicesEvidence}</span>

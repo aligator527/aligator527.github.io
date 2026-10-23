@@ -31,6 +31,7 @@
     en: 1–2 weeks
     ru: 1–2 недели
     ja: 1〜2週間
+  priceFrom: 600000
   evidence:
     note: dynamodb-slow-as-data-grew
     work: packaging-saas
@@ -58,6 +59,7 @@
     en: About a week
     ru: Около недели
     ja: 1週間程度
+  priceFrom: 350000
   evidence:
     note: null
     work: client-delivery
@@ -85,6 +87,7 @@
     en: 1–2 weeks
     ru: 1–2 недели
     ja: 1〜2週間
+  priceFrom: 600000
   evidence:
     note: choosing-a-stack-by-proof-of-concept
     work: ai-chat-platform
@@ -112,6 +115,7 @@
     en: A requirements round or one specification, about a week; longer alongside delivery
     ru: Раунд требований или одна спецификация, около недели; дольше — параллельно с разработкой
     ja: 要件定義1ラウンドまたは仕様1本で1週間程度。開発と並走する場合はそれ以上
+  priceFrom: 400000
   evidence:
     note: null
     work: client-delivery

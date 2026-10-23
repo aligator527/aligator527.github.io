@@ -175,10 +175,12 @@ export const ja: Dictionary = {
   servicesProblem: '課題',
   servicesWork: '行うこと',
   servicesDeliverable: 'お渡しするもの',
+  servicesPriceLabel: '費用',
+  servicesPrice: (amount: string) => `${amount}円〜`,
   servicesDuration: '期間',
   servicesEvidence: '根拠',
   servicesClosing:
-    '費用は範囲によって変わります。まず確かめるべきは、そもそもこの形が合っているかどうかです。課題をお書きいただければ、何をするか、いくらになるかをお伝えします。合わない場合は、ほかの方が適していると申し上げます。ご連絡は',
+    '表示の金額は税別の下限で、最終的な金額は範囲によって決まります。課題をお書きいただければ、何をするか、いくらになるかをお伝えします。合わない場合は、ほかの方が適していると申し上げます。ご連絡は',
   servicesSeeWork: 'まずは実績をご覧ください。',
 
   // Lab and Notes
