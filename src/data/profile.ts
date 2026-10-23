@@ -17,14 +17,8 @@ export const profile = {
   email: 'ivan.d@wanya.group',
   github: { label: 'github.com/aligator527', href: 'https://github.com/aligator527' },
   linkedin: { label: 'linkedin.com/in/aligator527', href: 'https://linkedin.com/in/aligator527' },
-  /*
-   * Booking. The username is cal.com's generated one until Ivan renames the handle in his profile
-   * settings — the API cannot change it — and renaming means editing this line and nothing else.
-   */
-  booking: {
-    label: 'cal.com/aligator527-game-bcfxvu/intro',
-    href: 'https://cal.com/aligator527-game-bcfxvu/intro',
-  },
+  /* Booking. One constant: the footer, the services page and anything later read this. */
+  booking: { label: 'cal.com/aligator527/intro', href: 'https://cal.com/aligator527/intro' },
   /*
    * Below: the invariant half of each record — codes, periods and issuers. The words a reader sees
    * (a language's name and level, a programme's title, an institution) live in the dictionaries and
