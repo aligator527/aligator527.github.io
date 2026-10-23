@@ -135,17 +135,39 @@ if (!mine.ok) {
 }
 const existing = new Map((await mine.json()).map((article) => [article.canonical_url, article.id]));
 
+const wait = (seconds) => new Promise((resolve) => setTimeout(resolve, seconds * 1000));
+
+/**
+ * DEV rate-limits article creation hard — publishing four notes in a row returns 429 on the third
+ * with "try again in 300 seconds". It says how long to wait, so waiting is the whole fix; the
+ * alternative is a half-published set and a human deciding which two to re-run.
+ */
+async function send(article, id) {
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    const response = await fetch(id ? `${API}/${id}` : API, {
+      method: id ? 'PUT' : 'POST',
+      headers,
+      body: JSON.stringify({ article }),
+    });
+    if (response.status !== 429) return response;
+    const body = await response.text();
+    const seconds =
+      Number(response.headers.get('retry-after')) || /(\d+) seconds/.exec(body)?.[1] || 60;
+    console.log(`  rate limited, waiting ${seconds}s (attempt ${attempt})`);
+    await wait(Number(seconds) + 5);
+  }
+  throw new Error('still rate limited after four attempts');
+}
+
 for (const { slug, article } of notes) {
   const id = existing.get(article.canonical_url);
-  const response = await fetch(id ? `${API}/${id}` : API, {
-    method: id ? 'PUT' : 'POST',
-    headers,
-    body: JSON.stringify({ article }),
-  });
+  const response = await send(article, id);
   const body = await response.json().catch(() => ({}));
   if (!response.ok) {
     console.error(`${slug}: ${response.status} ${JSON.stringify(body)}`);
     continue;
   }
   console.log(`${id ? 'updated' : 'published'}  ${slug}  ${body.url ?? ''}`);
+  // Space the writes out: the limit is on creation rate, not on the day's total.
+  await wait(5);
 }
