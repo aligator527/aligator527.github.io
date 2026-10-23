@@ -64,6 +64,25 @@ workflow's `indexnow` input switches that to `all` for a deploy that changes eve
 `skip`. The key is public by design, so no secret is involved: the script finds it by filename in
 `public/`.
 
+## DEV (dev.to)
+
+`scripts/devto.mjs` publishes the English notes to DEV with `canonical_url` pointing back here, so
+the copy on the stronger domain does not take the search result the original was written to win.
+DEV honours that field; Zenn does not, which is why the Japanese articles in
+`aligator527/zenn-content` are rewrites rather than copies.
+
+The key is read from `DEV_API_KEY` at run time and is never committed or stored. Re-running is an
+update, not a second post: the script lists the account's articles and matches on canonical URL,
+so an edit here reaches DEV by running it again.
+
+```bash
+DEV_API_KEY=... node scripts/devto.mjs --dry-run
+DEV_API_KEY=... node scripts/devto.mjs
+```
+
+A note's `figure` lives in frontmatter rather than in the body, so the diagrams stay on this site
+— which is one more reason for a reader to follow the canonical link.
+
 ## Pre-deploy checks
 
 1. Clean install using the lockfile.
