@@ -170,6 +170,26 @@ export const en = {
   resumeCredentialsHeading: 'Education and certifications',
   resumeLanguagesHeading: 'Languages',
 
+  // Services
+  navServices: 'Services',
+  servicesSheet: 'Sheet 06 / Services',
+  servicesTitle: 'Services',
+  servicesDescription: (name: string) =>
+    `Performance, multilingual and architecture reviews by ${name}: scoped engagements of one to two weeks, remote from Tokyo.`,
+  servicesLead:
+    'Three engagements I can take alongside a full-time role: reviews that end in a written decision, not a delivery team.',
+  servicesIntro:
+    'Each is scoped in days rather than months, because that is what I can give it, and each rests on work published on this site — the case study or the note under it is the evidence, not a testimonial. English, Japanese or Russian; remote from Tokyo, or with teams outside Japan.',
+  servicesHeading: 'Engagements',
+  servicesProblem: 'Problem',
+  servicesWork: 'What I do',
+  servicesDeliverable: 'What you get',
+  servicesDuration: 'Duration',
+  servicesEvidence: 'Evidence',
+  servicesClosing:
+    'Fee depends on scope, and the first thing to establish is whether the engagement is the right one — so describe the problem and I will say what I would do and what it would cost, or that someone else is a better fit. Write to',
+  servicesSeeWork: 'Or read the work first.',
+
   /* Lab and Notes carry a state marker while their collection is empty, and join the numbered */
   /* sheet series once it is not. The index pages pick between the two on the same predicate */
   /* that decides whether the page is indexable, so neither can go stale while the other is right. */

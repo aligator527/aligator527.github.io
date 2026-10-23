@@ -40,6 +40,7 @@ src/
 │   ├── work/<locale>/ # one Markdown file per locale per entry
 │   ├── experience/    # YAML; translatable fields nested by locale
 │   ├── principles/    # YAML; same shape
+│   ├── services/      # YAML; the offers, same shape
 │   ├── lab/<locale>/   # same shape as work; src/utils/writing.ts asserts parity
 │   └── notes/<locale>/
 ├── content.config.ts

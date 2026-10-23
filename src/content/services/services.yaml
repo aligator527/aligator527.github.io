@@ -1,0 +1,91 @@
+# Three productized engagements. Each one is scoped to what a Tech Lead in full-time employment
+# can actually deliver — review and advisory, in days rather than months — and each rests on work
+# already published on this site, which is what `evidence` points at.
+#
+# No price is published. Rates are Ivan's to state, and `.ai/content/facts.md` keeps financial
+# figures out of site copy until he approves one. When he does, add `price:` to the schema in
+# src/content.config.ts and one value per offer here; nothing else has to change.
+#
+# `title`, `problem`, `work`, `deliverable` and `duration` carry one value per locale.
+# Wording drafted 2026-10-23; the Russian and Japanese are translations of the English.
+- id: performance-audit
+  order: 1
+  code: S01
+  title:
+    en: Performance audit — DynamoDB and AppSync
+    ru: 'Аудит производительности: DynamoDB и AppSync'
+    ja: パフォーマンス監査 — DynamoDBとAppSync
+  problem:
+    en: Loading times and timeouts grew with the data, for every customer rather than on one screen, and nobody changed the architecture.
+    ru: Время загрузки и таймауты выросли вместе с данными, у всех клиентов, а не на одном экране, и архитектуру никто не менял.
+    ja: データが増えるにつれて読み込み時間とタイムアウトが悪化し、特定の画面ではなく顧客全体で起きている。しかもアーキテクチャは誰も変えていない。
+  work:
+    en: Every read path in the code, queries profiled against real volumes, request behaviour in CloudWatch. Where the code is hard to follow, the data flow is drawn before anything is proposed.
+    ru: Все пути чтения в коде, запросы с профилированием на реальных объёмах, поведение запросов в CloudWatch. Там, где код трудно читать, поток данных рисуется до того, как что-то предлагается.
+    ja: コード内のすべての読み取り経路、実データ量に対してプロファイルしたクエリ、CloudWatchでのリクエストの挙動を確認します。コードが追いにくい箇所は、提案の前にデータの流れを図にします。
+  deliverable:
+    en: A written diagnosis — which access patterns are wrong and why, in the order they should be fixed — with the migration and rollback each change needs. The first milestone implemented if you want it.
+    ru: Письменный разбор — какие паттерны доступа неверны и почему, в порядке исправления — вместе с миграцией и планом отката для каждого изменения. Первая веха реализуется, если нужно.
+    ja: 書面での診断 — どのアクセスパターンがなぜ誤っているのかを、直す順番とともに — 各変更に必要な移行手順と戻し方を添えて。ご希望があれば最初のマイルストーンまで実装します。
+  duration:
+    en: 1–2 weeks
+    ru: 1–2 недели
+    ja: 1〜2週間
+  evidence:
+    note: dynamodb-slow-as-data-grew
+    work: packaging-saas
+  published: true
+- id: multilingual-audit
+  order: 2
+  code: S02
+  title:
+    en: Multilingual audit — hreflang, routing, indexing
+    ru: 'Аудит многоязычности: hreflang, маршрутизация, индексация'
+    ja: 多言語監査 — hreflang・ルーティング・インデックス
+  problem:
+    en: A site exists in several languages and the translated pages are not being found, or a language is about to be added and the URLs cannot move afterwards.
+    ru: Сайт существует на нескольких языках, но переведённые страницы не находят, или язык вот-вот добавят, а URL потом уже не сдвинуть.
+    ja: 複数言語のサイトがあるのに翻訳ページが見つけてもらえない。あるいはこれから言語を追加するが、URLは後から動かせない。
+  work:
+    en: Canonical and hreflang reciprocity on every page, locale routing and URL stability, sitemap and robots agreement, and what each locale does to type and layout — a measure set in characters breaks the moment a page is not Latin.
+    ru: Взаимность canonical и hreflang на каждой странице, маршрутизация локалей и устойчивость URL, согласие sitemap и robots, и что каждая локаль делает с типографикой — мера, заданная в символах, ломается на первой же нелатинской странице.
+    ja: 全ページでのcanonicalとhreflangの相互参照、ロケールのルーティングとURLの安定性、sitemapとrobotsの一致、そして各ロケールが組版に与える影響 — 文字数で決めた行長は、ラテン文字でないページで破綻します。
+  deliverable:
+    en: The defects ranked by what they actually cost in traffic, and the build-time checks that stop them coming back — a broken hreflang cluster is not visible in a screenshot.
+    ru: 'Дефекты, ранжированные по тому, во что они обходятся в трафике, и проверки на сборке, которые не дают им вернуться: сломанный hreflang-кластер не виден на скриншоте.'
+    ja: 実際にトラフィックでいくら失っているかで順位づけした不具合と、再発を止めるビルド時のチェック。壊れたhreflangのまとまりはスクリーンショットには写りません。
+  duration:
+    en: About a week
+    ru: Около недели
+    ja: 1週間程度
+  evidence:
+    note: null
+    work: client-delivery
+  published: true
+- id: architecture-review
+  order: 3
+  code: S03
+  title:
+    en: Architecture review before a rebuild
+    ru: Архитектурное ревью перед переписыванием
+    ja: 作り直しの前のアーキテクチャレビュー
+  problem:
+    en: A rewrite is being argued for, or a stack is being chosen, and the decision is about to be made on preference because nobody has the time to test it.
+    ru: Обсуждается переписывание или выбирается стек, и решение вот-вот примут по предпочтению, потому что проверить его некогда.
+    ja: 作り直すかどうかを議論している、あるいはスタックを選ぼうとしている。検証する時間がないために、好みで決まりかけている。
+  work:
+    en: What the system has to do first, then whether what exists is a foundation. Candidates are compared by proof of concept — one question that can fail, one timebox, criteria agreed before the first commit, including how the codebase will hold up when much of it is written with an assistant.
+    ru: 'Сначала что система должна делать, затем — опора ли то, что уже есть. Кандидаты сравниваются через PoC: один вопрос, который может провалиться, один срок, критерии согласованы до первого коммита, включая то, как кодовая база поведёт себя, когда значительная её часть пишется с ассистентом.'
+    ja: まずシステムが何をしなければならないか、次に既存のものが足場になるかどうか。候補はPoCで比較します。失敗しうる問いが1つ、期限が1つ、評価軸は最初のコミットより前に合意し、その中にはコードベースがアシスタント主体の開発にどう耐えるかも含みます。
+  deliverable:
+    en: A decision record in the form a team can revisit — what was compared, against what criteria, what was chosen and what would change the answer — and the PoC plan. The PoCs run if you want them run.
+    ru: 'Запись решения в форме, к которой команда может вернуться: что сравнивали, по каким критериям, что выбрали и что изменило бы ответ, — и план PoC. Сами PoC проводятся, если нужно.'
+    ja: チームが後から読み返せる形の決定記録 — 何を、どの評価軸で比較し、何を選び、何があれば結論が変わるのか — とPoCの計画。ご希望があればPoCの実施まで行います。
+  duration:
+    en: 1–2 weeks
+    ru: 1–2 недели
+    ja: 1〜2週間
+  evidence:
+    note: choosing-a-stack-by-proof-of-concept
+    work: ai-chat-platform
+  published: true

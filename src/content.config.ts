@@ -115,6 +115,30 @@ const experience = defineCollection({
   }),
 });
 
+/**
+ * Productized engagements. The wording is translatable; the shape — code, order, duration band and
+ * which published work each one rests on — is the fact. No price: rates are Ivan's to state, and
+ * `.ai/content/facts.md` keeps financial figures out of site copy until he approves one.
+ */
+const services = defineCollection({
+  loader: file('./src/content/services/services.yaml'),
+  schema: z.object({
+    order: z.number().int(),
+    code: z.string().regex(/^S\d{2}$/),
+    title: localized(z.string()),
+    problem: localized(z.string()),
+    work: localized(z.string()),
+    deliverable: localized(z.string()),
+    duration: localized(z.string()),
+    /** What on this site proves it. A slug in each collection, or null where there is none yet. */
+    evidence: z.object({
+      note: z.string().nullable(),
+      work: z.string().nullable(),
+    }),
+    published: z.boolean(),
+  }),
+});
+
 const principles = defineCollection({
   loader: file('./src/content/principles/principles.yaml'),
   schema: z.object({
@@ -196,4 +220,4 @@ const notes = defineCollection({
   }),
 });
 
-export const collections = { work, experience, principles, lab, notes };
+export const collections = { work, experience, principles, lab, notes, services };

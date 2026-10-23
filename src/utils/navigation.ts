@@ -56,6 +56,7 @@ async function buildPrimaryNav(locale: Locale): Promise<NavItem[]> {
   };
 
   return [
+    item(t.navServices, '/services/'),
     item(t.navWork, '/work/'),
     ...(lab.length ? [item(t.navLab, '/lab/')] : []),
     item(t.navExperience, '/experience/'),

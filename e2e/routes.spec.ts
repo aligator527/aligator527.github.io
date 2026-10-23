@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const ROUTES = [
   '/',
+  '/services/',
   '/work/',
   '/work/next-generation-wms/',
   '/work/ai-chat-platform/',
@@ -117,6 +118,25 @@ test.describe('routes', () => {
     await expect(links).toHaveCount(2);
     for (const href of await links.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) {
       expect(href).toMatch(/^\/lab\/[a-z-]+\/$/);
+    }
+  });
+
+  /*
+   * The services page is the one place on the site that makes promises, so each offer points at
+   * the published work it rests on. A dangling evidence link is a claim with nothing under it.
+   */
+  test('every service cites work that exists', async ({ page }) => {
+    await page.goto('/services/');
+    const offers = page.locator('.offer');
+    await expect(offers).toHaveCount(3);
+    const links = await page
+      .locator('.evidence a')
+      .evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
+    expect(links.length).toBeGreaterThan(2);
+    for (const href of links) {
+      expect(href).toMatch(/^\/(work|notes)\/[a-z-]+\/$/);
+      const response = await page.request.get(href);
+      expect(response.status(), href).toBe(200);
     }
   });
 

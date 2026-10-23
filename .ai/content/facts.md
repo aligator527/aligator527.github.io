@@ -154,7 +154,9 @@ of every repository is a documented non-goal.
 
 Do not publish without a direct source and explicit approval:
 
-- financial impact;
+- financial impact, and Ivan's own rates: the services page states scope and duration and no price,
+  by decision on 2026-10-23. Adding one means adding `price` to the services schema and a value per
+  offer — the page is built for it;
 - conversion, performance, or revenue percentages;
 - named client relationships not already public;
 - user counts other than the CV-approved SaaS adoption claim above;

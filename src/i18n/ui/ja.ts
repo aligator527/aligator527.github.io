@@ -161,6 +161,26 @@ export const ja: Dictionary = {
   resumeCredentialsHeading: '学歴と資格',
   resumeLanguagesHeading: '言語',
 
+  // サービス
+  navServices: 'サービス',
+  servicesSheet: 'SHEET 06 / サービス',
+  servicesTitle: 'サービス',
+  servicesDescription: (name: string) =>
+    `${name}によるパフォーマンス・多言語・アーキテクチャのレビュー。1〜2週間の範囲を区切った依頼、東京からリモートで対応します。`,
+  servicesLead:
+    '常勤の仕事と並行して引き受けられる3つの形です。開発チームではなく、書面の判断で終わるレビューを提供します。',
+  servicesIntro:
+    'いずれも月単位ではなく日単位で区切っています。私が充てられる時間がそれだからです。そして、いずれもこのサイトで公開している仕事に基づいています。その下にあるケーススタディやノートが証拠であり、推薦文ではありません。英語・日本語・ロシア語で、東京からリモート、または日本国外のチームとも進められます。',
+  servicesHeading: '依頼の形',
+  servicesProblem: '課題',
+  servicesWork: '行うこと',
+  servicesDeliverable: 'お渡しするもの',
+  servicesDuration: '期間',
+  servicesEvidence: '根拠',
+  servicesClosing:
+    '費用は範囲によって変わります。まず確かめるべきは、そもそもこの形が合っているかどうかです。課題をお書きいただければ、何をするか、いくらになるかをお伝えします。合わない場合は、ほかの方が適していると申し上げます。ご連絡は',
+  servicesSeeWork: 'まずは実績をご覧ください。',
+
   // Lab and Notes
   labDescription: (name: string) => `${name}による公開コード、プロトタイプ、実験。`,
   labSheet: 'SHEET 05 / ラボ',

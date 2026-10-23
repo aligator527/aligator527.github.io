@@ -1,0 +1,148 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/core/PageHeader.astro';
+import MetaList from '../../components/core/MetaList.astro';
+import { profile } from '../../data/profile';
+import { localize } from '../../i18n/ui';
+import { localePaths, localeHref } from '../../utils/i18n';
+import { getServices } from '../../utils/services';
+import { getWorkIndex, workHref } from '../../utils/work';
+import { getNotes, noteHref, noteSlug } from '../../utils/writing';
+
+/*
+ * One route per locale. English is the `undefined` rest parameter, so this file emits `/services/`
+ * — not `/en/services/`. See `localePaths()`.
+ */
+export const getStaticPaths = localePaths satisfies GetStaticPaths;
+
+const { locale, t } = localize(Astro.url);
+const services = await getServices(locale);
+
+/*
+ * Every offer points at the published work it rests on, by slug. Resolving the titles here rather
+ * than repeating them in the YAML keeps one name per page: renaming a case study renames the link.
+ */
+const work = await getWorkIndex(locale);
+const notes = new Map((await getNotes(locale)).map((note) => [noteSlug(note), note]));
+---
+
+<BaseLayout title={t.servicesTitle} description={t.servicesDescription(profile.name)}>
+  <PageHeader sheet={t.servicesSheet} title={t.servicesTitle} lead={t.servicesLead} />
+  <div class="page grid intro">
+    <p class="document">{t.servicesIntro}</p>
+  </div>
+  <section class="page" aria-labelledby="services-list">
+    <h2 id="services-list" class="visually-hidden">
+      {t.servicesHeading}
+    </h2>
+    <ol class="offers">
+      {services.map((service) => {
+        const note = service.evidence.note ? notes.get(service.evidence.note) : undefined;
+        const study = service.evidence.work ? work.get(service.evidence.work) : undefined;
+        return (
+          <li class="offer grid">
+            <div class="head">
+              <p class="meta meta-quiet">{service.code}</p>
+              <h3>{service.title}</h3>
+            </div>
+            <div class="body">
+              <MetaList
+                layout="inline"
+                items={[
+                  { label: t.servicesProblem, value: service.problem },
+                  { label: t.servicesWork, value: service.work },
+                  { label: t.servicesDeliverable, value: service.deliverable },
+                ]}
+              />
+            </div>
+            <div class="aside">
+              <MetaList items={[{ label: t.servicesDuration, value: service.duration }]} />
+              {(note || study) && (
+                <p class="evidence">
+                  <span class="meta meta-quiet">{t.servicesEvidence}</span>
+                  {study && <a href={workHref(study, locale)}>{study.data.title}</a>}
+                  {note && <a href={noteHref(note, locale)}>{note.data.title}</a>}
+                </p>
+              )}
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+  <div class="page grid closing">
+    <p class="document">
+      {t.servicesClosing} <a href={`mailto:${profile.email}`}>{profile.email}</a>.{' '}
+      <a href={localeHref('/work/', locale)}>{t.servicesSeeWork}</a>
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  @layer components {
+    .intro .document,
+    .closing .document {
+      grid-column: 1 / -1;
+      max-inline-size: var(--measure);
+    }
+
+    .closing {
+      padding-block-start: var(--space-6);
+    }
+
+    .offers {
+      display: grid;
+      padding: 0;
+      list-style: none;
+    }
+
+    .offer {
+      padding-block: var(--space-5);
+      border-block-start: var(--rule-strong);
+      row-gap: var(--space-4);
+    }
+
+    .offer > * {
+      grid-column: 1 / -1;
+    }
+
+    .head h3 {
+      margin-block-start: var(--space-1);
+      max-inline-size: var(--measure-title-wide);
+    }
+
+    .evidence {
+      display: grid;
+      gap: var(--space-1);
+      margin-block-start: var(--space-4);
+      font-size: var(--text-small);
+    }
+
+    @media (min-width: 64rem) {
+      .intro .document,
+      .closing .document {
+        grid-column: 3 / span 8;
+      }
+
+      /* The record grammar of the index pages: what it is, then what it costs to find out. */
+      .offer > .head {
+        grid-column: 1 / span 3;
+      }
+
+      .offer > .body {
+        grid-column: 4 / span 6;
+      }
+
+      .offer > .aside {
+        grid-column: 10 / -1;
+      }
+
+      .head {
+        position: sticky;
+        align-self: start;
+        inset-block-start: var(--space-4);
+      }
+    }
+  }
+</style>

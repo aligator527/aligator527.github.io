@@ -12,6 +12,7 @@ import { expect, test } from '@playwright/test';
 
 const RU_ROUTES = [
   '/ru/',
+  '/ru/services/',
   '/ru/work/',
   '/ru/work/packaging-saas/',
   '/ru/experience/',
@@ -176,6 +177,7 @@ test.describe('context annotations', () => {
  */
 const JA_ROUTES = [
   '/ja/',
+  '/ja/services/',
   '/ja/work/',
   '/ja/work/packaging-saas/',
   '/ja/experience/',
