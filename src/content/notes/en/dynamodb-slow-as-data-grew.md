@@ -1,4 +1,5 @@
 ---
+locale: en
 title: Why your DynamoDB app got slow as data grew
 summary: Five patterns that are invisible at a thousand records and fatal at a hundred thousand — and how to find them in your own code before you change anything.
 publishedAt: '2026-10-23'

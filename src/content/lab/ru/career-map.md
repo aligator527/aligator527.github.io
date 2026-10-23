@@ -1,7 +1,10 @@
 ---
+locale: ru
+translation:
+  source: en
 code: L02
 title: Career Map
-summary: Public wage statistics from eleven countries in one browser-side comparison — age, education, region and occupation, with nothing sent to a server.
+summary: 'Открытая статистика зарплат из одиннадцати стран в одном сравнении: возраст, образование, регион и профессия, и ничего не уходит на сервер.'
 status: complete
 technologies:
   - React

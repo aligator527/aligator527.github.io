@@ -1,6 +1,6 @@
-import { getCollection } from 'astro:content';
 import { useTranslations } from '../i18n/ui';
 import { DEFAULT_LOCALE, localeHref, localesFor, type Locale } from './i18n';
+import { getLab, getNotes } from './writing';
 
 export interface NavItem {
   label: string;
@@ -17,8 +17,9 @@ export interface NavItem {
 }
 
 /**
- * Primary navigation. Lab and Notes appear only once they hold published entries, so visitors never
- * land on an empty section from the header.
+ * Primary navigation. Lab and Notes appear only once they hold published entries — counted in the
+ * default locale, because an untranslated section is a gap and a missing one is a bug — so
+ * visitors never land on an empty section from the header.
  *
  * Cached per locale: the collections are read once per locale per build, and the result is a small
  * array of strings.
@@ -35,17 +36,13 @@ export function getPrimaryNav(locale: Locale): Promise<NavItem[]> {
 }
 
 async function buildPrimaryNav(locale: Locale): Promise<NavItem[]> {
-  const [lab, notes] = await Promise.all([
-    getCollection('lab'),
-    getCollection('notes', ({ data }) => !data.draft),
-  ]);
+  const [lab, notes] = await Promise.all([getLab(DEFAULT_LOCALE), getNotes(DEFAULT_LOCALE)]);
   const t = useTranslations(locale);
   /*
-   * Writing is published in the language it was written in, so Notes and Lab exist in English only
-   * — `localesFor()` in src/utils/i18n.ts is the one place that knows which pages those are. A nav
-   * item for such a page must link to the locale it exists in: building `/ru/notes/` from the
+   * A nav item links to the locale it exists in. Every section is translated today, so this only
+   * fires for a page `localesFor()` keeps English-only — but building `/ru/notes/` from the
    * current locale produced nine broken links per locale the moment the first note was published,
-   * which `scripts/check-links.mjs` caught.
+   * which `scripts/check-links.mjs` caught, and the guard costs one comparison.
    */
   const item = (label: string, path: string): NavItem => {
     const available = localesFor(path);

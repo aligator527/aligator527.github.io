@@ -1,4 +1,5 @@
 ---
+locale: en
 title: Choosing a stack by proof of concept
 summary: A proof of concept answers a decision, not a demo — one question, one timebox, criteria written down first, including the one almost nobody tests for.
 publishedAt: '2026-10-23'

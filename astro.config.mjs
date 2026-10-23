@@ -14,8 +14,10 @@ const base = process.env.BASE_PATH ?? '/';
 // as it takes someone to notice that a section stopped being empty.
 /** @param {string} collection */
 const hasEntries = (collection) => {
+  // Entries live one folder per locale, so the Markdown is a level down from the collection root.
   const dir = new URL(`./src/content/${collection}/`, import.meta.url);
-  return existsSync(dir) && readdirSync(dir).some((file) => /\.mdx?$/.test(file));
+  if (!existsSync(dir)) return false;
+  return readdirSync(dir, { recursive: true }).some((file) => /\.mdx?$/.test(String(file)));
 };
 const EMPTY_SECTIONS = ['lab', 'notes']
   .filter((collection) => !hasEntries(collection))

@@ -377,12 +377,13 @@ describe('the indexing gate', () => {
 });
 
 /*
- * English-only routes. `/lab/`, `/notes/` and `/404/` live outside the `[...locale]` tree, so no
- * Russian or Japanese document exists for them. Advertising one is a link to a 404 — which is what
- * `scripts/check-links.mjs` found when the language switch offered `/ru/lab/`.
+ * English-only routes. `/404/` lives outside the `[...locale]` tree — GitHub Pages serves one error
+ * document for every unmatched path — so no Russian or Japanese document exists for it.
+ * Advertising one is a link to a 404, which is what `scripts/check-links.mjs` found when the
+ * language switch offered `/ru/lab/`, back when Lab and Notes were in this list too.
  */
 describe('pages that exist in English only', () => {
-  it.each(['/lab/', '/notes/', '/404/'])('offers no other locale for %s', (path) => {
+  it.each(['/404/'])('offers no other locale for %s', (path) => {
     expect([...localesFor(path)]).toEqual([DEFAULT_LOCALE]);
     // English still references itself; what must not appear is a second locale. Two entries is
     // the signal `BaseLayout.astro` uses to render no hreflang block at all.
@@ -392,10 +393,16 @@ describe('pages that exist in English only', () => {
     ]);
   });
 
-  it.each(['/', '/work/', '/work/packaging-saas/', '/about/'])(
-    'offers every locale for %s',
-    (path) => {
-      expect([...localesFor(path)]).toEqual([...LOCALES]);
-    },
-  );
+  it.each([
+    '/',
+    '/work/',
+    '/work/packaging-saas/',
+    '/about/',
+    '/notes/',
+    '/notes/dynamodb-slow-as-data-grew/',
+    '/lab/',
+    '/lab/japan-logistics-map/',
+  ])('offers every locale for %s', (path) => {
+    expect([...localesFor(path)]).toEqual([...LOCALES]);
+  });
 });

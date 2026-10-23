@@ -45,13 +45,18 @@ hedged, more specific or more vague than the English is a different claim, and
   `・` inside compound nouns.
 - **Uppercase does not exist** in kana or kanji, so the uppercase-mono metadata register is a no-op
   on `/ja/`. `.ai/design/typography.md` records what carries that distinction instead.
+- **One line per paragraph in Markdown.** A soft line break renders as a space, and a space between
+  two kanji is visible — the first Japanese note shipped with 「決まり ます」 in it. English and
+  Russian files wrap at 100 columns; Japanese ones do not wrap at all.
 - **Name:** 「イワン・ドルゴフ」 in the hidden full name, the `<title>`, and `Person.alternateName`.
 
 ## How it is enforced
 
 - **Type system.** A dictionary missing a key English has is an `astro check` error.
 - **`assertWorkParity()`** fails the build when a translated entry disagrees with English about a
-  date, team size, depth, capability set or diagram shape.
+  date, team size, depth, capability set or diagram shape. `src/utils/writing.ts` does the same for
+  Notes and Lab, and additionally fails when an entry is missing a locale at all — those two
+  collections advertise a translation of every entry, so a gap is a broken link rather than a gap.
 - **`assertTranslated()`** fails the build when a *published* locale is missing any translatable
   value in a data file. An unpublished locale falls back to English visibly, which is what makes a
   gap reviewable instead of hidden.

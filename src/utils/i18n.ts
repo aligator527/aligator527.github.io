@@ -184,13 +184,13 @@ export function localeFromPathname(
 /**
  * Routes that exist in English only, as logical paths.
  *
- * `/lab/` and `/notes/` are placeholders with no entries yet, so there is nothing to translate;
- * `/404/` is one document GitHub Pages serves for every unmatched path in every locale. They live
- * outside the `[...locale]` tree, which is why no Russian or Japanese version is emitted — and why
- * nothing may advertise one. A language switch offering `/ru/lab/`, or an `hreflang` pointing at
- * it, is a link to a 404; `scripts/check-links.mjs` caught exactly that.
+ * `/404/` is one document GitHub Pages serves for every unmatched path in every locale, so it
+ * lives outside the `[...locale]` tree, no Russian or Japanese version is emitted — and nothing
+ * may advertise one. A language switch offering `/ru/404/`, or an `hreflang` pointing at it, is a
+ * link to a page that was never built; `scripts/check-links.mjs` caught exactly that for Notes
+ * while the section was still English-only.
  */
-const ENGLISH_ONLY_PATHS: readonly string[] = ['/lab/', '/notes/', '/404/'];
+const ENGLISH_ONLY_PATHS: readonly string[] = ['/404/'];
 
 /**
  * The locales a given page actually exists in. Every consumer of `alternates()` passes this rather

@@ -1,7 +1,10 @@
 ---
+locale: ru
+translation:
+  source: en
 code: L03
-title: Foreign Residents in Japan
-summary: 'An e-Stat crawler and the datasets it produces: foreign residents by prefecture and municipality, made consistent across periods that are not.'
+title: Иностранные жители Японии
+summary: 'Краулер e-Stat и наборы данных, которые он собирает: иностранные жители по префектурам и муниципалитетам, сведённые к единому виду между периодами.'
 status: complete
 technologies:
   - Python

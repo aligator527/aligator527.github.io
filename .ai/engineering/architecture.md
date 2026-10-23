@@ -40,16 +40,15 @@ src/
 │   ├── work/<locale>/ # one Markdown file per locale per entry
 │   ├── experience/    # YAML; translatable fields nested by locale
 │   ├── principles/    # YAML; same shape
-│   ├── lab/
-│   └── notes/
+│   ├── lab/<locale>/   # same shape as work; src/utils/writing.ts asserts parity
+│   └── notes/<locale>/
 ├── content.config.ts
 ├── data/              # facts with no wording: ids, codes, sources, periods
 ├── i18n/ui/           # en.ts, ru.ts, ja.ts — every UI string, typed against English
 ├── layouts/
 ├── pages/
-│   ├── [...locale]/   # every localised route; English renders unprefixed
-│   ├── lab/, notes/   # English only, deliberately outside the locale tree
-│   ├── 404.astro
+│   ├── [...locale]/   # every localised route, work/ lab/ notes/ included; English unprefixed
+│   ├── 404.astro      # the one document outside the locale tree
 │   └── robots.txt.ts
 ├── styles/
 │   ├── reset.css

@@ -129,6 +129,10 @@ const principles = defineCollection({
 const lab = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/lab' }),
   schema: z.object({
+    /** The language this file is written in, and the folder it lives in: `lab/en/...`. */
+    locale: z.enum(LOCALES),
+    /** Where a translation came from and whether a human has read it. See the work collection. */
+    translation: z.object({ source: z.enum(LOCALES), reviewedOn: isoDate.optional() }).optional(),
     /** The entry's place in the annotation grammar, like `P01` for work: `L01`, `L02`. */
     code: z.string().regex(/^L\d{2}$/),
     title: z.string(),
@@ -147,6 +151,10 @@ const lab = defineCollection({
 const notes = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/notes' }),
   schema: z.object({
+    /** The language this file is written in, and the folder it lives in: `notes/en/...`. */
+    locale: z.enum(LOCALES),
+    /** Where a translation came from and whether a human has read it. See the work collection. */
+    translation: z.object({ source: z.enum(LOCALES), reviewedOn: isoDate.optional() }).optional(),
     title: z.string(),
     summary: z.string(),
     publishedAt: isoDate,

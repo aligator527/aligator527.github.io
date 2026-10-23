@@ -27,20 +27,23 @@ test('a section with entries links from the navigation', async ({ page }) => {
   }
 });
 
-test('an English-only section links out of a translated page in English', async ({ page }) => {
+test("every section stays in the reader's locale", async ({ page }) => {
   await page.goto('/ja/');
-  // The landmark label and the link labels are Japanese; only the destinations are English.
   const nav = page.getByRole('navigation', { name: 'メインナビゲーション' });
   for (const [label, href] of [
-    [/ラボ/, '/lab/'],
-    [/ノート/, '/notes/'],
+    [/ラボ/, '/ja/lab/'],
+    [/ノート/, '/ja/notes/'],
   ] as const) {
-    // `/ja/lab/` does not exist. The link resolves to the default locale rather than 404,
-    // and carries the language change so a screen reader announces it.
+    /*
+     * Notes and Lab were English-only until they were translated, and the header said so with an
+     * EN marker and an `hreflang`. Now that every section exists in every locale, a link that
+     * leaves the reader's language is a bug: `localesFor()` is what decides, and this is the
+     * rendered consequence of it.
+     */
     const link = nav.getByRole('link', { name: label });
     await expect(link).toHaveAttribute('href', href);
-    await expect(link).toHaveAttribute('hreflang', 'en');
-    await expect(link).toContainText('EN');
+    await expect(link).not.toHaveAttribute('hreflang', /.+/);
+    await expect(link).not.toContainText('EN');
   }
 });
 

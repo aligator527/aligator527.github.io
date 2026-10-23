@@ -1,14 +1,28 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { getCollection, render } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHeader from '../../components/core/PageHeader.astro';
-import MetaList from '../../components/core/MetaList.astro';
-import { localize } from '../../i18n/ui';
+import { render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHeader from '../../../components/core/PageHeader.astro';
+import MetaList from '../../../components/core/MetaList.astro';
+import { localize } from '../../../i18n/ui';
+import { EMITTED_LOCALES, localeParam } from '../../../utils/i18n';
+import { getNotes, noteSlug } from '../../../utils/writing';
 
+/*
+ * One route per locale per note. The slug is the same in every locale, which is what makes
+ * `/notes/x/` and `/ja/notes/x/` a translation pair rather than two unrelated pages.
+ */
 export const getStaticPaths = (async () => {
-  const notes = await getCollection('notes', ({ data }) => !data.draft);
-  return notes.map((note) => ({ params: { slug: note.id }, props: { note } }));
+  const perLocale = await Promise.all(
+    EMITTED_LOCALES.map(async (locale) => {
+      const notes = await getNotes(locale);
+      return notes.map((note) => ({
+        params: { locale: localeParam(locale), slug: noteSlug(note) },
+        props: { note },
+      }));
+    }),
+  );
+  return perLocale.flat();
 }) satisfies GetStaticPaths;
 
 const { note } = Astro.props;
@@ -19,7 +33,7 @@ const { t } = localize(Astro.url);
 <BaseLayout title={note.data.title} description={note.data.summary}>
   <article>
     <PageHeader
-      sheet={`Note / ${note.data.publishedAt.replaceAll('-', '/')}`}
+      sheet={`${t.noteSheet} / ${note.data.publishedAt.replaceAll('-', '/')}`}
       title={note.data.title}
       lead={note.data.summary}
     />
@@ -30,7 +44,7 @@ const { t } = localize(Astro.url);
             {
               label: t.notesTopicsLabel,
               /* A topic is one token in a two-column rail, so it must not break across lines. */
-              value: note.data.topics.map((topic) => topic.replaceAll(' ', '\u00A0')).join(' · '),
+              value: note.data.topics.map((topic) => topic.replaceAll(' ', ' ')).join(' · '),
             },
           ]}
         />

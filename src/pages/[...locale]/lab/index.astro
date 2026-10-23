@@ -1,16 +1,21 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import PageHeader from '../../components/core/PageHeader.astro';
-import { profile } from '../../data/profile';
-import { localize } from '../../i18n/ui';
-import { formatMonth } from '../../utils/dates';
-import { localeHref } from '../../utils/i18n';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHeader from '../../../components/core/PageHeader.astro';
+import { profile } from '../../../data/profile';
+import { localize } from '../../../i18n/ui';
+import { localePaths } from '../../../utils/i18n';
+import { formatMonth } from '../../../utils/dates';
+import { getLab, hasPage, labHref } from '../../../utils/writing';
+
+/*
+ * One route per locale. English is the `undefined` rest parameter, so this file emits `/lab/` —
+ * not `/en/lab/` — and the indexed URL is unchanged. See `localePaths()`.
+ */
+export const getStaticPaths = localePaths satisfies GetStaticPaths;
 
 const { locale, t } = localize(Astro.url);
-const entries = (await getCollection('lab')).sort((a, b) => b.data.date.localeCompare(a.data.date));
-/* Only an entry with a body has a page of its own — see `lab/[slug].astro`. */
-const detailed = new Set(entries.filter((entry) => entry.body?.trim()).map((entry) => entry.id));
+const entries = await getLab(locale);
 ---
 
 <BaseLayout
@@ -38,8 +43,8 @@ const detailed = new Set(entries.filter((entry) => entry.body?.trim()).map((entr
               {t.labStatus[entry.data.status]}
             </p>
             <h3>
-              {detailed.has(entry.id) ? (
-                <a href={localeHref(`/lab/${entry.id}/`, locale)}>{entry.data.title}</a>
+              {hasPage(entry) ? (
+                <a href={labHref(entry, locale)}>{entry.data.title}</a>
               ) : (
                 entry.data.title
               )}

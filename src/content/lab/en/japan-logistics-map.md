@@ -1,4 +1,5 @@
 ---
+locale: en
 code: L01
 title: Japan Logistics Map
 summary: A first-pass screening tool for warehouse location in Japan — open statistics, travel-time analysis and two siting algorithms, with no backend.

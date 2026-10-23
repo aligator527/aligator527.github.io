@@ -16,6 +16,10 @@ const RU_ROUTES = [
   '/ru/work/packaging-saas/',
   '/ru/experience/',
   '/ru/about/',
+  '/ru/notes/',
+  '/ru/notes/dynamodb-slow-as-data-grew/',
+  '/ru/lab/',
+  '/ru/lab/japan-logistics-map/',
 ];
 
 test.describe('the Russian locale', () => {
@@ -167,9 +171,8 @@ test.describe('context annotations', () => {
 });
 
 /*
- * Japanese is built for review and not published yet, so its checks are the mirror of the Russian
- * ones at the other end of the rollout: the pages must exist, declare themselves, and ask to be
- * left out of the index until Ivan has read them.
+ * Japanese is published, so its checks mirror the Russian ones exactly: the pages must exist,
+ * declare their language, hold no English sentence, and ask for indexing rather than against it.
  */
 const JA_ROUTES = [
   '/ja/',
@@ -177,6 +180,10 @@ const JA_ROUTES = [
   '/ja/work/packaging-saas/',
   '/ja/experience/',
   '/ja/about/',
+  '/ja/notes/',
+  '/ja/notes/dynamodb-slow-as-data-grew/',
+  '/ja/lab/',
+  '/ja/lab/japan-logistics-map/',
 ];
 
 test.describe('the Japanese locale', () => {
