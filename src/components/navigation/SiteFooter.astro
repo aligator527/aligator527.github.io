@@ -28,6 +28,12 @@ const profile = localizedProfile(t);
         </dd>
       </div>
       <div>
+        <dt class="meta meta-quiet">{t.footerBooking}</dt>
+        <dd>
+          <a href={profile.booking.href}>{profile.booking.label}</a>
+        </dd>
+      </div>
+      <div>
         <dt class="meta meta-quiet">{t.footerGithub}</dt>
         <dd>
           <a href={profile.github.href} rel="me">

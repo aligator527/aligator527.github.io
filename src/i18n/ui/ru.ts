@@ -42,6 +42,7 @@ export const ru: Dictionary = {
   footerHeading:
     'Если у вас есть система, которую нужно спроектировать или довести до продакшена, напишите мне.',
   footerEmail: 'Почта',
+  footerBooking: 'Созвон',
   footerGithub: 'GitHub',
   footerLinkedin: 'LinkedIn',
   footerBase: 'Город',
@@ -184,6 +185,7 @@ export const ru: Dictionary = {
   servicesEvidence: 'Доказательство',
   servicesClosing:
     'Цены указаны как нижняя граница, без потребительского налога, итог определяет объём. Опишите задачу, и я скажу, что бы сделал и во что это обойдётся, либо что вам лучше подойдёт кто-то другой. Пишите на',
+  servicesBook: 'Или забронируйте 30 минут.',
   servicesSeeWork: 'Или сначала посмотрите проекты.',
 
   // Lab and Notes

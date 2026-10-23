@@ -82,6 +82,7 @@ const notes = new Map((await getNotes(locale)).map((note) => [noteSlug(note), no
   <div class="page grid closing">
     <p class="document">
       {t.servicesClosing} <a href={`mailto:${profile.email}`}>{profile.email}</a>.{' '}
+      <a href={profile.booking.href}>{t.servicesBook}</a>{' '}
       <a href={localeHref('/work/', locale)}>{t.servicesSeeWork}</a>
     </p>
   </div>

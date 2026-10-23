@@ -42,6 +42,7 @@ export const en = {
   footerMark: 'END / CONTACT',
   footerHeading: 'If you have a system to design or ship, write to me.',
   footerEmail: 'Email',
+  footerBooking: 'Call',
   footerGithub: 'GitHub',
   footerLinkedin: 'LinkedIn',
   footerBase: 'Base',
@@ -191,6 +192,7 @@ export const en = {
   servicesEvidence: 'Evidence',
   servicesClosing:
     'Prices are floors, before consumption tax, and the scope sets the figure — so describe the problem and I will say what I would do and what it would cost, or that someone else is a better fit. Write to',
+  servicesBook: 'Or book 30 minutes.',
   servicesSeeWork: 'Or read the work first.',
 
   /* Lab and Notes carry a state marker while their collection is empty, and join the numbered */

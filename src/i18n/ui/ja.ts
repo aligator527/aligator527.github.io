@@ -40,6 +40,7 @@ export const ja: Dictionary = {
   footerMark: 'END / CONTACT',
   footerHeading: '設計や開発が必要なシステムがあれば、ご連絡ください。',
   footerEmail: 'メール',
+  footerBooking: '通話',
   footerGithub: 'GitHub',
   footerLinkedin: 'LinkedIn',
   footerBase: '拠点',
@@ -181,6 +182,7 @@ export const ja: Dictionary = {
   servicesEvidence: '根拠',
   servicesClosing:
     '表示の金額は税別の下限で、最終的な金額は範囲によって決まります。課題をお書きいただければ、何をするか、いくらになるかをお伝えします。合わない場合は、ほかの方が適していると申し上げます。ご連絡は',
+  servicesBook: '30分の枠を予約することもできます。',
   servicesSeeWork: 'まずは実績をご覧ください。',
 
   // Lab and Notes
