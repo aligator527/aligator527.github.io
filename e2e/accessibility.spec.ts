@@ -9,6 +9,7 @@ const ROUTES = [
   '/experience/',
   '/about/',
   '/resume/',
+  '/privacy/',
   '/notes/per-user-identity-pricing/',
   '/lab/japan-logistics-map/',
   '/404/',

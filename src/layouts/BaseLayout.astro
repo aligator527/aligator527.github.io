@@ -1,6 +1,6 @@
 ---
 import { Font } from 'astro:assets';
-import Analytics from '../components/core/Analytics.astro';
+import ConsentNotice from '../components/core/ConsentNotice.astro';
 import SiteHeader from '../components/navigation/SiteHeader.astro';
 import SiteFooter from '../components/navigation/SiteFooter.astro';
 import { profile } from '../data/profile';
@@ -129,17 +129,17 @@ const showAlternates = !noindex && localeAlternates.length > 2;
       />
     )}
     <Font cssVariable="--font-ibm-plex-mono" />
-    {/*
-      Last in <head>, and emitted only by a build that opted in — see src/data/analytics.ts.
-      Order matters here: the font preloads above are the critical requests, and a third-party
-      script declared before them competes with the LCP element for the connection.
-    */}
-    <Analytics />
   </head>
   <body>
     <a class="skip-link" href="#main">
       {t.skipToContent}
     </a>
+    {/*
+      Before the header, in flow, and emitted only by a build that opted in — see
+      src/components/core/ConsentNotice.astro for why it is here rather than fixed to the bottom.
+      Nothing third-party loads until this component's script is told to load it.
+    */}
+    <ConsentNotice />
     <SiteHeader />
     <main id="main" tabindex="-1">
       <slot />

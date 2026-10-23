@@ -1,0 +1,218 @@
+---
+/**
+ * The consent gate: the notice a first-time visitor sees, and the script that owns the choice.
+ *
+ * Nothing third-party is requested before consent. Not a cookieless ping, not the loader — Consent
+ * Mode's `wait_for_update` would still have loaded gtag.js and measured in a degraded mode, which
+ * is defensible but needs a paragraph of explanation that this site would then owe the reader. So
+ * the loader is injected by `grant()` and by nothing else, and the privacy page can state the rule
+ * in one sentence.
+ *
+ * Advertising stays denied for the whole session, not just until someone changes their mind in the
+ * GA4 admin: `ad_storage`, `ad_user_data` and `ad_personalization` are refused in the default
+ * consent call and never updated. That is what makes "measurement, not advertising" a claim this
+ * repository enforces rather than a promise the privacy page makes on Google's behalf.
+ *
+ * Rendered in flow at the top of <body>, before the header, for three reasons that a fixed overlay
+ * strip gets wrong: a keyboard reader reaches the choice immediately instead of tabbing the whole
+ * page, nothing is ever obscured at 320px or at 200% zoom, and a document notice at the head of the
+ * sheet is the site's own grammar rather than the floating cookie bar every other site has.
+ *
+ * `hidden` in the markup, revealed by the script: without JavaScript there is no gate, no loader and
+ * no measurement, so a notice offering a choice that nothing can record would be a lie. The script
+ * is synchronous and sits immediately after the markup, so the reveal happens before first paint.
+ */
+import { CONSENT_STORAGE_KEY, measurementId } from '../../data/analytics';
+import { localize } from '../../i18n/ui';
+import { localeHref } from '../../utils/i18n';
+
+const { locale, t } = localize(Astro.url);
+const id = measurementId();
+
+/*
+ * ES5 on purpose: `is:inline` means Astro neither bundles nor transpiles this, and the gate is the
+ * one script that must run in whatever browser arrives. `window.__consentGate` is the API the
+ * privacy page's control calls — one owner for the key, the loader and the cookie cleanup, so the
+ * page that offers to withdraw consent cannot disagree with the gate about what consent means.
+ */
+const gate = `(function () {
+  var ID = ${JSON.stringify(id ?? '')};
+  var KEY = ${JSON.stringify(CONSENT_STORAGE_KEY)};
+  var notice = document.getElementById('consent-notice');
+
+  function read() {
+    try {
+      return localStorage.getItem(KEY);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function write(value) {
+    try {
+      localStorage.setItem(KEY, value);
+    } catch (error) {
+      /* Private mode, or storage refused. The choice holds for this page view and is asked again. */
+    }
+  }
+
+  function load() {
+    if (window.__gtagLoaded) return;
+    window.__gtagLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag('consent', 'default', {
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      analytics_storage: 'granted'
+    });
+    window.gtag('js', new Date());
+    window.gtag('config', ID);
+    var tag = document.createElement('script');
+    tag.async = true;
+    tag.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
+    document.head.appendChild(tag);
+  }
+
+  function forget() {
+    var cookies = document.cookie ? document.cookie.split(';') : [];
+    for (var i = 0; i < cookies.length; i++) {
+      var name = cookies[i].split('=')[0].replace(/^\\s+/, '');
+      if (name.slice(0, 3) === '_ga') {
+        document.cookie = name + '=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      }
+    }
+  }
+
+  window.__consentGate = {
+    state: read,
+    grant: function () {
+      write('granted');
+      load();
+    },
+    deny: function () {
+      write('denied');
+      forget();
+    }
+  };
+
+  var choice = read();
+  if (choice === 'granted') load();
+  if (choice || !notice) return;
+
+  function close() {
+    notice.hidden = true;
+    /* The control that had focus is gone. #main is where the skip link sends a reader too. */
+    var main = document.getElementById('main');
+    if (main) main.focus();
+  }
+
+  notice.hidden = false;
+  notice.querySelector('[data-consent="allow"]').addEventListener('click', function () {
+    window.__consentGate.grant();
+    close();
+  });
+  notice.querySelector('[data-consent="decline"]').addEventListener('click', function () {
+    window.__consentGate.deny();
+    close();
+  });
+})();`;
+---
+
+{id && (
+  <Fragment>
+    <section id="consent-notice" class="consent" aria-labelledby="consent-mark" hidden>
+      <div class="page consent-row">
+        <p id="consent-mark" class="meta signal-text">
+          {t.consentMark}
+        </p>
+        <p class="consent-body">{t.consentBody}</p>
+        <div class="consent-actions">
+          <button type="button" data-consent="allow">
+            {t.consentAllow}
+          </button>
+          <button type="button" data-consent="decline">
+            {t.consentDecline}
+          </button>
+          <a class="consent-more" href={localeHref('/privacy/', locale)}>
+            {t.consentMore}
+          </a>
+        </div>
+      </div>
+    </section>
+    <script is:inline set:html={gate}></script>
+  </Fragment>
+)}
+
+<style>
+  @layer components {
+    .consent {
+      border-block-end: var(--rule-ink);
+      background: var(--surface-paper-elevated);
+      padding-block: var(--space-3);
+    }
+
+    .consent-row {
+      display: grid;
+      row-gap: var(--space-2);
+    }
+
+    .consent-body {
+      max-inline-size: var(--measure-caption);
+      font-size: var(--text-small);
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    .consent-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-2) var(--space-4);
+    }
+
+    /* Both buttons are the same control: same size, same type, same weight, distinguished */
+    /* only by their label. Declining has to be as easy as allowing, and a decline styled as a */
+    /* quiet link beside a filled accept button is the pattern regulators single out. */
+    /* (One comment per line: Prettier re-indents a multi-line CSS comment on every run.) */
+    .consent-actions button {
+      min-block-size: var(--tap-min);
+      padding-inline: var(--space-3);
+      border: var(--rule-ink);
+      background: transparent;
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: var(--text-meta);
+      font-weight: 500;
+      letter-spacing: var(--tracking-meta);
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color var(--duration-fast) var(--ease-standard);
+    }
+
+    .consent-actions button:hover {
+      border-color: var(--signal);
+      color: var(--signal-text);
+    }
+
+    .consent-more {
+      font-size: var(--text-small);
+    }
+
+    /* The label and the sentence share a line once there is room for the measure beside it. */
+    @media (width>=48rem) {
+      .consent-row {
+        grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+        column-gap: var(--grid-gutter);
+        align-items: baseline;
+      }
+
+      .consent-actions {
+        grid-column: 2;
+      }
+    }
+  }
+</style>

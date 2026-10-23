@@ -1,0 +1,99 @@
+---
+/**
+ * The privacy page's prose, in English. See `./index.ts` for why the facts arrive as props.
+ */
+import type { PrivacyProseProps } from './index';
+
+const { section, measurementId, retentionMonths, consentKey, email, booking, name } =
+  Astro.props as PrivacyProseProps;
+---
+
+{section === 'site' && (
+  <>
+    <p>
+      The pages are plain HTML and CSS, built ahead of time and served as files by GitHub Pages.
+      There is no server of mine behind them, no database, and no form that sends anything anywhere.
+      The site itself sets no cookie.
+    </p>
+    <p>
+      GitHub serves those files, so GitHub sees each request — the address it came from, the browser
+      that made it, the URL it asked for — and keeps it in its own logs, under its own privacy
+      statement. Those logs are not available to me: a GitHub Pages site gives its author no access
+      log at all, which is the reason the measurement below exists.
+    </p>
+  </>
+)}
+
+{section === 'measurement' && (
+  <>
+    <p>
+      With your consent, and only then, the page loads Google Analytics 4 — property{' '}
+      <code>{measurementId}</code>. Until you allow it your browser makes no request to Google at
+      all: the loader is not in the page waiting to run, it is added by the script that records your
+      answer.
+    </p>
+    <p>
+      What is recorded is the page you are reading, the page that referred you, an approximate
+      location derived from your address, and your device, browser and language. The address itself
+      is used to derive that location and is not stored in the property. Two first-party cookies,{' '}
+      <code>_ga</code> and <code>_ga_…</code>, are set in your browser so that a second visit is not
+      counted as a first one. While measurement is allowed, clicks on links that leave the site and
+      downloads of the CV are recorded as events.
+    </p>
+    <p>
+      Advertising is refused in the same call that starts measurement: <code>ad_storage</code>,{' '}
+      <code>ad_user_data</code> and <code>ad_personalization</code> are set to denied and are never
+      updated, so there is no advertising cookie, no remarketing audience, and nothing with which to
+      personalise an advert. Google processes what is collected on my behalf under its own terms,
+      and the property keeps it for {retentionMonths} months, after which Google deletes the records
+      at the level of an individual visitor.
+    </p>
+  </>
+)}
+
+{section === 'choice' && (
+  <>
+    <p>
+      Your answer is kept as a single entry in your browser's local storage —{' '}
+      <code>{consentKey}</code>, holding <code>granted</code> or <code>denied</code>. It is not a
+      cookie, it is never sent anywhere, and its only purpose is that the notice does not ask twice.
+    </p>
+    <p>
+      You can change it here at any time. Withdrawing deletes the <code>_ga</code> cookies this site
+      set and reloads the page without the measurement script. Clearing site data in your browser
+      forgets the answer too, and the notice will ask again.
+    </p>
+  </>
+)}
+
+{section === 'elsewhere' && (
+  <>
+    <p>
+      The email address is a <code>mailto:</code> link: it opens your own mail client, and what you
+      write arrives in my mailbox. The booking link goes to{' '}
+      <a href={booking.href}>{booking.label}</a>, a separate service with its own privacy policy —
+      nothing about you reaches it until you follow the link. The links to GitHub, LinkedIn and the
+      articles published elsewhere are ordinary links, and each destination decides its own
+      handling.
+    </p>
+    <p>
+      The CV is a PDF served from this site, so downloading it involves no third party beyond the
+      request itself.
+    </p>
+  </>
+)}
+
+{section === 'contact' && (
+  <>
+    <p>
+      This site is published by {name} in Tokyo, Japan. For anything about this page, or about data
+      it may hold on you, write to <a href={`mailto:${email}`}>{email}</a>.
+    </p>
+    <p>
+      If you are in the European Union or the United Kingdom: you may ask what is held about you,
+      ask for it to be deleted, or object to the measurement — and withdrawing consent above is the
+      direct way to do the last of those. The only data this site puts anywhere is the measurement
+      described above and whatever you choose to send by email.
+    </p>
+  </>
+)}

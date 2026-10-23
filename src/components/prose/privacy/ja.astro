@@ -1,0 +1,86 @@
+---
+/**
+ * The privacy page's prose, in Japanese. See `./index.ts` for why the facts arrive as props.
+ *
+ * One line per paragraph: a soft break renders as a space, and a space between two kanji is visible
+ * on the page — see `.ai/content/translation.md`.
+ */
+import type { PrivacyProseProps } from './index';
+
+const { section, measurementId, retentionMonths, consentKey, email, booking, name } =
+  Astro.props as PrivacyProseProps;
+---
+
+{section === 'site' && (
+  <>
+    <p>
+      ページは事前にビルドした素のHTMLとCSSで、GitHub
+      Pagesがファイルとして配信しています。背後に私のサーバーもデータベースもなく、どこかへ送信するフォームもありません。サイト自体はcookieを一切設定しません。
+    </p>
+    <p>
+      配信しているのはGitHubですから、GitHubは各リクエストを見ています。どのアドレスから、どのブラウザで、どのURLを求めたか。それはGitHub自身のログに残り、GitHub自身のポリシーに従います。そのログは私には見られません。GitHub
+      Pagesのサイトは作者にアクセスログを一切渡さないからです。下に書いた計測があるのは、そのためです。
+    </p>
+  </>
+)}
+
+{section === 'measurement' && (
+  <>
+    <p>
+      同意をいただいた場合にのみ、ページはGoogle Analytics 4（プロパティ<code>{measurementId}</code>
+      ）を読み込みます。許可するまで、ブラウザはGoogleへ一度もリクエストしません。ローダーがページの中で待っているのではなく、回答を記録するスクリプトが後から追加します。
+    </p>
+    <p>
+      記録されるのは、読んでいるページ、参照元のページ、アドレスから推定した大まかな位置、そして端末・ブラウザ・言語です。アドレス自体は推定に使うだけで、プロパティには保存されません。
+      <code>_ga</code>と<code>_ga_…</code>
+      というファーストパーティcookieをブラウザに設定し、2回目の訪問が1回目として数えられないようにします。計測を許可している間は、サイト外へのリンクのクリックと経歴書のダウンロードもイベントとして記録されます。
+    </p>
+    <p>
+      広告は、計測を開始するのと同じ呼び出しで拒否しています。<code>ad_storage</code>、
+      <code>ad_user_data</code>、<code>ad_personalization</code>
+      はdeniedに設定し、その後も更新しません。ですから広告cookieもリマーケティングのオーディエンスもなく、広告を個人に合わせる材料もありません。収集されたものは、私の委託を受けたGoogleがGoogle自身の条件のもとで処理します。プロパティでの保持は
+      {retentionMonths}か月で、その後Googleが訪問者単位の記録を削除します。
+    </p>
+  </>
+)}
+
+{section === 'choice' && (
+  <>
+    <p>
+      回答はブラウザのローカルストレージの1項目として保存されます。キーは<code>{consentKey}</code>
+      、値は<code>granted</code>または<code>denied</code>
+      です。cookieではなく、どこにも送信されません。通知が二度尋ねないためだけにあります。
+    </p>
+    <p>
+      この場でいつでも変更できます。撤回すると、このサイトが設定した<code>_ga</code>{' '}
+      cookieを削除し、計測スクリプトなしでページを再読み込みします。ブラウザでサイトのデータを消した場合も回答は失われ、通知はもう一度尋ねます。
+    </p>
+  </>
+)}
+
+{section === 'elsewhere' && (
+  <>
+    <p>
+      メールアドレスは<code>mailto:</code>
+      リンクです。お使いのメールソフトが開き、書いた内容は私のメールボックスに届きます。打ち合わせのリンクは
+      <a href={booking.href}>{booking.label}</a>
+      という別のサービスへ向かいます。独自のポリシーがあり、リンクをたどるまであなたの情報は何も渡りません。GitHub、LinkedIn、外部で公開している記事へのリンクは通常のリンクで、取り扱いは各サイトが決めます。
+    </p>
+    <p>
+      経歴書はこのサイトから配信されるPDFですので、ダウンロードにリクエスト以外の第三者は関わりません。
+    </p>
+  </>
+)}
+
+{section === 'contact' && (
+  <>
+    <p>
+      このサイトは{name}
+      （東京）が公開しています。このページのこと、またはこのサイトがあなたについて保持しうるデータのことは、
+      <a href={`mailto:${email}`}>{email}</a>までご連絡ください。
+    </p>
+    <p>
+      EUまたは英国にお住まいの場合、保持されている内容の開示、削除、計測への異議を求めることができます。最後のものは、上の同意の撤回が直接の手段です。このサイトがどこかへ渡すデータは、上に書いた計測と、あなたがメールで送るものだけです。
+    </p>
+  </>
+)}

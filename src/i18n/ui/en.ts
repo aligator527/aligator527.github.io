@@ -46,7 +46,8 @@ export const en = {
   footerGithub: 'GitHub',
   footerLinkedin: 'LinkedIn',
   footerBase: 'Base',
-  footerColophon: 'Static HTML · Astro · no client JavaScript',
+  footerColophon: 'Static HTML · Astro · no script without consent',
+  footerPrivacy: 'Privacy',
   footerCopyright: (year: number, name: string) => `© ${year} ${name}`,
 
   /*
@@ -376,6 +377,34 @@ export const en = {
 
   // Diagrams
   environmentsInOrder: (unit: string) => `${unit} environments, in promotion order`,
+
+  // Consent and privacy. The gate is src/components/core/ConsentNotice.astro.
+  consentMark: 'NOTICE / MEASUREMENT',
+  consentBody:
+    'This site counts page views with Google Analytics, and only if you allow it. Until you choose, nothing is loaded and no cookie is set.',
+  consentAllow: 'Allow',
+  consentDecline: 'Decline',
+  consentMore: 'What is measured',
+
+  privacyDescription: (name: string) =>
+    `What ${name}’s site measures, what it keeps in your browser, and how to change your mind.`,
+  privacySheet: 'Sheet 07 / Privacy',
+  privacyTitle: 'Privacy',
+  privacyLead:
+    'Static pages on GitHub Pages, one measurement script that runs only with your consent, and no third party that gets to decide otherwise.',
+  privacySiteTitle: 'What the pages do on their own',
+  privacyMeasurementTitle: 'Measurement, after consent',
+  privacyChoiceTitle: 'Your choice',
+  privacyElsewhereTitle: 'Links that leave the site',
+  privacyContactTitle: 'Who is responsible',
+  privacyStatusLabel: 'Current choice',
+  privacyStatusGranted: 'Measurement allowed',
+  privacyStatusDenied: 'Measurement declined',
+  privacyStatusNone: 'Nothing chosen yet',
+  privacyWithdraw: 'Withdraw consent',
+  privacyGrant: 'Allow measurement',
+  privacyNoScript:
+    'The gate, the choice and the loading are all script, so with JavaScript switched off nothing is measured and there is nothing to withdraw.',
 };
 
 /**

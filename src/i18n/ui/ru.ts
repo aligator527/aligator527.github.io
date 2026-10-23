@@ -46,7 +46,8 @@ export const ru: Dictionary = {
   footerGithub: 'GitHub',
   footerLinkedin: 'LinkedIn',
   footerBase: 'Город',
-  footerColophon: 'Статический HTML · Astro · без клиентского JavaScript',
+  footerColophon: 'Статический HTML · Astro · ни одного скрипта без согласия',
+  footerPrivacy: 'Конфиденциальность',
   footerCopyright: (year: number, name: string) => `© ${year} ${name}`,
 
   organizationNote: (note: string) => ` (${note})`,
@@ -366,4 +367,32 @@ export const ru: Dictionary = {
 
   // Diagrams
   environmentsInOrder: (unit: string) => `${unit}: окружения в порядке продвижения`,
+
+  // Consent and privacy. The gate is src/components/core/ConsentNotice.astro.
+  consentMark: 'УВЕДОМЛЕНИЕ / ИЗМЕРЕНИЕ',
+  consentBody:
+    'Сайт считает просмотры страниц через Google Analytics — только если вы разрешите. До вашего выбора ничего не загружается и ни одна cookie не ставится.',
+  consentAllow: 'Разрешить',
+  consentDecline: 'Отклонить',
+  consentMore: 'Что измеряется',
+
+  privacyDescription: (name: string) =>
+    `Что измеряет сайт ${name}, что хранится в вашем браузере и как изменить решение.`,
+  privacySheet: 'Лист 07 / Конфиденциальность',
+  privacyTitle: 'Конфиденциальность',
+  privacyLead:
+    'Статические страницы на GitHub Pages, один скрипт измерения, который запускается только с вашего согласия, и ни одной третьей стороны, которая решала бы это за вас.',
+  privacySiteTitle: 'Что страницы делают сами',
+  privacyMeasurementTitle: 'Измерение после согласия',
+  privacyChoiceTitle: 'Ваш выбор',
+  privacyElsewhereTitle: 'Ссылки за пределы сайта',
+  privacyContactTitle: 'Кто отвечает',
+  privacyStatusLabel: 'Текущий выбор',
+  privacyStatusGranted: 'Измерение разрешено',
+  privacyStatusDenied: 'Измерение отклонено',
+  privacyStatusNone: 'Выбор ещё не сделан',
+  privacyWithdraw: 'Отозвать согласие',
+  privacyGrant: 'Разрешить измерение',
+  privacyNoScript:
+    'Проверка согласия, сам выбор и загрузка счётчика сделаны скриптом, поэтому при выключенном JavaScript измерения нет и отзывать нечего.',
 };

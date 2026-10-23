@@ -2,6 +2,7 @@
 
 Status: Accepted
 Date: 2026-10-24
+Amended by: ADR-0008, which adds the consent gate and the privacy page
 
 ## Context
 
@@ -47,7 +48,8 @@ Both tags carry `is:inline`, so no bundle enters the build graph and `window.gta
 
 - The deployed site makes a third-party request and sets `_ga` cookies. It has no consent banner and
   no privacy page, which is an open obligation towards EU and UK visitors under ePrivacy/GDPR and is
-  deliberately recorded as unfinished rather than implied to be handled.
+  deliberately recorded as unfinished rather than implied to be handled. **Closed by ADR-0008 on
+  2026-10-24:** nothing third-party loads before consent, and `/privacy/` states and withdraws it.
 - Every other build still ships zero bytes of client JavaScript, so the no-JS test keeps its strict
   assertion and still catches a component that starts shipping JavaScript.
 - The analytics tag is untested end to end: Playwright exercises a build without it. `measurementId`

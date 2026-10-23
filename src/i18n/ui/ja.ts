@@ -44,7 +44,8 @@ export const ja: Dictionary = {
   footerGithub: 'GitHub',
   footerLinkedin: 'LinkedIn',
   footerBase: '拠点',
-  footerColophon: '静的HTML · Astro · クライアントJavaScriptなし',
+  footerColophon: '静的HTML · Astro · 同意のないスクリプトなし',
+  footerPrivacy: 'プライバシー',
   footerCopyright: (year: number, name: string) => `© ${year} ${name}`,
 
   organizationNote: (note: string) => `（${note}）`,
@@ -351,4 +352,32 @@ export const ja: Dictionary = {
       jlpt: { title: '日本語能力試験 N1' },
     },
   },
+
+  // Consent and privacy. The gate is src/components/core/ConsentNotice.astro.
+  consentMark: 'NOTICE / 計測',
+  consentBody:
+    'このサイトは、許可をいただいた場合にのみGoogle Analyticsでページビューを計測します。選択するまでは何も読み込まれず、cookieも設定されません。',
+  consentAllow: '許可する',
+  consentDecline: '拒否する',
+  consentMore: '計測する内容',
+
+  privacyDescription: (name: string) =>
+    `${name}のサイトが何を計測し、ブラウザに何を保存し、どう撤回できるかをまとめています。`,
+  privacySheet: 'SHEET 07 / プライバシー',
+  privacyTitle: 'プライバシー',
+  privacyLead:
+    'GitHub Pages上の静的ページ、同意がある場合にのみ動く計測スクリプト、そしてそれを代わりに決める第三者はいません。',
+  privacySiteTitle: 'ページ自体が行うこと',
+  privacyMeasurementTitle: '同意後の計測',
+  privacyChoiceTitle: 'あなたの選択',
+  privacyElsewhereTitle: 'サイト外へのリンク',
+  privacyContactTitle: '責任者',
+  privacyStatusLabel: '現在の選択',
+  privacyStatusGranted: '計測を許可',
+  privacyStatusDenied: '計測を拒否',
+  privacyStatusNone: '未選択',
+  privacyWithdraw: '同意を撤回する',
+  privacyGrant: '計測を許可する',
+  privacyNoScript:
+    '同意の確認、選択、読み込みはすべてスクリプトです。JavaScriptを無効にしている場合は計測されず、撤回するものもありません。',
 };

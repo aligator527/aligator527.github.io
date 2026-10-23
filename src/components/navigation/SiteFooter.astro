@@ -2,8 +2,9 @@
 import { localizedProfile } from '../../data/profile';
 import { localize } from '../../i18n/ui';
 import { formatMonth } from '../../utils/dates';
+import { localeHref } from '../../utils/i18n';
 
-const { t } = localize(Astro.url);
+const { locale, t } = localize(Astro.url);
 const profile = localizedProfile(t);
 ---
 
@@ -60,6 +61,8 @@ const profile = localizedProfile(t);
       <span>{t.footerCopyright(2026, profile.name)}</span>
       <span>{t.revision(formatMonth(profile.revision))}</span>
       <span>{t.footerColophon}</span>
+      <!-- The colophon already states what the site does to the reader; the link is where it says so in full. -->
+      <a href={localeHref('/privacy/', locale)}>{t.footerPrivacy}</a>
     </p>
   </div>
 </footer>

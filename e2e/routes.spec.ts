@@ -11,6 +11,7 @@ const ROUTES = [
   '/experience/',
   '/about/',
   '/resume/',
+  '/privacy/',
   '/notes/',
   '/notes/dynamodb-slow-as-data-grew/',
   '/notes/per-user-identity-pricing/',
@@ -143,12 +144,12 @@ test.describe('routes', () => {
   });
 
   /*
-   * The analytics tag (src/data/analytics.ts) is the site's only script, and it is emitted only by
-   * a build with `ANALYTICS=on` - which the Playwright build is not. So this stays an equality
-   * against the empty list: it holds the zero-bundle property for every build but the deployed one,
-   * and it fails the moment a component starts shipping JavaScript of its own.
+   * Two properties in one equality, now that the build under test carries the consent gate: no
+   * component ships a JavaScript bundle, and no third party is contacted before a visitor agrees.
+   * The gate's own script is inline, so it makes no request and belongs in neither count.
+   * e2e/consent.spec.ts covers what happens once the answer is given.
    */
-  test('ships no client JavaScript bundles', async ({ page }) => {
+  test('requests no script, from anywhere, before consent', async ({ page }) => {
     const scripts: string[] = [];
     page.on('request', (request) => {
       if (request.resourceType() === 'script') scripts.push(request.url());

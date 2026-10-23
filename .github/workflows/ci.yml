@@ -46,6 +46,9 @@ jobs:
       # installed; it is the download that the cache saves.
       - if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: pnpm exec playwright install-deps chromium
+      # The browser suite runs against the shape that deploys; see playwright.config.ts. Rebuilt
+      # here, after check:links and check:i18n have read a default build, so both shapes are checked.
+      - run: ANALYTICS=on pnpm run build
       - run: pnpm run test:e2e
       - if: failure()
         uses: actions/upload-artifact@v7

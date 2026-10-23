@@ -1,0 +1,198 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/core/PageHeader.astro';
+import SectionHeading from '../../components/core/SectionHeading.astro';
+import { privacyProse } from '../../components/prose/privacy';
+import {
+  CONSENT_STORAGE_KEY,
+  MEASUREMENT_ID,
+  RETENTION_MONTHS,
+  measurementId,
+} from '../../data/analytics';
+import { localizedProfile } from '../../data/profile';
+import { localize } from '../../i18n/ui';
+import { localePaths } from '../../utils/i18n';
+/*
+ * One route per locale, English unprefixed — `/privacy/`, not `/en/privacy/`. See `localePaths()`.
+ */
+export const getStaticPaths = localePaths satisfies GetStaticPaths;
+
+const { locale, t } = localize(Astro.url);
+const profile = localizedProfile(t);
+const PrivacyProse = privacyProse[locale];
+/*
+ * The prose names the property, the retention period and the storage key unconditionally: it
+ * describes the deployed site, which measures. The live control below is the part that depends on
+ * this build actually carrying the gate — offering to withdraw a consent that nothing can act on
+ * would be a worse lie than describing a build the reader is not looking at.
+ */
+const proseProps = {
+  measurementId: MEASUREMENT_ID,
+  retentionMonths: RETENTION_MONTHS,
+  consentKey: CONSENT_STORAGE_KEY,
+  email: profile.email,
+  booking: profile.booking,
+  name: profile.name,
+};
+const hasGate = measurementId() !== undefined;
+
+/*
+ * The control reads and writes through `window.__consentGate`, which ConsentNotice.astro installs
+ * on every page. One owner for the key, the loader and the cookie cleanup: a second copy of that
+ * logic here is how the page that offers to withdraw consent ends up disagreeing with the gate
+ * about what consent means. Both actions reload — granting has to start the script that was never
+ * loaded, and withdrawing has to stop the one that already was.
+ */
+const control = `(function () {
+  var gate = window.__consentGate;
+  if (!gate) return;
+  var state = document.getElementById('consent-state');
+  var controls = document.getElementById('consent-controls');
+  var grant = document.getElementById('consent-grant');
+  var revoke = document.getElementById('consent-revoke');
+  if (!gate || !state || !controls || !grant || !revoke) return;
+  var LABELS = {
+    granted: ${JSON.stringify(t.privacyStatusGranted)},
+    denied: ${JSON.stringify(t.privacyStatusDenied)},
+    none: ${JSON.stringify(t.privacyStatusNone)}
+  };
+  var choice = gate.state();
+  state.textContent = LABELS[choice === 'granted' ? 'granted' : choice === 'denied' ? 'denied' : 'none'];
+  controls.hidden = false;
+  grant.hidden = choice === 'granted';
+  revoke.hidden = choice !== 'granted';
+  grant.addEventListener('click', function () {
+    gate.grant();
+    location.reload();
+  });
+  revoke.addEventListener('click', function () {
+    gate.deny();
+    location.reload();
+  });
+})();`;
+---
+
+<BaseLayout title={t.privacyTitle} description={t.privacyDescription(profile.name)}>
+  <PageHeader sheet={t.privacySheet} title={t.privacyTitle} lead={t.privacyLead} />
+
+  <section class="page" aria-labelledby="privacy-site">
+    <SectionHeading index={1} id="privacy-site" title={t.privacySiteTitle} />
+    <div class="grid">
+      <div class="prose body">
+        <PrivacyProse section="site" {...proseProps} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section page" aria-labelledby="privacy-measurement">
+    <SectionHeading index={2} id="privacy-measurement" title={t.privacyMeasurementTitle} />
+    <div class="grid">
+      <div class="prose body">
+        <PrivacyProse section="measurement" {...proseProps} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section page" aria-labelledby="privacy-choice">
+    <SectionHeading index={3} id="privacy-choice" title={t.privacyChoiceTitle} />
+    <div class="grid">
+      <div class="prose body">
+        <PrivacyProse section="choice" {...proseProps} />
+        {hasGate && (
+          <div class="consent-control">
+            <p class="meta meta-quiet">{t.privacyStatusLabel}</p>
+            {/*
+              The no-script sentence is the server-rendered state: with the gate script running it
+              is replaced by the stored choice, so what a reader without JavaScript sees is exactly
+              what is true for them — nothing is measured, and there is nothing to withdraw.
+            */}
+            <p id="consent-state" class="consent-state">
+              {t.privacyNoScript}
+            </p>
+            <div id="consent-controls" class="consent-buttons" hidden>
+              <button type="button" id="consent-grant" hidden>
+                {t.privacyGrant}
+              </button>
+              <button type="button" id="consent-revoke" hidden>
+                {t.privacyWithdraw}
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+    {hasGate && <script is:inline set:html={control}></script>}
+  </section>
+
+  <section class="section page" aria-labelledby="privacy-elsewhere">
+    <SectionHeading index={4} id="privacy-elsewhere" title={t.privacyElsewhereTitle} />
+    <div class="grid">
+      <div class="prose body">
+        <PrivacyProse section="elsewhere" {...proseProps} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section page" aria-labelledby="privacy-contact">
+    <SectionHeading index={5} id="privacy-contact" title={t.privacyContactTitle} />
+    <div class="grid">
+      <div class="prose body">
+        <PrivacyProse section="contact" {...proseProps} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  @layer components {
+    /* The reading column, same placement as every other narrative page: `.grid` is 12 columns */
+    /* at this width, so prose left unplaced lands in one of them and sets one word per line. */
+    @media (min-width: 64rem) {
+      .body {
+        grid-column: 3 / span 7;
+      }
+    }
+
+    /* A boxed state readout, so the live control reads as instrument rather than as more prose. */
+    .consent-control {
+      display: grid;
+      row-gap: var(--space-2);
+      margin-block-start: var(--space-5);
+      padding: var(--space-3);
+      border: var(--rule-ink);
+      background: var(--surface-paper-elevated);
+    }
+
+    .consent-state {
+      font-size: var(--text-small);
+      color: var(--text-secondary);
+    }
+
+    .consent-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .consent-buttons button {
+      min-block-size: var(--tap-min);
+      padding-inline: var(--space-3);
+      border: var(--rule-ink);
+      background: transparent;
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: var(--text-meta);
+      font-weight: 500;
+      letter-spacing: var(--tracking-meta);
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color var(--duration-fast) var(--ease-standard);
+    }
+
+    .consent-buttons button:hover {
+      border-color: var(--signal);
+      color: var(--signal-text);
+    }
+  }
+</style>

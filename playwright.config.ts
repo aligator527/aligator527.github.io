@@ -26,10 +26,16 @@ export default defineConfig({
     /*
      * `--ignore-lock` keeps the test server independent of a preview server started for local work.
      * CI has already built `dist/` in an earlier step, so there it only serves the output.
+     *
+     * `ANALYTICS=on` builds the shape that actually deploys: the consent gate and the analytics tag
+     * exist only in that build, and e2e/consent.spec.ts is what holds the promise that nothing
+     * reaches Google before a visitor agrees. CI sets it on its own rebuild step, after the link and
+     * locale checks have read a default build. Granting consent in a test would send a real hit, so
+     * that suite aborts Google's loader.
      */
     command: process.env.CI
       ? `pnpm exec astro preview --port ${PORT} --ignore-lock`
-      : `pnpm run build && pnpm exec astro preview --port ${PORT} --ignore-lock`,
+      : `ANALYTICS=on pnpm run build && pnpm exec astro preview --port ${PORT} --ignore-lock`,
     url: `http://localhost:${PORT}/`,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
