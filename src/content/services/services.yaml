@@ -89,3 +89,30 @@
     note: choosing-a-stack-by-proof-of-concept
     work: ai-chat-platform
   published: true
+- id: japan-bridge
+  order: 4
+  code: S04
+  title:
+    en: Japan bridge — requirements in Japanese, specification in English
+    ru: 'Мост с Японией: требования по-японски, спецификация по-английски'
+    ja: 日英ブリッジ — 要件定義から英語仕様へ
+  problem:
+    en: The client, the users and the regulations are Japanese; the team that will build it is not, and what reaches them is a translation of a translation.
+    ru: Клиент, пользователи и регламенты японские, а команда, которая будет это строить, — нет, и до неё доходит перевод перевода.
+    ja: '顧客も利用者も規制も日本語で、作るチームはそうではない。届くのは翻訳の翻訳になっている。'
+  work:
+    en: I sit in the 要件定義 meetings in Japanese, and write the specification the offshore team builds from in English — with the terms that have no English equivalent kept as terms, defined once, rather than paraphrased differently in every document.
+    ru: Я участвую в 要件定義 на японском и пишу спецификацию, по которой строит зарубежная команда, на английском — термины без английского эквивалента остаются терминами, определёнными один раз, а не пересказанными по-разному в каждом документе.
+    ja: '要件定義の打ち合わせに日本語で入り、オフショアのチームが実装するための仕様を英語で書きます。英語に対応する語がない用語は、文書ごとに言い換えるのではなく、一度定義したうえで用語のまま残します。'
+  deliverable:
+    en: A specification an engineer who does not read Japanese can build from, a glossary both sides agree on, and review of what comes back against what was actually agreed in the room.
+    ru: Спецификация, по которой может строить инженер, не читающий по-японски, глоссарий, с которым согласны обе стороны, и ревью того, что вернулось, против того, о чём на самом деле договорились.
+    ja: '日本語を読まないエンジニアが実装できる仕様、双方が合意した用語集、そして戻ってきた成果物を、その場で実際に合意した内容と突き合わせるレビューです。'
+  duration:
+    en: A requirements round or one specification, about a week; longer alongside delivery
+    ru: Раунд требований или одна спецификация, около недели; дольше — параллельно с разработкой
+    ja: 要件定義1ラウンドまたは仕様1本で1週間程度。開発と並走する場合はそれ以上
+  evidence:
+    note: null
+    work: client-delivery
+  published: true

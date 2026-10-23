@@ -128,7 +128,7 @@ test.describe('routes', () => {
   test('every service cites work that exists', async ({ page }) => {
     await page.goto('/services/');
     const offers = page.locator('.offer');
-    await expect(offers).toHaveCount(3);
+    await expect(offers).toHaveCount(4);
     const links = await page
       .locator('.evidence a')
       .evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));

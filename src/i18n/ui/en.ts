@@ -175,9 +175,9 @@ export const en = {
   servicesSheet: 'Sheet 06 / Services',
   servicesTitle: 'Services',
   servicesDescription: (name: string) =>
-    `Performance, multilingual and architecture reviews by ${name}: scoped engagements of one to two weeks, remote from Tokyo.`,
+    `Performance, multilingual and architecture reviews and Japanese-to-English bridge work by ${name}, remote from Tokyo.`,
   servicesLead:
-    'Three engagements I can take alongside a full-time role: reviews that end in a written decision, not a delivery team.',
+    'Four engagements I can take alongside a full-time role: reviews that end in a written decision, not a delivery team.',
   servicesIntro:
     'Each is scoped in days rather than months, because that is what I can give it, and each rests on work published on this site — the case study or the note under it is the evidence, not a testimonial. English, Japanese or Russian; remote from Tokyo, or with teams outside Japan.',
   servicesHeading: 'Engagements',
