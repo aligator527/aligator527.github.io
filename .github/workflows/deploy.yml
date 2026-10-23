@@ -8,6 +8,17 @@ name: Deploy to GitHub Pages
 
 on:
   workflow_dispatch:
+    inputs:
+      indexnow:
+        description: Which pages to announce to the IndexNow engines after deploying
+        type: choice
+        default: changed
+        options:
+          # Pages whose sitemap lastmod is within the last week: a new note, a new lab entry.
+          - changed
+          # Every URL. For a deploy that changes the whole site — a layout, the dictionaries.
+          - all
+          - skip
 
 permissions:
   contents: read
@@ -38,3 +49,17 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Bing, Yandex, Seznam, Naver and Yep accept IndexNow; Google does not participate and has no
+  # equivalent API. Runs after the deployment and reads the live sitemap, so it can only announce
+  # pages that are actually published. A failure here leaves the deployed site untouched.
+  indexnow:
+    needs: deploy
+    if: inputs.indexnow != 'skip'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: node scripts/indexnow.mjs ${{ inputs.indexnow == 'all' && '--all' || '' }}

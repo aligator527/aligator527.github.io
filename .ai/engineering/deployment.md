@@ -56,6 +56,14 @@ it silently invalidates every future submission. Submissions are a POST to `api.
 carrying the host, the key, the key's URL and the changed URLs — they are a notification, not a
 promise, and a 200 means accepted rather than crawled.
 
+`scripts/indexnow.mjs` does the submitting, and the deploy workflow runs it after the deployment
+job. It reads the *live* sitemap, so it can only announce pages that are actually published, and
+by default submits the URLs dated within the last seven days — the protocol asks for changed
+pages, not whole sites, and `lastmod` is only set where there is a real content date. The
+workflow's `indexnow` input switches that to `all` for a deploy that changes every page, or to
+`skip`. The key is public by design, so no secret is involved: the script finds it by filename in
+`public/`.
+
 ## Pre-deploy checks
 
 1. Clean install using the lockfile.
