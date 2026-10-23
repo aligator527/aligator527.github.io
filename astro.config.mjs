@@ -3,6 +3,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import { isIndexable, localeFromPathname } from './src/utils/i18n.ts';
+import { lastmodFor } from './src/utils/sitemap-dates.ts';
 
 // The production site is a GitHub user site served from `/`.
 // BASE_PATH lets CI build under a repository subpath to prove every link is base-safe.
@@ -47,6 +48,15 @@ export default defineConfig({
         // `localeFromPathname` strips the base itself; it must be passed explicitly here because
         // `import.meta.env.BASE_URL` is not defined in the config's own module scope.
         return isIndexable(localeFromPathname(pathname, base));
+      },
+      /*
+       * `lastmod` only where a real content date exists — see src/utils/sitemap-dates.ts. The
+       * alternative, stamping the build time on all 54 URLs, is the kind of signal a crawler
+       * learns to ignore, and then the dates that mean something are ignored with it.
+       */
+      serialize: (item) => {
+        const lastmod = lastmodFor(new URL(item.url).pathname, base);
+        return lastmod ? { ...item, lastmod } : item;
       },
     }),
   ],
