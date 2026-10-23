@@ -2,6 +2,7 @@
 locale: ja
 translation:
   source: en
+  reviewedOn: '2026-10-23'
 title: ID基盤のユーザー課金が合わない時
 summary: マネージドIDはユーザー単位、自前運用はエンジニア単位の費用です。その2本が交わる点はたいてい計算されず、ロックインはプロトコルにはありません。
 publishedAt: '2026-10-23'

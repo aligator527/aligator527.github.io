@@ -2,6 +2,7 @@
 locale: ru
 translation:
   source: en
+  reviewedOn: '2026-10-23'
 code: L01
 title: Japan Logistics Map
 summary: 'Инструмент первичного отбора площадок под склад в Японии: открытая статистика, расчёт времени в пути и два алгоритма размещения, без бэкенда.'

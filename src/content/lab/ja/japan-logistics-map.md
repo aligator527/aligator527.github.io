@@ -2,6 +2,7 @@
 locale: ja
 translation:
   source: en
+  reviewedOn: '2026-10-23'
 code: L01
 title: 総合物流マップ
 summary: 日本国内の倉庫立地を一次スクリーニングするツールです。公開統計、所要時間の推計、2つの配置アルゴリズムを、バックエンドなしで動かします。

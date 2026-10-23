@@ -2,6 +2,7 @@
 locale: ja
 translation:
   source: en
+  reviewedOn: '2026-10-23'
 title: データ増加で遅くなるDynamoDB
 summary: 1,000件では見えず、10万件で致命的になる5つのパターンと、手を加える前に自分のコードでそれを見つける方法です。
 publishedAt: '2026-10-23'

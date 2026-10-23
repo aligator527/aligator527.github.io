@@ -2,6 +2,7 @@
 locale: ja
 translation:
   source: en
+  reviewedOn: '2026-10-23'
 code: L02
 title: キャリアマップ
 summary: 11の国・地域の公的賃金統計を1つの比較にまとめます。年齢・学歴・地域・職業で絞り込み、計算はすべてブラウザ内で行います。

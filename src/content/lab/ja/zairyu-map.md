@@ -2,6 +2,7 @@
 locale: ja
 translation:
   source: en
+  reviewedOn: '2026-10-23'
 code: L03
 title: 在留外国人統計
 summary: e-Statのクローラーと、そこから生成されるデータセット。都道府県別・市区町村別の在留外国人を、期ごとに異なる表記や区分を揃えて扱えるようにしたものです。

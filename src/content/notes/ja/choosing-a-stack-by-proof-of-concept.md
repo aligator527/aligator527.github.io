@@ -2,6 +2,7 @@
 locale: ja
 translation:
   source: en
+  reviewedOn: '2026-10-23'
 title: PoCで技術スタックを決める
 summary: PoCはデモではなく判断に答えるものです。問いは1つ、期限は1つ、評価軸は着手前に書く。ほとんど誰も試さない軸も含めて。
 publishedAt: '2026-10-23'
