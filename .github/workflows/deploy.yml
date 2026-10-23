@@ -62,4 +62,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
+          # The script installs nothing — it is Node's own fetch and one POST. Left on, the
+          # package-manager cache looks for the pnpm in package.json and fails the job for it.
+          package-manager-cache: false
       - run: node scripts/indexnow.mjs ${{ inputs.indexnow == 'all' && '--all' || '' }}
