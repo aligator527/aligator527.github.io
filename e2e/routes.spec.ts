@@ -14,6 +14,7 @@ const ROUTES = [
   '/notes/dynamodb-slow-as-data-grew/',
   '/notes/per-user-identity-pricing/',
   '/notes/choosing-a-stack-by-proof-of-concept/',
+  '/notes/release-plan-is-a-return-plan/',
   '/lab/',
   '/lab/japan-logistics-map/',
   '/lab/career-map/',
