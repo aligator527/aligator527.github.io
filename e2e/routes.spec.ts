@@ -86,6 +86,31 @@ test.describe('routes', () => {
     ).toHaveAttribute('href', /^\/ru\/notes\//);
   });
 
+  /*
+   * A figure is declared as data and rendered as HTML, so what can break is the meaning rather
+   * than the drawing: a row that cannot be undone must say so in words and in a mark, never by
+   * being a different colour, and the caption is the figure's accessible description.
+   */
+  test('a note figure states its own meaning', async ({ page }) => {
+    await page.goto('/notes/release-plan-is-a-return-plan/');
+    const figure = page.locator('figure.figure');
+    await expect(figure).toBeVisible();
+    await expect(figure.locator('figcaption')).not.toBeEmpty();
+    await expect(figure.getByRole('list')).toHaveCount(4); // three rows of steps, and the rows
+    await expect(figure).toContainText('No way back');
+    await expect(figure.locator('.point')).toHaveCount(1);
+  });
+
+  test('lab entries page between the entries that have a page', async ({ page }) => {
+    await page.goto('/lab/career-map/');
+    const pager = page.getByRole('navigation', { name: 'More from the lab' });
+    const links = pager.getByRole('link');
+    await expect(links).toHaveCount(2);
+    for (const href of await links.evaluateAll((as) => as.map((a) => a.getAttribute('href')))) {
+      expect(href).toMatch(/^\/lab\/[a-z-]+\/$/);
+    }
+  });
+
   test('ships no client JavaScript bundles', async ({ page }) => {
     const scripts: string[] = [];
     page.on('request', (request) => {

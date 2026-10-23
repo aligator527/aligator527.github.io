@@ -124,15 +124,29 @@ function assertParity<T extends Translatable>(
   }
 }
 
+/**
+ * A figure's shape, as a string to compare: how many rows, how many steps in each, and whether a
+ * row has a way back. The wording is the translation's own; the structure is the claim.
+ */
+function figureShape(figure: NoteEntry['data']['figure']): string {
+  if (!figure) return 'none';
+  return figure.rows
+    .map((row) => `${row.steps.length}${row.back ? '+back' : ''}${row.point ? '+point' : ''}`)
+    .join(',');
+}
+
 /** Published notes for one locale, newest first. */
 export async function getNotes(locale: Locale): Promise<NoteEntry[]> {
   assertLocale(locale);
   const entries = await getCollection('notes');
-  assertParity('notes', entries, NOTE_INVARIANTS, (source, entry) =>
-    source.data.topics.length === entry.data.topics.length
+  assertParity('notes', entries, NOTE_INVARIANTS, (source, entry) => {
+    if (source.data.topics.length !== entry.data.topics.length) {
+      return `has ${entry.data.topics.length} topic(s), ${DEFAULT_LOCALE} has ${source.data.topics.length}`;
+    }
+    return figureShape(source.data.figure) === figureShape(entry.data.figure)
       ? undefined
-      : `has ${entry.data.topics.length} topic(s), ${DEFAULT_LOCALE} has ${source.data.topics.length}`,
-  );
+      : `figure is ${figureShape(entry.data.figure)}, ${DEFAULT_LOCALE} has ${figureShape(source.data.figure)}`;
+  });
   return entries
     .filter((entry) => entry.data.locale === locale && !entry.data.draft)
     .sort((a, b) => b.data.publishedAt.localeCompare(a.data.publishedAt));

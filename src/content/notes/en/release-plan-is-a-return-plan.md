@@ -4,6 +4,18 @@ title: A release plan is a return plan
 summary: Promoting a change through dev, staging and production lowers the risk and proves nothing. What has to be written down first is how to put production back.
 publishedAt: '2026-10-23'
 topics: [Releases, Migrations, Architecture, AWS]
+figure:
+  caption: The same number of steps forward, three different costs to go back. The marked step is where the second row stops being reversible.
+  rows:
+    - label: Code only
+      steps: ['Deploy', 'Verify in production']
+      back: Redeploy the previous artefact
+    - label: Schema and data, additively
+      steps: ['Add the field', 'Write both', 'Backfill', 'Read the new one', 'Stop writing the old']
+      point: Stop writing the old
+      back: Undo the last step, until the marked one
+    - label: Destructive migration, email sent, mobile build shipped
+      steps: ['Behind a flag', 'Verify', 'Reveal']
 draft: false
 ---
 

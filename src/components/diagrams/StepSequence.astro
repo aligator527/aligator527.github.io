@@ -1,0 +1,129 @@
+---
+/**
+ * Rows of ordered steps, each with what it takes to undo them.
+ *
+ * The point it makes is the asymmetry between the rows: the same number of steps forward can cost
+ * one redeploy, one reversed step, or nothing that works at all. A row with no way back says so in
+ * words and in a marker, never in colour alone, and the step past which a row stops being
+ * reversible carries its own mark rather than a different shade.
+ */
+import { localize } from '../../i18n/ui';
+
+export interface StepRow {
+  label: string;
+  steps: string[];
+  /** How production is put back. Omitted when it cannot be. */
+  back?: string | undefined;
+  /** The step past which the row is no longer reversible, named rather than indexed. */
+  point?: string | undefined;
+}
+
+interface Props {
+  caption: string;
+  rows: StepRow[];
+  class?: string;
+}
+
+const { caption, rows, class: className } = Astro.props;
+const { t } = localize(Astro.url);
+---
+
+<figure class:list={['step-sequence', className]}>
+  <ol class="rows">
+    {rows.map((row, index) => (
+      <li class="row">
+        <p class="label">
+          <span class="meta row-id">C{index + 1}</span>
+          <span class="meta">{row.label}</span>
+        </p>
+        <ol class="steps" aria-label={t.figureSteps(row.label)}>
+          {row.steps.map((step) => (
+            <li class:list={['step', row.point === step && 'point']}>{step}</li>
+          ))}
+        </ol>
+        <p class:list={['back', !row.back && 'none']}>{row.back ?? t.figureNoWayBack}</p>
+      </li>
+    ))}
+  </ol>
+  <figcaption class="caption">{caption}</figcaption>
+</figure>
+
+<style>
+  @layer components {
+    .step-sequence {
+      margin: 0;
+    }
+
+    .rows,
+    .steps {
+      padding: 0;
+      list-style: none;
+    }
+
+    .rows {
+      display: grid;
+    }
+
+    .row {
+      display: grid;
+      gap: var(--space-2);
+      padding-block: var(--space-3);
+      border-block-start: var(--rule);
+    }
+
+    .label {
+      display: flex;
+      gap: var(--space-2);
+      color: var(--text-secondary);
+    }
+
+    .row-id {
+      color: var(--signal-text);
+    }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: var(--space-1) var(--space-2);
+      font-size: var(--text-small);
+    }
+
+    /* The arrow is the sequence. It is drawn between steps, not inside them. */
+    .step + .step::before {
+      content: '→';
+      margin-inline-end: var(--space-2);
+      color: var(--text-secondary);
+    }
+
+    /* Past this step the row stops being reversible: a mark, not a shade. */
+    .point::after {
+      content: '◆';
+      margin-inline-start: 0.4em;
+      color: var(--signal-text);
+    }
+
+    .back {
+      font-size: var(--text-small);
+      color: var(--text-secondary);
+    }
+
+    .back::before {
+      content: '←';
+      margin-inline-end: var(--space-2);
+    }
+
+    .back.none::before {
+      content: '×';
+      color: var(--signal-text);
+    }
+
+    .caption {
+      margin-block-start: var(--space-3);
+      padding-block-start: var(--space-2);
+      border-block-start: var(--rule);
+      font-size: var(--text-small);
+      color: var(--text-secondary);
+    }
+  }
+</style>

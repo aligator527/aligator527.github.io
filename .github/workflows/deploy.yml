@@ -1,5 +1,8 @@
 # Deployment is manual on purpose: it is triggered from the Actions tab, never by a push.
 # Verify action versions against https://docs.astro.build/en/guides/deploy/github/ before editing.
+# Checked 2026-10-23: that page shows checkout@v7, withastro/action@v6 and deploy-pages@v5.
+# `node-version` stays at 22 — the action defaults to 24, and CI tests on 22, so the build that
+# ships and the build that is tested should be the same one.
 #
 # This builds with the default base ("/"), which is correct only for the user-site repository
 # aligator527.github.io (see ADR-0003). If the site is ever published from a project repository,
@@ -33,8 +36,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: withastro/action@v5
+      - uses: actions/checkout@v7
+      - uses: withastro/action@v6
         # No package-manager input: the action detects pnpm from the lockfile and takes the exact
         # version from package.json `packageManager`. Passing `pnpm@latest` here conflicts with it.
         with:
@@ -48,7 +51,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   # Bing, Yandex, Seznam, Naver and Yep accept IndexNow; Google does not participate and has no
   # equivalent API. Runs after the deployment and reads the live sitemap, so it can only announce
@@ -58,8 +61,8 @@ jobs:
     if: inputs.indexnow != 'skip'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           # The script installs nothing — it is Node's own fetch and one POST. Left on, the

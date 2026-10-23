@@ -6,7 +6,7 @@ import PageHeader from '../../../components/core/PageHeader.astro';
 import MetaList from '../../../components/core/MetaList.astro';
 import { localize } from '../../../i18n/ui';
 import { EMITTED_LOCALES, localeParam } from '../../../utils/i18n';
-import { getLab, hasPage, labSlug } from '../../../utils/writing';
+import { getLab, hasPage, labHref, labSlug } from '../../../utils/writing';
 
 /*
  * An entry gets a page of its own only when it has a body — in every locale, which `getLab()`
@@ -16,19 +16,20 @@ import { getLab, hasPage, labSlug } from '../../../utils/writing';
 export const getStaticPaths = (async () => {
   const perLocale = await Promise.all(
     EMITTED_LOCALES.map(async (locale) => {
-      const entries = await getLab(locale);
-      return entries.filter(hasPage).map((entry) => ({
+      // The pager walks the entries that have a page, so it can never land on an index row.
+      const pages = (await getLab(locale)).filter(hasPage);
+      return pages.map((entry, index) => ({
         params: { locale: localeParam(locale), slug: labSlug(entry) },
-        props: { entry },
+        props: { entry, previous: pages[index - 1], next: pages[index + 1] },
       }));
     }),
   );
   return perLocale.flat();
 }) satisfies GetStaticPaths;
 
-const { entry } = Astro.props;
+const { entry, previous, next } = Astro.props;
 const { Content, headings } = await render(entry);
-const { t } = localize(Astro.url);
+const { locale, t } = localize(Astro.url);
 const sections = headings.filter((heading) => heading.depth === 2);
 ---
 
@@ -73,6 +74,22 @@ const sections = headings.filter((heading) => heading.depth === 2);
         </nav>
       )}
     </div>
+    <nav class="grid pager" aria-label={t.labMore}>
+      {previous ? (
+        <a class="pager-link prev" href={labHref(previous, locale)}>
+          <span class="meta meta-quiet">{t.pagerPrevious(previous.data.code)}</span>
+          <span class="pager-title">{previous.data.title}</span>
+        </a>
+      ) : (
+        <span />
+      )}
+      {next && (
+        <a class="pager-link next" href={labHref(next, locale)}>
+          <span class="meta meta-quiet">{t.pagerNext(next.data.code)}</span>
+          <span class="pager-title">{next.data.title}</span>
+        </a>
+      )}
+    </nav>
   </article>
 </BaseLayout>
 
@@ -110,9 +127,45 @@ const sections = headings.filter((heading) => heading.depth === 2);
       font-size: var(--text-small);
     }
 
+    .pager {
+      margin-block-start: var(--space-8);
+      row-gap: var(--space-3);
+    }
+
+    .pager > * {
+      grid-column: 1 / -1;
+    }
+
+    .pager-link {
+      display: grid;
+      gap: var(--space-1);
+      padding-block: var(--space-3);
+      border-block-start: var(--rule-ink);
+      text-decoration: none;
+    }
+
+    .pager-link:hover .pager-title {
+      text-decoration: underline;
+      text-decoration-color: var(--signal);
+    }
+
+    .pager-title {
+      font-size: var(--text-h3);
+      font-weight: 600;
+    }
+
     @media (min-width: 64rem) {
       .document {
         grid-column: 3 / span 8;
+      }
+
+      .pager > .prev,
+      .pager > span {
+        grid-column: 1 / span 6;
+      }
+
+      .pager > .next {
+        grid-column: 7 / -1;
       }
 
       .contents {

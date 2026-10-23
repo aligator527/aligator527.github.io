@@ -174,6 +174,7 @@ export const ru: Dictionary = {
   labEntriesHeading: 'Записи',
   labStatusLabel: 'Статус',
   labTechnologiesLabel: 'Технологии',
+  labMore: 'Другие записи',
   labStatus: { active: 'В работе', complete: 'Завершён', archived: 'В архиве' },
   labRepository: 'Репозиторий',
   labDemo: 'Демо',
@@ -186,6 +187,8 @@ export const ru: Dictionary = {
   notesLead: 'Тексты об инженерии и архитектуре.',
   notesArticlesHeading: 'Статьи',
   notesTopicsLabel: 'Темы',
+  figureSteps: (row: string) => `Шаги: ${row}`,
+  figureNoWayBack: 'Возврата нет. Проверять до того, как станет видно.',
   notesMore: 'Другие заметки',
   notesEmpty: 'Пока нет опубликованных заметок.',
 

@@ -182,6 +182,7 @@ export const en = {
   labEntriesHeading: 'Entries',
   labStatusLabel: 'Status',
   labTechnologiesLabel: 'Technologies',
+  labMore: 'More from the lab',
   /* Lab entry status, from the content schema's enum — never rendered raw. */
   labStatus: { active: 'Active', complete: 'Complete', archived: 'Archived' },
   labRepository: 'Repository',
@@ -195,6 +196,8 @@ export const en = {
   notesLead: 'Engineering and architecture writing.',
   notesArticlesHeading: 'Articles',
   notesTopicsLabel: 'Topics',
+  figureSteps: (row: string) => `Steps: ${row}`,
+  figureNoWayBack: 'No way back. Verify before it is visible.',
   notesMore: 'More notes',
   notesEmpty: 'No published notes yet.',
 

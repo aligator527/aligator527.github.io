@@ -171,6 +171,7 @@ export const ja: Dictionary = {
   labEntriesHeading: '一覧',
   labStatusLabel: 'ステータス',
   labTechnologiesLabel: '使用技術',
+  labMore: 'ほかの項目',
   labStatus: { active: '進行中', complete: '完了', archived: 'アーカイブ' },
   labRepository: 'リポジトリ',
   labDemo: 'デモ',
@@ -183,6 +184,8 @@ export const ja: Dictionary = {
   notesLead: 'エンジニアリングとアーキテクチャについて。',
   notesArticlesHeading: '記事',
   notesTopicsLabel: 'トピック',
+  figureSteps: (row: string) => `手順: ${row}`,
+  figureNoWayBack: '戻せません。見える前に検証します。',
   notesMore: 'ほかのノート',
   notesEmpty: '公開中の記事はまだありません。',
 

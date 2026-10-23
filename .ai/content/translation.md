@@ -17,6 +17,7 @@ hedged, more specific or more vague than the English is a different claim, and
 | Company names | Latin, unless the company publishes its own name in that language. Confirmed names are in `facts.md`; a company name is never guessed at. |
 | Scope and responsibility items inside diagrams | Translated. They read as technology names but are prose, which is how `Frontend / Backend / Cloud / Security` stayed English on a Japanese page for one release. |
 | `sourceNote` frontmatter | English in every file. It is internal provenance for whoever maintains the entry. |
+| A note's `figure` | Translated — caption, row labels and steps. Its *shape* is a fact: `src/utils/writing.ts` fails the build when a translation changes the number of rows or steps, or whether a row has a way back. |
 
 ## Russian
 

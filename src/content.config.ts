@@ -160,6 +160,26 @@ const notes = defineCollection({
     publishedAt: isoDate,
     updatedAt: isoDate.optional(),
     topics: z.array(z.string()),
+    /**
+     * An optional figure, declared as data rather than drawn in the body: Markdown cannot host a
+     * component, and a diagram whose labels live in the body could not be translated against the
+     * English one. `src/utils/writing.ts` asserts every translation keeps its shape.
+     */
+    figure: z
+      .object({
+        caption: z.string(),
+        rows: z
+          .array(
+            z.object({
+              label: z.string(),
+              steps: z.array(z.string()).min(2),
+              back: z.string().optional(),
+              point: z.string().optional(),
+            }),
+          )
+          .min(2),
+      })
+      .optional(),
     draft: z.boolean().default(true),
   }),
 });
