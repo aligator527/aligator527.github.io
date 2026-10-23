@@ -44,6 +44,18 @@ When approved:
 - Never expose secrets as `PUBLIC_*` variables.
 - GitHub Pages is public; treat repository content and generated output as publishable.
 
+## IndexNow
+
+`public/754bed99eb2a2c59dba2f702cb2429b6.txt` holds an IndexNow key and nothing else. IndexNow
+notifies Bing, Yandex, Seznam and Naver that pages changed; Google does not participate and has no
+equivalent API, so Google is reached through the sitemap and, for a handful of URLs at a time, the
+Request Indexing button in Search Console.
+
+The protocol verifies ownership by fetching that file from the host root, so deleting or renaming
+it silently invalidates every future submission. Submissions are a POST to `api.indexnow.org`
+carrying the host, the key, the key's URL and the changed URLs — they are a notification, not a
+promise, and a 200 means accepted rather than crawled.
+
 ## Pre-deploy checks
 
 1. Clean install using the lockfile.
