@@ -130,9 +130,16 @@ function assertParity<T extends Translatable>(
  */
 function figureShape(figure: NoteEntry['data']['figure']): string {
   if (!figure) return 'none';
-  return figure.rows
+  if (figure.kind === 'layers') {
+    // The prefix is part of the shape: layer IDs are a coordinate system, and one that changes
+    // per locale is not one.
+    return `layers:${figure.variant}:${figure.prefix ?? 'L'}:${figure.layers
+      .map((layer) => layer.items.length)
+      .join(',')}`;
+  }
+  return `steps:${figure.rows
     .map((row) => `${row.steps.length}${row.back ? '+back' : ''}${row.point ? '+point' : ''}`)
-    .join(',');
+    .join(',')}`;
 }
 
 /** Published notes for one locale, newest first. */

@@ -7,6 +7,21 @@ title: データ増加で遅くなるDynamoDB
 summary: 1,000件では見えず、10万件で致命的になる5つのパターンと、手を加える前に自分のコードでそれを見つける方法です。
 publishedAt: '2026-10-23'
 topics: [AWS, DynamoDB, AppSync, パフォーマンス]
+figure:
+  kind: layers
+  variant: sequence
+  prefix: R
+  caption: 5つのパターンが1回の読み取りのどこで費用を足すか。3つは同じ場所にあり、だから残り2つだけを直しても元に戻ります。
+  layers:
+    - label: 画面が尋ねる
+      items: ['20行、新しい順']
+    - label: リゾルバーが答える
+      items: ['N+1。一覧が1回、そのあと項目ごとに1回']
+    - label: キーかインデックスが決める
+      items:
+        ['QueryでよいところのScan', 'この問いに対応するインデックスがない', '読み取りがまとまらないキー']
+    - label: レスポンスが運ぶ
+      items: ['テーブルにあるすべて。ページングなし']
 draft: false
 ---
 

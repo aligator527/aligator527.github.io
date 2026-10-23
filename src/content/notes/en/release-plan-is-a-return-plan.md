@@ -5,6 +5,7 @@ summary: Promoting a change through dev, staging and production lowers the risk 
 publishedAt: '2026-10-23'
 topics: [Releases, Migrations, Architecture, AWS]
 figure:
+  kind: steps
   caption: The same number of steps forward, three different costs to go back. The marked step is where the second row stops being reversible.
   rows:
     - label: Code only

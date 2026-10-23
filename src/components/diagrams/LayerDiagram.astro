@@ -9,7 +9,7 @@ interface Props {
   caption: string;
   variant: 'stack' | 'scope' | 'sequence';
   /** Short prefix for layer IDs, e.g. `L` → L1, L2. */
-  prefix?: string;
+  prefix?: string | undefined;
   class?: string;
 }
 

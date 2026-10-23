@@ -166,19 +166,31 @@ const notes = defineCollection({
      * English one. `src/utils/writing.ts` asserts every translation keeps its shape.
      */
     figure: z
-      .object({
-        caption: z.string(),
-        rows: z
-          .array(
-            z.object({
-              label: z.string(),
-              steps: z.array(z.string()).min(2),
-              back: z.string().optional(),
-              point: z.string().optional(),
-            }),
-          )
-          .min(2),
-      })
+      .discriminatedUnion('kind', [
+        /** Rows of ordered steps, each with what it takes to undo them. */
+        z.object({
+          kind: z.literal('steps'),
+          caption: z.string(),
+          rows: z
+            .array(
+              z.object({
+                label: z.string(),
+                steps: z.array(z.string()).min(2),
+                back: z.string().optional(),
+                point: z.string().optional(),
+              }),
+            )
+            .min(2),
+        }),
+        /** The same labelled groups the work diagrams use, for a path with things hung off it. */
+        z.object({
+          kind: z.literal('layers'),
+          caption: z.string(),
+          variant: z.enum(['stack', 'scope', 'sequence']),
+          prefix: z.string().optional(),
+          layers: z.array(z.object({ label: z.string(), items: z.array(z.string()) })).min(2),
+        }),
+      ])
       .optional(),
     draft: z.boolean().default(true),
   }),

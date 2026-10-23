@@ -8,6 +8,7 @@ summary: dev、staging、productionと順に上げることはリスクを下げ
 publishedAt: '2026-10-23'
 topics: [リリース, データ移行, アーキテクチャ, AWS]
 figure:
+  kind: steps
   caption: 前に進む手数は同じでも、戻る費用は3通りです。印の付いた手順が、2行目が戻せなくなる地点です。
   rows:
     - label: コードのみ

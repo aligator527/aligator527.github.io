@@ -5,6 +5,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHeader from '../../../components/core/PageHeader.astro';
 import MetaList from '../../../components/core/MetaList.astro';
 import StepSequence from '../../../components/diagrams/StepSequence.astro';
+import LayerDiagram from '../../../components/diagrams/LayerDiagram.astro';
 import { localize } from '../../../i18n/ui';
 import { EMITTED_LOCALES, localeParam } from '../../../utils/i18n';
 import { getNotes, noteHref, noteSlug } from '../../../utils/writing';
@@ -55,7 +56,12 @@ const noteDate = (entry: typeof note) => entry.data.publishedAt.replaceAll('-', 
         />
       </div>
       <div class="prose document">
-        {note.data.figure && <StepSequence class="figure" {...note.data.figure} />}
+        {note.data.figure?.kind === 'steps' && (
+          <StepSequence class="figure" {...note.data.figure} />
+        )}
+        {note.data.figure?.kind === 'layers' && (
+          <LayerDiagram class="figure" {...note.data.figure} />
+        )}
         <Content />
       </div>
       {sections.length > 1 && (

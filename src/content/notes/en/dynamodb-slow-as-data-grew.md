@@ -4,6 +4,21 @@ title: Why your DynamoDB app got slow as data grew
 summary: Five patterns that are invisible at a thousand records and fatal at a hundred thousand — and how to find them in your own code before you change anything.
 publishedAt: '2026-10-23'
 topics: [AWS, DynamoDB, AppSync, Performance]
+figure:
+  kind: layers
+  variant: sequence
+  prefix: R
+  caption: Where each of the five patterns adds its cost to one read. Three of them sit at the same place, which is why fixing the other two on its own does not hold.
+  layers:
+    - label: The screen asks
+      items: ['Twenty rows, newest first']
+    - label: The resolver answers
+      items: ['N+1 — one list, then one request per item']
+    - label: The key or the index decides
+      items:
+        ['Scan where a Query would do', 'No index for this question', 'Keys the reads do not group by']
+    - label: The response carries
+      items: ['Everything the table has, no pagination']
 draft: false
 ---
 

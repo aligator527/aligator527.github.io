@@ -99,6 +99,15 @@ test.describe('routes', () => {
     await expect(figure.getByRole('list')).toHaveCount(4); // three rows of steps, and the rows
     await expect(figure).toContainText('No way back');
     await expect(figure.locator('.point')).toHaveCount(1);
+
+    /*
+     * The other kind: the same labelled groups the work diagrams use, drawn as a path. Its whole
+     * argument is that three of the five patterns hang off one stage, so the count is the claim.
+     */
+    await page.goto('/notes/dynamodb-slow-as-data-grew/');
+    const path = page.locator('figure.figure');
+    await expect(path.locator('.layer')).toHaveCount(4);
+    await expect(path.locator('.layer').nth(2).getByRole('listitem')).toHaveCount(3);
   });
 
   test('lab entries page between the entries that have a page', async ({ page }) => {
