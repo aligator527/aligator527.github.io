@@ -118,8 +118,8 @@ export const en = {
 
   // Case study
   studyDetails: 'Project details',
-  studySections: 'Sections',
-  studyContents: 'Contents',
+  contentsLabel: 'Sections',
+  contentsHeading: 'Contents',
   studyMoreWork: 'More work',
   studyBriefNote:
     'This page covers verified role, scope, and system facts only. Decisions and outcomes are not published here.',
@@ -195,6 +195,7 @@ export const en = {
   notesLead: 'Engineering and architecture writing.',
   notesArticlesHeading: 'Articles',
   notesTopicsLabel: 'Topics',
+  notesMore: 'More notes',
   notesEmpty: 'No published notes yet.',
 
   // 404

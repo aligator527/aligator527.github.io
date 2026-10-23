@@ -112,8 +112,8 @@ export const ru: Dictionary = {
 
   // Case study
   studyDetails: 'Детали проекта',
-  studySections: 'Разделы',
-  studyContents: 'Содержание',
+  contentsLabel: 'Разделы',
+  contentsHeading: 'Содержание',
   studyMoreWork: 'Другие проекты',
   studyBriefNote:
     'Эта страница содержит только проверенные факты о роли, объёме работ и системе. Решения и результаты здесь не публикуются.',
@@ -186,6 +186,7 @@ export const ru: Dictionary = {
   notesLead: 'Тексты об инженерии и архитектуре.',
   notesArticlesHeading: 'Статьи',
   notesTopicsLabel: 'Темы',
+  notesMore: 'Другие заметки',
   notesEmpty: 'Пока нет опубликованных заметок.',
 
   // 404

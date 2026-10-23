@@ -107,8 +107,8 @@ export const ja: Dictionary = {
 
   // Case study
   studyDetails: 'プロジェクト情報',
-  studySections: 'セクション',
-  studyContents: '目次',
+  contentsLabel: 'セクション',
+  contentsHeading: '目次',
   studyContext: '補足',
   studyMoreWork: 'ほかの実績',
   studyBriefNote:
@@ -183,6 +183,7 @@ export const ja: Dictionary = {
   notesLead: 'エンジニアリングとアーキテクチャについて。',
   notesArticlesHeading: '記事',
   notesTopicsLabel: 'トピック',
+  notesMore: 'ほかのノート',
   notesEmpty: '公開中の記事はまだありません。',
 
   // 404

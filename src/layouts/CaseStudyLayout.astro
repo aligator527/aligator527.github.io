@@ -82,8 +82,8 @@ const diagramVariant = {
       <aside class="rail" aria-label={t.studyDetails}>
         <MetaList items={railFacts} />
         {sections.length > 1 && (
-          <nav class="contents" aria-label={t.studySections}>
-            <p class="meta meta-quiet">{t.studyContents}</p>
+          <nav class="contents" aria-label={t.contentsLabel}>
+            <p class="meta meta-quiet">{t.contentsHeading}</p>
             <ol>
               {sections.map((heading) => (
                 <li>

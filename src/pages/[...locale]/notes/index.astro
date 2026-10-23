@@ -5,6 +5,7 @@ import PageHeader from '../../../components/core/PageHeader.astro';
 import { profile } from '../../../data/profile';
 import { localize } from '../../../i18n/ui';
 import { localePaths } from '../../../utils/i18n';
+import MetaList from '../../../components/core/MetaList.astro';
 import { getNotes, noteHref } from '../../../utils/writing';
 
 /*
@@ -46,6 +47,17 @@ const notes = await getNotes(locale);
               <a href={noteHref(note, locale)}>{note.data.title}</a>
             </h3>
             <p>{note.data.summary}</p>
+            <MetaList
+              class="record"
+              items={[
+                {
+                  label: t.notesTopicsLabel,
+                  value: note.data.topics
+                    .map((topic) => topic.replaceAll(' ', '\u00A0'))
+                    .join(' · '),
+                },
+              ]}
+            />
           </li>
         ))}
       </ol>
@@ -65,6 +77,22 @@ const notes = await getNotes(locale);
       padding-block: var(--space-4);
       border-block-start: var(--rule-strong);
       max-inline-size: var(--measure);
+    }
+
+    /* Wide enough for two columns, the row becomes a record: what it is on the left, capped at */
+    /* the measure, and what it is about on the right. Below that the topics follow the summary. */
+    @media (min-width: 64rem) {
+      .entry {
+        grid-template-columns: minmax(0, var(--measure)) minmax(0, 1fr);
+        column-gap: var(--space-6);
+        max-inline-size: none;
+      }
+
+      .entry > :global(.record) {
+        grid-column: 2;
+        grid-row: 1 / span 3;
+        align-self: start;
+      }
     }
 
     .empty {

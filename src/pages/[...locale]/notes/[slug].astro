@@ -6,7 +6,7 @@ import PageHeader from '../../../components/core/PageHeader.astro';
 import MetaList from '../../../components/core/MetaList.astro';
 import { localize } from '../../../i18n/ui';
 import { EMITTED_LOCALES, localeParam } from '../../../utils/i18n';
-import { getNotes, noteSlug } from '../../../utils/writing';
+import { getNotes, noteHref, noteSlug } from '../../../utils/writing';
 
 /*
  * One route per locale per note. The slug is the same in every locale, which is what makes
@@ -16,18 +16,22 @@ export const getStaticPaths = (async () => {
   const perLocale = await Promise.all(
     EMITTED_LOCALES.map(async (locale) => {
       const notes = await getNotes(locale);
-      return notes.map((note) => ({
+      // The pager is built per locale from that locale's own ordered list, so a translated note
+      // can never page into another locale's sequence.
+      return notes.map((note, index) => ({
         params: { locale: localeParam(locale), slug: noteSlug(note) },
-        props: { note },
+        props: { note, previous: notes[index - 1], next: notes[index + 1] },
       }));
     }),
   );
   return perLocale.flat();
 }) satisfies GetStaticPaths;
 
-const { note } = Astro.props;
-const { Content } = await render(note);
-const { t } = localize(Astro.url);
+const { note, previous, next } = Astro.props;
+const { Content, headings } = await render(note);
+const { locale, t } = localize(Astro.url);
+const sections = headings.filter((heading) => heading.depth === 2);
+const noteDate = (entry: typeof note) => entry.data.publishedAt.replaceAll('-', '/');
 ---
 
 <BaseLayout title={note.data.title} description={note.data.summary}>
@@ -52,7 +56,40 @@ const { t } = localize(Astro.url);
       <div class="prose document">
         <Content />
       </div>
+      {sections.length > 1 && (
+        /*
+         * Navigation while reading, opposite the topics, which are orientation before it. The
+         * numbered sections are already a coordinate system; this is the index to it, and it is
+         * the column the header leaves empty on a wide screen.
+         */
+        <nav class="contents" aria-label={t.contentsLabel}>
+          <p class="meta meta-quiet">{t.contentsHeading}</p>
+          <ol>
+            {sections.map((heading) => (
+              <li>
+                <a href={`#${heading.slug}`}>{heading.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
     </div>
+    <nav class="grid pager" aria-label={t.notesMore}>
+      {previous ? (
+        <a class="pager-link prev" href={noteHref(previous, locale)}>
+          <span class="meta meta-quiet">{t.pagerPrevious(noteDate(previous))}</span>
+          <span class="pager-title">{previous.data.title}</span>
+        </a>
+      ) : (
+        <span />
+      )}
+      {next && (
+        <a class="pager-link next" href={noteHref(next, locale)}>
+          <span class="meta meta-quiet">{t.pagerNext(noteDate(next))}</span>
+          <span class="pager-title">{next.data.title}</span>
+        </a>
+      )}
+    </nav>
   </article>
 </BaseLayout>
 
@@ -72,6 +109,48 @@ const { t } = localize(Astro.url);
       margin-block-end: var(--space-4);
     }
 
+    /* Hidden where there is no margin to put it in, as on a case study: on a phone a contents */
+    /* list sits between the reader and the first paragraph, and repeats what scrolling gives. */
+    .contents {
+      display: none;
+    }
+
+    .contents ol {
+      display: grid;
+      gap: var(--space-1);
+      margin-block-start: var(--space-2);
+      padding: 0;
+      list-style: none;
+      font-size: var(--text-small);
+    }
+
+    .pager {
+      margin-block-start: var(--space-8);
+      row-gap: var(--space-3);
+    }
+
+    .pager > * {
+      grid-column: 1 / -1;
+    }
+
+    .pager-link {
+      display: grid;
+      gap: var(--space-1);
+      padding-block: var(--space-3);
+      border-block-start: var(--rule-ink);
+      text-decoration: none;
+    }
+
+    .pager-link:hover .pager-title {
+      text-decoration: underline;
+      text-decoration-color: var(--signal);
+    }
+
+    .pager-title {
+      font-size: var(--text-h3);
+      font-weight: 600;
+    }
+
     @media (min-width: 64rem) {
       .document {
         grid-column: 3 / span 8;
@@ -80,6 +159,25 @@ const { t } = localize(Astro.url);
       .rail {
         grid-column: 1 / span 2;
         margin-block-end: 0;
+      }
+
+      /* The margin the header leaves empty. Sticky, because its use is during the read. */
+      .contents {
+        display: block;
+        grid-column: 11 / -1;
+        grid-row: 1;
+        align-self: start;
+        position: sticky;
+        inset-block-start: var(--space-4);
+      }
+
+      .pager > .prev,
+      .pager > span {
+        grid-column: 1 / span 6;
+      }
+
+      .pager > .next {
+        grid-column: 7 / -1;
       }
     }
   }

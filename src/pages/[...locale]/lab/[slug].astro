@@ -27,8 +27,9 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { entry } = Astro.props;
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
 const { t } = localize(Astro.url);
+const sections = headings.filter((heading) => heading.depth === 2);
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.summary}>
@@ -58,6 +59,19 @@ const { t } = localize(Astro.url);
       <div class="prose document">
         <Content />
       </div>
+      {sections.length > 1 && (
+        /* The index to the numbered sections, in the column the header leaves empty. */
+        <nav class="contents" aria-label={t.contentsLabel}>
+          <p class="meta meta-quiet">{t.contentsHeading}</p>
+          <ol>
+            {sections.map((heading) => (
+              <li>
+                <a href={`#${heading.slug}`}>{heading.text}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
     </div>
   </article>
 </BaseLayout>
@@ -81,9 +95,33 @@ const { t } = localize(Astro.url);
       padding-block-start: var(--space-2);
     }
 
+    /* Hidden where there is no margin to put it in, as on a case study: on a phone a contents */
+    /* list sits between the reader and the first paragraph, and repeats what scrolling gives. */
+    .contents {
+      display: none;
+    }
+
+    .contents ol {
+      display: grid;
+      gap: var(--space-1);
+      margin-block-start: var(--space-2);
+      padding: 0;
+      list-style: none;
+      font-size: var(--text-small);
+    }
+
     @media (min-width: 64rem) {
       .document {
         grid-column: 3 / span 8;
+      }
+
+      .contents {
+        display: block;
+        grid-column: 11 / -1;
+        grid-row: 1;
+        align-self: start;
+        position: sticky;
+        inset-block-start: var(--space-4);
       }
 
       .rail {
