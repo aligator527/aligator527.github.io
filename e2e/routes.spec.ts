@@ -142,6 +142,12 @@ test.describe('routes', () => {
     }
   });
 
+  /*
+   * The analytics tag (src/data/analytics.ts) is the site's only script, and it is emitted only by
+   * a build with `ANALYTICS=on` - which the Playwright build is not. So this stays an equality
+   * against the empty list: it holds the zero-bundle property for every build but the deployed one,
+   * and it fails the moment a component starts shipping JavaScript of its own.
+   */
   test('ships no client JavaScript bundles', async ({ page }) => {
     const scripts: string[] = [];
     page.on('request', (request) => {
