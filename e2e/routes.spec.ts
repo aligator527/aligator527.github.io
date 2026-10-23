@@ -16,6 +16,8 @@ const ROUTES = [
   '/notes/choosing-a-stack-by-proof-of-concept/',
   '/lab/',
   '/lab/japan-logistics-map/',
+  '/lab/career-map/',
+  '/lab/zairyu-map/',
 ];
 
 test.describe('routes', () => {
