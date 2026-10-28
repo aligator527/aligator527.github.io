@@ -83,7 +83,9 @@ The slowdown was not one defect but several patterns that compound as data grows
 - Loading complete datasets to the client instead of only what a screen needs.
 - No pagination.
 
-Each of these is tolerable with a small table and one customer. Together, with a growing number of companies, they slowed the whole platform.
+These were not six unrelated mistakes. In that generation of Amplify each model is its own table, and an access path exists only where a key was declared for it — there is no planner to find another route. A question a screen asks with no key behind it has one remaining answer: read everything, then filter. The missing index and the Scan are the same defect seen twice.
+
+It also explains the shape of the symptom. Every row carries the company it belongs to, so filtering after the read cost more with each company added: the slowdown arrived for everyone at once rather than for one customer, and it kept worsening as the product was extended to more of them.
 
 ## 04 / Changes
 

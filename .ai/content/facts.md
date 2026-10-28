@@ -1,5 +1,10 @@
 # Verified Public Facts
 
+> **This file is published.** The repository is public, so everything below is readable by anyone,
+> including the notes about what must *not* appear on the site. Record the publishable fact and the
+> decision here; put anything whose own wording is sensitive — unapproved measurements, the reason
+> behind a restriction, a detail of a client system — in `CLAUDE.local.md`, which is gitignored.
+
 Last reviewed: 2026-10-08. Primary sources: Ivan Dolgov's current English CV and his Japanese SkillSheet (reviewed 2026-10-07; it is not updated for the Frameworx role, which the CV covers). Reconfirm before publication when career information changes.
 
 ## Identity and contact
@@ -86,6 +91,17 @@ the Latin names.
       client is for.
     - The shop floor works on a warehouse mobile network, so dropped connections and repeated
       submissions are the normal case rather than the edge case.
+    - Why the six patterns existed, confirmed 2026-10-29: in that generation of Amplify each model
+      is its own table and an access path exists only where a key was declared for it, with no
+      planner to find another route — so a question with no key behind it can only be answered by
+      reading everything and filtering afterwards. The missing index and the Scan are one defect
+      seen twice.
+    - Why the slowdown grew with the business, confirmed 2026-10-29: every row carries the company
+      it belongs to, so filtering after the read cost more with each company added. This is the
+      mechanism behind the published symptom — degradation for every customer at once, worsening
+      over time.
+    - One further observation from those notes is **not approved for publication** and is not
+      restated here, because this file is published. It is recorded in `CLAUDE.local.md`.
   - Domain detail, confirmed by Ivan on 2026-10-08: the SaaS covers the whole job lifecycle for a packing order — 案件作成 (creating the job) → 見積 (quotation) → 梱包設計 (packing design) → 梱包作業 (the packing work itself) → 請求書 (invoice) → コンテナ設計 (container loading plan) → loading onto the truck. The "Case" table is this 案件 entity: the job, not an English common noun.
   - Architecture: frontend, backend, and mobile in separate repositories, each with its own Amplify app and dev/staging/production environments. GraphQL (AppSync) over DynamoDB. The web frontend acted mostly as a BFF; the backend held specific heavy processing unsuitable for the frontend.
   - Retrospective: plan how to return production to its previous state for each change, since dev → staging → production does not guarantee a successful production release; assess impact on other components in advance.
@@ -144,9 +160,8 @@ description.
   layers are licensed for non-commercial use, and are published as picture tiles only, after the
   operating office confirmed with the ministry (2026-10) that display is not redistribution while
   handing over the data may be.
-  - **Restriction, confirmed by Ivan on 2026-10-23:** do not name the DPL layer, Daiwa House or
-    Frameworx anywhere in the portfolio's description of this project. Ivan is Tech Lead at
-    Frameworx, a Daiwa House Group company, and the association is his to make, not the site's.
+  - **Restriction, confirmed by Ivan on 2026-10-23:** this project's description on the site names
+    neither its developer-site layer nor any employer. The reasoning is in `CLAUDE.local.md`.
 - **career-map** — キャリアマップ / Career Map. `https://github.com/aligator527/career-map`, live at
   `https://aligator527.github.io/career-map/`. Public wage statistics from eleven jurisdictions
   (JP, US, UK, CA, DE, FR, IT, NL, AU, SG, KR) normalised by a Python pipeline into a static React
