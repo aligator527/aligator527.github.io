@@ -76,6 +76,16 @@ the Latin names.
   - Node.js 16→20: difficulties with dependencies and Lambda; verified with tests and manually against a predefined workflow of tenant setup and normal SaaS use.
   - External developers were contractors; support covered review, onboarding, documentation, and explaining their first tasks.
   - Terminology, confirmed by Ivan on 2026-10-08: a tenant in this SaaS is one packing company; the 案件 (jobs) are created inside it. "Information and communications" in the Flaretech project list is the Japanese industry classification 情報通信業, not an English industry name.
+  - System detail, confirmed by Ivan on 2026-10-29, from his own working notes on the codebase.
+    Publishable at this level of abstraction only; nothing below it is approved — not the issue
+    tracker, the integrations, the licence tiers, the role model, the entity names beyond those
+    already listed here, or the repository organisation.
+    - What it replaced: paper and spreadsheets. A quotation took days to produce, material use was
+      estimated by eye, and the customer could not see how far their job had got.
+    - Each packing phase must be photographed before the next begins. That is what the mobile
+      client is for.
+    - The shop floor works on a warehouse mobile network, so dropped connections and repeated
+      submissions are the normal case rather than the edge case.
   - Domain detail, confirmed by Ivan on 2026-10-08: the SaaS covers the whole job lifecycle for a packing order — 案件作成 (creating the job) → 見積 (quotation) → 梱包設計 (packing design) → 梱包作業 (the packing work itself) → 請求書 (invoice) → コンテナ設計 (container loading plan) → loading onto the truck. The "Case" table is this 案件 entity: the job, not an English common noun.
   - Architecture: frontend, backend, and mobile in separate repositories, each with its own Amplify app and dev/staging/production environments. GraphQL (AppSync) over DynamoDB. The web frontend acted mostly as a BFF; the backend held specific heavy processing unsuitable for the frontend.
   - Retrospective: plan how to return production to its previous state for each change, since dev → staging → production does not guarantee a successful production release; assess impact on other components in advance.

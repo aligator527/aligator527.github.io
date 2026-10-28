@@ -54,6 +54,8 @@ environments:
 
 A contract engagement from December 2024 to December 2025 on a production SaaS for the packaging industry, with web and mobile clients. The current CV reports that more than 10 Japanese companies were using the product during the engagement; the project team was approximately 10 people.
 
+The product follows a packing order from end to end: the job is created, quoted, designed, packed, invoiced, planned into a container, and loaded onto a truck. It replaced paper and spreadsheets, where a quotation took days to produce, material use was estimated by eye, and the customer could not see how far their job had got. The web client is for the office; the mobile one is for the floor, where each packing phase has to be photographed before the next begins — on a warehouse network where dropped connections and repeated submissions are the normal case rather than the edge one.
+
 My main work was restoring responsiveness after growing data had slowed the product down for every customer. Alongside it I migrated the Node.js runtime from version 16 to 20 and supported external developers joining the codebase.
 
 ## 01 / Problem
@@ -104,7 +106,7 @@ The Node.js 16 → 20 migration ran into dependency problems and issues with the
 
 I also supported external contractors joining the project: reviewing their code, onboarding them, writing documentation, and walking them through their first tasks.
 
-Performance was not the whole engagement. The product follows a packing order from end to end: the job is created, quoted, designed, packed, invoiced, planned into a container, and loaded onto a truck. I built and improved features along that chain — schedule reloading, the quotation, invoice, and packing flows, automatic screen transitions, and notifications — fixed mobile layout and list-navigation problems, and ran proofs of concept for taking the product further onto mobile.
+Performance was not the whole engagement. I built and improved features along that chain — schedule reloading, the quotation, invoice, and packing flows, automatic screen transitions, and notifications — fixed mobile layout and list-navigation problems, and ran proofs of concept for taking the product further onto mobile.
 
 ## 06 / Outcome
 
