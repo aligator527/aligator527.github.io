@@ -71,11 +71,15 @@ function frontmatter(text) {
 }
 
 /**
- * Links inside a note are relative to the page — `../../work/x/` — because nothing applies the
- * deployment base inside rendered Markdown. On DEV there is no page to be relative to.
+ * Links inside a note are relative to the page — `../../work/x/` out of the notes tree, `../x/`
+ * to a sibling note — because nothing applies the deployment base inside rendered Markdown. On
+ * DEV there is no page to be relative to. The two-step rewrite has to run longest-prefix first,
+ * or the second pattern would eat the first one's `../` and point every link at /notes/.
  */
 function absolute(body) {
-  return body.replace(/\]\(\.\.\/\.\.\/([^)]+)\)/g, `](${SITE}/$1)`);
+  return body
+    .replace(/\]\(\.\.\/\.\.\/([^)]+)\)/g, `](${SITE}/$1)`)
+    .replace(/\]\(\.\.\/([^)./][^)]*)\)/g, `](${SITE}/notes/$1)`);
 }
 
 function payloadFor(file) {
