@@ -223,7 +223,7 @@ export const en = {
   notesArticlesHeading: 'Articles',
   notesTopicsLabel: 'Topics',
   figureSteps: (row: string) => `Steps: ${row}`,
-  figureNoWayBack: 'No way back. Verify before it is visible.',
+  figureNoWayBack: 'No way back. Verify first.',
   notesMore: 'More notes',
   notesEmpty: 'No published notes yet.',
 

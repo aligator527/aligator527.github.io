@@ -213,7 +213,7 @@ export const ru: Dictionary = {
   notesArticlesHeading: 'Статьи',
   notesTopicsLabel: 'Темы',
   figureSteps: (row: string) => `Шаги: ${row}`,
-  figureNoWayBack: 'Возврата нет. Проверять до того, как станет видно.',
+  figureNoWayBack: 'Возврата нет. Проверять заранее.',
   notesMore: 'Другие заметки',
   notesEmpty: 'Пока нет опубликованных заметок.',
 

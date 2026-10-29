@@ -210,7 +210,7 @@ export const ja: Dictionary = {
   notesArticlesHeading: '記事',
   notesTopicsLabel: 'トピック',
   figureSteps: (row: string) => `手順: ${row}`,
-  figureNoWayBack: '戻せません。見える前に検証します。',
+  figureNoWayBack: '戻せません。先に検証します。',
   notesMore: 'ほかのノート',
   notesEmpty: '公開中の記事はまだありません。',
 

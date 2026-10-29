@@ -43,6 +43,8 @@ const TAGS = {
   Releases: 'devops',
   Migrations: 'database',
   'Technology selection': 'architecture',
+  'Technical leadership': 'leadership',
+  'Engineering management': 'management',
   Go: 'go',
   'AI-assisted development': 'ai',
 };

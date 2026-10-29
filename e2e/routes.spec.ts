@@ -17,6 +17,7 @@ const ROUTES = [
   '/notes/per-user-identity-pricing/',
   '/notes/choosing-a-stack-by-proof-of-concept/',
   '/notes/release-plan-is-a-return-plan/',
+  '/notes/a-hold-is-a-decision/',
   '/lab/',
   '/lab/japan-logistics-map/',
   '/lab/career-map/',
