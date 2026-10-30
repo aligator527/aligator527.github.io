@@ -1,10 +1,10 @@
-# Three productized engagements. Each one is scoped to what a Tech Lead in full-time employment
+# Four productized engagements. Each one is scoped to what a Tech Lead in full-time employment
 # can actually deliver — review and advisory, in days rather than months — and each rests on work
 # already published on this site, which is what `evidence` points at.
 #
-# No price is published. Rates are Ivan's to state, and `.ai/content/facts.md` keeps financial
-# figures out of site copy until he approves one. When he does, add `price:` to the schema in
-# src/content.config.ts and one value per offer here; nothing else has to change.
+# `priceFrom` is a floor in JPY before consumption tax, approved for publication on 2026-10-23 and
+# revised downward the same day. This file is the only record of the figure: `.ai/content/facts.md`
+# points here rather than keeping a copy, having kept one that drifted 25% above what shipped.
 #
 # `title`, `problem`, `work`, `deliverable` and `duration` carry one value per locale.
 # Wording drafted 2026-10-23; the Russian and Japanese are translations of the English.

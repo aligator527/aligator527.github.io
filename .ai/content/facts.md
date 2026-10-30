@@ -180,11 +180,12 @@ of every repository is a documented non-goal.
 Do not publish without a direct source and explicit approval:
 
 - financial impact beyond the published service floors. Ivan approved publishing a price per
-  engagement on 2026-10-23, derived from market rates rather than from a rate he has charged:
-  ¥600,000 for the performance audit and the architecture review, ¥350,000 for the multilingual
-  audit, ¥400,000 for a Japan-bridge round — floors, before consumption tax. They are a position,
-  not a record of past invoices, and `src/content/services/services.yaml` is the only place to
-  change them;
+  engagement on 2026-10-23, derived from market rates rather than from a rate he has charged, and
+  revised the figures downward the same day. They are floors, in JPY, before consumption tax, and
+  they are a position rather than a record of past invoices.
+  `src/content/services/services.yaml` holds them and is the only place to change them. This file
+  deliberately does not restate them: the copy kept here was 25% above the published figure within
+  a week of being written, and a second copy of a number is a second number;
 - conversion, performance, or revenue percentages;
 - named client relationships not already public;
 - user counts other than the CV-approved SaaS adoption claim above;
