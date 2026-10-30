@@ -16,8 +16,14 @@
  *   GSC_KEY=~/.gsc-key.json node scripts/gsc.mjs --dim query,page --days 90 --limit 50
  *   GSC_KEY=~/.gsc-key.json node scripts/gsc.mjs --filter country=usa
  *   GSC_KEY=~/.gsc-key.json node scripts/gsc.mjs --json         # raw rows
+ *   GSC_KEY=~/.gsc-key.json node scripts/gsc.mjs --inspect      # index status of every page
+ *   GSC_KEY=~/.gsc-key.json node scripts/gsc.mjs --inspect https://…/services/
  *
- * Every run prints the totals beside the sum of the rows. Google withholds rare queries from the
+ * `--inspect` answers what Search Analytics cannot. A page with no impressions may be ranking for
+ * nothing, or may never have been fetched at all; those are different problems with different
+ * remedies, and only URL Inspection tells them apart. With no arguments it walks the sitemap.
+ *
+ * Every analytics run prints the totals beside the sum of the rows. Google withholds rare queries from the
  * query dimension but keeps them in the totals, so on a site this size most of the clicks can sit
  * outside the table — reading the table as if it were the whole period is how you conclude that
  * only your own name converts.
@@ -27,20 +33,26 @@ import { createSign } from 'node:crypto';
 import { homedir } from 'node:os';
 import { argv, env, exit } from 'node:process';
 
-const SITE = env.GSC_SITE ?? 'https://aligator527.github.io/';
 const TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const API = 'https://searchconsole.googleapis.com/webmasters/v3';
+const INSPECT = 'https://searchconsole.googleapis.com/v1/urlInspection/index:inspect';
 const SCOPE = 'https://www.googleapis.com/auth/webmasters.readonly';
 
-/** `--days 90`, `--dim query,page`, `--filter country=usa`; bare `--sites`, `--json`. */
+/** Which options take a value. Guessing from the next argument instead would swallow the URLs. */
+const VALUED = new Set(['days', 'dim', 'limit', 'filter', 'site']);
+
+/** `--days 90`, `--dim query,page`, `--filter country=usa`; bare `--sites`, `--json`, `--inspect`. */
 function options(args) {
-  const opts = { flags: new Set() };
+  const opts = { flags: new Set(), rest: [] };
   for (let i = 0; i < args.length; i += 1) {
-    if (!args[i].startsWith('--')) continue;
-    const name = args[i].slice(2);
-    const next = args[i + 1];
-    if (next && !next.startsWith('--')) {
-      opts[name] = next;
+    const arg = args[i];
+    if (!arg.startsWith('--')) {
+      opts.rest.push(arg);
+      continue;
+    }
+    const name = arg.slice(2);
+    if (VALUED.has(name)) {
+      opts[name] = args[i + 1];
       i += 1;
     } else {
       opts.flags.add(name);
@@ -50,6 +62,7 @@ function options(args) {
 }
 
 const opts = options(argv.slice(2));
+const SITE = opts.site ?? env.GSC_SITE ?? 'https://aligator527.github.io/';
 const days = Number(opts.days ?? 28);
 const dimensions = (opts.dim ?? 'query').split(',').filter(Boolean);
 const rowLimit = Number(opts.limit ?? 25);
@@ -165,6 +178,91 @@ if (opts.flags.has('sites')) {
   const { siteEntry = [] } = await call('/sites', token);
   if (siteEntry.length === 0) console.log('No properties. The service account was not added yet.');
   for (const site of siteEntry) console.log(`${pad(site.permissionLevel, 22)} ${site.siteUrl}`);
+  exit(0);
+}
+
+/**
+ * Four at a time: the quota is thousands a day, but a sitemap walk is dozens of calls and running
+ * them all at once is how a free endpoint starts returning 429 instead of answers.
+ */
+async function inspectAll(urls, token) {
+  const verdicts = new Map();
+  let cursor = 0;
+  const worker = async () => {
+    while (cursor < urls.length) {
+      const url = urls[cursor];
+      cursor += 1;
+      const response = await fetch(INSPECT, {
+        method: 'POST',
+        headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+        body: JSON.stringify({ inspectionUrl: url, siteUrl: SITE }),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        verdicts.set(url, { state: `HTTP ${response.status}`, crawled: '-' });
+        continue;
+      }
+      const status = body.inspectionResult?.indexStatusResult ?? {};
+      verdicts.set(url, {
+        state: status.coverageState ?? 'no result',
+        crawled: status.lastCrawlTime?.slice(0, 10) ?? 'never',
+      });
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(4, urls.length) }, worker));
+  return verdicts;
+}
+
+/** Every page the site advertises, so a bare `--inspect` audits what the sitemap claims exists. */
+async function sitemapUrls() {
+  const locs = async (url) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      console.error(`Could not read ${url}: ${response.status}`);
+      exit(1);
+    }
+    return [...(await response.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+  };
+  const index = await locs(new URL('sitemap-index.xml', SITE).href);
+  // A sitemap index lists sitemaps; a plain sitemap lists pages. Accept either.
+  if (!index.every((loc) => loc.endsWith('.xml'))) return [...new Set(index)].sort();
+  const pages = await Promise.all(index.map(locs));
+  return [...new Set(pages.flat())].sort();
+}
+
+if (opts.flags.has('inspect')) {
+  const urls = opts.rest.length > 0 ? opts.rest : await sitemapUrls();
+  console.log(`${urls.length} URL(s) against ${SITE}\n`);
+  const verdicts = await inspectAll(urls, token);
+  const short = (url) => url.replace(SITE, '/');
+  const column = Math.max(...urls.map((url) => short(url).length));
+
+  const groups = new Map();
+  for (const url of urls) {
+    const { state, crawled } = verdicts.get(url);
+    console.log(`${pad(short(url), column)}  ${pad(crawled, 11)} ${state}`);
+    groups.set(state, [...(groups.get(state) ?? []), url]);
+  }
+
+  console.log();
+  const bySize = [...groups].sort((a, b) => b[1].length - a[1].length);
+  for (const [state, members] of bySize)
+    console.log(`${String(members.length).padStart(4)}  ${state}`);
+
+  // "Indexed, not submitted in sitemap" is fine; "unknown" and "currently not indexed" are not.
+  const trouble = bySize.filter(
+    ([state]) =>
+      !state.toLowerCase().includes('indexed') || state.toLowerCase().includes('not indexed'),
+  );
+  if (trouble.length > 0) {
+    for (const [state, members] of trouble) {
+      console.log(`\n${state}:`);
+      for (const url of members) console.log(`  ${url}`);
+    }
+    console.log('\nThere is no API for requesting indexing of an ordinary page — the Indexing API');
+    console.log('covers job postings and broadcasts only. Paste these into the Search Console');
+    console.log('inspection bar and use Request indexing.');
+  }
   exit(0);
 }
 
