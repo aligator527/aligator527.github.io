@@ -212,6 +212,7 @@ export const ru: Dictionary = {
   notesLead: 'Тексты об инженерии и архитектуре.',
   notesArticlesHeading: 'Статьи',
   notesTopicsLabel: 'Темы',
+  notesEngagementLabel: 'Формат работы',
   figureSteps: (row: string) => `Шаги: ${row}`,
   figureNoWayBack: 'Возврата нет. Проверять заранее.',
   notesMore: 'Другие заметки',

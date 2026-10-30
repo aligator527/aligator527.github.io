@@ -1,6 +1,6 @@
 ---
 interface Props {
-  items: { label: string; value: string; note?: string | undefined }[];
+  items: { label: string; value: string; href?: string | undefined; note?: string | undefined }[];
   /** `rail` stacks label over value; `inline` puts them on one row. */
   layout?: 'rail' | 'inline';
   class?: string;
@@ -14,7 +14,7 @@ const { items, layout = 'rail', class: className } = Astro.props;
     <div class="row">
       <dt class="meta meta-quiet">{item.label}</dt>
       <dd>
-        {item.value}
+        {item.href ? <a href={item.href}>{item.value}</a> : item.value}
         {item.note && <span class="note">{item.note}</span>}
       </dd>
     </div>

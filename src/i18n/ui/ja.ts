@@ -209,6 +209,7 @@ export const ja: Dictionary = {
   notesLead: 'エンジニアリングとアーキテクチャについて。',
   notesArticlesHeading: '記事',
   notesTopicsLabel: 'トピック',
+  notesEngagementLabel: '依頼の形',
   figureSteps: (row: string) => `手順: ${row}`,
   figureNoWayBack: '戻せません。先に検証します。',
   notesMore: 'ほかのノート',

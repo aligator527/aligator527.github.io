@@ -1,6 +1,8 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { assertTranslated, pick } from './localized';
 import { assertLocale, type Locale } from './i18n';
+import { noteSlug } from './writing';
+import { workSlug } from './work';
 
 export type ServiceEntry = CollectionEntry<'services'>;
 
@@ -32,6 +34,7 @@ export async function getServices(locale: Locale): Promise<Service[]> {
   const entries = (await getCollection('services', ({ data }) => data.published)).sort(
     (a, b) => a.data.order - b.data.order,
   );
+  await assertEvidenceResolves(entries);
 
   return entries.map((entry) => {
     for (const field of TRANSLATABLE) {
@@ -49,4 +52,35 @@ export async function getServices(locale: Locale): Promise<Service[]> {
       evidence: entry.data.evidence,
     };
   });
+}
+
+/**
+ * Evidence that names nothing renders as no evidence at all: the offer quietly loses the thing
+ * that makes it credible, and the note quietly loses its way back. A mistyped slug is invisible on
+ * the page it breaks, so it fails the build instead.
+ */
+async function assertEvidenceResolves(entries: ServiceEntry[]): Promise<void> {
+  const [notes, work] = await Promise.all([getCollection('notes'), getCollection('work')]);
+  const known = { note: new Set(notes.map(noteSlug)), work: new Set(work.map(workSlug)) };
+
+  for (const entry of entries) {
+    for (const kind of ['note', 'work'] as const) {
+      const slug = entry.data.evidence[kind];
+      if (slug && !known[kind].has(slug)) {
+        throw new Error(`services/${entry.id}: evidence.${kind} "${slug}" names no ${kind} entry`);
+      }
+    }
+  }
+}
+
+/**
+ * The engagement a note is evidence for, if there is one.
+ *
+ * The pairing is declared once, on the engagement, and read backwards here. A `service:` field in
+ * note frontmatter would be the other way round, and would let a note advertise an engagement the
+ * services page does not offer — a promise nobody priced.
+ */
+export async function serviceForNote(slug: string, locale: Locale): Promise<Service | undefined> {
+  const services = await getServices(locale);
+  return services.find((service) => service.evidence.note === slug);
 }

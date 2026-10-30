@@ -145,6 +145,25 @@ test.describe('routes', () => {
   });
 
   /*
+   * The same edge read backwards. The pairing is declared once, on the engagement, and a note that
+   * is evidence for one carries a link to it: the reader who has just finished the note is the
+   * person the engagement is for, and the primary nav is otherwise the only route there.
+   */
+  test('a note links back to the engagement it is evidence for', async ({ page }) => {
+    await page.goto('/notes/dynamodb-slow-as-data-grew/');
+    const link = page.locator('.engagement a');
+    await expect(link).toHaveCount(1);
+    await expect(link).toContainText('S01');
+    await link.click();
+    await expect(page).toHaveURL(/\/services\/#performance-audit$/);
+    await expect(page.locator('#performance-audit')).toBeInViewport();
+
+    // A note with no engagement declared says nothing, rather than reaching for the nearest one.
+    await page.goto('/notes/release-plan-is-a-return-plan/');
+    await expect(page.locator('.engagement')).toHaveCount(0);
+  });
+
+  /*
    * Two properties in one equality, now that the build under test carries the consent gate: no
    * component ships a JavaScript bundle, and no third party is contacted before a visitor agrees.
    * The gate's own script is inline, so it makes no request and belongs in neither count.

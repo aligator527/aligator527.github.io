@@ -7,8 +7,9 @@ import MetaList from '../../../components/core/MetaList.astro';
 import StepSequence from '../../../components/diagrams/StepSequence.astro';
 import LayerDiagram from '../../../components/diagrams/LayerDiagram.astro';
 import { localize } from '../../../i18n/ui';
-import { EMITTED_LOCALES, localeParam } from '../../../utils/i18n';
+import { EMITTED_LOCALES, localeHref, localeParam } from '../../../utils/i18n';
 import { getNotes, noteHref, noteSlug } from '../../../utils/writing';
+import { serviceForNote } from '../../../utils/services';
 
 /*
  * One route per locale per note. The slug is the same in every locale, which is what makes
@@ -33,6 +34,7 @@ const { note, previous, next } = Astro.props;
 const { Content, headings } = await render(note);
 const { locale, t } = localize(Astro.url);
 const sections = headings.filter((heading) => heading.depth === 2);
+const engagement = await serviceForNote(noteSlug(note), locale);
 const noteDate = (entry: typeof note) => entry.data.publishedAt.replaceAll('-', '/');
 ---
 
@@ -82,6 +84,20 @@ const noteDate = (entry: typeof note) => entry.data.publishedAt.replaceAll('-', 
         </nav>
       )}
     </div>
+    {engagement && (
+      <div class="grid engagement">
+        <MetaList
+          layout="inline"
+          items={[
+            {
+              label: t.notesEngagementLabel,
+              value: `${engagement.code} · ${engagement.title}`,
+              href: `${localeHref('/services/', locale)}#${engagement.id}`,
+            },
+          ]}
+        />
+      </div>
+    )}
     <nav class="grid pager" aria-label={t.notesMore}>
       {previous ? (
         <a class="pager-link prev" href={noteHref(previous, locale)}>
@@ -139,6 +155,19 @@ const noteDate = (entry: typeof note) => entry.data.publishedAt.replaceAll('-', 
       border-block-end: var(--rule-strong);
     }
 
+    /* The last line of the document rather than a banner under it: the prose column, in the */
+    /* register the topics use. A note is evidence for an engagement, the pairing is declared */
+    /* on the engagement, and this is that edge read backwards. */
+    .engagement {
+      margin-block-start: var(--space-6);
+    }
+
+    /* MetaList renders the row, so it carries its own scope and not this page's — the same */
+    /* reason `.document > :global(.figure)` is written that way in the case-study layout. */
+    .engagement > :global(.meta-list) {
+      grid-column: 1 / -1;
+    }
+
     .pager {
       margin-block-start: var(--space-8);
       row-gap: var(--space-3);
@@ -184,6 +213,10 @@ const noteDate = (entry: typeof note) => entry.data.publishedAt.replaceAll('-', 
         align-self: start;
         position: sticky;
         inset-block-start: var(--space-4);
+      }
+
+      .engagement > :global(.meta-list) {
+        grid-column: 3 / span 8;
       }
 
       .pager > .prev,

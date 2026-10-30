@@ -222,6 +222,7 @@ export const en = {
   notesLead: 'Engineering and architecture writing.',
   notesArticlesHeading: 'Articles',
   notesTopicsLabel: 'Topics',
+  notesEngagementLabel: 'Engagement',
   figureSteps: (row: string) => `Steps: ${row}`,
   figureNoWayBack: 'No way back. Verify first.',
   notesMore: 'More notes',

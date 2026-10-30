@@ -41,7 +41,7 @@ const notes = new Map((await getNotes(locale)).map((note) => [noteSlug(note), no
         const note = service.evidence.note ? notes.get(service.evidence.note) : undefined;
         const study = service.evidence.work ? work.get(service.evidence.work) : undefined;
         return (
-          <li class="offer grid">
+          <li class="offer grid" id={service.id}>
             <div class="head">
               <p class="meta meta-quiet">{service.code}</p>
               <h3>{service.title}</h3>
@@ -110,6 +110,9 @@ const notes = new Map((await getNotes(locale)).map((note) => [noteSlug(note), no
       padding-block: var(--space-5);
       border-block-start: var(--rule-strong);
       row-gap: var(--space-4);
+      /* A note links to the engagement it is evidence for; landing flush against the viewport */
+      /* edge hides the rule that separates this offer from the one above it. */
+      scroll-margin-block-start: var(--space-5);
     }
 
     .offer > * {
