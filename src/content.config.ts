@@ -136,10 +136,15 @@ const services = defineCollection({
      * Rendered per locale in `services.astro` — ¥600,000 in English, 600,000円〜 in Japanese.
      */
     priceFrom: z.number().int().positive(),
-    /** What on this site proves it. A slug in each collection, or null where there is none yet. */
+    /**
+     * What on this site proves it: a slug in each collection, or null where there is none yet.
+     * `repo` cites the site's own source, and belongs only to an offer this repository actually
+     * demonstrates — otherwise every offer would claim it and it would mean nothing.
+     */
     evidence: z.object({
       note: z.string().nullable(),
       work: z.string().nullable(),
+      repo: z.boolean().default(false),
     }),
     published: z.boolean(),
   }),

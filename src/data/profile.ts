@@ -17,6 +17,14 @@ export const profile = {
   email: 'ivan.d@wanya.group',
   github: { label: 'github.com/aligator527', href: 'https://github.com/aligator527' },
   linkedin: { label: 'linkedin.com/in/aligator527', href: 'https://linkedin.com/in/aligator527' },
+  /*
+   * This site's own source. S02 cites it: the multilingual defects that offer looks for are the
+   * ones this repository fails its build over, which is a stronger claim than a screenshot.
+   */
+  repository: {
+    label: 'github.com/aligator527/aligator527.github.io',
+    href: 'https://github.com/aligator527/aligator527.github.io',
+  },
   /* Booking. One constant: the footer, the services page and anything later read this. */
   booking: { label: 'cal.com/aligator527/intro', href: 'https://cal.com/aligator527/intro' },
   /*

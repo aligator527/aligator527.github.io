@@ -184,6 +184,7 @@ export const ru: Dictionary = {
   servicesPrice: (amount: string) => `¥${amount}`,
   servicesDuration: 'Срок',
   servicesEvidence: 'Доказательство',
+  servicesEvidenceRepo: 'Исходный код этого сайта',
   servicesClosing:
     'Цены указаны как нижняя граница, без потребительского налога, итог определяет объём. Опишите задачу, и я скажу, что бы сделал и во что это обойдётся, либо что вам лучше подойдёт кто-то другой. Пишите на',
   servicesBook: 'Или забронируйте 30 минут.',

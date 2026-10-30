@@ -138,6 +138,15 @@ test.describe('routes', () => {
       .evaluateAll((as) => as.map((a) => a.getAttribute('href') ?? ''));
     expect(links.length).toBeGreaterThan(2);
     for (const href of links) {
+      if (href.startsWith('https://')) {
+        /*
+         * The one citation that is not a page on this site: its own source, which S02 rests on
+         * because the defects that offer looks for are the ones this repository fails over. It is
+         * asserted and not fetched — a test that needs GitHub up is a test that fails for free.
+         */
+        expect(href).toBe('https://github.com/aligator527/aligator527.github.io');
+        continue;
+      }
       expect(href).toMatch(/^\/(work|notes)\/[a-z-]+\/$/);
       const response = await page.request.get(href);
       expect(response.status(), href).toBe(200);

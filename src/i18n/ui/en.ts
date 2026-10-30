@@ -191,6 +191,7 @@ export const en = {
   servicesPrice: (amount: string) => `¥${amount}`,
   servicesDuration: 'Duration',
   servicesEvidence: 'Evidence',
+  servicesEvidenceRepo: 'The source of this site',
   servicesClosing:
     'Prices are floors, before consumption tax, and the scope sets the figure — so describe the problem and I will say what I would do and what it would cost, or that someone else is a better fit. Write to',
   servicesBook: 'Or book 30 minutes.',

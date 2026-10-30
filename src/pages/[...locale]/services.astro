@@ -66,11 +66,14 @@ const notes = new Map((await getNotes(locale)).map((note) => [noteSlug(note), no
                   { label: t.servicesDuration, value: service.duration },
                 ]}
               />
-              {(note || study) && (
+              {(note || study || service.evidence.repo) && (
                 <p class="evidence">
                   <span class="meta meta-quiet">{t.servicesEvidence}</span>
                   {study && <a href={workHref(study, locale)}>{study.data.title}</a>}
                   {note && <a href={noteHref(note, locale)}>{note.data.title}</a>}
+                  {service.evidence.repo && (
+                    <a href={profile.repository.href}>{t.servicesEvidenceRepo}</a>
+                  )}
                 </p>
               )}
             </div>

@@ -181,6 +181,7 @@ export const ja: Dictionary = {
   servicesPrice: (amount: string) => `${amount}円〜`,
   servicesDuration: '期間',
   servicesEvidence: '根拠',
+  servicesEvidenceRepo: 'このサイトのソースコード',
   servicesClosing:
     '表示の金額は税別の下限で、最終的な金額は範囲によって決まります。課題をお書きいただければ、何をするか、いくらになるかをお伝えします。合わない場合は、ほかの方が適していると申し上げます。ご連絡は',
   servicesBook: '30分の枠を予約することもできます。',

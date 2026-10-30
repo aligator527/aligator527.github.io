@@ -63,6 +63,8 @@
   evidence:
     note: null
     work: client-delivery
+    # The audit this offer describes is the one this site fails its own build over.
+    repo: true
   published: true
 - id: architecture-review
   order: 3
