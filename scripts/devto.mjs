@@ -71,6 +71,42 @@ function frontmatter(text) {
   return { data, body: match[2] };
 }
 
+/*
+ * A line that starts a block of its own, and therefore never joins the line above it: a blank,
+ * a heading, a list item, a quote, a table row, a fence, a rule, raw HTML, or an indented block.
+ */
+const BLOCK = /^(\s*$|#{1,6}\s|[-*+]\s|\d+[.)]\s|>|\||```|~~~|---|___|\*\*\*|<|\s{4,})/;
+
+/**
+ * Joins the hard-wrapped lines of each paragraph back into one line.
+ *
+ * The source files wrap at 100 columns, which `.ai/content/translation.md` requires and which
+ * CommonMark renders as a space. DEV does not: it renders a single newline as `<br>`, so every
+ * wrap point became a visible line break and an argued paragraph arrived as a column of
+ * fragments. Markdown that is correct by the spec and wrong on the platform is still wrong.
+ *
+ * A line joins the one above it only when neither is a block of its own, so the bullets stay
+ * separate bullets and a wrapped one gets its continuation back.
+ */
+function unwrap(body) {
+  const lines = [];
+  let fenced = false;
+  for (const line of body.split('\n')) {
+    if (/^\s*(```|~~~)/.test(line)) {
+      fenced = !fenced;
+      lines.push(line);
+      continue;
+    }
+    const previous = lines.at(-1);
+    if (!fenced && previous !== undefined && previous.trim() !== '' && !BLOCK.test(line)) {
+      lines[lines.length - 1] = `${previous} ${line.trim()}`;
+      continue;
+    }
+    lines.push(line);
+  }
+  return lines.join('\n');
+}
+
 /**
  * Links inside a note are relative to the page — `../../work/x/` out of the notes tree, `../x/`
  * to a sibling note — because nothing applies the deployment base inside rendered Markdown. On
@@ -128,7 +164,7 @@ function payloadFor(file) {
     article: {
       title: data.title,
       published: !draft,
-      body_markdown: absolute(body).trim() + footer,
+      body_markdown: absolute(unwrap(body)).trim() + footer,
       canonical_url: `${SITE}/notes/${slug}/`,
       description: data.summary,
       tags,
