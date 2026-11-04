@@ -21,6 +21,7 @@ import { argv, env, exit } from 'node:process';
 
 const SITE = 'https://aligator527.github.io';
 const NOTES = new URL('../src/content/notes/en/', import.meta.url);
+const SERVICES = new URL('../src/content/services/services.yaml', import.meta.url);
 const API = 'https://dev.to/api/articles';
 
 const flags = new Set(argv.slice(2).filter((arg) => arg.startsWith('--')));
@@ -82,6 +83,32 @@ function absolute(body) {
     .replace(/\]\(\.\.\/([^)./][^)]*)\)/g, `](${SITE}/notes/$1)`);
 }
 
+/**
+ * The note → engagement edge, read from the file that declares it.
+ *
+ * A note is evidence for an engagement, the pairing is declared once on the engagement, and the
+ * site renders it as the last line of the note. A repost that drops it keeps the argument and
+ * loses the only path from the writing to the work it is evidence for — and DEV is where the
+ * English notes have readers that the site does not.
+ *
+ * Parsed by hand for the same reason the frontmatter above is: four fields out of one
+ * machine-written file do not justify a YAML dependency in a script that has none.
+ */
+function engagements() {
+  const text = readFileSync(SERVICES, 'utf8');
+  const edges = new Map();
+  for (const entry of text.split(/^- id: /m).slice(1)) {
+    const id = entry.split('\n')[0].trim();
+    const code = /^ {2}code: (\S+)$/m.exec(entry)?.[1];
+    const title = /^ {2}title:\n {4}en: (.*)$/m.exec(entry)?.[1]?.replace(/^['"]|['"]$/g, '');
+    const note = /^ {4}note: (.*)$/m.exec(entry)?.[1];
+    if (note && note !== 'null' && code && title) edges.set(note, { id, code, title });
+  }
+  return edges;
+}
+
+const EDGES = engagements();
+
 function payloadFor(file) {
   const { data, body } = frontmatter(readFileSync(new URL(file, NOTES), 'utf8'));
   if (data.draft === 'true') return null;
@@ -90,12 +117,18 @@ function payloadFor(file) {
     0,
     4,
   );
+  const engagement = EDGES.get(slug);
+  const footer = engagement
+    ? `\n\n---\n\nThe engagement this note is evidence for: ` +
+      `[${engagement.code} · ${engagement.title}](${SITE}/services/#${engagement.id}).\n`
+    : '';
   return {
     slug,
+    engagement,
     article: {
       title: data.title,
       published: !draft,
-      body_markdown: absolute(body).trim(),
+      body_markdown: absolute(body).trim() + footer,
       canonical_url: `${SITE}/notes/${slug}/`,
       description: data.summary,
       tags,
@@ -111,11 +144,14 @@ const notes = readdirSync(NOTES)
 console.log(`${notes.length} note(s) to publish.`);
 
 if (dryRun) {
-  for (const { slug, article } of notes) {
+  for (const { slug, engagement, article } of notes) {
     console.log(`\n${slug}`);
     console.log(`  title     ${article.title}`);
     console.log(`  canonical ${article.canonical_url}`);
     console.log(`  tags      ${article.tags.join(', ') || '(none)'}`);
+    console.log(
+      `  cites     ${engagement ? `${engagement.code} → ${SITE}/services/#${engagement.id}` : '(no engagement declared)'}`,
+    );
     console.log(
       `  body      ${article.body_markdown.length} chars, published: ${article.published}`,
     );
