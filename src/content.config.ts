@@ -177,6 +177,7 @@ const lab = defineCollection({
     repository: z.url().optional(),
     demo: z.url().optional(),
     date: isoDate,
+    updatedAt: isoDate.optional(),
     featured: z.boolean().default(false),
     /** Internal provenance, deliberately never rendered: it records where each fact came from. */
     sourceNote: z.string(),

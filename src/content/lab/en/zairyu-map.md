@@ -14,6 +14,7 @@ technologies:
 repository: https://github.com/aligator527/zairyu-map
 demo: https://aligator527.github.io/zairyu-map/
 date: '2026-09-25'
+updatedAt: '2026-10-23'
 sourceNote: >-
   Written from the repository README and GitHub metadata, read 2026-10-23. The architecture the
   logistics map was then built on; a weekly workflow refreshes the data. No employer or client

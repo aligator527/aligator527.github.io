@@ -16,6 +16,7 @@ technologies:
 repository: https://github.com/aligator527/logistics-map
 demo: https://aligator527.github.io/logistics-map/
 date: '2026-10-21'
+updatedAt: '2026-10-23'
 featured: true
 sourceNote: >-
   Written from the repository README and GitHub metadata, read 2026-10-23: 92 commits,

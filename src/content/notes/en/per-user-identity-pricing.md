@@ -3,6 +3,7 @@ locale: en
 title: 'Cognito, Auth0, Keycloak: what identity costs'
 summary: Managed identity costs per user; self-hosting costs per engineer. Where the lines cross is a calculation most teams skip — and the lock-in is not the protocol.
 publishedAt: '2026-10-23'
+updatedAt: '2026-11-04'
 topics: [Architecture, Identity, Keycloak, AWS]
 draft: false
 ---

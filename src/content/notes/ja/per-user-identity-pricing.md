@@ -6,6 +6,7 @@ translation:
 title: Cognito・Auth0・自前Keycloakの費用
 summary: マネージドIDはユーザー単位、自前運用はエンジニア単位の費用です。その2本が交わる点はたいてい計算されず、ロックインはプロトコルにはありません。
 publishedAt: '2026-10-23'
+updatedAt: '2026-11-04'
 topics: [アーキテクチャ, 認証基盤, Keycloak, AWS]
 draft: false
 ---

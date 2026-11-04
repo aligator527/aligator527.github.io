@@ -19,13 +19,30 @@ describe('lastmodFor', () => {
   });
 
   it('dates a section index by its newest entry', () => {
-    // Lab's newest entry is L01, last touched 2026-10-21; the index changes when one is added.
-    expect(lastmodFor('/lab/', '/')).toBe('2026-10-21');
-    expect(lastmodFor('/ru/lab/', '/')).toBe('2026-10-21');
+    // All three lab entries were rebuilt on 2026-10-23; the index changes when one does.
+    expect(lastmodFor('/lab/', '/')).toBe('2026-10-23');
+    expect(lastmodFor('/ru/lab/', '/')).toBe('2026-10-23');
+    // Notes' newest date is the identity note's retitle, not the newest publication.
+    expect(lastmodFor('/notes/', '/')).toBe('2026-11-04');
   });
 
-  it('dates a lab entry from its own date', () => {
-    expect(lastmodFor('/lab/zairyu-map/', '/')).toBe('2026-09-25');
+  /*
+   * `lastmod` means last modified, not first published, and the gap between the two is what sends
+   * a crawler back. An entry that was changed long after it shipped says so through `updatedAt`,
+   * and that is the value the sitemap has to carry — the first test above is the other half, where
+   * nothing has been updated and the publication date stands.
+   */
+  it('prefers updatedAt over the date the entry first carried', () => {
+    // L03 shipped 2026-09-25 and was given a page of its own on 2026-10-23.
+    expect(lastmodFor('/lab/zairyu-map/', '/')).toBe('2026-10-23');
+    // The identity note was retitled in all three locales twelve days after it was published.
+    for (const pathname of [
+      '/notes/per-user-identity-pricing/',
+      '/ru/notes/per-user-identity-pricing/',
+      '/ja/notes/per-user-identity-pricing/',
+    ]) {
+      expect(lastmodFor(pathname, '/'), pathname).toBe('2026-11-04');
+    }
   });
 
   /*

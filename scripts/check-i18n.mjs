@@ -30,8 +30,20 @@
  * Usage: node scripts/check-i18n.mjs <dist-dir>   (BASE_PATH is honoured, as in check-links.mjs)
  */
 import { readFile, readdir, stat } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { join, posix, relative, resolve, sep } from 'node:path';
+
+/** A git read that returns '' instead of throwing: this script must run outside a checkout too. */
+function run(command, args) {
+  try {
+    return execFileSync(command, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })
+      .toString()
+      .trim();
+  } catch {
+    return '';
+  }
+}
 
 const dist = resolve(process.argv[2] ?? 'dist');
 const base = process.env.BASE_PATH ?? '/';
@@ -333,6 +345,46 @@ for (const file of htmlFiles) {
   }
 }
 
+/*
+ * 7. A lastmod advisory, over the source rather than the build.
+ *
+ * `src/utils/sitemap-dates.ts` dates a note by its `updatedAt` when it has one and its
+ * `publishedAt` otherwise, so a note edited weeks after it shipped keeps telling crawlers it has
+ * not changed — which is how a retitled note was left out of an IndexNow run while three unchanged
+ * ones were announced. Git knows when the file last changed.
+ *
+ * What git cannot know is whether the change was SIGNIFICANT, and a lastmod that moves for a
+ * reflow or a typo is exactly the lastmod a crawler learns to ignore — the failure the dates file
+ * was written to avoid. So this reports and never fails, and the judgement stays with the author.
+ * Skipped on a shallow clone, where `git log` would name the one commit CI fetched.
+ */
+const staleDates = [];
+const shallow = run('git', ['rev-parse', '--is-shallow-repository']) === 'true';
+if (!shallow && run('git', ['rev-parse', '--git-dir'])) {
+  for (const [collection, field] of [
+    ['notes', 'publishedAt'],
+    ['lab', 'date'],
+  ]) {
+    const dir = join('src', 'content', collection, 'en');
+    if (!existsSync(dir)) continue;
+    for (const entry of await readdir(dir)) {
+      if (!/\.mdx?$/.test(entry)) continue;
+      const path = join(dir, entry);
+      const text = await readFile(path, 'utf8');
+      if (/^draft:\s*true\s*$/m.test(text)) continue;
+      const declared =
+        /^updatedAt:\s*'?(\d{4}-\d{2}-\d{2})/m.exec(text)?.[1] ??
+        new RegExp(`^${field}:\\s*'?(\\d{4}-\\d{2}-\\d{2})`, 'm').exec(text)?.[1];
+      const committed = run('git', ['log', '-1', '--format=%cs', '--', path]);
+      if (declared && committed && committed > declared) {
+        // Not `toPosix`: that is relative to dist, and this path is a source file.
+        const name = path.split(sep).join('/');
+        staleDates.push(`${name} last changed ${committed}, sitemap says ${declared}`);
+      }
+    }
+  }
+}
+
 console.log(
   `Checked ${htmlFiles.length} document(s) in ${posix.normalize(relative(process.cwd(), dist))} ` +
     `with base "${basePrefix}": ${pages.length} indexed page(s), ${files.length} indexed file(s), ` +
@@ -343,6 +395,11 @@ if (longMeta.length > 0) {
   console.warn(`\n${longMeta.length} title(s)/description(s) over the search-result budget:`);
   for (const item of longMeta) console.warn(`  ${item}`);
   console.warn('  Not a failure: shortening these is an editorial decision, not a build rule.');
+}
+if (staleDates.length > 0) {
+  console.warn(`\n${staleDates.length} entr(y/ies) changed after the date the sitemap publishes:`);
+  for (const item of staleDates) console.warn(`  ${item}`);
+  console.warn('  Not a failure: set updatedAt only if the change was worth a recrawl.');
 }
 if (failures.length > 0) {
   console.error(`\n${failures.length} i18n/indexing contract failure(s):`);

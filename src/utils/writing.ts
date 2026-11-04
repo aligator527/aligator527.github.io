@@ -63,6 +63,7 @@ const LAB_INVARIANTS = [
   'repository',
   'demo',
   'date',
+  'updatedAt',
   'featured',
 ] as const satisfies readonly (keyof LabEntry['data'])[];
 
