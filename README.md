@@ -1,7 +1,11 @@
 # Ivan Dolgov — Engineering Portfolio
 
 Static portfolio site: Astro, TypeScript, custom CSS, no client-side JavaScript.
-Deployed to GitHub Pages as a user site (`https://aligator527.github.io`).
+Deployed to GitHub Pages as a user site: **[aligator527.github.io](https://aligator527.github.io/)** —
+[work](https://aligator527.github.io/work/), [notes](https://aligator527.github.io/notes/),
+[lab](https://aligator527.github.io/lab/), [services](https://aligator527.github.io/services/), and
+the same site in [日本語](https://aligator527.github.io/ja/) and
+[Русский](https://aligator527.github.io/ru/).
 
 The site is meant to be evidence of engineering quality, not only a description of it. The
 instruction layer that governs it lives in [`.ai/`](.ai/README.md) (tool-independent source of
